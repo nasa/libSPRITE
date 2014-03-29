@@ -1,0 +1,38 @@
+#include "Scale_if.h"
+#include "Scale_if_ut.h"
+#include "Test_task_ext.h"
+
+
+namespace SCALE
+{
+
+    void Scale_if_ut::setUp()
+    {
+    }
+
+
+    void Scale_if_ut::tearDown()
+    {
+    }
+
+
+    void Scale_if_ut::test_task_properties()
+    {
+        Scale_if& scale = Scale_if::get_instance();
+
+        CPPUNIT_ASSERT(scale.run_script("Task_properties_ut.lua"));
+    }
+
+
+    void Scale_if_ut::test_scheduler()
+    {
+        Scale_if& scale = Scale_if::get_instance();
+
+        /* Register my test task with with the Lua executive.
+         */
+        Test_task_ext::register_class(scale.state());
+
+        CPPUNIT_ASSERT(scale.run_script("Scheduler_ut.lua"));
+    }
+
+} // namespace
