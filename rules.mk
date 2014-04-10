@@ -17,7 +17,7 @@ LDFLAGS+=-L$(LIBDIR)
 SYSTEM:=$(shell uname)
 ARCH:=$(shell uname -m)
 
-HEADERS:=`ls *\.h | grep -v _ut\.h`
+HEADERS:=`ls *\.h 2>/dev/null | grep -s -v _ut\.h`
 
 OBJS:=$(patsubst %.cpp, %.o, $(SRC))
 DEPS:=$(patsubst %.cpp, %.d, $(SRC))
@@ -64,10 +64,12 @@ endif
 
 install: all
 	-mkdir -p $(INCLUDEINSTALLDIR)
-	-cp $(HEADERS) $(INCLUDEINSTALLDIR)
+ifneq ($(strip $($(HEADERS))),)
+	-install $(HEADERS) $(INCLUDEINSTALLDIR)
+endif
 ifdef TGTINSTALLDIR
 	-mkdir -p $(TGTINSTALLDIR)
-	-cp $(TGT) $(TGTINSTALLDIR)
+	-install $(TGT) $(TGTINSTALLDIR)
 endif
 
 uninstall:
