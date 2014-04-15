@@ -20,7 +20,7 @@ namespace units
              * Constructor.
              * @param v Number of Meterspersecondpersecond.
              */
-            explicit Meterspersecondpersecond(double v)
+            explicit Meterspersecondpersecond(double v = 0.0)
                 : m_value(v)
             {
             }
