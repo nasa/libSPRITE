@@ -17,7 +17,7 @@ LDFLAGS+=-L$(LIBDIR)
 SYSTEM:=$(shell uname)
 ARCH:=$(shell uname -m)
 
-HEADERS:=`ls *\.h 2>/dev/null | grep -s -v _ut\.h`
+HEADERS:=$(shell ls *\.h 2>/dev/null | grep -s -v _ut\.h)
 
 OBJS:=$(patsubst %.cpp, %.o, $(SRC))
 DEPS:=$(patsubst %.cpp, %.d, $(SRC))
@@ -64,15 +64,17 @@ endif
 
 install: all
 	-mkdir -p $(INCLUDEINSTALLDIR)
-ifneq ($(strip $($(HEADERS))),)
+ifneq (, $(strip $(HEADERS)))
 	-install $(HEADERS) $(INCLUDEINSTALLDIR)
+else
+	@echo "No headers to install in this directory"
 endif
 ifdef TGTINSTALLDIR
 	-mkdir -p $(TGTINSTALLDIR)
 	-install $(TGT) $(TGTINSTALLDIR)
 endif
 
-uninstall:
+uninstall: $(SUBDIRS)
 	-rm -rf $(INCLUDEINSTALLDIR)
 ifdef TGTINSTALLDIR
 	-rm -f $(TGTINSTALLDIR)/$(TGT)
