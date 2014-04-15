@@ -73,6 +73,54 @@ namespace units
             units::Yards toYards() const;
 #endif
 
+
+            /**
+             * Overload operator+
+             * @param rhs Right hand side of the operation.
+             * @return The added value
+             */
+            Meters operator+(const Meters& rhs) const
+            {
+                return Meters(m_value + rhs.m_value);
+            }
+
+
+            /**
+             * Overload operator-
+             * @param rhs Right hand side of the operation.
+             * @return The subtracted value.
+             */
+            Meters operator-(const Meters& rhs) const
+            {
+                return Meters(m_value - rhs.m_value);
+            }
+
+
+            /**
+             * Overload operator+=
+             * @param rhs Right hand side of the operation.
+             * @return This instance with the right hand side value added.
+             */
+            Meters& operator+=(const Meters& rhs)
+            {
+                m_value += rhs.m_value;
+
+                return *this;
+            }
+
+
+            /**
+             * Overload operator-=
+             * @param rhs Right hand side of the operation.
+             * @return This instance with the right hand side value subtracted.
+             */
+            Meters& operator-=(const Meters& rhs)
+            {
+                m_value -= rhs.m_value;
+
+                return *this;
+            }
+
         private:
 
             /**

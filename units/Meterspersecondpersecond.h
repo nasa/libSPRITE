@@ -45,6 +45,54 @@ namespace units
             units::Feetpersecondpersecond toFeetpersecondpersecond() const;
 
 
+            /**
+             * Overload operator+
+             * @param rhs Right hand side of the operation.
+             * @return The added value
+             */
+            Meterspersecondpersecond operator+(const Meterspersecondpersecond& rhs) const
+            {
+                return Meterspersecondpersecond(m_value + rhs.m_value);
+            }
+
+
+            /**
+             * Overload operator-
+             * @param rhs Right hand side of the operation.
+             * @return The subtracted value.
+             */
+            Meterspersecondpersecond operator-(const Meterspersecondpersecond& rhs) const
+            {
+                return Meterspersecondpersecond(m_value - rhs.m_value);
+            }
+
+
+            /**
+             * Overload operator+=
+             * @param rhs Right hand side of the operation.
+             * @return This instance with the right hand side value added.
+             */
+            Meterspersecondpersecond& operator+=(const Meterspersecondpersecond& rhs)
+            {
+                m_value += rhs.m_value;
+
+                return *this;
+            }
+
+
+            /**
+             * Overload operator-=
+             * @param rhs Right hand side of the operation.
+             * @return This instance with the right hand side value subtracted.
+             */
+            Meterspersecondpersecond& operator-=(const Meterspersecondpersecond& rhs)
+            {
+                m_value -= rhs.m_value;
+
+                return *this;
+            }
+
+
         private:
             double m_value;
     };
