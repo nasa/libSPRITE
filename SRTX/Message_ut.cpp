@@ -1,8 +1,9 @@
-#include "Message_ut.h"
-#include "Publication.h"
-#include "Subscription.h"
-#include "Scheduler.h"
-#include "Reference_time.h"
+
+#include "SRTX/Message_ut.h"
+#include "SRTX/Publication.h"
+#include "SRTX/Subscription.h"
+#include "SRTX/Scheduler.h"
+#include "SRTX/Reference_time.h"
 #include "units/Seconds.h"
 #include <assert.h>
 #include <unistd.h>
@@ -461,6 +462,7 @@ namespace SRTX
                     if(false == m_is_msg->get())
                     {
                         EPRINTF("%s failed get()\n", m_name);
+                        done[m_instance] = true;
                         return false;
                     }
 
@@ -474,8 +476,9 @@ namespace SRTX
 
                     if(m_ex != m_is_msg->content)
                     {
-                        EPRINTF("%s expected %d bute recived %d\n", m_name, m_ex,
+                        EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
                                 m_is_msg->content);
+                        done[m_instance] = true;
                         return false;
                     }
                 }
@@ -486,6 +489,7 @@ namespace SRTX
                 if(false == get_time(now))
                 {
                     EPRINTF("%s failed get_time()\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
                 units::Nanoseconds latency =
@@ -493,6 +497,7 @@ namespace SRTX
                 if(latency >= 2 * pub_period)
                 {
                     EPRINTF("%s latency >= 2 * pub_period\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
 
@@ -531,6 +536,7 @@ namespace SRTX
 
     void Message_ut::test_Message()
     {
+        IPRINTF("Start test_Message\n");
         Publication<int> ip_msg("i_msg");
         Subscription<int> is_msg("i_msg");
 
@@ -564,15 +570,15 @@ namespace SRTX
          */
         CPPUNIT_ASSERT_EQUAL(true, isl_msg.get());
         CPPUNIT_ASSERT_EQUAL(3, isl_msg.content);
+        IPRINTF("Complete test_Message\n");
     }
 
 
     void Message_ut::test_pub_sub()
     {
+        IPRINTF("Start test_pub_sub\n");
         Scheduler& sched = Scheduler::get_instance();
         const int ncycles = 6;
-
-        IPRINTF("\nTesting publish/Subscribe\n");
 
         /* The scheduler unit test runs before this one and should have already
          * started the scheduler.
@@ -754,6 +760,7 @@ namespace SRTX
             }
         }
         while(!test_done);
+        IPRINTF("Completed test_pub_sub\n");
     }
 
     /**
@@ -768,6 +775,7 @@ namespace SRTX
      */
     void Message_ut::test_async()
     {
+        IPRINTF("Started test_async\n");
         const char* const msg1_name = "amsg_";
 
         IPRINTF("\nTesting asyncronous subscribers\n");
@@ -807,6 +815,7 @@ namespace SRTX
          */
         CPPUNIT_ASSERT_EQUAL(2, sub1.get_run_count());
         CPPUNIT_ASSERT_EQUAL(2, sub2.get_run_count());
+        IPRINTF("Completed test_async\n");
     }
 
 } // namespace

@@ -2,11 +2,11 @@
 #define __UNITS_FEET_H__
 
 #include "base/types.h"
-#include "Miles.h"
-#include "Yards.h"
-#include "Kilometers.h"
-#include "Meters.h"
-#include "Centimeters.h"
+#include "units/Miles.h"
+#include "units/Yards.h"
+#include "units/Kilometers.h"
+#include "units/Meters.h"
+#include "units/Centimeters.h"
 
 namespace units
 {

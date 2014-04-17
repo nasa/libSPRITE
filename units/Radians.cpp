@@ -1,6 +1,6 @@
 #include <math.h>
-#include "Degrees.h"
-#include "Radians.h"
+#include "units/Degrees.h"
+#include "units/Radians.h"
 
 
 namespace units

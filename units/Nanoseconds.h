@@ -131,6 +131,7 @@ namespace units
             int64_t m_value;
     };
 
+    const Nanoseconds USEC(1000);
     const Nanoseconds MSEC(1000000);
     const Nanoseconds SEC(1000000000);
 

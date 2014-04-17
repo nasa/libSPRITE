@@ -2,9 +2,9 @@
 #define __UNITS_MILESPERHOUR_H__
 
 #include "base/types.h"
-#include "Feetpersecond.h"
-#include "Kilometersperhour.h"
-#include "Meterspersecond.h"
+#include "units/Feetpersecond.h"
+#include "units/Kilometersperhour.h"
+#include "units/Meterspersecond.h"
 
 namespace units
 {

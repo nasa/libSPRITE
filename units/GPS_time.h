@@ -1,7 +1,7 @@
 #ifndef __UNITS_GPS_TIME_H__
 #define __UNITS_GPS_TIME_H__
 
-#include "Seconds.h"
+#include "units/Seconds.h"
 
 namespace units
 {

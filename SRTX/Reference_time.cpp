@@ -1,5 +1,6 @@
-#include "Reference_time.h"
-#include "Scheduler.h"
+
+#include "SRTX/Reference_time.h"
+#include "SRTX/Scheduler.h"
 
 
 namespace SRTX
@@ -24,7 +25,7 @@ namespace SRTX
          * class is correct either, becuase what we're trying to prevent is
          * having a process read reference time between the time at which the
          * scheduler updated it, and the pending processes got released.
-         * Perhaps the right answer is to make refernce time an integral part
+         * Perhaps the right answer is to make reference time an integral part
          * of the scheduler...
          */
         s.lock();

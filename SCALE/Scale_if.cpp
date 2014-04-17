@@ -1,8 +1,8 @@
 #include <stdlib.h>
-#include "Scale_if.h"
-#include "Scheduler.h"
-#include "Task_properties.h"
-#include "Task.h"
+#include "SCALE/Scale_if.h"
+#include "SCALE/Scheduler.h"
+#include "SCALE/Task_properties.h"
+#include "SCALE/Task.h"
 
 
 namespace SCALE

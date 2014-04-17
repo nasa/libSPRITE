@@ -1,6 +1,6 @@
 #include <limits.h>
-#include "Double_buffer_ut.h"
-#include "Double_buffer.h"
+#include "SRTX/Double_buffer_ut.h"
+#include "SRTX/Double_buffer.h"
 
 namespace SRTX
 {
@@ -62,15 +62,15 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(wval, rval);
         CPPUNIT_ASSERT_EQUAL(true, db2.read(rval));
         CPPUNIT_ASSERT_EQUAL(0, rval);
-        CPPUNIT_ASSERT_EQUAL(true, copy(db2, db, sizeof(int)));
+        CPPUNIT_ASSERT_EQUAL(true, copy_entry(db2, db, sizeof(int)));
         CPPUNIT_ASSERT_EQUAL(true, db2.read(rval));
         CPPUNIT_ASSERT_EQUAL(wval, rval);
 
         /* Now let's try some copy operations that should fail.
          */
-        CPPUNIT_ASSERT_EQUAL(false, copy(db2, db, sizeof(int) + 1));
-        CPPUNIT_ASSERT_EQUAL(false, copy(db_big, db, sizeof(int)));
-        CPPUNIT_ASSERT_EQUAL(false, copy(db2, db_big, sizeof(int)));
+        CPPUNIT_ASSERT_EQUAL(false, copy_entry(db2, db, sizeof(int) + 1));
+        CPPUNIT_ASSERT_EQUAL(false, copy_entry(db_big, db, sizeof(int)));
+        CPPUNIT_ASSERT_EQUAL(false, copy_entry(db2, db_big, sizeof(int)));
     }
 
 } // namespace

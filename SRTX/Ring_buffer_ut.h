@@ -12,6 +12,7 @@ namespace SRTX
         CPPUNIT_TEST_SUITE(Ring_buffer_ut);
 
         CPPUNIT_TEST(test_ring_buffer);
+        CPPUNIT_TEST(test_empty);
 
         CPPUNIT_TEST_SUITE_END();
 
@@ -21,6 +22,7 @@ namespace SRTX
 
         protected:
         void test_ring_buffer();
+        void test_empty();
 
     };
 

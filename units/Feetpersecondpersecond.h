@@ -2,7 +2,7 @@
 #define __UNITS_FEETPERSECONDPERSECOND_H__
 
 #include "base/types.h"
-#include "Meterspersecondpersecond.h"
+#include "units/Meterspersecondpersecond.h"
 
 namespace units
 {

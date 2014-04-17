@@ -1,7 +1,7 @@
 #include <limits.h>
-#include "RTC.h"
-#include "Ring_buffer_ut.h"
-#include "Ring_buffer.h"
+#include "SRTX/RTC.h"
+#include "SRTX/Ring_buffer_ut.h"
+#include "SRTX/Ring_buffer.h"
 
 namespace SRTX
 {
@@ -71,6 +71,48 @@ namespace SRTX
         get_time(now);
         CPPUNIT_ASSERT_EQUAL(false, rb.read_blocking(rval, now +
                     units::Nanoseconds(100)));
+    }
+
+
+    void Ring_buffer_ut::test_empty()
+    {
+        Ring_buffer<int> rb(3);
+        int wval = 1;
+
+        /* Starts empty so empty should be true.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_valid());
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_empty());
+
+        /* Write something in and make sure the buffer does not report empty.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_empty());
+
+        /* Write until the buffer is full and make sure it doesn't report empty.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_empty());
+
+        /* I shouldn't be able to write anymore.
+         */
+        CPPUNIT_ASSERT_EQUAL(false, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_empty());
+
+        /* Now drain the buffer.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_empty());
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_empty());
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_empty());
+
+        /* Try to read to much.
+         */
+        CPPUNIT_ASSERT_EQUAL(false, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_empty());
     }
 
 } // namespace

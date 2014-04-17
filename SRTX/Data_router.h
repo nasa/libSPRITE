@@ -2,7 +2,7 @@
 #define __SRTX_DATA_ROUTER_H__
 
 #include "units/Nanoseconds.h"
-#include "Base_double_buffer.h"
+#include "SRTX/Base_double_buffer.h"
 
 
 namespace SRTX

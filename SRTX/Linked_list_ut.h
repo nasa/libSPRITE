@@ -2,7 +2,7 @@
 #define __SRTX_LINKED_LIST_UT_H__
 
 #include <cppunit/extensions/HelperMacros.h>
-#include "Linked_list.h"
+#include "SRTX/Linked_list.h"
 
 
 namespace SRTX

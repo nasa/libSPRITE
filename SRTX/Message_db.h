@@ -1,8 +1,8 @@
 #ifndef __SRTX_MESSAGE_DB_H__
 #define __SRTX_MESSAGE_DB_H__
 
-#include "Symbol_table.h"
-#include "Message.h"
+#include "SRTX/Symbol_table.h"
+#include "SRTX/Message.h"
 
 
 namespace SRTX

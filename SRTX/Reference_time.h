@@ -1,4 +1,3 @@
-// $Id$
 
 #ifndef __SRTX_REFERENCE_TIME_H__
 #define __SRTX_REFERENCE_TIME_H__

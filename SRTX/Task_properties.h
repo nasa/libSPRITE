@@ -1,7 +1,7 @@
 #ifndef __SRTX_TASK_PROPERTIES_H__
 #define __SRTX_TASK_PROPERTIES_H__
 
-#include "Scheduler_types.h"
+#include "SRTX/Scheduler_types.h"
 #include "units/Nanoseconds.h"
 
 namespace SRTX

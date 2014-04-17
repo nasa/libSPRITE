@@ -1,7 +1,7 @@
 #ifndef __SCALE_SCHEDULER_H__
 #define __SCALE_SCHEDULER_H__
 
-#include "LuaWrapper.h"
+#include "SCALE/LuaWrapper.h"
 #include "SRTX/Scheduler.h"
 
 namespace SCALE

@@ -1,7 +1,7 @@
 #ifndef __SRTX_SYNCPOINT_H__
 #define __SRTX_SYNCPOINT_H__
 
-#include "Mutex.h"
+#include "SRTX/Mutex.h"
 #include "units/Nanoseconds.h"
 
 namespace SRTX

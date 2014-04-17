@@ -11,7 +11,7 @@
 
 #define lua_c
 
-#include "/Lua_if.h"
+#include "SCALE/Lua_if.h"
 
 static lua_State *globalL = NULL;
 

@@ -1,7 +1,7 @@
 #ifndef __SRTX_SYMBOL_DB_H__
 #define __SRTX_SYMBOL_DB_H__
 
-#include "Symbol_table.h"
+#include "SRTX/Symbol_table.h"
 
 
 namespace SRTX

@@ -2,11 +2,11 @@
 #define __UNITS_CENTIMETERS_H__
 
 #include "base/types.h"
-#include "Feet.h"
-#include "Miles.h"
-#include "Yards.h"
-#include "Kilometers.h"
-#include "Meters.h"
+#include "units/Feet.h"
+#include "units/Miles.h"
+#include "units/Yards.h"
+#include "units/Kilometers.h"
+#include "units/Meters.h"
 
 namespace units
 {
@@ -20,7 +20,7 @@ namespace units
     class Feet;
     class Miles;
     class Yards;
-
+    
     class Centimeters
     {
         public:
@@ -44,7 +44,7 @@ namespace units
             explicit Centimeters(const Miles& n);
             explicit Centimeters(const Yards& n);
 
-
+            
             /**
              * Type conversion to double.
              */

@@ -1,15 +1,15 @@
 #ifndef __SRTX_BASE_RING_BUFFER_H__
 #define __SRTX_BASE_RING_BUFFER_H__
 
-#include "Syncpoint.h"
+#include "SRTX/Buffer.h"
 
 namespace SRTX
 {
 
     /**
-     * An untyped data buffer.
+     * An untyped ring buffer.
      */
-    class Base_ring_buffer
+    class Base_ring_buffer: public Buffer
     {
         public:
 
@@ -20,17 +20,6 @@ namespace SRTX
              * buffer.
              */
             explicit Base_ring_buffer(unsigned int nbytes, unsigned int nelem);
-
-            /**
-             * Is the class in a valid state.
-             * The class will not be valid if it did not construct properly or
-             * is in the process of being deleted.
-             * @return True if valid, else false.
-             */
-            bool is_valid() const
-            {
-                return m_valid;
-            }
 
             /**
              * Read from the buffer.
@@ -52,21 +41,23 @@ namespace SRTX
                     const units::Nanoseconds& timeout = units::Nanoseconds(0));
 
             /**
-             * Force all pending read blocking calls to be released immediately.
-             * This function is used to cause a read blocking call to be
-             * aborted. The read blocking call should return indicating that an
-             * error occurred.
-             */
-            void abort_read();
-
-            /**
              * Write to the buffer.
              * When the write operation has completed, the buffers will swap.
              * @param data Data to be written.
              * @param nbytes Buffer size in bytes.
+             * @param signal Indicate whether blocked readers should be signaled.
              * @return True on success or false on failure.
              */
-            bool write(void const* data, unsigned int nbytes);
+            bool write(void const* data, unsigned int nbytes, bool signal = true);
+
+            /**
+             * Test if the ring buffer is empty.
+             * @return true if empty, else false.
+             */
+            bool is_empty() const
+            {
+                return m_free == m_nelems;
+            }
 
             /**
              * Destructor.
@@ -74,11 +65,6 @@ namespace SRTX
             virtual ~Base_ring_buffer();
 
         private:
-
-            /**
-             * Number of bytes of data stored in a buffer element.
-             */
-            unsigned int m_nbytes;
 
             /**
              * Number of buffer elements that can be stored.
@@ -89,26 +75,6 @@ namespace SRTX
              * Number of free elements in the buffer.
              */
             unsigned int m_free;
-
-            /**
-             * State variable that indicates whether the class was validily
-             * constructed.
-             */
-            bool m_valid;
-
-            /**
-             * Token used to synchronize access to signal threads that are
-             * waiting on an update to the buffer.
-             * @note The double buffer does not need the syncpoint to ensure
-             * data atomicity. Instead it is used for more sophisticated usage
-             * patterns such as signaling buffer updates.
-             */
-            Syncpoint m_sync;
-
-            /**
-             * Indicates if a blocking read call was forcibly aborted.
-             */
-            bool m_read_abort;
 
             /**
              * Pointer to the buffer.

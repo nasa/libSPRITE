@@ -1,7 +1,7 @@
 #ifndef __SCALE_TASK_H__
 #define __SCALE_TASK_H__
 
-#include "LuaWrapper.h"
+#include "SCALE/LuaWrapper.h"
 #include "SRTX/Task.h"
 
 namespace SCALE

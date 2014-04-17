@@ -1,8 +1,8 @@
 #ifndef __SRTX_TASK_H__
 #define __SRTX_TASK_H__
 
-#include "Symbol_db.h"
-#include "Task_properties.h"
+#include "SRTX/Symbol_db.h"
+#include "SRTX/Task_properties.h"
 
 
 namespace SRTX

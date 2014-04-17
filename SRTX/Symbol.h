@@ -1,8 +1,12 @@
+/*******************************************************************************
+ * $Id$
+ */
+
 #ifndef __SRTX_SYMBOL_H__
 #define __SRTX_SYMBOL_H__
 
 #include <string.h>
-#include "Double_buffer.h"
+#include "SRTX/Double_buffer.h"
 #include "base/XPRINTF.h"
 
 

@@ -1,9 +1,9 @@
 #include <errno.h>
 #include <limits.h>
 #include <pthread.h>
-#include "Reference_time.h"
-#include "RTC.h"
-#include "Scheduler.h"
+#include "SRTX/Reference_time.h"
+#include "SRTX/RTC.h"
+#include "SRTX/Scheduler.h"
 #include "base/XPRINTF.h"
 
 namespace SRTX

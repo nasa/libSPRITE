@@ -1,10 +1,11 @@
-#include "Data_router.h"
-#include "End_of_frame.h"
-#include "Linked_list.h"
-#include "Reference_time.h"
-#include "RTC.h"
-#include "Runtime_attributes.h"
-#include "Scheduler.h"
+
+#include "SRTX/Data_router.h"
+#include "SRTX/End_of_frame.h"
+#include "SRTX/Linked_list.h"
+#include "SRTX/Reference_time.h"
+#include "SRTX/RTC.h"
+#include "SRTX/Runtime_attributes.h"
+#include "SRTX/Scheduler.h"
 #include "base/XPRINTF.h"
 
 

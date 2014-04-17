@@ -1,7 +1,7 @@
 #ifndef __SRTX_DOUBLE_BUFFER_H__
 #define __SRTX_DOUBLE_BUFFER_H__
 
-#include "Base_double_buffer.h"
+#include "SRTX/Base_double_buffer.h"
 
 namespace SRTX
 {
@@ -55,11 +55,12 @@ namespace SRTX
              * Write to the buffer. When the write operation has completed, the
              * buffers will swap.
              * @param data Data to be written.
+             * @param signal Inidicate whether to signal blocked readers.
              * @return True on success or false on failure.
              */
-            bool write(const T& data)
+            bool write(const T& data, bool signal = true)
             {
-                return Base_double_buffer::write(&data, sizeof(T));
+                return Base_double_buffer::write(&data, sizeof(T), signal);
             }
 
     };

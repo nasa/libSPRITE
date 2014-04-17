@@ -1,4 +1,4 @@
-#include "Feetpersecond.h"
+#include "units/Feetpersecond.h"
 
 namespace units
 {
@@ -12,12 +12,12 @@ namespace units
     {
         *this = n.toFeetpersecond();
     }
-
+    
     Feetpersecond::Feetpersecond(const Milesperhour& n)
     {
         *this = n.toFeetpersecond();
     }
-
+    
 
     units::Milesperhour  Feetpersecond::toMilesperhour() const
     {

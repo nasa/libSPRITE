@@ -1,10 +1,12 @@
+
 #ifndef __SRTX_SUBSCRIPTION_H__
 #define __SRTX_SUBSCRIPTION_H__
 
+#include "base/assertion.h"
 #include "base/XPRINTF.h"
-#include "Data_router.h"
-#include "Message.h"
-#include "Symbol_db.h"
+#include "SRTX/Data_router.h"
+#include "SRTX/Message.h"
+#include "SRTX/Symbol_db.h"
 
 
 namespace SRTX
@@ -143,16 +145,18 @@ namespace SRTX
              */
             if(false == m_symbol->entry->read(*this))
             {
+                m_updated = false;
                 return false;
             }
 
             units::Nanoseconds publication_time = this->get_publication_time();
             if(-1 == publication_time)
             {
+                m_updated = false;
                 return false;
             }
 
-            m_updated = publication_time > m_last_publication_time;
+            m_updated = publication_time != m_last_publication_time;
             m_last_publication_time = publication_time;
 
             return true;
@@ -185,16 +189,19 @@ namespace SRTX
              */
             if(false == m_symbol->entry->read_blocking(*this, timeout))
             {
+                m_updated = false;
                 return false;
             }
 
             units::Nanoseconds publication_time = this->get_publication_time();
             if(-1 == publication_time)
             {
+                EPRINTF("Message not published\n");
+                m_updated = false;
                 return false;
             }
 
-            m_updated = publication_time > m_last_publication_time;
+            m_updated = publication_time != m_last_publication_time;
             m_last_publication_time = publication_time;
 
             return true;

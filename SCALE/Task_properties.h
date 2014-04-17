@@ -1,7 +1,7 @@
 #ifndef __SCALE_TASK_PROPERTIES_H__
 #define __SCALE_TASK_PROPERTIES_H__
 
-#include "LuaWrapper.h"
+#include "SCALE/LuaWrapper.h"
 #include "SRTX/Task_properties.h"
 #include "units/Seconds.h"
 

@@ -1,8 +1,9 @@
+
 #ifndef __SRTX_SCHEDULER_H__
 #define __SRTX_SCHEDULER_H__
 
-#include "Task.h"
-#include "Syncpoint.h"
+#include "SRTX/Task.h"
+#include "SRTX/Syncpoint.h"
 
 
 namespace SRTX

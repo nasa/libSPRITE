@@ -1,8 +1,8 @@
 #include <signal.h>
 #include <unistd.h>
-#include "RTC.h"
-#include "Symbol_table_ut.h"
-#include "Symbol_db.h"
+#include "SRTX/RTC.h"
+#include "SRTX/Symbol_table_ut.h"
+#include "SRTX/Symbol_db.h"
 
 
 namespace SRTX
@@ -128,7 +128,7 @@ namespace SRTX
     void Symbol_table_ut::test_add_alias()
     {
         Symbol_db<int>& tbl = Symbol_db<int>::get_instance();
-        const char alias[] = "frijole";
+        char alias[] = "frijole";
 
         /* Attempting to assign an alias to a NULL symbol should fail.
          */
@@ -139,7 +139,7 @@ namespace SRTX
 
         /* Lookup an existing entry and enter it in the table as an alias.
          */
-        const char sym_name[] = "int_a";
+        char sym_name[] = "int_a";
         Symbol_table<int>::symbol_t* sym_a;
         sym_a = tbl.lookup_symbol(sym_name);
         CPPUNIT_ASSERT(sym_a != NULL);
@@ -195,7 +195,7 @@ namespace SRTX
         typedef Symbol_db<int> sym_tbl_t;
         sym_tbl_t& tbl = sym_tbl_t::get_instance();
 
-        const char sym_name[] = "int_blocking";
+        char sym_name[] = "int_blocking";
         Symbol_table<int>::symbol_t* sym = tbl.add_symbol(sym_name);
 
         /* Verify that we can set and get the value and the basic timeout call

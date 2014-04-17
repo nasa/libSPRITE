@@ -1,7 +1,7 @@
 #ifndef __SRTX_END_OF_FRAME_H__
 #define __SRTX_END_OF_FRAME_H__
 
-#include "Task.h"
+#include "SRTX/Task.h"
 
 namespace SRTX
 {

@@ -1,7 +1,7 @@
-#include "Kilometersperhour.h"
-#include "Meterspersecond.h"
-#include "Feetpersecond.h"
-#include "Milesperhour.h"
+#include "units/Kilometersperhour.h"
+#include "units/Meterspersecond.h"
+#include "units/Feetpersecond.h"
+#include "units/Milesperhour.h"
 #include "Feetpersecond_ut.h"
 #include "base/XPRINTF.h"
 
@@ -50,7 +50,6 @@ namespace units
         fps = Feetpersecond(4.0 / 2);
 
         CPPUNIT_ASSERT_DOUBLES_EQUAL(2.0, fps, EPSILON);
-
 
         fps = Feetpersecond(30);
 

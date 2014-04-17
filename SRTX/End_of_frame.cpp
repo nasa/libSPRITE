@@ -1,5 +1,5 @@
-#include "End_of_frame.h"
-#include "RTC.h"
+#include "SRTX/End_of_frame.h"
+#include "SRTX/RTC.h"
 
 
 namespace SRTX

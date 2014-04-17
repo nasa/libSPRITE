@@ -1,7 +1,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include <time.h>
-#include "Syncpoint.h"
+#include "SRTX/Syncpoint.h"
 #include "base/XPRINTF.h"
 
 

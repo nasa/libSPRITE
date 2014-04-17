@@ -1,7 +1,7 @@
 #ifndef __SRTX_RING_BUFFER_H__
 #define __SRTX_RING_BUFFER_H__
 
-#include "Base_ring_buffer.h"
+#include "SRTX/Base_ring_buffer.h"
 
 namespace SRTX
 {
@@ -60,11 +60,12 @@ namespace SRTX
             /**
              * Write to the buffer.
              * @param data Data to be written.
+             * @param signal Indicate whether blocked readers should be signaled.
              * @return True on success or false on failure.
              */
-            bool write(const T& data)
+            bool write(const T& data, bool signal = true)
             {
-                return Base_ring_buffer::write(&data, sizeof(T));
+                return Base_ring_buffer::write(&data, sizeof(T), signal);
             }
 
     };

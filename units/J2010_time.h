@@ -1,8 +1,8 @@
 #ifndef __UNITS_J2010_TIME_H__
 #define __UNITS_J2010_TIME_H__
 
-#include "Days.h"
-#include "Seconds.h"
+#include "units/Days.h"
+#include "units/Seconds.h"
 
 namespace units
 {

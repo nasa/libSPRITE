@@ -1,6 +1,7 @@
-#include "Scale_if.h"
-#include "Scale_if_ut.h"
-#include "Test_task_ext.h"
+
+#include "SCALE/Scale_if.h"
+#include "SCALE/Scale_if_ut.h"
+#include "SCALE/Test_task_ext.h"
 
 
 namespace SCALE

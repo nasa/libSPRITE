@@ -1,8 +1,8 @@
 #ifndef __SRTX_SYMBOL_TABLE_H__
 #define __SRTX_SYMBOL_TABLE_H__
 
-#include "Symbol.h"
-#include "Linked_list.h"
+#include "SRTX/Symbol.h"
+#include "SRTX/Linked_list.h"
 
 
 namespace SRTX

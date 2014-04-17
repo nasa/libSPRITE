@@ -2,7 +2,7 @@
 #define __SRTX_MUTEX_H__
 
 #include "base/types.h"
-#include "Scheduler_types.h"
+#include "SRTX/Scheduler_types.h"
 
 namespace SRTX
 {

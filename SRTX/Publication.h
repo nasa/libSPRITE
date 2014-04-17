@@ -1,11 +1,12 @@
+
 #ifndef __SRTX_PUBLICATION_H__
 #define __SRTX_PUBLICATION_H__
 
 #include "base/XPRINTF.h"
-#include "Data_router.h"
-#include "Message.h"
-#include "Symbol_db.h"
-#include "RTC.h"
+#include "SRTX/Data_router.h"
+#include "SRTX/Message.h"
+#include "SRTX/Symbol_db.h"
+#include "SRTX/RTC.h"
 
 
 namespace SRTX
@@ -40,7 +41,6 @@ namespace SRTX
             m_symbol(NULL)
         {
             static db_t& msg_db = db_t::get_instance();
-
             char sym_name[SYM_ENTRY_STRLEN + 1];
             snprintf(sym_name, SYM_ENTRY_STRLEN, "%s%"PRId64, name,
                     (int64_t)period);
@@ -79,7 +79,7 @@ namespace SRTX
             /* Populate both sides of the symbol double buffer with the period.
              */
             this->m_publication_period = period;
-            alias->entry->write(*this);
+            alias->entry->write(*this, false);
             this->m_publication_period = period;
 
             /* Adopt matching orphan subscriptions.

@@ -1,7 +1,7 @@
 #include <string.h>
 #include "base/XPRINTF.h"
-#include "Data_router.h"
-#include "Linked_list.h"
+#include "SRTX/Data_router.h"
+#include "SRTX/Linked_list.h"
 
 
 namespace SRTX

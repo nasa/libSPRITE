@@ -1,8 +1,8 @@
 #ifndef __SCALE_TEST_TASK_EXT_H__
 #define __SCALE_TEST_TASK_EXT_H__
 
-#include "LuaWrapper.h"
-#include "Test_task.h"
+#include "SCALE/LuaWrapper.h"
+#include "SCALE/Test_task.h"
 
 namespace SCALE
 {

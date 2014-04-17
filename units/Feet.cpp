@@ -1,4 +1,4 @@
-#include "Feet.h"
+#include "units/Feet.h"
 
 namespace units
 {
@@ -12,17 +12,17 @@ namespace units
     {
         *this = n.toMeters().toFeet();
     }
-
+    
     Feet::Feet(const Meters& n)
     {
         *this = n.toFeet();
     }
-
+    
     Feet::Feet(const Miles& n)
     {
         *this = n.toFeet();
     }
-
+    
     Feet::Feet(const Yards& n)
     {
         *this = n.toFeet();

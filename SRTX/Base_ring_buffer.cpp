@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
-#include "Base_ring_buffer.h"
+#include "SRTX/Base_ring_buffer.h"
 #include "base/XPRINTF.h"
 
 namespace SRTX
@@ -8,14 +8,12 @@ namespace SRTX
 
     Base_ring_buffer::Base_ring_buffer(unsigned int nbytes,
             unsigned int nelem) :
-        m_nbytes(nbytes),
+        Buffer(nbytes),
         m_nelems(nelem),
         m_free(nelem),
-        m_read_abort(false),
         m_size(nbytes * nelem)
     {
-        m_head = m_tail = m_buffer =
-            static_cast<char*>(malloc(m_size));
+        m_head = m_tail = m_buffer = static_cast<char*>(malloc(m_size));
         m_valid = m_sync.is_valid() && (m_buffer != NULL);
     }
 
@@ -42,7 +40,7 @@ namespace SRTX
     bool Base_ring_buffer::read(void* data, unsigned int nbytes)
     {
         /* If the object is valid then we kwow the buffer is not NULL.
-        */
+         */
         if((false == m_valid) || (nbytes > m_nbytes))
         {
             return false;
@@ -51,7 +49,7 @@ namespace SRTX
         m_sync.lock();
 
         /* Is there anything to be read?
-        */
+         */
         if(m_free == m_nelems)
         {
             m_sync.unlock();
@@ -66,7 +64,7 @@ namespace SRTX
             const units::Nanoseconds& timeout)
     {
         /* If the object is valid then we kwow the buffer is not NULL.
-        */
+         */
         if((false == m_valid) || (nbytes > m_nbytes))
         {
             return false;
@@ -75,7 +73,7 @@ namespace SRTX
         m_sync.lock();
 
         /* If the buffer is empty, wait for data or timeout.
-        */
+         */
         if(m_free == m_nelems)
         {
             m_read_abort = false;
@@ -91,16 +89,8 @@ namespace SRTX
     }
 
 
-    void Base_ring_buffer::abort_read()
-    {
-        m_sync.lock();
-        m_read_abort = true;
-        m_sync.release();
-        m_sync.unlock();
-    }
-
-
-    bool Base_ring_buffer::write(void const* data, unsigned int nbytes)
+    bool Base_ring_buffer::write(void const* data, unsigned int nbytes,
+            bool signal)
     {
         /* If the object is valid then we kwow the buffer is not NULL.
         */
