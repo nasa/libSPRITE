@@ -7,7 +7,7 @@ TEST_SRC:=Linked_list_ut.cpp \
           Sample_set_ut.cpp \
           Smooth_ut.cpp
 
-TGT:=MSDF_$(NAMESPACE)
+TGT:=SPRITE_$(NAMESPACE)
 TGTTYPE:=static_lib
 
 SP:=../
