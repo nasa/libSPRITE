@@ -121,6 +121,19 @@ namespace units
                 return *this;
             }
 
+
+            /**
+             * Overload operator/=
+             * @param rhs Right hand side of the operation.
+             * @return This instance divided by the right hand side.
+             */
+            Meters& operator/=(const Meters& rhs)
+            {
+                m_value /= rhs.m_value;
+
+                return *this;
+            }
+
         private:
 
             /**

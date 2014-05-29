@@ -10,7 +10,7 @@ CPP:=g++
 LD:=g++
 AR:=ar
 
-CFLAGS+=-Wall -fPIC -I$(BASEDIR)
+CFLAGS+=-Wall -I$(BASEDIR)
 CPPFLAGS+=$(CFLAGS)
 LDFLAGS+=-L$(LIBDIR)
 
