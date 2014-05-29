@@ -109,6 +109,27 @@ namespace SRTX
             }
 
             /**
+             * Control whether the scheduler is slaved to an external trigger.
+             * @param slave True to control through an external source else
+             * false.
+             */
+            void use_external_trigger(bool slave)
+            {
+                m_use_external_clock = slave;
+            }
+
+            /**
+             * Trigger the scheduler to release.
+             * Applies when the scheduler is set to be triggered by an external
+             * source.
+             * @return True on success or false on failure.
+             */
+            bool trigger(void)
+            {
+                return m_use_external_clock && m_sync.release();
+            }
+
+            /**
              * Routine invoked when the task is stopped.
              * Overriden task method which is executed when this task is stopped.
              */
@@ -141,9 +162,23 @@ namespace SRTX
              */
             Scheduler_impl* m_sched_impl;
 
+            /**
+             * The current schedule.
+             */
             schedule_t m_schedule;
 
+            /**
+             * Syncronization point used to control execution of the scheduler.
+             * It is exposed here to derived classes that implement an external
+             * clock source.
+             */
             Syncpoint m_sync;
+
+            /**
+             * Flag used to indicate if we are slaved to an external time
+             * source.
+             */
+            bool m_use_external_clock;
 
     };
 

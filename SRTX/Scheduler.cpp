@@ -52,7 +52,8 @@ namespace SRTX
 
     Scheduler::Scheduler() :
         Task(task_name),
-        m_sched_impl(new Scheduler_impl)
+        m_sched_impl(new Scheduler_impl),
+        m_use_external_clock(false)
     {
         /* Presumably the base class set the valid flag to true. If we couldn't
          * allocate the schedule implementation structure, then construction
@@ -286,8 +287,16 @@ namespace SRTX
         while(this->is_operational())
         {
             /* The scheduler goes to sleep until its runtime period has elapsed.
+             * Time or zero means wait forever on the sync point. This allows
+             * the scheduler to be driven by an external time source.
              */
-            time = units::Nanoseconds(m_props.period + time);
+            if(m_use_external_clock)
+            {
+                time = units::Nanoseconds(0.0);
+            } else {
+                time = units::Nanoseconds(m_props.period + time);
+            }
+
             if(false == m_sync.wait(time))
             {
                 EPRINTF("Scheduler wait failed\n");
