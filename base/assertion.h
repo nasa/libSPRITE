@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __BASE_ASSERTION_H__
 #define __BASE_ASSERTION_H__
 

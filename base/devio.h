@@ -30,8 +30,6 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ===============================================================================
-$Id: devio.h 13 2010-11-15 19:28:30Z dheater@heatertech.com $
-===============================================================================
 */
 
 #ifndef __BASE_DEVIO_H__

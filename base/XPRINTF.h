@@ -1,5 +1,3 @@
-/* $Id$ */
-
 #ifndef __BASE_XPRINTF_H__
 #define __BASE_XPRINTF_H__
 

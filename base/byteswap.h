@@ -1,5 +1,3 @@
-/* $Id$ */
-
 #ifndef __BASE_BYTESWAP__
 #define __BASE_BYTESWAP__
 
