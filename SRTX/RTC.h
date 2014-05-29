@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __SRTX_RTC_H__
 #define __SRTX_RTC_H__
 

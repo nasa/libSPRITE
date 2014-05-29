@@ -258,7 +258,7 @@ namespace SRTX
         }
 
         /* The scheduler tracks reference time. Reference time starts at zero
-         * and gets incremented by the schedulers period each time the
+         * and gets incremented by the scheduler's period each time the
          * scheduler runs.
          */
         Reference_time& rtimer = Reference_time::get_instance();

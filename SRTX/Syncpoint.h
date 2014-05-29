@@ -36,7 +36,7 @@ namespace SRTX
              * Wait for release from the syncpoint or optionally timeout.
              * @param timeout Absolute time of timeout in nanoseconds. If
              * timeout is 0, it is ignored, and the call waits forever.
-             * @return True if released or timedout. False on failure.
+             * @return True if released or timed out. False on failure.
              * @note The associated mutex must be locked prior to calling this
              * routine and will be locked when this routine returns.
              */
