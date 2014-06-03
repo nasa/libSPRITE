@@ -103,6 +103,10 @@ namespace SRTX
         Task_db::value_t task_props;
         Scheduler& sched = Scheduler::get_instance();
 
+        /* Stop the scheduler if it is already running.
+         */
+        sched.stop();
+
         /* Store the task properties.
          */
         task_props.period = sched_period;
@@ -341,6 +345,10 @@ namespace SRTX
         Task_db::value_t task_props;
         Scheduler& sched = Scheduler::get_instance();
 
+        /* Halt the scheduler.
+         */
+        sched.stop();
+
         /* Store the task properties.
          */
         task_props.prio = 98;
@@ -376,7 +384,7 @@ namespace SRTX
 
         /* Off to the races.
          */
-        //        CPPUNIT_ASSERT_EQUAL(true, sched.start());
+        CPPUNIT_ASSERT_EQUAL(true, sched.start());
         CPPUNIT_ASSERT_EQUAL(true, task1.start());
         CPPUNIT_ASSERT_EQUAL(true, task2.start());
 

@@ -204,6 +204,12 @@ namespace SRTX
             return false;
         }
 
+        if(true == m_operational)
+        {
+            EPRINTF("%s:Is already running\n", m_name);
+            return false;
+        }
+
         /* Get the task attributes.
          */
         if(false == m_prop_symbol->entry->read(m_props))
@@ -292,7 +298,7 @@ namespace SRTX
              */
             if(m_use_external_clock)
             {
-                time = units::Nanoseconds(0.0);
+                time = units::Nanoseconds(0);
             } else {
                 time = units::Nanoseconds(m_props.period + time);
             }

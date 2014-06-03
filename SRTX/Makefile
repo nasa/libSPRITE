@@ -19,11 +19,11 @@ TEST_SRC:=Double_buffer_ut.cpp \
           Task_properties_ut.cpp \
           RTC_ut.cpp \
           Scheduler_ut.cpp \
-          Message_ut.cpp
+          Message_ut.cpp \
+          External_trigger_ut.cpp
 
 # Running the reference time test fouls up the clock for the scheduler.
           #Reference_time_ut.cpp \
-          External_trigger_ut.cpp \
 
 TGT:=SPRITE_$(NAMESPACE)
 TGTTYPE:=static_lib

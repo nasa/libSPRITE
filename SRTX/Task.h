@@ -92,7 +92,6 @@ namespace SRTX
 
             /**
              * Stop the execution of a task.
-             * @return true if successful, else false.
              */
             void stop();
 
