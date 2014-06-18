@@ -73,7 +73,7 @@ namespace SCALE
             {
                 SRTX::Task* t = luaW_check<SRTX::Task>(L, 1);
                 SRTX::Task_properties* p = luaW_check<SRTX::Task_properties>(L, 2);
-                lua_pushnumber(L, t->set_properties(*p));
+                lua_pushnumber(L, (t->set_properties(*p)) ? 0 : -1);
                 return 1;
             }
 
