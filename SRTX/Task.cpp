@@ -265,7 +265,6 @@ namespace SRTX
 
     bool Task::spawn_thread()
     {
-
         Scheduler& sched = Scheduler::get_instance();
         if(m_props.period && (this != &sched))
         {
@@ -284,6 +283,7 @@ namespace SRTX
             EPRINTF("%s: Failed to spawn thread\n", m_name);
             return false;
         }
+
         return true;
     }
 
