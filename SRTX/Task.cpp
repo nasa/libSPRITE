@@ -90,6 +90,7 @@ namespace SRTX
          */
         if(pthread_getschedparam(tid, &policy, &sched_attr) != 0)
         {
+            m_thread_mutex.unlock();
             EPRINTF("Failed getting task schedule parameters\n");
             return NULL;
         }
@@ -98,6 +99,7 @@ namespace SRTX
         sched_attr.sched_priority = p->m_props.prio;
         if(pthread_setschedparam(tid, policy, &sched_attr) != 0)
         {
+            m_thread_mutex.unlock();
             EPRINTF("Failed setting task schedule parameters\n");
             EPRINTF("Did you remeber sudo?\n");
             return NULL;
@@ -111,18 +113,21 @@ namespace SRTX
          */
         if(pthread_getschedparam(tid, &policy, &sched_attr) != 0)
         {
+            m_thread_mutex.unlock();
             EPRINTF("Failed getting task schedule parameters\n");
             return NULL;
         }
 
         if(SCHED_FIFO != policy)
         {
+            m_thread_mutex.unlock();
             EPRINTF("Failed to set real time scheduling policy\n");
             return NULL;
         }
 
         if(sched_attr.sched_priority != static_cast<int>(p->m_props.prio))
         {
+            m_thread_mutex.unlock();
             EPRINTF("Failed to set real time priority for task %s\n",
                     p->m_name);
             return NULL;
@@ -134,6 +139,8 @@ namespace SRTX
         units::Nanoseconds ref_time(0);
 
         p->m_operational = true;
+        m_thread_mutex.unlock();
+
         while(1)
         {
             units::Nanoseconds start_time(0);
@@ -277,12 +284,21 @@ namespace SRTX
 
         /* Spawn the thread.
          */
+        m_thread_mutex.lock();
         if(pthread_create(&(m_impl->tid), &(m_impl->attr), run,
                     reinterpret_cast<void*>(this)) != 0)
         {
+            m_thread_mutex.unlock();
             EPRINTF("%s: Failed to spawn thread\n", m_name);
             return false;
         }
+
+        /* We can't get the mutex back until the thread has released it. This
+         * makes sure the the thread has completed it's initilization before
+         * returning and allowing additional threads to be spawned.
+         */
+        m_thread_mutex.lock();
+        m_thread_mutex.unlock();
 
         return true;
     }
@@ -395,4 +411,5 @@ namespace SRTX
         DPRINTF("%s: Destroyed\n", m_name);
     }
 
+    Mutex Task::m_thread_mutex;
 } // namespace
