@@ -1,4 +1,4 @@
-require "lunatest"
+local lunatest = require "lunatest"
 
 -- Test get/set the priority method.
 function sg_prio(t)

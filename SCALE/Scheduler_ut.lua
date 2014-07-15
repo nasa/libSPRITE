@@ -1,4 +1,4 @@
-require "lunatest"
+local lunatest = require "lunatest"
 
 function test_tasks()
     -- Set up the scheduler.
