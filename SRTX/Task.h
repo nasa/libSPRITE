@@ -206,6 +206,12 @@ namespace SRTX
              */
             Task_impl* m_impl;
 
+            /**
+             * Create a static mutex that will be used to only only one thread
+             * to initialize at a time.
+             */
+            static Mutex m_thread_mutex;
+
     };
 
 } // namespace
