@@ -72,12 +72,14 @@ endif
 ifdef TGTINSTALLDIR
 	-mkdir -p $(TGTINSTALLDIR)
 	-install $(TGT) $(TGTINSTALLDIR)
+	-$(foreach lib,$(EXTRA_LIB), install $(lib) $(TGTINSTALLDIR);)
 endif
 
 uninstall: $(SUBDIRS)
 	-rm -rf $(INCLUDEINSTALLDIR)
 ifdef TGTINSTALLDIR
 	-rm -f $(TGTINSTALLDIR)/$(TGT)
+	-$(foreach lib,$(EXTRA_LIB), rm -f $(TGTINSTALLDIR)/$(lib);)
 endif
 
 clean: TARGET:=clean

@@ -11,5 +11,7 @@ TGTTYPE:=static_lib
 CFLAGS=-O2 #-DXPRINT_LOCATION -DPRINT_DEBUG
 LDFLAGS+=-lSPRITE_SRTX -lSPRITE_units -lrt -lpthread -llua -ldl
 
+EXTRA_LIB:=scheduler.lua
+
 SP:=../
 include $(SP)rules.mk
