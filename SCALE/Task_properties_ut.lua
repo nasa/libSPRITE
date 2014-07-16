@@ -3,27 +3,27 @@ local lunatest = require "lunatest"
 -- Test get/set the priority method.
 function sg_prio(t)
     t:set_prio(10)
-    assert_equal(10, t:get_prio())
-    assert_not_equal(0, t:MAX_USER_TASK_PRIO());
-    assert_not_equal(0, t:MIN_USER_TASK_PRIO());
+    lunatest.assert_equal(10, t:get_prio())
+    lunatest.assert_not_equal(0, t:MAX_USER_TASK_PRIO());
+    lunatest.assert_not_equal(0, t:MIN_USER_TASK_PRIO());
 end
 
 -- Test the period set/get routines
 function sg_period(t)
     t:set_period(0.050)
-    assert_equal(0.050, t:get_period())
+    lunatest.assert_equal(0.050, t:get_period())
 end
 
 -- Test the schedule_presence set/get routines
 function sg_schedule_presence(t)
     t:set_schedule_presence(0x10)
-    assert_equal(0x10, t:get_schedule_presence())
+    lunatest.assert_equal(0x10, t:get_schedule_presence())
 end
 
 -- Test the period set/get routines
 function sg_stack_size(t)
     t:set_period(0x4000)
-    assert_equal(0x4000, t:get_period())
+    lunatest.assert_equal(0x4000, t:get_period())
 end
 
 -- Create a task with a variable number of arguments, then verify that if
@@ -33,16 +33,16 @@ function task_setup(...)
     t:init(unpack(arg))
     nargs = #arg
     if nargs >= 1 then
-        assert_equal(arg[1], t:get_prio())
+        lunatest.assert_equal(arg[1], t:get_prio())
     end
     if nargs >= 2 then
-        assert_equal(arg[2], t:get_period())
+        lunatest.assert_equal(arg[2], t:get_period())
     end
     if nargs >= 3 then
-        assert_equal(arg[3], t:get_schedule_presence())
+        lunatest.assert_equal(arg[3], t:get_schedule_presence())
     end
     if nargs >= 4 then
-        assert_equal(arg[4], t:get_stack_size())
+        lunatest.assert_equal(arg[4], t:get_stack_size())
     end
     return t
 end

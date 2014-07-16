@@ -65,7 +65,7 @@ namespace SCALE
             static int start(lua_State* L)
             {
                 SRTX::Scheduler* s = luaW_check<SRTX::Scheduler>(L, 1);
-                lua_pushnumber(L, s->start());
+                lua_pushnumber(L, (s->start()) ? 0 : -1);
                 return 1;
             }
 

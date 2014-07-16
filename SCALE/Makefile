@@ -1,5 +1,6 @@
 NAMESPACE:=SCALE
-SRC:=Scale_if.cpp
+SRC:=Scale_if.cpp \
+     Nest.cpp
 
 TEST_SRC:=Scale_if_ut.cpp \
           Test_task.cpp

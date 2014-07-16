@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id$
- */
-
 #ifndef __SCALE_SCALE_IF_UT_H__
 #define __SCALE_SCALE_IF_UT_H__
 
@@ -20,6 +16,7 @@ namespace SCALE
 
         CPPUNIT_TEST(test_task_properties);
         CPPUNIT_TEST(test_scheduler);
+        CPPUNIT_TEST(test_nesting);
 
         CPPUNIT_TEST_SUITE_END();
 
@@ -30,6 +27,7 @@ namespace SCALE
         protected:
         void test_task_properties();
         void test_scheduler();
+        void test_nesting();
 
     };
 
