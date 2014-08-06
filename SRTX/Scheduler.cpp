@@ -126,7 +126,7 @@ namespace SRTX
             return NULL;
         }
 
-        /* If this is the scehduler's rategroup (which defines the minor
+        /* If this is the scheduler's rategroup (which defines the minor
          * frame), then alias the runtime properties to the minor frame runtime
          * properties name.
          */
@@ -135,7 +135,7 @@ namespace SRTX
             Runtime_attributes_db::symbol_t* rt_sym_alias =
                 rt_db.alias_symbol(minor_frame_runtime_attr_symbol_name,
                         item->rt_attr_symbol);
-            if(NULL == rt_sym_alias || (false == rt_sym_alias->is_valid()))
+            if((NULL == rt_sym_alias) || (false == rt_sym_alias->is_valid()))
             {
                 EPRINTF("Failed while aliasing runtime attributes symbol table "
                         "entry\n");
