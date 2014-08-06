@@ -36,7 +36,10 @@ namespace SCALE
             return false;
         }
 
-        return false;
+        /* If this is an aperiodic task (period == 0), exit, else return true
+         * so that it can be put on the scheduler again.
+         */
+        return (m_props.period) ? true : false;
     }
 
 
