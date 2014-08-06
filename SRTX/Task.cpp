@@ -174,13 +174,16 @@ namespace SRTX
                  * spurious wakeup.
                  */
                 p->m_impl->expected_wake_time += p->m_props.period;
-                DPRINTF("%s: expected wake time = %lld\n", p->m_name,
+                DPRINTF("%s: expected wake time = %"PRId64"\n", p->m_name,
                         int64_t(p->m_impl->expected_wake_time));
 
                 while((true == p->m_operational) &&
                         (ref_time = get_reference_time()) <
                         p->m_impl->expected_wake_time)
                 {
+                DPRINTF("%s: Tref = %"PRId64", expected_wake_time = %"PRId64"\n",
+                        p->m_name, int64_t(ref_time),
+                        int64_t(p->m_impl->expected_wake_time));
                     if(false == p->m_impl->rategroup_sync->wait())
                     {
                         EPRINTF("%s: Error in periodic wait\n", p->m_name);
@@ -191,7 +194,7 @@ namespace SRTX
                     DPRINTF("%s:Woke up\n", p->m_name);
                 }
 
-                DPRINTF("%s: Tref = %lld, expected_wake_time = %lld\n",
+                DPRINTF("%s: Tref = %"PRId64", expected_wake_time = %"PRId64"\n",
                         p->m_name, int64_t(ref_time),
                         int64_t(p->m_impl->expected_wake_time));
             }
@@ -229,7 +232,7 @@ namespace SRTX
             {
                p->m_props.max_runtime = p->m_props.last_runtime;
             }
-            DPRINTF("%s last_runtime = %lld, max_runtime = %lld\n",
+            DPRINTF("%s last_runtime = %"PRId64", max_runtime = %"PRId64"\n",
                     p->m_name,
                     int64_t(p->m_props.last_runtime),
                     int64_t(p->m_props.max_runtime));
@@ -330,6 +333,7 @@ namespace SRTX
             return false;
         }
 
+        IPRINTF("Starting task: %ld\n", (unsigned long)this);
         if(false == start_prep())
         {
             return false;
@@ -338,6 +342,7 @@ namespace SRTX
         /* Schedule the task.
          */
         Scheduler& sched = Scheduler::get_instance();
+        IPRINTF("Starting task with scheduler: %lu\n", (unsigned long)&sched);
         sched.lock();
         bool rval = spawn_thread();
         sched.unlock();
