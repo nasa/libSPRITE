@@ -333,7 +333,6 @@ namespace SRTX
             return false;
         }
 
-        IPRINTF("Starting task: %ld\n", (unsigned long)this);
         if(false == start_prep())
         {
             return false;
@@ -342,7 +341,6 @@ namespace SRTX
         /* Schedule the task.
          */
         Scheduler& sched = Scheduler::get_instance();
-        IPRINTF("Starting task with scheduler: %lu\n", (unsigned long)&sched);
         sched.lock();
         bool rval = spawn_thread();
         sched.unlock();
