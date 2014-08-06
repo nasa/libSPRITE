@@ -74,8 +74,9 @@ namespace SCALE
              */
             static int use_external_trigger(lua_State* L)
             {
-                lua_pushnumber(L, lua_toboolean(L ,1));
-                return 1;
+                SRTX::Scheduler* s = luaW_check<SRTX::Scheduler>(L, 1);
+                s->use_external_trigger(lua_toboolean(L ,1));
+                return 0;
             }
     };
 
