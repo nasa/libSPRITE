@@ -69,6 +69,14 @@ namespace SCALE
                 return 1;
             }
 
+            /**
+             * Set the scheduler trigger to an external or internal source.
+             */
+            static int use_external_trigger(lua_State* L)
+            {
+                lua_pushnumber(L, lua_toboolean(L ,1));
+                return 1;
+            }
     };
 
     const char Scheduler::class_name[] = "Scheduler";
@@ -76,6 +84,7 @@ namespace SCALE
     luaL_Reg Scheduler::methods[] =
     {
         {"start", Scheduler::start},
+        {"use_external_trigger", Scheduler::use_external_trigger},
         {NULL, NULL}
     };
 
