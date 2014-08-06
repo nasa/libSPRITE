@@ -29,7 +29,7 @@ namespace SRTX
      */
     typedef Symbol_db<Runtime_attributes> Runtime_attributes_db;
 
-    const char* const runtime_attr_symbol_prefix = "Rategroup_runtime_attr_";
+    const char* const runtime_attr_symbol_prefix = "Rategroup_";
     const char* const minor_frame_runtime_attr_symbol_name =
         "Minor Frame runtime attributes";
 
