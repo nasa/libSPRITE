@@ -293,7 +293,7 @@ namespace SRTX
         while(this->is_operational())
         {
             /* The scheduler goes to sleep until its runtime period has elapsed.
-             * Time or zero means wait forever on the sync point. This allows
+             * Time of zero means wait forever on the sync point. This allows
              * the scheduler to be driven by an external time source.
              */
             if(m_use_external_clock)
@@ -368,9 +368,9 @@ namespace SRTX
                     }
                     n->data->rt_attr_symbol->entry->write(n->data->rt_attr);
 
-                    n->data->sync.lock();
                     DPRINTF("Signaling %"PRId64" period tasks\n",
                             int64_t(n->data->period));
+                    n->data->sync.lock();
                     n->data->start_time = start_time;
                     n->data->finished = false;
                     n->data->sync.release();
@@ -396,5 +396,7 @@ namespace SRTX
         m_sync.unlock();
     }
 
+
+    Scheduler* Scheduler::m_instance(NULL);
 
 } // namespace

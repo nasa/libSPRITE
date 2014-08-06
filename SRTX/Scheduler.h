@@ -34,11 +34,22 @@ namespace SRTX
              * @return A reference to the domain's scheduler.
              */
             static Scheduler& get_instance()
+#if 1
+            {
+                if(!m_instance)
+                {
+                    m_instance = new Scheduler;
+                }
+
+                return *m_instance;
+            }
+#else
             {
                 static Scheduler instance;
 
                 return instance;
             }
+#endif
 
             /**
              * Add a task to the scheduler.
@@ -180,6 +191,7 @@ namespace SRTX
              */
             bool m_use_external_clock;
 
+            static Scheduler* m_instance;
     };
 
 } // namespace
