@@ -2,6 +2,7 @@
 #define __BASE_XPRINTF_H__
 
 #include <stdio.h>
+#include <string.h>
 
 #ifdef XPRINT_LOCATION
 #define LPRINTF(type) do { \
@@ -16,6 +17,7 @@
 #ifdef NO_PRINT_ERROR
 #define EPRINTF(x...)
 #define PERROR(x...)
+#define PERRORNO(x...)
 #else
 #define EPRINTF(x...) do { \
     LPRINTF("ERROR"); \
@@ -23,6 +25,10 @@
 } while(0)
 #define PERROR(x...) do { \
         LPRINTF("ERROR"); perror(x); \
+} while(0)
+#define PERRORNO(err, x...) do { \
+    EPRINTF(x); \
+    fprintf(stderr, ": %s\n", strerror(err)); \
 } while(0)
 #endif
 
