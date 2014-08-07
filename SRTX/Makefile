@@ -41,6 +41,7 @@ LDFLAGS+=-lSPRITE_units -lrt -ldl -lpthread
 #Message_ut.o: CPPFLAGS+=-DPRINT_DEBUG
 #Task.o: CPPFLAGS+=-DPRINT_DEBUG
 #Scheduler.o: CPPFLAGS+=-DPRINT_DEBUG
+#Mutex.o: CPPFLAGS+=-DPRINT_DEBUG
 #Scheduler_ut.o: CPPFLAGS+=-DPRINT_DEBUG
 
 SP:=../
