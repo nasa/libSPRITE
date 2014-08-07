@@ -31,6 +31,7 @@ namespace SRTX
         {
             return;
         }
+        pthread_mutexattr_settype(&(m_impl->attr), PTHREAD_MUTEX_ERRORCHECK);
 
         m_valid = (0 == pthread_mutex_init(&(m_impl->mutex), &(m_impl->attr)));
     }
@@ -40,11 +41,19 @@ namespace SRTX
     {
         if(false == m_valid)
         {
+            EPRINTF("Attempting to lock an invalid mutex\n");
             return false;
         }
 
-        DPRINTF("Requesting mutex\n");
-        return 0 == pthread_mutex_lock(&(m_impl->mutex));
+        DPRINTF("Requesting mutex %p\n", this);
+        int rval = pthread_mutex_lock(&(m_impl->mutex));
+        if(rval)
+        {
+            PERRORNO(rval, "pthread_mutex_lock");
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -52,11 +61,19 @@ namespace SRTX
     {
         if(false == m_valid)
         {
+            EPRINTF("Attempting to lock an invalid mutex\n");
             return false;
         }
 
-        DPRINTF("Releasing mutex\n");
-        return 0 == pthread_mutex_unlock(&(m_impl->mutex));
+        DPRINTF("Releasing mutex %p\n", this);
+        int rval = pthread_mutex_unlock(&(m_impl->mutex));
+        if(rval)
+        {
+            PERRORNO(rval, "pthread_mutex_unlock");
+            return false;
+        }
+
+        return true;
     }
 
 
