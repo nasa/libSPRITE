@@ -126,6 +126,8 @@ namespace SRTX
             return NULL;
         }
 
+        DPRINTF("%s rategroup mutex is %p\n", name, &(item->sync));
+
         /* If this is the scheduler's rategroup (which defines the minor
          * frame), then alias the runtime properties to the minor frame runtime
          * properties name.
@@ -243,6 +245,7 @@ namespace SRTX
         static units::Nanoseconds time(0);
 
         DPRINTF("Begin executing the scheduler\n");
+        DPRINTF("Scheduler mutex addr is %p\n", &m_sync);
 
         /* If we let the period be zero, then the scheduler will always be
          * running.
@@ -370,11 +373,21 @@ namespace SRTX
 
                     DPRINTF("Signaling %"PRId64" period tasks\n",
                             int64_t(n->data->period));
-                    n->data->sync.lock();
+                    if(false == n->data->sync.lock())
+                    {
+                        PERROR("Attaining rategroup lock\n");
+                        break;
+                    }
                     n->data->start_time = start_time;
                     n->data->finished = false;
-                    n->data->sync.release();
-                    n->data->sync.unlock();
+                    if(false == n->data->sync.release())
+                    {
+                        PERROR("Releasing rategroup\n");
+                    }
+                    if(false == n->data->sync.unlock())
+                    {
+                        PERROR("Releasing rategroup lock\n");
+                    }
                 }
 
                 n = n->next();
