@@ -13,10 +13,9 @@ end
 --------------------------------------------------------------------------------
 -- Create the scheduler
 --------------------------------------------------------------------------------
-function scheduler.create(tp, period, task_prio)
+function scheduler.create(tp, period)
     sched = Scheduler.new()
     tp:set_period(period)
-    tp:set_prio(task_prio)
     sched:set_properties(tp)
 
     return sched
@@ -26,7 +25,9 @@ end
 --------------------------------------------------------------------------------
 -- Utility function to set task properties.
 --------------------------------------------------------------------------------
-function scheduler.set_task_properties(task, tp, period)
+function scheduler.set_task_properties(task, tp, period, priority)
+    tp:set_period(period)
+    tp:set_prio(priority)
     task:set_properties(tp)
 end
 
