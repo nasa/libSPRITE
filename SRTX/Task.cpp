@@ -249,6 +249,13 @@ namespace SRTX
                         int64_t(p->m_props.last_runtime),
                         int64_t(p->m_props.max_runtime));
             }
+
+            /* Release the rategroup mutex, allowing the next task to run.
+             */
+            if(p->m_impl->rategroup_sync)
+            {
+                p->m_impl->rategroup_sync->unlock();
+            }
         }
 
         return NULL;
