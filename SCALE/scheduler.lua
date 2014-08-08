@@ -26,10 +26,7 @@ end
 --------------------------------------------------------------------------------
 -- Utility function to set task properties.
 --------------------------------------------------------------------------------
-function scheduler.set_task_properties(task, tp, period, priority)
-    tp:set_period(period)
-    tp:set_prio(priority)
-    priority = priority - 1
+function scheduler.set_task_properties(task, tp, period)
     task:set_properties(tp)
 end
 
