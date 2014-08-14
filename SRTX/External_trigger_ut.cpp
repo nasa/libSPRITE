@@ -113,18 +113,14 @@ namespace SRTX
         units::Nanoseconds time = rtime.get_time();
         CPPUNIT_ASSERT_EQUAL(time, rtime.get_time());
         time += sched_period;
-        //CPPUNIT_ASSERT_EQUAL(true, sched.lock());
         CPPUNIT_ASSERT_EQUAL(true, sched.trigger());
-        //CPPUNIT_ASSERT_EQUAL(true, sched.unlock());
         CPPUNIT_ASSERT_EQUAL(time, rtime.get_time());
 
         sleep(units::Nanoseconds(0.1 * units::SEC));
 
         CPPUNIT_ASSERT_EQUAL(time, rtime.get_time());
         time += sched_period;
-        //CPPUNIT_ASSERT_EQUAL(true, sched.lock());
         CPPUNIT_ASSERT_EQUAL(true, sched.trigger());
-        //CPPUNIT_ASSERT_EQUAL(true, sched.unlock());
         CPPUNIT_ASSERT_EQUAL(time, rtime.get_time());
 
         //sleep(units::Nanoseconds(0.1 * units::SEC));
