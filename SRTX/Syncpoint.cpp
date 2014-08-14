@@ -11,16 +11,17 @@ namespace SRTX
     struct Syncpoint_impl
     {
         bool is_valid;
+        //bool condition;
 
         pthread_cond_t cond;
         pthread_condattr_t attr;
 
-        Syncpoint_impl()
-            : is_valid(false)
+        Syncpoint_impl() : is_valid(false)//, condition(false)
         {
-            if(pthread_cond_init(&cond, NULL) != 0)
+            int rval = pthread_cond_init(&cond, NULL);
+            if(rval)
             {
-                PERROR("pthread_cond_init");
+                PERRORNO(rval, "pthread_cond_init");
                 return;
             }
 
@@ -33,28 +34,31 @@ namespace SRTX
 #if defined _POSIX_MONOTONIC_CLOCK && _POSIX_CLOCK_SELECTION
 
             /* Initialize the condition variable attributes.
-             */
+            */
             pthread_condattr_t attr;
-            if(pthread_condattr_init(&attr) != 0)
+            rval = pthread_condattr_init(&attr);
+            if(rval)
             {
-                PERROR("pthread_condattr_init");
+                PERRORNO(rval, "pthread_condattr_init");
                 return;
             }
 
             /* Set the condition variable attributes to use the monotonic
              * clock.
              */
-            if(pthread_condatttr_setclock(&attr, CLOCK_MONOTONIC) != 0)
+            rval = pthread_condatttr_setclock(&attr, CLOCK_MONOTONIC);
+            if(rval)
             {
-                PERROR("pthread_condattr_setclock");
+                PERRORNO(rval, "pthread_condattr_setclock");
                 return;
             }
 
             /* Initialize the condition variable.
-             */
-            if(pthread_cond_init(&cond, &attr) != 0)
+            */
+            rval = pthread_cond_init(&cond, &attr);
+            if(rval)
             {
-                PERROR("pthread_cond_init");
+                PERRORNO(rval, "pthread_cond_init");
                 return;
             }
 #endif
@@ -87,7 +91,6 @@ namespace SRTX
     Syncpoint::~Syncpoint()
     {
         m_valid = false;
-
         delete m_impl;
     }
 
@@ -95,14 +98,18 @@ namespace SRTX
     bool Syncpoint::wait(const units::Nanoseconds& timeout)
     {
         /* If timeout is 0, wait forever.
-         */
+        */
         if(0 == timeout)
         {
-            int rval = pthread_cond_wait(&(m_impl->cond), get_mutex());
-            if(rval)
+            //while(!m_impl->condition)
             {
-                PERROR("pthread_cond_wait");
-                return false;
+                int rval = pthread_cond_wait(&(m_impl->cond), get_mutex());
+                if(rval)
+                {
+                    //m_impl->condition = false;
+                    PERRORNO(rval, "pthread_cond_wait");
+                    return false;
+                }
             }
         }
         else
@@ -114,15 +121,19 @@ namespace SRTX
             ts.tv_nsec = timeout % units::SEC;
 
             DPRINTF("Timeout = %d.%ld\n", (int)ts.tv_sec, ts.tv_nsec);
-            int rval = pthread_cond_timedwait(&(m_impl->cond), get_mutex(),
-                    &ts);
-            if(rval && (rval != ETIMEDOUT))
+            int rval = 0;
+            //while((!m_impl->condition) && (rval != ETIMEDOUT))
             {
-                errno = rval;
-                PERROR("pthread_cond_timeout");
-                return false;
+                rval = pthread_cond_timedwait(&(m_impl->cond), get_mutex(), &ts);
+                if(rval && (rval != ETIMEDOUT))
+                {
+                    //m_impl->condition = false;
+                    PERRORNO(rval, "pthread_cond_timeout");
+                    return false;
+                }
             }
         }
+        //m_impl->condition = false;
 
         return true;
     }
@@ -130,7 +141,15 @@ namespace SRTX
 
     bool Syncpoint::release()
     {
-        return 0 == pthread_cond_broadcast(&(m_impl->cond));
+        //m_impl->condition = true;
+        int rval = pthread_cond_broadcast(&(m_impl->cond));
+        if(rval)
+        {
+            PERRORNO(rval, "pthread_cond_broadcast");
+            return false;
+        }
+
+        return true;
     }
 
 } // namespace
