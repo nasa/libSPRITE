@@ -45,7 +45,8 @@ namespace SRTX
             return false;
         }
 
-        DPRINTF("Requesting mutex %p\n", this);
+        DPRINTF("Thread %lu requesting mutex %p\n",
+                static_cast<unsigned long>(pthread_self()), this);
         int rval = pthread_mutex_lock(&(m_impl->mutex));
         if(rval)
         {
@@ -65,7 +66,8 @@ namespace SRTX
             return false;
         }
 
-        DPRINTF("Releasing mutex %p\n", this);
+        DPRINTF("Thread %lu releasing mutex %p\n",
+                static_cast<unsigned long>(pthread_self()), this);
         int rval = pthread_mutex_unlock(&(m_impl->mutex));
         if(rval)
         {
