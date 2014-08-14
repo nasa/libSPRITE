@@ -24,7 +24,7 @@ namespace SRTX
              * This is used by the scheduler to determine how long the
              * rategroup took to complete execution.
              */
-            End_of_frame(const char* const name, bool &finished,
+            End_of_frame(const char* const name, bool& finished,
                          units::Nanoseconds &end_time)
                 : Task(name), m_finished(finished), m_end_time(end_time)
             {
@@ -49,7 +49,7 @@ namespace SRTX
              * Flag that indicates that this task executed and by extension,
              * the rategroup completed execution.
              */
-            bool &m_finished;
+            bool& m_finished;
 
             /**
              * Time value stored by this task to indicate at what time the
