@@ -18,7 +18,7 @@ namespace SRTX
     }
 
     /* These are the elements that we are going to store in the rategroup list.
-     */
+    */
     struct Sched_item
     {
         Sched_item(units::Nanoseconds p)
@@ -47,7 +47,19 @@ namespace SRTX
          * when its time for them to run.
          */
         Sched_list rategroup;
+        Syncpoint sync;
     };
+
+
+    Scheduler& Scheduler::get_instance()
+    {
+        if(!m_instance)
+        {
+            m_instance = new Scheduler;
+        }
+
+        return *m_instance;
+    }
 
 
     Scheduler::Scheduler() :
@@ -87,7 +99,7 @@ namespace SRTX
         Sched_list::Node* n = list.head();
 
         /* Search for an existing rategroup entry with the same period.
-         */
+        */
         while(n)
         {
             if(p_period == n->data->period)
@@ -102,7 +114,7 @@ namespace SRTX
         }
 
         /* Didn't find the rategroup. We'll have to add an entry in the list.
-         */
+        */
         DPRINTF("Adding rategroup entry for %"PRId64" period\n",
                 int64_t(p_period));
         Sched_item* item = new Sched_item(p_period);
@@ -112,7 +124,7 @@ namespace SRTX
         }
 
         /* Add a symbol table entry for the runtime attributes of the rategroup.
-         */
+        */
         Runtime_attributes_db& rt_db = Runtime_attributes_db::get_instance();
         char name[SYM_ENTRY_STRLEN + 1];
         snprintf(name, SYM_ENTRY_STRLEN, "%s%"PRId64"",
@@ -176,7 +188,7 @@ namespace SRTX
         Sched_list::Node* n = list.head();
 
         /* Search for an existing rategroup entry with the same period.
-         */
+        */
         while(n)
         {
             if(period == n->data->period)
@@ -186,7 +198,7 @@ namespace SRTX
                  */
 
                 /* TODO: Remove task from the linked list.
-                 */
+                */
                 return;
             }
 
@@ -199,7 +211,7 @@ namespace SRTX
     bool Scheduler::start()
     {
         /* If construction was not successful, don't bother trying to start.
-         */
+        */
         if(false == m_valid)
         {
             EPRINTF("%s:Invalid task\n", m_name);
@@ -213,7 +225,7 @@ namespace SRTX
         }
 
         /* Get the task attributes.
-         */
+        */
         if(false == m_prop_symbol->entry->read(m_props))
         {
             EPRINTF("%s:Failed to get task properties\n", m_name);
@@ -245,7 +257,7 @@ namespace SRTX
         static units::Nanoseconds time(0);
 
         DPRINTF("Begin executing the scheduler\n");
-        DPRINTF("Scheduler mutex addr is %p\n", &m_sync);
+        DPRINTF("Scheduler mutex addr is %p\n", &(m_sched_impl->sync));
 
         /* If we let the period be zero, then the scheduler will always be
          * running.
@@ -275,8 +287,8 @@ namespace SRTX
         units::Nanoseconds ref_time(0);
 
         /* We have to have the mutex before calling wait.
-         */
-        if(false == m_sync.lock())
+        */
+        if(false == this->lock())
         {
             EPRINTF("Failed to get mutex\n");
             return false;
@@ -306,10 +318,10 @@ namespace SRTX
                 time = units::Nanoseconds(m_props.period + time);
             }
 
-            if(false == m_sync.wait(time))
+            if(false == m_sched_impl->sync.wait(time))
             {
                 EPRINTF("Scheduler wait failed\n");
-                m_sync.unlock();
+                this->unlock();
                 return false;
             }
 
@@ -375,18 +387,18 @@ namespace SRTX
                             int64_t(n->data->period));
                     if(false == n->data->sync.lock())
                     {
-                        PERROR("Attaining rategroup lock\n");
+                        EPRINTF("Attaining rategroup lock\n");
                         break;
                     }
                     n->data->start_time = start_time;
                     n->data->finished = false;
                     if(false == n->data->sync.release())
                     {
-                        PERROR("Releasing rategroup\n");
+                        EPRINTF("Releasing rategroup\n");
                     }
                     if(false == n->data->sync.unlock())
                     {
-                        PERROR("Releasing rategroup lock\n");
+                        EPRINTF("Releasing rategroup lock\n");
                     }
                 }
 
@@ -397,16 +409,66 @@ namespace SRTX
         }
 
         /* Release the scheduler lock and exit the scheduler task.
-         */
-        m_sync.unlock();
+        */
+        this->unlock();
         return false;
     }
 
     void Scheduler::terminate()
     {
-        m_sync.lock();
-        m_sync.release();
-        m_sync.unlock();
+        this->lock();
+        m_sched_impl->sync.release();
+        this->unlock();
+    }
+
+
+    bool Scheduler::lock()
+    {
+        return m_sched_impl->sync.lock();
+    }
+
+
+    bool Scheduler::unlock()
+    {
+        return m_sched_impl->sync.unlock();
+    }
+
+
+    void Scheduler::use_external_trigger(bool slave)
+    {
+        m_use_external_clock = slave;
+    }
+
+
+    bool Scheduler::trigger(void)
+    {
+        if(false == this->lock())
+        {
+            EPRINTF("Error locking scheduler\n");
+            return false;
+        }
+
+        if(!m_use_external_clock)
+        {
+            this->unlock();
+            EPRINTF("Attempting to trigger when not using an external clock\n");
+            return false;
+        }
+
+        if(false == m_sched_impl->sync.release())
+        {
+            this->unlock();
+            EPRINTF("Error locking external clock trigger\n");
+            return false;
+        }
+
+        if(false == this->unlock())
+        {
+            EPRINTF("Error unlocking scheduler\n");
+            return false;
+        }
+
+        return true;
     }
 
 

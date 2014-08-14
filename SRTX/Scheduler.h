@@ -33,23 +33,7 @@ namespace SRTX
              * There is a single instance of the scheduler in a given domain.
              * @return A reference to the domain's scheduler.
              */
-            static Scheduler& get_instance()
-#if 1
-            {
-                if(!m_instance)
-                {
-                    m_instance = new Scheduler;
-                }
-
-                return *m_instance;
-            }
-#else
-            {
-                static Scheduler instance;
-
-                return instance;
-            }
-#endif
+            static Scheduler& get_instance();
 
             /**
              * Add a task to the scheduler.
@@ -81,19 +65,13 @@ namespace SRTX
              * Block the scheduler from running.
              * @return true on success or false on failure.
              */
-            bool lock()
-            {
-                return m_sync.lock();
-            }
+            bool lock();
 
             /**
              * Unblock the scheduler.
              * @return true on success or false on failure.
              */
-            bool unlock()
-            {
-                return m_sync.unlock();
-            }
+            bool unlock();
 
             /**
              * Set a schedule for the scheduler.
@@ -124,10 +102,7 @@ namespace SRTX
              * @param slave True to control through an external source else
              * false.
              */
-            void use_external_trigger(bool slave)
-            {
-                m_use_external_clock = slave;
-            }
+            void use_external_trigger(bool slave);
 
             /**
              * Trigger the scheduler to release.
@@ -135,10 +110,7 @@ namespace SRTX
              * source.
              * @return True on success or false on failure.
              */
-            bool trigger(void)
-            {
-                return m_use_external_clock && m_sync.release();
-            }
+            bool trigger(void);
 
             /**
              * Routine invoked when the task is stopped.
@@ -179,18 +151,14 @@ namespace SRTX
             schedule_t m_schedule;
 
             /**
-             * Syncronization point used to control execution of the scheduler.
-             * It is exposed here to derived classes that implement an external
-             * clock source.
-             */
-            Syncpoint m_sync;
-
-            /**
              * Flag used to indicate if we are slaved to an external time
              * source.
              */
             bool m_use_external_clock;
 
+            /**
+             * Instance of the Scheduler singleton.
+             */
             static Scheduler* m_instance;
     };
 
