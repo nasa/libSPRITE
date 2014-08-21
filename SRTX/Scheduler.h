@@ -18,12 +18,6 @@ namespace SRTX
 
     /**
      * This is the basic executive that schedules task.
-     * @satisfy{@req{1114}}
-     * @satisfy{@req{1115}}
-     * @satisfy{@req{1117}}
-     * @satisfy{@req{1119}}
-     * @satisfy{@req{1123}}
-     * @satisfy{@req{1124}}
      */
     class Scheduler: public Task
     {
