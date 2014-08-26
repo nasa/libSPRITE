@@ -36,7 +36,7 @@ namespace SRTX
 
             bool execute()
             {
-                sleep(units::Nanoseconds(1 * units::SEC));
+                sleep(units::Nanoseconds(100 * units::MSEC));
                 return true;
             }
     };
@@ -52,9 +52,10 @@ namespace SRTX
              * @param name The name of the task.
              * @param i The task instances number.
              */
-            Test_task(const char* const name, int i)
+            Test_task(const char* const name, int i, int run_count = 0)
                 : Task(name),
-                m_instance(i)
+                m_instance(i),
+                m_run_count(run_count)
         {
         }
 
@@ -72,6 +73,10 @@ namespace SRTX
                 if(0 == period)
                 {
                     sleep(units::Nanoseconds(1 * units::SEC));
+                    if(--m_run_count <=0)
+                    {
+                        return false;
+                    }
                 }
 
                 return true;
@@ -84,42 +89,44 @@ namespace SRTX
 
         private:
             int m_instance;
+            int m_run_count;
     };
 
 
     void Scheduler_ut::setUp()
     {
+        Scheduler& sched = Scheduler::get_instance();
+        Task_db::value_t task_props;
+
+        task_props.period = sched_period;
+        if(false == sched.set_properties(task_props))
+        {
+            EPRINTF("Error setting scheduler properties\n");
+            return;
+        }
+
+        if(false == sched.start())
+        {
+            EPRINTF("Error starting the scheduler\n");
+            return;
+        }
+
         memset(counter, 0, sizeof(counter));
     }
 
 
     void Scheduler_ut::tearDown()
     {
+        Scheduler& sched = Scheduler::get_instance();
+        sched.stop();
     }
 
 
     void Scheduler_ut::test_scheduler()
     {
-        Task_db::value_t task_props;
+        IPRINTF("\nExecuting %s\n", __func__);
         Scheduler& sched = Scheduler::get_instance();
 
-        /* Stop the scheduler if it is already running.
-         */
-        sched.stop();
-
-        /* Store the task properties.
-         */
-        task_props.period = sched_period;
-
-        CPPUNIT_ASSERT_EQUAL(true, sched.set_properties(task_props));
-
-        /* Now that the properties are set, try starting the task.
-         */
-        CPPUNIT_ASSERT_EQUAL(true, sched.start());
-#if 0
-        while(!sched.is_operational());
-        sleep(units::Nanoseconds(2*sched_period));
-#endif
         /* The scheduler should start out running schedule 0.
          */
         CPPUNIT_ASSERT_EQUAL((schedule_t) 0, sched.get_schedule());
@@ -128,11 +135,12 @@ namespace SRTX
 
     void Scheduler_ut::test_overrun()
     {
+        IPRINTF("\nExecuting %s\n", __func__);
         /* Create and run a task that deliberatly causes overruns.
          */
         Task_properties tp;
         tp.prio = 50;
-        tp.period = units::Nanoseconds(500 * units::MSEC);
+        tp.period = units::Nanoseconds(50 * units::MSEC);
         Overrun_task t("overrun_task");
         CPPUNIT_ASSERT_EQUAL(true, t.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, t.set_properties(tp));
@@ -168,6 +176,7 @@ namespace SRTX
 
     void Scheduler_ut::test_tasks()
     {
+        IPRINTF("\nExecuting %s\n", __func__);
         /* Create the tasks.
          */
         Task_properties tprops;
@@ -257,6 +266,7 @@ namespace SRTX
 
     void Scheduler_ut::test_aperiodic_task()
     {
+        IPRINTF("\nExecuting %s\n", __func__);
         const units::Nanoseconds test_delay(3 * units::SEC);
         IPRINTF("\nTesting aperiodic tasks. "
                 "This test takes at least %"PRId64" seconds\n",
@@ -266,7 +276,7 @@ namespace SRTX
          */
         Task_properties task1_props;
         task1_props.prio = higher_priority;
-        Test_task task1("aperiodic_1", 5);
+        Test_task task1("aperiodic_1", 5, 3);
         CPPUNIT_ASSERT_EQUAL(true, task1.set_properties(task1_props));
         CPPUNIT_ASSERT_EQUAL(true, task1.is_valid());
 
@@ -277,6 +287,7 @@ namespace SRTX
         /* Not the most reliable timing method.
          */
         sleep(test_delay);
+        task1.stop();
 
         /* Check the counters to see if the counts match.
          */
@@ -286,6 +297,7 @@ namespace SRTX
 
     void Scheduler_ut::test_many_tasks()
     {
+        IPRINTF("\nExecuting %s\n", __func__);
         memset(counter, 0, sizeof(counter));
 
         Test_task* task[NUM_PROCS];
@@ -342,6 +354,7 @@ namespace SRTX
 
     void Scheduler_ut::test_schedules()
     {
+        IPRINTF("\nExecuting %s\n", __func__);
         Task_db::value_t task_props;
         Scheduler& sched = Scheduler::get_instance();
 
