@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id$
- */
-
 #ifndef __SRTX_SYMBOL_H__
 #define __SRTX_SYMBOL_H__
 
@@ -14,7 +10,7 @@ namespace SRTX
 {
 
 #ifndef SYM_ENTRY_STRLEN
-    const unsigned int SYM_ENTRY_STRLEN = 32;
+    const unsigned int SYM_ENTRY_STRLEN = 256;
 #endif
 
     template<typename T> class Symbol
