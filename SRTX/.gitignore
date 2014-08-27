@@ -2,3 +2,5 @@
 *.d
 *.a
 *~
+run_test
+ctags
