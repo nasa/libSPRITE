@@ -31,7 +31,7 @@ namespace SRTX
 
     const char* const runtime_attr_symbol_prefix = "Rategroup_";
     const char* const minor_frame_runtime_attr_symbol_name =
-        "Minor Frame runtime attributes";
+        "Minor Frame RT atttibutes";
 
 } //namepsace
 
