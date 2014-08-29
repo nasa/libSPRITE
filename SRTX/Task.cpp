@@ -91,6 +91,7 @@ namespace SRTX
         Scheduler& sched = Scheduler::get_instance();
 
         m_thread_syncpoint.lock();
+        m_thread_syncpoint.condition_satisfied();
 
         /* Set the scheduler parameters. Linux at least fails when the
          * parameters are set before creating the thread. The parameters must
@@ -152,8 +153,6 @@ namespace SRTX
         units::Nanoseconds ref_time(0);
 
         p->m_operational = true;
-        m_thread_syncpoint.condition_satisfied();
-        //_thread_initializing = false;
         m_thread_syncpoint.release();
         m_thread_syncpoint.unlock();
 
@@ -205,7 +204,6 @@ namespace SRTX
                         EPRINTF("%s: Error in periodic wait\n", p->m_name);
                         p->m_impl->rategroup_sync->unlock();
                         return NULL;
-                        //pthread_exit(NULL);
                     }
                     DPRINTF("%s:Woke up\n", p->m_name);
                 }
@@ -228,7 +226,6 @@ namespace SRTX
                 }
             }
 
-
             if(false == p->m_operational)
             {
                 DPRINTF("%s: No longer operational\n", p->m_name);
@@ -238,7 +235,6 @@ namespace SRTX
                 }
 
                 return NULL;
-                //pthread_exit(NULL);
             }
 
             if(p->m_props.is_present_in_schedule(sched.get_schedule()))
@@ -252,7 +248,6 @@ namespace SRTX
                         p->m_impl->rategroup_sync->unlock();
                     }
                     return NULL;
-                    //pthread_exit(NULL);
                 }
                 units::Nanoseconds end_time(0);
                 get_time(end_time);
@@ -319,7 +314,6 @@ namespace SRTX
         */
         m_thread_syncpoint.lock();
         m_thread_syncpoint.condition_cleared();
-        //_thread_initializing = true;
         if(pthread_create(&(m_impl->tid), &(m_impl->attr), run,
                     reinterpret_cast<void*>(this)) != 0)
         {
@@ -333,9 +327,7 @@ namespace SRTX
          * returning and allowing additional threads to be spawned.
          */
         m_thread_syncpoint.condition_cleared();
-        //do {
-            m_thread_syncpoint.wait();
-        //} while(_thread_initializing);
+        m_thread_syncpoint.wait();
         m_thread_syncpoint.unlock();
 
         return true;
@@ -420,15 +412,6 @@ namespace SRTX
         {
             if(m_impl->tid)
             {
-                /* Wake the task so it will check and see that it's time to exit.
-                */
-                if(m_impl->rategroup_sync)
-                {
-                    m_impl->rategroup_sync->lock();
-                    m_impl->rategroup_sync->release();
-                    m_impl->rategroup_sync->unlock();
-
-                }
                 DPRINTF("%s: Joining thread; Waiting for termination\n", m_name);
                 void *res;
                 int rval = pthread_join(m_impl->tid, &res);
