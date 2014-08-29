@@ -317,6 +317,7 @@ namespace SRTX
              * Time of zero means wait forever on the sync point. This allows
              * the scheduler to be driven by an external time source.
              */
+            DPRINTF("Wait for next tic\n");
             if(m_use_external_clock)
             {
                 time = units::Nanoseconds(0);
