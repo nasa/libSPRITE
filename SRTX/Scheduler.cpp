@@ -15,6 +15,7 @@ namespace SRTX
     namespace
     {
         const char* const task_name = "Scheduler";
+        unsigned int sched_unwind_tics = 1;
     }
 
     /* These are the elements that we are going to store in the rategroup list.
@@ -75,6 +76,18 @@ namespace SRTX
         if(NULL == m_sched_impl)
         {
             m_valid = false;
+        }
+    }
+
+
+    /* The number of unwind tics is the number of times the scheduler must run
+     * to ensure that all rategroups have completed.
+     */
+    static void update_unwind_tics(unsigned int rate_unwind_tics)
+    {
+        if(rate_unwind_tics > sched_unwind_tics)
+        {
+            sched_unwind_tics = rate_unwind_tics;
         }
     }
 
@@ -162,9 +175,11 @@ namespace SRTX
                 return NULL;
             }
 
+
             DPRINTF("Aliased the minor frame runtime attributes symbol\n");
         }
 
+        update_unwind_tics(p_period / s_period);
         list.add_back(item);
         ++list_len;
         DPRINTF("List length is now %u\n", list_len);
@@ -311,8 +326,19 @@ namespace SRTX
          * while the task is running.
          */
         Sched_list& list = m_sched_impl->rategroup;
-        while(this->is_operational())
+        while(this->is_operational() || sched_unwind_tics)
         {
+            /* If the scheduler has been asked to halt, start counting down the
+             * unwind tics. The unwind tics make sure that all tasks have had
+             * time to complete before the schduler exits and ceases scheduling
+             * the tasks.
+             */
+            if(!(this->is_operational()))
+            {
+                --sched_unwind_tics;
+                DPRINTF("Unwinding, %u tics left\n", sched_unwind_tics);
+            }
+
             /* The scheduler goes to sleep until its runtime period has elapsed.
              * Time of zero means wait forever on the sync point. This allows
              * the scheduler to be driven by an external time source.
