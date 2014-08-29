@@ -78,6 +78,16 @@ namespace SCALE
                 s->use_external_trigger(lua_toboolean(L ,1));
                 return 0;
             }
+
+            /**
+             * Trigger execution of the scheduler.
+             */
+            static int trigger(lua_State* L)
+            {
+                SRTX::Scheduler* s = luaW_check<SRTX::Scheduler>(L, 1);
+                s->trigger();
+                return 0;
+            }
     };
 
     const char Scheduler::class_name[] = "Scheduler";
@@ -86,6 +96,7 @@ namespace SCALE
     {
         {"start", Scheduler::start},
         {"use_external_trigger", Scheduler::use_external_trigger},
+        {"trigger", Scheduler::trigger},
         {NULL, NULL}
     };
 
