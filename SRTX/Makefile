@@ -42,9 +42,9 @@ LDFLAGS+=-lSPRITE_units -lrt -ldl -lpthread
 
 #Data_router.o: CPPFLAGS+=-DPRINT_DEBUG
 #End_of_frame.o: CPPFLAGS+=-DPRINT_DEBUG
-Scheduler.o: CPPFLAGS+=-DPRINT_DEBUG
+#Scheduler.o: CPPFLAGS+=-DPRINT_DEBUG
 #Task.o: CPPFLAGS+=-DPRINT_DEBUG
-Mutex.o: CPPFLAGS+=-DPRINT_DEBUG
+#Mutex.o: CPPFLAGS+=-DPRINT_DEBUG
 #Scheduler_ut.o: CPPFLAGS+=-DPRINT_DEBUG
 #Message_ut.o: CPPFLAGS+=-DPRINT_DEBUG
 
