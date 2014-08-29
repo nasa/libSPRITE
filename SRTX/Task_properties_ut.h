@@ -8,7 +8,6 @@ namespace SRTX
 {
     /**
      * Provide tests for the configurable properties of a task.
-     * @verify{@req{1118}}
      */
     class Task_properties_ut : public CppUnit::TestFixture
     {

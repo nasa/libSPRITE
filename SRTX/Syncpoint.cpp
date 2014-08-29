@@ -11,12 +11,11 @@ namespace SRTX
     struct Syncpoint_impl
     {
         bool is_valid;
-        //bool condition;
 
         pthread_cond_t cond;
         pthread_condattr_t attr;
 
-        Syncpoint_impl() : is_valid(false)//, condition(false)
+        Syncpoint_impl() : is_valid(false)
         {
             int rval = pthread_cond_init(&cond, NULL);
             if(rval)
@@ -61,6 +60,8 @@ namespace SRTX
                 PERRORNO(rval, "pthread_cond_init");
                 return;
             }
+#else
+#warning MONOTONIC CLOCK SUPPORT IS NOT AVAILABLE - This is not fatal.
 #endif
 
             is_valid = true;
@@ -77,7 +78,9 @@ namespace SRTX
 
     Syncpoint::Syncpoint()
         : m_impl(new Syncpoint_impl),
-        m_valid(false)
+        m_valid(false),
+        m_wait_condition(false),
+        m_abort(false)
     {
         if(NULL == m_impl)
         {
@@ -99,14 +102,15 @@ namespace SRTX
     {
         /* If timeout is 0, wait forever.
         */
+        int rval = 0;
+        m_abort = false;
         if(0 == timeout)
         {
-            //while(!m_impl->condition)
+            while((false == m_wait_condition) && (false == m_abort))
             {
-                int rval = pthread_cond_wait(&(m_impl->cond), get_mutex());
+                rval = pthread_cond_wait(&(m_impl->cond), get_mutex());
                 if(rval)
                 {
-                    //m_impl->condition = false;
                     PERRORNO(rval, "pthread_cond_wait");
                     return false;
                 }
@@ -121,19 +125,32 @@ namespace SRTX
             ts.tv_nsec = timeout % units::SEC;
 
             DPRINTF("Timeout = %d.%ld\n", (int)ts.tv_sec, ts.tv_nsec);
-            int rval = 0;
-            //while((!m_impl->condition) && (rval != ETIMEDOUT))
+            while((false == m_wait_condition) && (rval != ETIMEDOUT) && (false == m_abort))
             {
                 rval = pthread_cond_timedwait(&(m_impl->cond), get_mutex(), &ts);
                 if(rval && (rval != ETIMEDOUT))
                 {
-                    //m_impl->condition = false;
                     PERRORNO(rval, "pthread_cond_timeout");
                     return false;
                 }
             }
         }
-        //m_impl->condition = false;
+
+        return !m_abort;
+    }
+
+
+    bool Syncpoint::inverse_wait()
+    {
+        while(true == m_wait_condition)
+        {
+            int rval = pthread_cond_wait(&(m_impl->cond), get_mutex());
+            if(rval)
+            {
+                PERRORNO(rval, "pthread_cond_wait");
+                return false;
+            }
+        }
 
         return true;
     }
@@ -141,7 +158,6 @@ namespace SRTX
 
     bool Syncpoint::release()
     {
-        //m_impl->condition = true;
         int rval = pthread_cond_broadcast(&(m_impl->cond));
         if(rval)
         {

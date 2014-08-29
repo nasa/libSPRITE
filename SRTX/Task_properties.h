@@ -10,7 +10,6 @@ namespace SRTX
     /**
      * This class defines the configurable properties of a task and
      * mechanisms to manipulate those properties.
-     * @satisfy{@req{1118}}
      */
     class Task_properties
     {
@@ -33,7 +32,6 @@ namespace SRTX
              * @param s Schedule to test.
              * @return True if the task is in the current schedule, else return
              * false.
-             * @satisfy{@req{1127}}
              */
             bool is_present_in_schedule(unsigned int s) const
             {
@@ -62,7 +60,6 @@ namespace SRTX
              * The system allows for a number of fixed schedules with varying
              * mixes of task.  This variable is used as a bit-mask indicating
              * whether the task is present in (1 << n) schedule.
-             * @satisfy{@req{1127}}
              */
             schedule_presence_t schedule_presence;
 

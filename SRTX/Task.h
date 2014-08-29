@@ -22,10 +22,6 @@ namespace SRTX
 
     /**
      * A task is the basic unit that gets scheduled in the systems.
-     * @satisfy{@req{1115}}
-     * @satisfy{@req{1116}}
-     * @satisfy{@req{1117}}
-     * @satisfy{@req{1118}}
      */
     class Task
     {
@@ -192,6 +188,13 @@ namespace SRTX
              * Add one for the NUL string terminator.
              */
             const char* m_name;
+
+        protected:
+
+            /**
+             * Flag to indicate that this is the end-of-frame task.
+             */
+            bool m_is_eof_task;
 
         private:
 

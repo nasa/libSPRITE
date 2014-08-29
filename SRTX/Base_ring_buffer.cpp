@@ -76,14 +76,13 @@ namespace SRTX
          */
         if(m_free == m_nelems)
         {
-            m_read_abort = false;
-            if(false == m_sync.wait(timeout) || m_read_abort ||
-                    (m_free == m_nelems))
+            if((false == m_sync.wait(timeout)) || (m_free == m_nelems))
             {
                 m_sync.unlock();
                 return false;
             }
         }
+        m_sync.condition_cleared();
 
         return this->_read(data, nbytes);
     }
@@ -125,6 +124,7 @@ namespace SRTX
         /* Signal blocked processes that an update to the buffer has
          * occured and unlock the syncpoint so they can proceed.
          */
+        m_sync.condition_satisfied();
         m_sync.release();
 
         m_sync.unlock();

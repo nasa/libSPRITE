@@ -34,6 +34,13 @@ namespace SRTX
 
     bool End_of_frame::execute()
     {
+        /* This is always the last task in a chain of periodic tasks, so when
+         * this one starts trying to run, that means all tasks are ready to run
+         * and they can all be released.
+         */
+        m_rategroup_sync.condition_cleared();
+        m_rategroup_sync.release();
+
         DPRINTF("Executing End_of_frame task %s\n", m_name);
 
         get_time(m_end_time);

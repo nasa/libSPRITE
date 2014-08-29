@@ -36,7 +36,6 @@ namespace SRTX
                 }
 
                 m_table.add_front(symbol);
-
                 return symbol;
             }
 
@@ -76,7 +75,6 @@ namespace SRTX
              * able to access and symbol table entry.
              * @param name Alias.
              * @param entry Entry to be associated with this new symbol.
-             * @satisfy{@req{1120}}
              */
             symbol_t* alias_symbol(const char* name, symbol_t* symbol)
             {
@@ -95,7 +93,6 @@ namespace SRTX
                 }
 
                 m_table.add_front(alias);
-
                 return alias;
             }
 

@@ -27,8 +27,16 @@ namespace SRTX
                 entry(sym_entry),
                 m_valid(false)
         {
-            /* If no entry was passed in, allocate one.
+            /* Make sure that the symbol name is not too long to be stored.
              */
+            if(strlen(sym_name) > SYM_ENTRY_STRLEN)
+            {
+                EPRINTF("Symbol name %s is too long\n", sym_name);
+                return;
+            }
+
+            /* If no entry was passed in, allocate one.
+            */
             if(NULL == entry)
             {
                 entry = new Double_buffer<T>;
@@ -44,7 +52,7 @@ namespace SRTX
             }
 
             /* Set the entry name.
-             */
+            */
             strncpy(m_name, sym_name, SYM_ENTRY_STRLEN);
 
             m_valid = true;

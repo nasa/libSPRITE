@@ -27,8 +27,6 @@ namespace SRTX
         /**
          * Test the ability to get the system time and sleep for a specified
          * period of time.
-         * @verify{@req{1199}}
-         * @verify{@req{1200}}
          */
         void test_RTC();
 

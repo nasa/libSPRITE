@@ -31,13 +31,11 @@ namespace SRTX
         /**
          * Verify that we can add an alias to an existing symbol table entry
          * and access the entry through that alias.
-         * @verify{@req{1120}}
          */
         void test_add_alias();
 
         /**
          * Verify that blocking calls to the symbol table work.
-         * @verify{@req{1221}}
          */
         void test_blocking();
     };

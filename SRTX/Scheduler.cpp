@@ -65,6 +65,7 @@ namespace SRTX
     Scheduler::Scheduler() :
         Task(task_name),
         m_sched_impl(new Scheduler_impl),
+        m_schedule(0),
         m_use_external_clock(false)
     {
         /* Presumably the base class set the valid flag to true. If we couldn't
@@ -138,6 +139,10 @@ namespace SRTX
             return NULL;
         }
 
+        /* Initialize the runtime attribute data.
+        */
+        item->rt_attr_symbol->entry->write(item->rt_attr);
+
         DPRINTF("%s rategroup mutex is %p\n", name, &(item->sync));
 
         /* If this is the scheduler's rategroup (which defines the minor
@@ -173,7 +178,8 @@ namespace SRTX
         tprops.prio = MIN_PRIO;
         snprintf(name, SYM_ENTRY_STRLEN, "End_of_frame_%"PRId64,
                 int64_t(p_period));
-        item->eof_task = new End_of_frame(name, item->finished, item->end_time);
+        item->eof_task = new End_of_frame(name, item->finished, item->end_time,
+                item->sync);
         item->eof_task->set_properties(tprops);
         item->eof_task->start();
 
@@ -318,6 +324,7 @@ namespace SRTX
                 time = units::Nanoseconds(m_props.period + time);
             }
 
+            m_sched_impl->sync.condition_cleared();
             if(false == m_sched_impl->sync.wait(time))
             {
                 EPRINTF("Scheduler wait failed\n");
@@ -350,36 +357,42 @@ namespace SRTX
              * early once we reach a period that is not modulo the reference
              * time.
              */
-            Sched_list::Node* n = list.head();
             unsigned int item_num = 0;
-            while(n)
+            for(Sched_list::Node* n = list.head(); n; n = n->next())
             {
                 ++item_num;
                 DPRINTF("Checking list item number %u\n", item_num);
                 if(0 == (ref_time % n->data->period))
                 {
-                    n->data->rt_attr.last_runtime = n->data->end_time -
-                        n->data->start_time;
-
-                    if(n->data->rt_attr.last_runtime >
-                            n->data->rt_attr.max_runtime)
+                    if(n->data->finished)
                     {
-                        n->data->rt_attr.max_runtime =
-                            n->data->rt_attr.last_runtime;
-                    }
+                        n->data->rt_attr.last_runtime = n->data->end_time -
+                            n->data->start_time;
 
-                    if(!n->data->finished)
+                        if(n->data->rt_attr.last_runtime >
+                                n->data->rt_attr.max_runtime)
+                        {
+                            n->data->rt_attr.max_runtime =
+                                n->data->rt_attr.last_runtime;
+                        }
+                    }
+                    else
                     {
                         WPRINTF("OVERRUN Rategroup %"PRId64"\n",
                                 int64_t(n->data->period));
-                        ++n->data->rt_attr.num_overruns;
+                        ++(n->data->rt_attr.num_overruns);
+#ifdef DEBUG_OVERRUN_BUG
+                        fprintf(stderr, "num overruns = %u\n", n->data->rt_attr.num_overruns);
+                        fprintf(stderr, "last runtime = %ld\n", int64_t(n->data->rt_attr.last_runtime));
+                        fprintf(stderr, "max runtime = %ld\n", int64_t(n->data->rt_attr.max_runtime));
+#endif
                         n->data->rt_attr_symbol->entry->write(n->data->rt_attr);
                         /* If an overrun occurs in this rategroup, break out.
                          * If we try to grab the rategroup lock we could cause
                          * the scheduler to block for some non-deterministic
                          * period of time.
                          */
-                        break;
+                        continue;
                     }
                     n->data->rt_attr_symbol->entry->write(n->data->rt_attr);
 
@@ -388,10 +401,11 @@ namespace SRTX
                     if(false == n->data->sync.lock())
                     {
                         EPRINTF("Attaining rategroup lock\n");
-                        break;
+                        continue;
                     }
                     n->data->start_time = start_time;
                     n->data->finished = false;
+                    n->data->sync.condition_satisfied();
                     if(false == n->data->sync.release())
                     {
                         EPRINTF("Releasing rategroup\n");
@@ -401,8 +415,6 @@ namespace SRTX
                         EPRINTF("Releasing rategroup lock\n");
                     }
                 }
-
-                n = n->next();
             }
 
             DPRINTF("Scheduler is running!\n");
@@ -417,6 +429,7 @@ namespace SRTX
     void Scheduler::terminate()
     {
         this->lock();
+        m_sched_impl->sync.condition_satisfied();
         m_sched_impl->sync.release();
         this->unlock();
     }
@@ -455,6 +468,7 @@ namespace SRTX
             return false;
         }
 
+        m_sched_impl->sync.condition_satisfied();
         if(false == m_sched_impl->sync.release())
         {
             this->unlock();

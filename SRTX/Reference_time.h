@@ -15,7 +15,6 @@ namespace SRTX
      * embedded system, this may be a representation of real-time that is
      * relative to the reference time and is incremented by the application
      * code in a controlled manner.
-     * @satisfy{@req{1119}}
      */
     class Reference_time
     {

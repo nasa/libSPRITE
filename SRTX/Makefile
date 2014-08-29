@@ -11,6 +11,9 @@ SRC:=Base_double_buffer.cpp \
      RTC.cpp \
      Scheduler.cpp \
 
+#TEST_SRC:= \
+          External_trigger_ut.cpp
+
 TEST_SRC:=Double_buffer_ut.cpp \
           Ring_buffer_ut.cpp \
           Linked_list_ut.cpp \
@@ -39,9 +42,9 @@ LDFLAGS+=-lSPRITE_units -lrt -ldl -lpthread
 
 #Data_router.o: CPPFLAGS+=-DPRINT_DEBUG
 #End_of_frame.o: CPPFLAGS+=-DPRINT_DEBUG
-#Scheduler.o: CPPFLAGS+=-DPRINT_DEBUG
+Scheduler.o: CPPFLAGS+=-DPRINT_DEBUG
 #Task.o: CPPFLAGS+=-DPRINT_DEBUG
-#Mutex.o: CPPFLAGS+=-DPRINT_DEBUG
+Mutex.o: CPPFLAGS+=-DPRINT_DEBUG
 #Scheduler_ut.o: CPPFLAGS+=-DPRINT_DEBUG
 #Message_ut.o: CPPFLAGS+=-DPRINT_DEBUG
 

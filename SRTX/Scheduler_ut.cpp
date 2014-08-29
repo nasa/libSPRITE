@@ -105,6 +105,7 @@ namespace SRTX
             return;
         }
 
+        sched.use_external_trigger(false);
         if(false == sched.start())
         {
             EPRINTF("Error starting the scheduler\n");
@@ -148,10 +149,9 @@ namespace SRTX
         IPRINTF("\nWe expect a task overrun here\n");
         CPPUNIT_ASSERT_EQUAL(true, t.start());
 
-        /* Not the most reliable timing method.
+        /* Run for a little bit. Not the most reliable timing method.
          */
         sleep(units::Nanoseconds(1100 * units::MSEC));
-
         t.stop();
 
         /* Set up to read the runtime attributes for this rategroup.
@@ -170,6 +170,12 @@ namespace SRTX
         /* We should have recorded some overruns.
          */
         CPPUNIT_ASSERT_EQUAL(true, rt_symbol->entry->read(rt_value));
+        CPPUNIT_ASSERT(rt_value.max_runtime > tp.period);
+#ifdef DEBUG_OVERRUN_BUG
+        fprintf(stderr, "UT Num overruns = %u\n", rt_value.num_overruns);
+        fprintf(stderr, "UT last runtime = %ld\n", int64_t(rt_value.last_runtime));
+        fprintf(stderr, "UT max runtime = %ld\n", int64_t(rt_value.max_runtime));
+#endif
         CPPUNIT_ASSERT(rt_value.num_overruns);
     }
 
@@ -357,6 +363,7 @@ namespace SRTX
         IPRINTF("\nExecuting %s\n", __func__);
         Task_db::value_t task_props;
         Scheduler& sched = Scheduler::get_instance();
+#if 0
 
         /* Halt the scheduler.
          */
@@ -368,13 +375,13 @@ namespace SRTX
         task_props.period = sched_period;
 
         CPPUNIT_ASSERT_EQUAL(true, sched.set_properties(task_props));
+#endif
 
         CPPUNIT_ASSERT_EQUAL((unsigned) 0, sched.get_schedule());
 
         for(schedule_t i = 0; i < 32; ++i)
         {
             sched.set_schedule(i);
-
             CPPUNIT_ASSERT_EQUAL(i, sched.get_schedule());
         }
 
@@ -397,9 +404,9 @@ namespace SRTX
 
         /* Off to the races.
          */
-        CPPUNIT_ASSERT_EQUAL(true, sched.start());
         CPPUNIT_ASSERT_EQUAL(true, task1.start());
         CPPUNIT_ASSERT_EQUAL(true, task2.start());
+        //CPPUNIT_ASSERT_EQUAL(true, sched.start());
 
         IPRINTF("\nTesting multiple schedules.\n"
                 "This test will take at least 4 seconds to complete.\n");
@@ -439,13 +446,14 @@ namespace SRTX
             counter[2] = 0;
         }
 
-        sched.set_schedule(3);
-
         DPRINTF("Halting all test tasks\n");
         DPRINTF("Stopping task 1\n");
         task1.stop();
         DPRINTF("Stopping task 2\n");
         task2.stop();
+
+        sched.set_schedule(0);
+        CPPUNIT_ASSERT_EQUAL((unsigned) 0, sched.get_schedule());
     }
 
 } // namespace

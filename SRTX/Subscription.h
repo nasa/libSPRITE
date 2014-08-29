@@ -1,4 +1,3 @@
-
 #ifndef __SRTX_SUBSCRIPTION_H__
 #define __SRTX_SUBSCRIPTION_H__
 
@@ -15,9 +14,6 @@ namespace SRTX
      * This class represents the subscription of some type of data in the
      * pub/sub system.
      * @param T The type of data carried by the message.
-     * @satisfy{@req{1120}}
-     * @satisfy{@req{1121}}
-     * @satisfy{@req{1122}}
      */
     template<typename T>
         class Subscription : public Message<T>
@@ -31,7 +27,6 @@ namespace SRTX
          * Constructor.
          * @param name Name of the subscription.
          * @param period Periodic rate of the message's receiver.
-         * @satisfy{@req{1120}}
          */
         explicit Subscription(const char* name,
                 const units::Nanoseconds period = units::Nanoseconds(0)) :
@@ -169,7 +164,6 @@ namespace SRTX
          * @param timeout Absolute time at which to timeout
          * behavior (timeout=0) is to wait forever.
          * @return True on success or false on failure.
-         * @satisfy{@req{1221}}
          */
         bool get_blocking(const units::Nanoseconds& timeout =
                 units::Nanoseconds(0))

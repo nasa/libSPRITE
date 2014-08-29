@@ -1,4 +1,3 @@
-
 #include "SRTX/Message_ut.h"
 #include "SRTX/Publication.h"
 #include "SRTX/Subscription.h"
@@ -14,6 +13,7 @@ namespace SRTX
 
     namespace
     {
+        units::Nanoseconds sched_period(10 * units::MSEC);
         const priority_t highest_priority = 80;
         const priority_t higher_priority = highest_priority - 1;
         const priority_t lower_priority = higher_priority - 1;
@@ -29,17 +29,10 @@ namespace SRTX
 
     Message_ut::Message_ut()
     {
-        Scheduler& sched = Scheduler::get_instance();
-        if(false == sched.is_operational())
-        {
-            sched.start();
-        }
     }
 
     Message_ut::~Message_ut()
     {
-        Scheduler& sched = Scheduler::get_instance();
-        sched.stop();
     }
 
 
@@ -77,12 +70,13 @@ namespace SRTX
                 if(false == m_ip_msg->put())
                 {
                     EPRINTF("%s failed put()\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
 
                 /* Have we completed the requested number of cycles?
                  */
-                if(--m_cycle <= 0)
+                if((--m_cycle) <= 0)
                 {
                     done[m_instance] = true;
                     return false;
@@ -137,6 +131,7 @@ namespace SRTX
                 if(false == m_ip_msg->put())
                 {
                     EPRINTF("%s failed put()\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
 
@@ -192,12 +187,14 @@ namespace SRTX
                 if(false == m_is_msg->get())
                 {
                     EPRINTF("%s failed get()\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
 
                 if(false == m_is_msg->was_updated())
                 {
                     EPRINTF("%s did not get an updated message\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
 
@@ -207,6 +204,7 @@ namespace SRTX
                 {
                     EPRINTF("%s expected %d, received %d\n", m_name, m_ex,
                             m_is_msg->content);
+                    done[m_instance] = true;
                     return false;
                 }
 
@@ -217,6 +215,7 @@ namespace SRTX
                 if(false == get_time(now))
                 {
                     EPRINTF("%s failed get_time()\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
                 units::Nanoseconds latency =
@@ -224,6 +223,7 @@ namespace SRTX
                 if(latency >= pub_period)
                 {
                     EPRINTF("%s latency >= pub_period\n", m_name);
+                    done[m_instance] = true;
                     return false;
                 }
 
@@ -278,28 +278,41 @@ namespace SRTX
             {
                 DPRINTF("Running %s\n", m_name);
 
+                DPRINTF("%s, waiting for message\n", m_name);
                 if(false == m_is_msg->get_blocking())
                 {
                     EPRINTF("%s failed get_blocking()\n", m_name);
-                    return false;
+                    /* We did not get the message. Terminate this frame, but let
+                     * the task get rescheduled so it can try blocking on the
+                     * message again.
+                     */
+                    return true;
+                }
+                DPRINTF("%s, got message\n", m_name);
+
+                if(m_is_msg->was_updated())
+                {
+                    ++m_run_count;
                 }
 
                 /* Have we completed the requested number of cycles?
                  */
                 if(m_is_msg->content >= m_cycle)
                 {
+                    /* We're done. Mark the task done and end execution.
+                     */
                     done[m_instance] = true;
                     return false;
                 }
 
                 DPRINTF("Finished running %s\n", m_name);
 
-                ++m_run_count;
                 return true;
             }
 
             void terminate()
             {
+                DPRINTF("Terminating aperiodic subscriber %d\n", m_instance);
                 if(m_is_msg)
                 {
                     m_is_msg->abort_get();
@@ -308,6 +321,8 @@ namespace SRTX
 
             int get_run_count() const
             {
+                DPRINTF("Aperiodic subsciber %d run count = %d\n", m_instance,
+                        m_run_count);
                 return m_run_count;
             }
 
@@ -373,6 +388,7 @@ namespace SRTX
                     {
                         EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
                                 m_is_msg->content);
+                        done[m_instance] = true;
                         return false;
                     }
                 }
@@ -526,17 +542,38 @@ namespace SRTX
 
     void Message_ut::setUp()
     {
+        Scheduler& sched = Scheduler::get_instance();
+        Task_db::value_t task_props;
+
+        task_props.period = sched_period;
+        if(false == sched.set_properties(task_props))
+        {
+            EPRINTF("Error setting scheduler properties\n");
+            return;
+        }
+
+        if(false == sched.start())
+        {
+            EPRINTF("Error starting the scheduler\n");
+            return;
+        }
     }
 
 
     void Message_ut::tearDown()
     {
+        DPRINTF("Begin tearDown\n");
+
+        Scheduler& sched = Scheduler::get_instance();
+        sched.stop();
+
+        DPRINTF("tearDown complete\n");
     }
 
 
     void Message_ut::test_Message()
     {
-        IPRINTF("Start test_Message\n");
+        IPRINTF("\nStart %s\n", __func__);
         Publication<int> ip_msg("i_msg");
         Subscription<int> is_msg("i_msg");
 
@@ -570,40 +607,14 @@ namespace SRTX
          */
         CPPUNIT_ASSERT_EQUAL(true, isl_msg.get());
         CPPUNIT_ASSERT_EQUAL(3, isl_msg.content);
-        IPRINTF("Complete test_Message\n");
+        IPRINTF("Complete %s\n", __func__);
     }
 
 
     void Message_ut::test_pub_sub()
     {
-        IPRINTF("Start test_pub_sub\n");
-        Scheduler& sched = Scheduler::get_instance();
+        IPRINTF("\nStart %s\n", __func__);
         const int ncycles = 6;
-
-        /* The scheduler unit test runs before this one and should have already
-         * started the scheduler.
-         * TODO We need to work on some of the test dependencies to make them
-         * less coupled.
-         */
-        if(sched.is_operational())
-        {
-            DPRINTF("The scheduler is already running\n");
-        }
-        else
-        {
-            DPRINTF("Starting the scheduler\n");
-
-            /* Set the task properties.
-             */
-            Task_db::value_t sched_props;
-            sched_props.prio = 98;
-            sched_props.period = units::Nanoseconds(10 * units::MSEC);
-            CPPUNIT_ASSERT_EQUAL(true, sched.set_properties(sched_props));
-
-            /* Now that the properties are set, start the task.
-             */
-            CPPUNIT_ASSERT_EQUAL(true, sched.start());
-        }
 
         const char* const msg1_name = "msg1_";
         const char* const msg2_name = "msg2_";
@@ -615,17 +626,17 @@ namespace SRTX
         Task_properties props;
         props.period = pub_period;
         props.prio = higher_priority;
-        Publisher pub1("Publisher 1", msg1_name, instance++, ncycles);
+        Publisher pub1("Publisher 1", msg1_name, instance++, ncycles * 10); // 0
         CPPUNIT_ASSERT_EQUAL(true, pub1.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, pub1.set_properties(props));
 
-        Publisher pub2("Publisher 2", msg2_name, instance++, ncycles);
+        Publisher pub2("Publisher 2", msg2_name, instance++, ncycles * 10); // 1
         CPPUNIT_ASSERT_EQUAL(true, pub2.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, pub2.set_properties(props));
 
         props.period = units::Nanoseconds(0);
         Aperiodic_publisher pub3("Aperiodic_publisher", msg3_name, instance++,
-                ncycles);
+                ncycles * 10); // 2
         CPPUNIT_ASSERT_EQUAL(true, pub3.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, pub3.set_properties(props));
 
@@ -633,48 +644,48 @@ namespace SRTX
          */
         props.prio = lower_priority;
         props.period = pub_period;
-        Subscriber sub1("Subscriber 1", msg1_name, instance++, ncycles);
+        Subscriber sub1("Subscriber 1", msg1_name, instance++, ncycles); // 3
         CPPUNIT_ASSERT_EQUAL(true, sub1.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub1.set_properties(props));
 
-        Subscriber sub2("Subscriber 2", msg1_name, instance++, ncycles);
+        Subscriber sub2("Subscriber 2", msg1_name, instance++, ncycles); // 4
         CPPUNIT_ASSERT_EQUAL(true, sub2.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub2.set_properties(props));
 
-        Subscriber sub7("Subscriber 3", msg2_name, instance++, ncycles);
+        Subscriber sub7("Subscriber 3", msg2_name, instance++, ncycles); // 5
         CPPUNIT_ASSERT_EQUAL(true, sub7.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub7.set_properties(props));
 
         props.prio = lowest_priority;
         props.period = units::Nanoseconds(pub_period * 2);
         Slow_subscriber sub3("Slow_subscriber 1", msg1_name, instance++,
-                ncycles / 2);
+                ncycles / 2); // 6
         CPPUNIT_ASSERT_EQUAL(true, sub3.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub3.set_properties(props));
 
         Slow_subscriber sub5("Slow_subscriber 2", msg1_name, instance++,
-                ncycles / 2);
+                ncycles / 2); // 7
         CPPUNIT_ASSERT_EQUAL(true, sub5.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub5.set_properties(props));
         Slow_subscriber sub8("Slow_subscriber 3", msg2_name, instance++,
-                ncycles / 2);
+                ncycles / 2); // 8
         CPPUNIT_ASSERT_EQUAL(true, sub8.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub8.set_properties(props));
 
         props.prio = highest_priority;
         props.period = units::Nanoseconds(pub_period / 2);
         Fast_subscriber sub4("Fast_subscriber 1", msg1_name, instance++,
-                ncycles * 2);
+                ncycles * 2); // 9
         CPPUNIT_ASSERT_EQUAL(true, sub4.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub4.set_properties(props));
 
         Fast_subscriber sub6("Fast_subscriber 2", msg1_name, instance++,
-                ncycles * 2);
+                ncycles * 2); // 10
         CPPUNIT_ASSERT_EQUAL(true, sub6.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub6.set_properties(props));
 
         Fast_subscriber sub9("Fast_subscriber 3", msg2_name, instance++,
-                ncycles * 2);
+                ncycles * 2); // 11
         CPPUNIT_ASSERT_EQUAL(true, sub9.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub9.set_properties(props));
 
@@ -682,25 +693,24 @@ namespace SRTX
         props.prio = lowest_priority;
         props.period = units::Nanoseconds(0);
         Aperiodic_subscriber sub10("Aperiodic_subscriber 1", msg1_name,
-                instance++, ncycles);
+                instance++, ncycles); // 12
         CPPUNIT_ASSERT_EQUAL(true, sub10.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub10.set_properties(props));
 
         Aperiodic_subscriber sub11("Aperiodic_subscriber 2", msg1_name,
-                instance++, ncycles);
+                instance++, ncycles); // 13
         CPPUNIT_ASSERT_EQUAL(true, sub11.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub11.set_properties(props));
 
         Aperiodic_subscriber sub12("Aperiodic_subscriber 3", msg3_name,
-                instance++, ncycles);
+                instance++, ncycles); // 14
         CPPUNIT_ASSERT_EQUAL(true, sub12.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub12.set_properties(props));
 
         Aperiodic_subscriber sub13("Aperiodic_subscriber 4", msg3_name,
-                instance++, ncycles);
+                instance++, ncycles); // 15
         CPPUNIT_ASSERT_EQUAL(true, sub13.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub13.set_properties(props));
-
 
         /* If the following assertion is not true, the test will hang or may
          * not wait for all tasks to complete.
@@ -760,7 +770,7 @@ namespace SRTX
             }
         }
         while(!test_done);
-        IPRINTF("Completed test_pub_sub\n");
+        IPRINTF("Completed %s\n", __func__);
     }
 
     /**
@@ -775,19 +785,19 @@ namespace SRTX
      */
     void Message_ut::test_async()
     {
-        IPRINTF("Started test_async\n");
+        IPRINTF("\nStarted %s\n", __func__);
         const char* const msg1_name = "amsg_";
 
         IPRINTF("\nTesting asyncronous subscribers\n");
 
         Task_properties props;
         props.period = pub_period;
-        props.prio = higher_priority;
-        Publisher pub1("test_async Publisher 1", msg1_name, 0, 1);
+        props.prio = lower_priority;
+        Publisher pub1("test_async Publisher 1", msg1_name, 0, 100);
         CPPUNIT_ASSERT_EQUAL(true, pub1.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, pub1.set_properties(props));
 
-        props.prio = lowest_priority;
+        props.prio = higher_priority;
         props.period = units::Nanoseconds(0);
         Aperiodic_subscriber sub1("Asub 1", msg1_name,
                 0, 10);
@@ -799,23 +809,29 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(true, sub2.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub2.set_properties(props));
 
+        IPRINTF("We expect the Asub tasks to report an error here\n");
         CPPUNIT_ASSERT_EQUAL(true, sub1.start());
         CPPUNIT_ASSERT_EQUAL(true, pub1.start());
         CPPUNIT_ASSERT_EQUAL(true, sub2.start());
 
         sleep(units::SEC);
 
-        IPRINTF("We expect the Asub tasks to report errors here\n");
         sub1.stop();
         pub1.stop();
         sub2.stop();
 
-        /* The first run is to recieve the initial data value, the second is
-         * data sent by the publisher.
+        /* Becaues the subscribers run aperiodically and the second is started
+         * after the publisher, there will be variations in the number of times
+         * they run, but it should be between 0 and 100.
          */
-        CPPUNIT_ASSERT_EQUAL(2, sub1.get_run_count());
-        CPPUNIT_ASSERT_EQUAL(2, sub2.get_run_count());
-        IPRINTF("Completed test_async\n");
+        int run_count = sub1.get_run_count();
+        CPPUNIT_ASSERT(run_count > 0);
+        CPPUNIT_ASSERT(run_count < 101);
+        run_count = sub2.get_run_count();
+        CPPUNIT_ASSERT(run_count > 0);
+        CPPUNIT_ASSERT(run_count < 12);
+
+        IPRINTF("Completed %s\n", __func__);
     }
 
 } // namespace

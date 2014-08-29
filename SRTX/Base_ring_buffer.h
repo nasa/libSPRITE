@@ -103,7 +103,6 @@ namespace SRTX
              * @return True on success or false on failure.
              */
             bool _read(void* data, unsigned int nbytes);
-
     };
 
 } // namespace

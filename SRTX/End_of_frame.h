@@ -9,7 +9,6 @@ namespace SRTX
     /* This task gets scheduled as the lowest priority task in the rategroup.
      * When it executes to signals the scheduler that the rategroup completed
      * execution and stores the time at which it completed.
-     * @satisfy{@req{1228}}
      */
     class  End_of_frame : public Task
     {
@@ -25,10 +24,11 @@ namespace SRTX
              * rategroup took to complete execution.
              */
             End_of_frame(const char* const name, bool& finished,
-                         units::Nanoseconds &end_time)
-                : Task(name), m_finished(finished), m_end_time(end_time)
+                         units::Nanoseconds& end_time, Syncpoint& rategroup_sync)
+                : Task(name), m_finished(finished), m_end_time(end_time),
+                m_rategroup_sync(rategroup_sync)
             {
-
+                m_is_eof_task = true;
             }
 
             /**
@@ -56,6 +56,11 @@ namespace SRTX
              * rategroup completed execution.
              */
             units::Nanoseconds &m_end_time;
+
+            /**
+             * Hold a reference to the rategroup syncpoint.
+             */
+            Syncpoint& m_rategroup_sync;
     };
 
 }

@@ -1,4 +1,3 @@
-
 #ifndef __SRTX_PUBLICATION_H__
 #define __SRTX_PUBLICATION_H__
 
@@ -15,9 +14,6 @@ namespace SRTX
      * This class represents the publication of some type of data in the
      * pub/sub system.
      * @param T The type of data carried by the message.
-     * @satisfy{@req{1120}}
-     * @satisfy{@req{1121}}
-     * @satisfy{@req{1122}}
      */
     template<typename T>
         class Publication: public Message<T>
@@ -33,7 +29,6 @@ namespace SRTX
          * Constructor.
          * @param name Name of the publication.
          * @param period Periodic rate at which the message will be produced.
-         * @satisfy{@req{1120}}
          */
         explicit Publication(const char * name,
                 const units::Nanoseconds period = units::Nanoseconds(0)) :

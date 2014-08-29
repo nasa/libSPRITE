@@ -8,7 +8,6 @@ namespace sys
 {
     /**
      * Test the reference time class.
-     * @verify{@req{1119}}
      */
     class Reference_time_ut : public CppUnit::TestFixture
     {
@@ -27,7 +26,6 @@ namespace sys
 
         /**
          * Test the ability to get and set reference time.
-         * @verify{@req{1119}}
          */
         void test_reference_time();
 

@@ -40,8 +40,13 @@ namespace SRTX
              * @note The associated mutex must be locked prior to calling this
              * routine and will be locked when this routine returns.
              */
-            bool wait(const units::Nanoseconds& timeout =
-                    units::Nanoseconds(0));
+            bool wait(const units::Nanoseconds& timeout = units::Nanoseconds(0));
+
+            /**
+             * Wait, but with the wait condition inverted.
+             * @return True on success, false on failure.
+             */
+            bool inverse_wait();
 
             /**
              * Release threads blocked on this condition.
@@ -50,6 +55,33 @@ namespace SRTX
              * during this call to ensure deterministic behavior.
              */
             bool release();
+
+            /**
+             * Let the syncpoint know that the condition to release tasks
+             * has been satisfied.
+             */
+            void condition_satisfied(void)
+            {
+                m_wait_condition = true;
+            }
+
+            /**
+             * Abort the wait even though the condition is not satisified.
+             */
+            void abort_wait(void)
+            {
+                m_abort = true;
+                release();
+            }
+
+            /**
+             * Let the syncpoint know that the condition to release tasks
+             * is no longer satisfied.
+             */
+            void condition_cleared(void)
+            {
+                m_wait_condition = false;
+            }
 
             /**
              * Destructor.
@@ -69,6 +101,17 @@ namespace SRTX
              */
             bool m_valid;
 
+            /**
+             * Condition used to indicate whether the wait criteria has been
+             * satisfied.
+             */
+            bool m_wait_condition;
+
+            /**
+             * Flag to indicate that we want to abort the wait even tough the
+             * condition has not been satisfied.
+             */
+            bool m_abort;
     };
 
 } // namespace

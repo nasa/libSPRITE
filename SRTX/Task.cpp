@@ -14,6 +14,7 @@ namespace SRTX
         pthread_t tid;
         pthread_attr_t attr;
         Syncpoint* rategroup_sync;
+        bool* rategroup_condition;
         struct sched_param sched_attr;
         units::Nanoseconds expected_wake_time;
         bool first_pass;
@@ -21,6 +22,7 @@ namespace SRTX
         Task_impl() :
             tid(0),
             rategroup_sync(NULL),
+            rategroup_condition(NULL),
             expected_wake_time(0),
             first_pass(true)
         {
@@ -33,6 +35,7 @@ namespace SRTX
         m_prop_symbol(NULL),
         m_valid(false),
         m_operational(false),
+        m_is_eof_task(false),
         m_impl(new Task_impl)
     {
         /* Make sure the implementation specific data got allocated.
@@ -149,11 +152,12 @@ namespace SRTX
         units::Nanoseconds ref_time(0);
 
         p->m_operational = true;
-        _thread_initializing = false;
+        m_thread_syncpoint.condition_satisfied();
+        //_thread_initializing = false;
         m_thread_syncpoint.release();
         m_thread_syncpoint.unlock();
 
-        while(1)
+        while(true)
         {
             units::Nanoseconds start_time(0);
             get_time(start_time);
@@ -209,7 +213,21 @@ namespace SRTX
                 DPRINTF("%s: Tref = %"PRId64", expected_wake_time = %"PRId64"\n",
                         p->m_name, int64_t(ref_time),
                         int64_t(p->m_impl->expected_wake_time));
+
+                /* Wait for all of the tasks to be awoken and ready to run.
+                 * This relies on testing against an inverted wait condition
+                 * because we're not going to clear the condition until all the
+                 * tasks are awake. The end of frame task is allowed to begin
+                 * execution because it is the last task on the list (in
+                 * priority order). The end of frame task signals all of the
+                 * others that they may proceed.
+                 */
+                if(false == p->m_is_eof_task)
+                {
+                    p->m_impl->rategroup_sync->inverse_wait();
+                }
             }
+
 
             if(false == p->m_operational)
             {
@@ -300,7 +318,8 @@ namespace SRTX
         /* Spawn the thread.
         */
         m_thread_syncpoint.lock();
-        _thread_initializing = true;
+        m_thread_syncpoint.condition_cleared();
+        //_thread_initializing = true;
         if(pthread_create(&(m_impl->tid), &(m_impl->attr), run,
                     reinterpret_cast<void*>(this)) != 0)
         {
@@ -313,9 +332,10 @@ namespace SRTX
          * makes sure the the thread has completed it's initilization before
          * returning and allowing additional threads to be spawned.
          */
-        do {
+        m_thread_syncpoint.condition_cleared();
+        //do {
             m_thread_syncpoint.wait();
-        } while(_thread_initializing);
+        //} while(_thread_initializing);
         m_thread_syncpoint.unlock();
 
         return true;

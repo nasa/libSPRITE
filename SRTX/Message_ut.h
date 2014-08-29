@@ -1,16 +1,13 @@
-
 #ifndef __SRTX_MESSAGE_UT_H__
 #define __SRTX_MESSAGE_UT_H__
 
 #include <cppunit/extensions/HelperMacros.h>
-
 
 namespace SRTX
 {
 
     /**
      * A set of test for sending messages through a publish/subscribe system.
-     * @verify{@req{1121}}
      */
     class Message_ut : public CppUnit::TestFixture
     {
@@ -36,9 +33,6 @@ namespace SRTX
         /**
          * Test sending messages between a publisher and a subscriber running at
          * the same rate.
-         * @verify{@req{1120}}
-         * @verify{@req{1122}}
-         * @verify{@req{1221}}
          */
         void test_pub_sub();
         void test_async();
