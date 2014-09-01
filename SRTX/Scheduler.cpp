@@ -1,4 +1,4 @@
-
+#include <unistd.h>
 #include "SRTX/Data_router.h"
 #include "SRTX/End_of_frame.h"
 #include "SRTX/Linked_list.h"
@@ -453,12 +453,27 @@ namespace SRTX
         return false;
     }
 
+
     void Scheduler::terminate()
     {
-        this->lock();
-        m_sched_impl->sync.condition_satisfied();
-        m_sched_impl->sync.release();
-        this->unlock();
+        if(m_use_external_clock)
+        {
+            /* If we're set to use an external trigger, we need to generate the
+             * necessary triggers internally to wind down all of the tasks to
+             * allow for a clean exit.
+             */
+            const units::Nanoseconds s_period = get_period();
+            while(sched_unwind_tics)
+            {
+                usleep(s_period / 1000);
+                trigger();
+            }
+        } else {
+            this->lock();
+            m_sched_impl->sync.condition_satisfied();
+            m_sched_impl->sync.release();
+            this->unlock();
+        }
     }
 
 
