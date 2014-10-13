@@ -301,8 +301,14 @@ namespace SRTX
     bool Task::spawn_thread()
     {
         Scheduler& sched = Scheduler::get_instance();
-        if(m_props.period && (this != &sched))
+
+        /* If rategroup_sync is not NULL at this point, then the task has been
+         * started previously and is already on the scheduler's list.
+         */
+        if(NULL != m_impl->rategroup_sync)
         {
+            m_impl->first_pass = true;
+        } else if(m_props.period && (this != &sched)) {
             m_impl->rategroup_sync = sched.add_task(*this);
             if(NULL == m_impl->rategroup_sync)
             {
