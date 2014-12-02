@@ -60,6 +60,15 @@ namespace SRTX
             }
 
             /**
+             * Test if the ring buffer is full.
+             * @return true if full, else false.
+             */
+            bool is_full() const
+            {
+                return 0 == m_free;
+            }
+
+            /**
              * Destructor.
              */
             virtual ~Base_ring_buffer();

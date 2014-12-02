@@ -115,4 +115,49 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(true, rb.is_empty());
     }
 
+
+    void Ring_buffer_ut::test_full()
+    {
+        Ring_buffer<int> rb(3);
+        int wval = 1;
+
+        /* Starts empty so is_full() should be false.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_valid());
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
+
+        /* Write something in and make sure the buffer is not yet full.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
+
+        /* Write two more times and it should be full.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_full());
+
+        /* Try to write again. Should fail and still be full.
+         */
+        CPPUNIT_ASSERT_EQUAL(false, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_full());
+
+        /* Read a value. Should not be full anymore.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
+
+        /* Read the rest of the data. Should not be full.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
+
+        /* Try to read too much.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_empty());
+        CPPUNIT_ASSERT_EQUAL(false, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
+    }
+
 } // namespace
