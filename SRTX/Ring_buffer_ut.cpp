@@ -160,4 +160,53 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
     }
 
+
+    void Ring_buffer_ut::test_count()
+    {
+        Ring_buffer<int> rb(3);
+        int wval = 1;
+
+        /* Starts empty.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.is_valid());
+        CPPUNIT_ASSERT_EQUAL(0u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(3u, rb.nelems_free());
+
+        /* Write and check that the counts change correctly.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(1u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(2u, rb.nelems_free());
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(2u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(1u, rb.nelems_free());
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(3u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(0u, rb.nelems_free());
+
+        /* Buffer is full, writing should not change the count.
+         */
+        CPPUNIT_ASSERT_EQUAL(false, rb.write(wval));
+        CPPUNIT_ASSERT_EQUAL(3u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(0u, rb.nelems_free());
+
+        /* Start reading and make sure the counts make sense.
+         */
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(2u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(1u, rb.nelems_free());
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(1u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(2u, rb.nelems_free());
+        CPPUNIT_ASSERT_EQUAL(true, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(0u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(3u, rb.nelems_free());
+
+        /* Buffer is empty now. Try to read again. Counts should not change.
+         */
+        CPPUNIT_ASSERT_EQUAL(false, rb.read(wval));
+        CPPUNIT_ASSERT_EQUAL(0u, rb.nelems_used());
+        CPPUNIT_ASSERT_EQUAL(3u, rb.nelems_free());
+    }
+
 } // namespace
