@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __DEM_TIMESTAMP_H__
 #define __DEM_TIMESTAMP_H__
 

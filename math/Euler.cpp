@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id$
- */
-
 #include "math/DCM.h"
 #include "math/Euler.h"
 #include "math/Quaternion.h"

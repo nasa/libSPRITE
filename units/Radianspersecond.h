@@ -8,7 +8,6 @@ namespace units
 
     /**
      * Define Radians/second as a unit of angular velocity.
-     * @satisfy{@req{1398}}
      */
     class Radianspersecond
     {

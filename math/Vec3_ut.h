@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id$
- */
-
 #ifndef __MATH_VEC3_UT_H__
 #define __MATH_VEC3_UT_H__
 
@@ -13,7 +9,6 @@ namespace math
 
     /**
      * Test three element vectors.
-     * @verify{@req{1253}}
      */
     class Vec3_ut : public CppUnit::TestFixture
     {

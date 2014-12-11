@@ -1,5 +1,3 @@
-// $Id$
-
 #include <math.h>
 #include "math/DCM.h"
 #include "math/Euler.h"

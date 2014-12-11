@@ -57,9 +57,7 @@
 
 
 /*******************************************************************************
- * $Id$
- *
- * Adapted to libMSDF_math by Daniel L. Heater
+ * Adapted to libSPRITE by Daniel L. Heater
  */
 
 #ifndef __MATH_MTRAND_H__
@@ -79,8 +77,6 @@ namespace math
 
     /**
      * Random number and distribution generator.
-     * @satisfy{@req{1259}}
-     * @satisfy{@req{1260}}
      */
     class MTRand
     {

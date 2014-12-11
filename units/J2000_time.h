@@ -13,9 +13,6 @@ namespace units
     class GPS_time;
     class J2010_time;
 
-    /**
-     * @satisfy{@req{1425}}
-     */
     class J2000_time : public Days
     {
         public:

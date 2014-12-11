@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id: GST_ANGLE.h 3633 2011-12-27 22:54:04Z dheater $
- */
-
 #ifndef __COORD_GST_ANGLE_H__
 #define __COORD_GST_ANGLE_H__
 
@@ -16,7 +12,6 @@ namespace coord
      * Calculate the apparent Greenwich Sidreal Time.
      * @param JD Julian date referenced to the USNO J2000 epoch.
      * @return Apparent angle from the prime meridian.
-     * @satisfy{@req{1426}}
      */
     units::Radians calculate_GST_angle(const units::J2000_time& JD);
 

@@ -14,7 +14,6 @@ namespace units
 
     /**
      * This class embodies the concept of GPS time as a unit of measure.
-     * @satisfy{@req{1243}}
      */
     class GPS_time
     {

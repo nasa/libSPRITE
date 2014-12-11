@@ -6,9 +6,6 @@
 
 namespace units
 {
-    /**
-     * @verify{@req{1243}}
-     */
     class GPS_time_ut : public CppUnit::TestFixture
     {
 

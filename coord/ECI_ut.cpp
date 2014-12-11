@@ -1,5 +1,3 @@
-// $Id: ECI_ut.cpp 3217 2011-09-26 20:17:10Z agyoung $
-
 #include "coord/ECI.h"
 #include "coord/ECI_ut.h"
 #include "coord/GST_angle.h"

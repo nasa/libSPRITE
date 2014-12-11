@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __SRTX_MESSAGE_H__
 #define __SRTX_MESSAGE_H__
 

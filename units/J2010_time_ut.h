@@ -6,9 +6,6 @@
 
 namespace units
 {
-    /**
-     * @verify{@req{1389}}
-     */
     class J2010_time_ut : public CppUnit::TestFixture
     {
 

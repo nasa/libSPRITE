@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __DEM_DEM_OPERATION_CODE_T_H__
 #define __DEM_DEM_OPERATION_CODE_T_H__
 

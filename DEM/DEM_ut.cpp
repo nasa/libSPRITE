@@ -1,5 +1,3 @@
-// $Id$
-
 #include <string.h>
 #include "DEM_ut.h"
 #include "base/XPRINTF.h"

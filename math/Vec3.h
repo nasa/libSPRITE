@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id$
- */
-
 #ifndef __MATH_VEC3_H__
 #define __MATH_VEC3_H__
 
@@ -15,7 +11,6 @@ namespace math
 
     /**
      * This class manages the common case of three element vectors.
-     * @satisfy{@req{1253}}
      */
     template<typename T = double> class Vec3
     {

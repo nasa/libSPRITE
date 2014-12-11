@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __UNITS_DEGREES_H__
 #define __UNITS_DEGREES_H__
 

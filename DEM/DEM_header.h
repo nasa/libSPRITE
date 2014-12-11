@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __DEM_DEM_HEADER_H__
 #define __DEM_DEM_HEADER_H__
 
@@ -273,7 +271,7 @@ namespace DEM
                 return (sequence_counter_is_present()) ?
                     DEM_SWAP(m_sequence_count) : 0;
             }
-            
+
             /**
              * Set the DEM sequence count.
              */

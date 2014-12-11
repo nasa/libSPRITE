@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __MATH_EULER_H__
 #define __MATH_EULER_H__
 

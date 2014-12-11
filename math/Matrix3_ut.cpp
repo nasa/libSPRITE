@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id$
- */
-
 #include <math.h>
 #include "math/Matrix3.h"
 #include "math/Matrix3_ut.h"

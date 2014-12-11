@@ -8,7 +8,6 @@ namespace units
 
     /**
      * Define Tesla as a unit of magnetic flux.
-     * @satisfy{@req{1396}}
      */
     class Tesla
     {

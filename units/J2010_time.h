@@ -8,14 +8,11 @@ namespace units
 {
 
     /**
-     * Forward declataration of class.
+     * Forward declaration of class.
      */
     class GPS_time;
     class J2000_time;
 
-    /**
-     * @satisfy{@req{1389}}
-     */
     class J2010_time : public Days
     {
         public:

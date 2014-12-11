@@ -1,5 +1,3 @@
-// $Id$
-
 #include "DEM_timestamp_ut.h"
 #include "base/XPRINTF.h"
 #include "units/Nanoseconds.h"

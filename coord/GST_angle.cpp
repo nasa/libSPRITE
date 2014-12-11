@@ -1,7 +1,3 @@
-/*******************************************************************************
- * $Id: GPS.cpp 4686 2012-03-30 16:16:53Z dheater $
- */
-
 #include "coord/GST_angle.h"
 #include "math/trig.h"
 #include "units/J2000_time.h"

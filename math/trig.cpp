@@ -1,5 +1,3 @@
-// $Id$
-
 #include <math.h>
 #include "base/assertion.h"
 #include "math/trig.h"

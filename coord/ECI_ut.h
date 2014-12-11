@@ -1,5 +1,3 @@
-// $Id: ECI_ut.h 2939 2011-08-16 17:26:07Z dheater $
-
 #ifndef __COORD_ECI_UT_H__
 #define __COORD_ECI_UT_H__
 

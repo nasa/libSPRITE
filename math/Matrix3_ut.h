@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __MATH_MATRIX3_UT_H__
 #define __MATH_MATRIX3_UT_H__
 

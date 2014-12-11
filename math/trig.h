@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __MATH_TRIG_H__
 #define __MATH_TRIG_H__
 

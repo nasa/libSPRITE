@@ -1,5 +1,3 @@
-// $Id$
-
 #include "trig_ut.h"
 #include "trig.h"
 

@@ -1,5 +1,3 @@
-/* $Id$ */
-
 #ifndef __DEM_DEM_DEFINITIONS_H__
 #define __DEM_DEM_DEFINITIONS_H__
 

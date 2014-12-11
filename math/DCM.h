@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __MATH_DCM_H__
 #define __MATH_DCM_H__
 

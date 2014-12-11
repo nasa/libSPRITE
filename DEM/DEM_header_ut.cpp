@@ -1,5 +1,3 @@
-
-// $Id$
 #include "DEM/DEM_header_ut.h"
 #include "DEM/Timestamp.h"
 #include "base/XPRINTF.h"

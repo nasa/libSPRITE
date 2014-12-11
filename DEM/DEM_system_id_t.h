@@ -1,5 +1,3 @@
-// $Id$
-
 #ifndef __DEM_DEM_SYSTEM_ID_T_H__
 #define __DEM_DEM_SYSTEM_ID_T_H__
 
@@ -11,8 +9,8 @@ namespace DEM
      */
     enum DEM_system_id_t
     {
-    	DEM_SYSTEM_ID_ARES = 1,
-    	DEM_SYSTEM_ID_GS = 2
+        DEM_SYSTEM_ID_ARES = 1,
+        DEM_SYSTEM_ID_GS = 2
     };
 
 } // namespace

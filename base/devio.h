@@ -2,7 +2,7 @@
 ===============================================================================
                         COPYRIGHT NOTICE
 
-Copyright (C) 2004-2005 Daniel L. Heater
+Copyright (C) 2004-2014 Daniel L. Heater
 International Copyright Secured.  All Rights Reserved.
 
 -------------------------------------------------------------------------------
