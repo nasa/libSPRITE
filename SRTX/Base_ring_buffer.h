@@ -69,6 +69,24 @@ namespace SRTX
             }
 
             /**
+             * Read how many elements are populated.
+             * @return The number of elements in use.
+             */
+            unsigned int nelems_used() const
+            {
+                return m_nelems - m_free;
+            }
+
+            /**
+             * Read how many elements are free.
+             * @return The number of elements available.
+             */
+            unsigned int nelems_free() const
+            {
+                return m_free;
+            }
+
+            /**
              * Destructor.
              */
             virtual ~Base_ring_buffer();
