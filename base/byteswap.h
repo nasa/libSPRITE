@@ -73,22 +73,4 @@ static __inline__ int isbigendian()
 #endif
 }
 
-static __inline__ double byteswapDouble( double x )
-{
-      char* swap_val = (char*)&x;
-      char temp = 0;
-      int i = 0;
-      int j = sizeof(double)-1;
-      while (i<j)
-      {
-         temp = swap_val[i];
-         swap_val[i] = swap_val[j];
-         swap_val[j] = temp;
-         i++, j--;
-      }
-
-      memcpy(&x, swap_val, sizeof(double));
-      return(x);
-}
-
 #endif /* __BASE_BYTESWAP__ */
