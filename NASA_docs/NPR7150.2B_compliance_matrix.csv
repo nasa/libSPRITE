@@ -1,0 +1,174 @@
+SWE,Requirement,Responsibility,A,B,C_SC,C,D_SC,D,E
+145,The designated Technical Authorities shall indicate their approval by signature in the compliance matrix itself when the comliance matrixis used to waive/deviate from applicable requirements.,Project,1,1,1,1,1,1,1
+121,"Where approved, the project manager shall document and reflect the tailored requirement in the plans or procedures controlling the development, acquisition, and/or deployment of the affected software",Project,1,1,1,1,1,1,0
+125,"Each project manager with software components shall maintain a compliance matrix or multiple compliance matrices against requirements in NPR 7150.2B, including those delegated to other parties or accomplished be contract vehicles or Space Act Agreements.",Project,1,1,1,1,1,1,1
+139,"The projects shall comply with the requirements in NPR 7150.2B that are marked with a ""project"" responsibility and an X in Appendic C consistant with their software classification",Project,1,1,1,1,1,1,1
+13,"The project manager shall develop, maintain, and execute software plans that cover the entire software life cycle and, as a minimum, address the requirements of this directive with approved tailoring.",Project,1,1,1,1,1,1,1
+24,The project manager shall track the actual results and performance of software activities against the software plans.,Project,1,1,1,1,1,1,0
+15,"The project manger shall establish, document, and maintain two cost estimates and associated const parameters for all software Class A and B projects that have and estimated project cost of $2 million or more or one software cost estimate and associated cost parameters for other projects.",Project,1,1,1,1,1,1,0
+151,"The project manger's software cost estimate(s) shall satisfy the following conditions:
+a. Covers the entire software lifecycle.
+b. Is based on selected project attributes
+c. Is based on the cost implications of the technology to be used and the required maturation of that technology.
+d. Incorporates risk and uncertainty.
+e. Includes the cost for software assurance support.
+f. Includes other direct costs.",Project,1,1,1,1,1,1,0
+16,"The project manger shall document and maintain a software schedule that satisfies the following conditions:
+a. Coordinates with the overall project schedule.
+b. Documents the interactions of milestones and deliverables between software, hardware, operations, and the rest of the system.",Project,1,1,1,1,1,1,0
+18,"The project manger shall regularly hold reviews of software activities, status, and results with the project stakeholders and track issues to resulution.",Project,1,1,1,1,1,1,0
+19,The project manager shall select and document a software development life cycle or model that includes phase transition criteria for each life cycle phase.,Project,1,1,1,1,1,1,0
+17,"The project manager shall plan, track, and ensure project specific software training for project personnel.",Project,1,1,1,1,1,0,0
+20,The project manger shall classify each system and subsystem containing software in accordance with the highest applicable software classification.,Project,1,1,1,1,1,1,1
+132,The project's software assurance manager shall perform an independent classification assessment.,Project,1,1,1,1,1,1,1
+133,"The project manager, in conjunction with the Saftey and Mission Assurance orgranization, shall determine the software safety criticality in accordance with NASA-STD-8719.13.",Project and Center S&MA,1,1,1,1,1,1,1
+21,"If a system or subsystem evolves to a higher or lower software classification, or there is a change in the safety criticality of the software, then the project manager shall update their plan to fullfil the applicable requirements per the NPR7150.2B complicance matrix and approved tailoring.",Project,1,1,1,1,1,1,1
+160,If a software component is determined to be safety critical then software component classification shall be D or higher.,Project,1,1,1,1,1,1,1
+22,The project manager shall plan and implement software assurance per NASA-STD-8739.8.,Project and Center S&MA,1,1,1,1,1,1,0
+141,"For projects reaching KDP, the program manger shall ensure that software IV&V is performed on the following categories of projects:
+a. Category 1 projects as defined in NPR 7120.5
+b. Catefory 2 projects as defined in NPR 7120.5 that have class A or B payload risk classification per NPR 8705.4.
+c. Projects specifically selected be the NASA Chief, S&MA to have software IV&V",Project and Center S&MA,1,1,1,1,1,1,0
+131,"If software IV&V is performed on a project, the project manager shall ensure that an IV&V Project Execution Plan is developed.",Project and Center S&MA,1,1,1,1,1,0,0
+23,"When a project is determined to have safety-critical software, the project manager shall implement the requirements of NASA-STD-8719.13.",Project and Center S&MA,1,1,1,0,1,0,0
+134,"When a project is determined to have safety-critical software, the project manager shall implement the following items in the software:
+a. Safety-critical software is initialized, at first start and at restarts, to a known safe state.
+b. Safety-critical software safely transitions between all predefined known states.
+c. Termination performed by software of safety critical functions is performed to a known safe state.
+d. Operator overrides of safety-critical software functions require at least two independent actions by an operator.
+e. Safety-critical software rejects commands received out of sequence, when execution of those commands out of sequence can cause a hazard.
+f. Safety-critical software detects inadvertent memory modification and recovers to a known safe state.
+g. Safety-critical software performs integrity checks on inputs and outputs to/from the software system.
+h. Safety-critical software performs prerequisite checks prior to the execution of safety-critical software commands.
+i. No single software event or action is allowed to initiate an identified hazard.
+j. Safety-critical software responds to an off nominal condition within the time needed to prevent a hazardous event.
+k. Software provides error handling of safety-critical functions.
+l. Safety-critical software has the capability to place the system into a safe state.
+m. Safety-critical elements (requirements, design elements, code components, and interfaces) are uniquely identified as safety-critical.
+n. Requirements are incorporated in the coding methods, standards, and/or criteria to clearly identify safety-critical code and data within source code comments.",Project and Center S&MA,1,1,1,0,1,0,0
+146,"The project manager shall define the approach to the automatic generation of software source code including:
+a. Validation and verification of auto-generation tools.
+b. Configuration management of the auto-generation tools and associated data.
+c. Identification of the allowable scope for the use of auto-generated software.
+d. Verification and validation of auto-generated source code.
+e. Monitoring the actual use of auto-generated source code compared to the planned use.
+f. Policies and procedures for making manual changes to auto-generated source code.
+g. Configuration management of the input to the auto-generation tool, the output of the auto-generation tool, and modifications made to the output of the auto-generation tools.",Project,1,1,1,1,1,0,0
+27,"The project manager shall satisfy the following conditions when a COTS, GOTS, MOTS, or reused software component is acquired or used:
+a. The requirements to be met by the software component are identified. 
+b. The software component includes documentation to fulfill its intended purpose (e.g., usage instructions). 
+c. Proprietary rights, usage rights, ownership, warranty, licensing rights, and transfer rights have been addressed. 
+d. Future support for the software product is planned and adequate for project needs.
+e. The software component is verified and validated to the same level required to accept a similar developed software component for its intended use.
+f. The project has a plan to perform periodic assessments of vendor reported defects to ensure the defects do not impact the selected software components.",Project,1,1,1,1,1,0,0
+28,"The project manager shall plan software verification activities, methods, environments, and criteria for the project.",Project,1,1,1,1,1,1,0
+29,"The project manager shall plan software validation activities, methods, environments, and criteria for the project.",Project,1,1,1,1,1,1,0
+30,"The project manger shall record, address, and track to closure, the results of the software verification activities.",Project,1,1,1,1,1,1,0
+31,"The project manger shall record, address, and track to closure, the results of the software validation activities.",Project,1,1,1,1,1,1,0
+32,"The project manager shall acquire, develop, and maintain software from an organization with a non-expired CMMI-DEV rating as measured by a CMMI Institute authorized or certified lead appraiser as follows:
+a. For Class A software: CMMI-DEV Maturity Level 3 Rating or higher for software, or CMMI-DEV Capability Level 3 Rating or higher in all CMMI-DEV Maturity Level 2 and 3 process areas for software. 
+b. For Class B software (except Class B software on NASA Class D payloads, as defined in NPR 8705.4): CMMI-DEV Maturity Level 2 Rating or higher for software, or CMMI-DEV Capability Level 2 Rating or higher for software in the following process areas:
+(1) Requirements Management.
+(2) Configuration Management.
+(3) Process and Product Quality Assurance.
+(4) Measurement and Analysis.
+(5) Project Planning.
+(6) Project Monitoring and Control.
+(7) Supplier Agreement Management (if applicable).
+For Class B software, in lieu of a CMMI rating by a development organization, the project will conduct an evaluation, performed by a qualified evaluator.",Project,1,1,0,0,0,0,0
+33,The project manager shall assess options for software acquisition versus development.,Project,1,1,1,1,1,1,0
+34,The project manager shall define and document the acceptance criteria and conditions for the software.,Project,1,1,1,1,1,1,0
+35,"The project manager shall establish a procedure for software supplier selection, including proposal evaluation criteria.",Project,1,1,1,1,1,0,0
+36,"The project manger shall determine which software processes, software documents, electronic products, software activities, and tasks are required for the project and software suppliers.",Project,1,1,1,1,1,1,0
+37,The project manager shall define the milestones at which the software supplier(s) progress will be reviewed and audited as part of the acquisition activities.,Project,1,1,1,1,1,1,0
+38,The project manager shall document software acquisition planning decisions.,Project,1,1,1,1,1,1,0
+39,"The project manager shall require the software supplier(s) to provide insight into software development and test activities; at a minimum, the software supplier(s) will be required to allow the project manager or designate to:
+a. Monitor product integration.
+b. Review the verification activities to ensure adequacy.
+c. Review trades studies and source data.
+d. Audit the software development process.
+e. Participate in software reviews and systems and software technical interchange meetings.",Project,1,1,1,1,1,1,0
+40,"The project manager shall require the software supplier(s) to provide NASA with software products and software process tracking information, in electronic format, including software development and management metrics.",Project,1,1,1,1,1,0,0
+42,"The project manager shall require the software supplier(s) to provide NASA with electronic access to the source code developed for the project in a modifiable format, including MOTS software and non-flight software (e.g., ground test software, simulations, ground analysis software, ground control software, science data processing software, and hardware manufacturing software).",Project,1,1,1,1,1,0,0
+43,The project manager shall require the software supplier to track software changes and non-conformances and provide the data for the project's review.,Project,1,1,1,1,1,0,0
+45,The project manager shall participate in any joint NASA/supplier audits of the software development process and software configuration management process.,Project,1,1,1,1,1,0,0
+46,The project manager shall require the software supplier(s) to provide a software schedule for the project's review and schedule updates as requested.,Project,1,1,1,1,1,1,0
+47,The project manager shall require the software supplier(s) to make electronically available the software traceability data for the project's review. ,Project,1,1,1,1,1,0,0
+147,"The project manager shall specify reusability requirements that apply to its software development activities to enable future reuse of the software, including models used to generate the software.",Project,1,1,1,1,0,0,0
+148,The project manager shall evaluate software for potential reuse by other projects across the Agency and contribute reuse candidates to the Agency Software Catalog.,Project,1,1,1,1,1,1,0
+149,"The project manager shall ensure that when an OSS component is acquired or used, the following conditions are satisfied:
+a. The requirements that are to be met by the software component are identified. 
+b. The software component includes documentation to fulfill its intended purpose (e.g., usage instructions). 
+c. Proprietary, usage, ownership, warranty, licensing rights, and transfer rights have been addressed. 
+d. Future support for the software product is planned and adequate for project needs.
+e. The software component is verified and validated to the same level required to accept a similar developed software component for its intended use.",Project,1,1,1,1,1,1,0
+41,"The project manager shall require the software supplier(s) to notify the project, in the response to the solicitation, as to whether or not open source software will be included in code developed for the project.",Project,1,1,1,1,1,0,0
+154,The project manager shall ensure that security risks in space flight software systems are identified and security risk mitigations are planned for these systems in the Project Protection Plan.,Project,1,1,1,1,0,0,0
+155,The project manager shall implement the identified software security risk mitigations addressed in the Project Protection Plan.,Project,1,1,1,1,0,0,0
+156,"The project manager shall ensure and record that all systems including space flight software are evaluated for security risks, including risks posed by the use of COTS, GOTS, MOTS, Open Source, and reused software.",Project,1,1,1,1,0,0,0
+157,The project manager shall ensure that software systems with space communications capabilities are protected against unauthorized access.,Project,1,1,1,1,0,0,0
+158,The project manager shall ensure that the space flight software systems are assessed for possible security vulnerabilities and weaknesses.,Project,1,1,1,1,0,0,0
+159,The project manager shall verify and validate the required software security risk mitigations to ensure that security objectives identified in the Project Protection Plan for space flight software are satisfied in their implementation.,Project,1,1,1,1,0,0,0
+50,"The project manager shall establish, capture, record, approve, and maintain software requirements, including the software quality requirements, as part of the technical specification.",Project,1,1,1,1,1,1,1
+51,The project manager shall perform software requirements analysis based on flowed-down and derived requirements from the top-level systems engineering requirements and the hardware specifications and design.,Project,1,1,1,1,1,0,0
+52,"The project manager shall perform, record, and maintain bidirectional traceability between the software requirement and the higher-level requirement.",Project,1,1,1,1,1,0,0
+53,The project manager shall track and manage changes to the software requirements.,Project,1,1,1,1,1,1,0
+54,"The project manager shall identify, initiate corrective actions, and track until closure inconsistencies among requirements, project plans, and software products.",Project,1,1,1,1,1,0,0
+55,The project manager shall perform requirements validation to ensure that the software will perform as intended in the customer environment.,Project,1,1,1,1,1,0,0
+57,The project manager shall develop and record the software architecture.,Project,1,1,1,1,0,0,0
+143,"The project manager shall perform a software architecture review on the following catagories of projects:
+a. Category 1 projects as defined in NRP 7120.5
+b. Category 2 projects as defined in NPR 7120.5 that have a Class A or Class B payload risk classification per NPR 8705.4",Project,1,1,1,1,1,1,0
+56,"The project manager shall develop, record, and maintain the software design.",Project,1,1,1,1,0,0,0
+58,"The project manager shall develop, record, and maintain a design based on the software architectural design that describes the lower-level units so that they can be coded, compiled, and tested.",Project,1,1,1,1,1,0,0
+59,"The project manager shall perform, record, and maintain bidirectional traceability between the following:
+a. Software requirements and software architecture.
+b. Software architecture and software design.
+c. Software requirements and software design. ",Project,1,1,1,1,1,0,0
+60,The project manager shall implement the software design into software code.,Project,1,1,1,1,1,1,0
+61,"The project manager shall select, adhere to, and verify software coding methods, standards, and/or criteria.",Project,1,1,1,1,1,0,0
+135,The project manager shall verify the software code by using the results from static analysis tool(s).,Project,1,1,1,1,1,0,0
+62,The project manager shall unit test the software code per the plans for software testing.,Project,1,1,1,1,1,1,0
+63,The project manager shall provide a software version description for each software release. ,Project,1,1,1,1,1,1,0
+64,"The project manager shall perform, record, and maintain bidirectional traceability from software design to the software code.",Project,1,1,1,1,1,0,0
+136,The project manager shall validate and accredit software tool(s) required to develop or maintain software.,Project,1,1,1,1,1,0,0
+65,"The project manager shall establish and maintain:
+a. Software test plan(s).
+b. Software test procedure(s).
+c. Software test report(s).",Project,1,1,1,1,1,1,0
+66,The project manger shall perform software testing.,Project,1,1,1,1,1,1,0
+67,The project manager shall verify the requirement to the implementation of each software requirement.,Project,1,1,1,1,1,0,0
+68,The project manager shall evaluate test results and record the evaluation.,Project,1,1,1,1,1,1,0
+69,The project manager shall record defects identified during testing and track to closure. ,Project,1,1,1,1,1,1,0
+70,"The project manager shall use validated and accredited software models, simulations, and analysis tools required to perform qualification of flight software or flight equipment.",Project,1,1,1,1,1,0,0
+71,The project manager shall update software test plan(s) and software test procedure(s) to be consistent with software requirements.,Project,1,1,1,1,1,1,0
+72,The project manager shall provide and maintain bidirectional traceability from the software test procedures to the software requirements.,Project,1,1,1,1,0,0,0
+73,The project manager shall validate the software system on the targeted platform or high-fidelity simulation.,Project,1,1,1,1,1,0,0
+75,"The project manager shall plan and implement software operations, maintenance, and retirement activities.",Project,1,1,1,1,1,1,0
+77,"The project manager shall complete and deliver the software product to the customer with appropriate records, including as-built records, to support the operations and maintenance phase of the software?s life cycle.",Project,1,1,1,1,1,1,1
+79,"The project manager shall develop a software configuration management plan that describes the functions, responsibilities, and authority for the implementation of software configuration management for the project.",Project,1,1,1,1,1,0,0
+80,The project manager shall track and evaluate changes to software products.,Project,1,1,1,1,1,1,0
+81,"The project manager shall identify the software configuration items (e.g., software records, code, data, tools, models, scripts) and their versions to be controlled for the project.",Project,1,1,1,1,1,1,0
+82,"The project manager shall establish and implement procedures to:
+a. Designate the levels of control through which each identified software configuration item is required to pass.
+b. Identify the persons or groups with authority to authorize changes.
+c. Identify the persons or groups to make changes at each level.",Project,1,1,1,1,1,0,0
+83,The project manager shall prepare and maintain records of the configuration status of software configuration items.,Project,1,1,1,1,1,0,0
+84,The project manager shall perform software configuration audits to determine the correct version of the software configuration items and verify that they conform to the records that define them.,Project,1,1,1,1,1,0,0
+85,"The project manager shall establish and implement procedures for the storage, handling, delivery, release, and maintenance of deliverable software products.",Project,1,1,1,1,1,1,0
+86,"The project manager shall identify, analyze, plan, track, control, communicate, and record software risks and mitigation plans in accordance with NPR 8000.4.",Project,1,1,1,1,0,0,0
+87,"The project manager shall perform and report the results of software peer reviews or software inspections for:
+a. Software requirements. 
+b. Software plans.
+c. Any design items that the project identified for software peer review or software inspections according to the software development plans.
+d. Software code as defined in the software and or project plans.
+e. Software test procedures.",Project,1,1,1,1,1,0,0
+88,"The project manager shall, for each planned software peer review or software inspection:
+a. Use a checklist or formal reading technique (e.g., perspective based reading) to evaluate the work products. 
+b. Use established readiness and completion criteria. 
+c. Track actions identified in the reviews until they are resolved.
+d. Identify required participants.",Project,1,1,1,1,1,0,0
+89,"The project manager shall, for each planned software peer review or software inspection, record basic measurements.",Project,1,1,1,1,1,0,0
+90,"The project manager shall establish, record, maintain, report, and utilize software management and technical measurements.",Project,1,1,1,1,1,0,0
+93,The project manager shall analyze software measurement data collected using documented project-specified and/or Center/organizational analysis procedures.,Project,1,1,1,1,1,0,0
+94,"The project manager shall provide access to the software measurement data, measurement analyses, and software development status as requested to the sponsoring Mission Directorate, the NASA Chief Engineer, Center and Headquarters SMA, and Center repositories.",Project,1,1,1,1,1,0,0

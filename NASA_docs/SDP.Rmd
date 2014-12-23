@@ -1,0 +1,304 @@
+---
+title: "libSPRITE Software Development Plan"
+author: "Daniel L. Heater"
+date: "Friday, December 23, 2014"
+header-includes:
+   - \usepackage{lscape}
+output:
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 1
+
+  html_document:
+    keep_md: yes
+    number_sections: yes
+    theme: spacelab
+    toc: yes
+---
+
+```{r setup, echo=FALSE}
+library(knitr)
+library(xtable)
+
+project = "libSPRITE"
+```
+
+# Acronyms and Definitions
+```{r read_acronyms, echo=FALSE, results='hide'}
+common_acro=read.csv("general_acronyms.csv")
+project_acro=read.csv("project_acronyms.csv")
+acronyms=rbind(common_acro, project_acro)
+attach(acronyms)
+acronyms=acronyms[order(Acronym),]
+detach(acronyms)
+```
+
+```{r print_acronyms, echo=FALSE}
+kable(acronyms, format="markdown", row.names=FALSE)
+```
+
+# INTRODUCTION
+
+*Provide an introduction to the project.*
+
+# STAKEHOLDERS AND RESPONSIBITIES
+## EXTERNAL STAKEHOLDERS ROLES AND RESPONSIBILITIES
+
++------------------------+--------------------------------------------------------------------------------+
+| External Stakeholder   | Responsibilities                                                               |
++========================+================================================================================+
+| Project Manager        | - Approve software development process |
+|                        | - Provide budget and schedule |
++------------------------+--------------------------------------------------------------------------------+
+| Project SE&I           | - Help derive requirements |
+|                        | - Manage schedule | 
+|                        | - Facilitate software integration and testing |
++------------------------+--------------------------------------------------------------------------------+
+| Project Chief Engineer | - Monitor design for compliance and compatibility across the integrated system |
++------------------------+--------------------------------------------------------------------------------+
+|                        |                                                                                |
++------------------------+--------------------------------------------------------------------------------+
+
+Table: **External Stakeholder Responsibilities**
+
+| Activity | Project Manager | Project SE&I | Project Chief Engineer |
+|:---------|:---------------:|:------------:|:----------------------:|
+| **MANAGERIAL ACTIVITIES**             |---|---|---|
+| Planning                              | X |   |   |
+| Supplier Agreements                   | X |   | X |
+| Staffing                              | X |   |   |
+| Scheduling                            | X | X | X |
+| Monitoring and Control                | X | X | X |
+| Measurement and Analysis              | X | X |   |
+| Risk Management                       | X | X | X |
+| Requirements Management               |   | X |   |
+| Configuration Management              |   | X | X |
+| **TECHNICAL ACTIVITIES**              |---|---|---|
+| Requirements Development              |   | X | X |
+| Preliminary Design                    |   | X | X |
+| Detailed Design                       |   |   | X |
+| Code and Unit Test                    |   |   |   |
+| Integration                           |   | X | X |
+| Validation                            |   | X | X |
+| Verification                          |   | X | X |
+| Operations and Maintenance            |   | X | X |
+| **SUPPORT ACTIVITIES**                |---|---|---|
+| Training                              | X |   |   |
+| Process and Product Quality Assurance |   | X | X |
+| Software Assurance                    | X |   |   |
+|                                       |   |   |   |
+
+Table: **External Stakeholder Involvement**
+
+## SOFTWARE TEAM ROLES AND RESPONSIBILITIES
+
++-----------------------+---------------------------------------------------------+
+| Internal Stakeholder  | Responsibilities                                        |
++=======================+=========================================================+
+| Software Lead         | - Develop and maintain the SDP.                         |
+|                       | - Monitor and control the project according to the SDP. |
+|                       | - Submit product baselines for SRB review and approval. |
++-----------------------+---------------------------------------------------------+
+| Software Requirements | - Consult with stakeholders to define software needs, objectives, and success criteria. |
++-----------------------+---------------------------------------------------------+
+| Software Design       | - Document software design.                             |
+|                       | - Develop software. |
+|                       | - Conduct software unit and integration testing. |
++-----------------------+---------------------------------------------------------+
+| Software Assurance    | - Perform process audits. |
+|                       | - Perform product audits. |
++-----------------------+---------------------------------------------------------+
+| Software CM Team      | - Maintain baselined software products. |
+|                       | - Perform configuration audits. |
++-----------------------+---------------------------------------------------------+
+| Software Verification | - Assist in establishing requirement success criteria.  |
+|                       | - Verify software against requirement success criteria. |
++-----------------------+---------------------------------------------------------+
+|                       |                                                         |  
++-----------------------+---------------------------------------------------------+
+
+Table: **Internal Stakeholder Responsibilities**
+
+| **ACTIVITY** | Lead | Requirements | Design | Assurance | CM | Verification |
+|---------------------------------------|:-:|:-:|:-:|:-:|:-:|:-:|
+|**MANAGERIAL ACTIVITIES**              |---|---|---|---|---|---|
+|Planning                               | X |   |   |   |   |   |
+|Supplier Agreements                    | X |   |   | X |   |   |
+|Staffing                               | X |   |   | X |   |   |
+|Scheduling                             | X |   |   | X |   |   |
+|Monitoring and Control                 | X |   |   | X |   |   |
+|Measurement and Analysis               | X | X | X | X | X | X |
+|Risk Management                        | X | X | X | X |   |   |
+|Requirements Management                | X | X | X | X | X | X |
+|Configuration Management               | X | X | X | X | X | X |
+|**TECHNICAL ACTIVITIES**               |---|---|---|---|---|---|
+|Requirements Development               | X | X | X | X |   | X |
+|Preliminary Design                     | X |   | X | X | X |   |
+|Detailed Design                        | X |   | X | X |   | X |
+|Code and Unit Test                     |   |   | X | X |   | X |
+|Integration                            | X |   | X | X |   | X |
+|Validation                             | X | X | X | X |   |   |
+|Verification                           |   |   | X | X | X | X |
+|Operations and Maintenance             | X | X | X | X | X |   |
+|**SUPPORT ACTIVITIES**                 |---|---|---|---|---|---|
+|Training                               | X |   |   | X |   |   |               
+|Process and Product Quality Assurance  | X |   |   | X |   |   |
+|Software Assurance                     | X |   |   | X |   |   |
+|                                       |   |   |   |   |   |   |
+
+Table: **Software Team Involvement**
+
+# MANAGERIAL PROCESS PLANS
+## PROJECT PLANNING
+<Reference baseline cost and staffing estimates> 
+<Reference contractor cost estimate if contract labor is used>
+<Reference baseline project schedule including deliverables from the software project>
+
+## SUPPLER AGREEMENTS
+<Describe supply chain management process if applicable>
+<Include contractor management if contractor labor is to be supplied>
+
+## STAFFING
+Staff will be assigned through coordination between project and line management. Staffing levels should be adhered to according to the baselined project schedule and staffing estimates referenced [PROJECT PLANNING].
+
+## SCHEDULING
+Scheduling of activities and deliverables shall be coordinated among the SPL, line and project management according to the baseline project schedule referenced in  [PROJECT PLANNING].
+
+## MONITORING AND CONTROL
+<Describe plans for routine monitoring of software project performance including status reporting within the software project, status reporting to project management, and status reporting to line management>
+
+## MEASUREMENT AND ANALYSIS
+Metrics produced shall be provided in status reports described in [MONITORING AND CONTROL].
+<Describe metrics to the collected, how each will be reported, and what actions/decisions will be made based on data. Where possible define process “out of bounds” limits and actions. For example “budget > 20% or < 30% of projected requires explanation in the project status report with recommended actions as to how to get back in bounds.”>
+
+## RISK MANAGEMENT
+Risks shall be identified and reported by the SPL in standard NASA 3x3 format in status reports described in [MONITORING AND CONTROL]. Actions shall be taken as agreed to by the SPL, and project and line management.
+
+## REQUIREMENTS MANAGEMENT
+Software requirements will be maintained in TBD tool.
+Software requirements and their associated success criteria shall be documented and provided for review by all stakeholders identified in Table III and Table V as part of establishing a baseline.
+Additionally, software requirement changes after baseline shall be made through concurrence of the SRB, the PM and CE or their designees.
+All software requirements will be traceable to the implementing code and its associated test cases.
+
+## CONFIGURATION MANAGEMENT
+Software releases shall be made with concurrence of the SRB. A software release will have a unique version identifier. The software release will be placed under configuration management in TBD location. The software release shall include:
+
+- A copy of the baselined requirements for that release.
+- The software source code.
+- The source code of any non-OTS tools needed to create or use the software project or to utilize/analyze data produced by the software.
+- Documentation of OTS software dependencies.
+- A software developer’s user’s guide sufficient to build and deploy the software.
+- Source code for all test cases.
+- Documentation of the system the software is deployed on.
+- The source code of any non-OTS tools needed to execute the software test cases.
+- Documentation of OTS software dependencies required for testing.
+- A software testing user’s guide sufficient to replicate the testing.
+- Documentation of the testing configuration.
+
+# TECHNICAL ACTIVITIES
+
+## REQUIREMENTS DEVELOPMENT
+Requirements are developed from analysis of stakeholder needs and expectations. Each requirement will be accompanied by a rationale that explains the reason the requirement is imposed. Each requirement will be accompanied by a concise set of success criteria which complete describe the conditions that must met to satisfy the requirement as well as explicit conditions that must not be true for the requirement to be completely satisfied. Preliminary requirements will be reviewed at and baselined at the SRR.
+
+## PRELIMINARY DESIGN
+A preliminary software design shall be presented at PDR in the form of an SDD. The SDD will include:
+
+- Major software architecture decisions.
+- How requirements will be implemented.
+- Decomposition of the software system into CSCIs and CSCs.
+- Dataflow between CSCIs and CSCs.
+- References to applicable ICDs
+- High level overview of algorithms required to meet primary mission objectives.
+
+Entry criteria for PDR include:
+
+- A baselined set of system requirements.
+- A baselined avionics architecture.
+
+## DETAILED DESIGN
+A detailed software design shall be presented at CDR in the form of an update to the SDD presented at PDR. The SDD will include:
+
+- All content required for PDR.
+- States for the overall CSCI.
+- Triggers for transition between CSCI states.
+- States for CSC.
+- Triggers for transition between CSC states.
+- Detailed description of algorithms required to meet primary mission objectives.
+
+Entry criteria for PDR include:
+
+- A baselined set of software requirements.
+- A baselined avionics architecture.
+
+## CODE AND UNIT TEST
+Code will be developed in response to and traceable to requirements. All code required to satisfy requirements will be accompanied by tests that measure satisfaction of success criteria to the fullest extent practicable. Where tests are not available, an alternative measure of requirement satisfaction is required.
+Unit tests will test all major features of units of code. Code coverage metrics should be collected. Code coverage adequacy will be assessed by the peer review team.
+
+All source code, test code, and other requirement satisfaction criteria will be assessed through peer review. Artifacts ready for peer review will be submitted as a pull request using the git version control system. Peer review of all artifacts must be completed prior to integration of code into the git master branch.
+The source code release process is described in [CONFIGURATION MANAGEMENT].
+
+## INTEGRATION
+Integration of released software is described in the project management plan.
+
+## VALIDATION
+Software requirements are validated through review by the project and also may be validated by additional means. Implemented code is assumed to be validated by virtue of satisfaction of software requirements and their associated success criteria.
+
+## VERIFICATION
+Verification of the software is measured by successful completion of the success criteria associated with the software requirements. The verification status may be one of the following:
+
+- Not completed – Indicates that the verification activity has not yet been conducted.
+- Failed/Blocked – Verification was not successful and is holding up delivery of the associated software feature.
+- Failed/Proceed – Some part of the verification was not successful, however there is sufficient value to delivery the feature. Issues are intended to be corrected such that the verification will be successful
+- Waived – The verification activity 
+
+## OPERATIONS AND MAINTENANCE
+An as built operator's manaual shall be provided with each software delivery. This may be as simple as a README file.
+
+Modification to the software is requested through submission of a software CR to the SRB. The CR will be assessed for cost and schedule and if approved through agreement with the project, will be implemented and delivered as a new software release.
+
+# SUPPORT ACTIVITIES
+
+## PROCESS AND PRODUCT QUALITY ASSURANCE
+Automated regression tests that verify software againsts the success criteria specified in the software requirements are at the heart of assessing product quality. S&MA may witness formal verification of all requirements.
+
+## SOFTWARE ASSURANCE
+S&MA may audit software and software activities to ensure compliance with this document.
+
+# NPR 7150.2B COMPLIANCE
+
+## SOFTWARE CLASSIFICATION
+
+Software classification is arrived at through mutual assessment and agreement by the software project team and S&MA.
+A [NASA software classification tool is available online](https://swehb.nasa.gov/display/7150/7.2+-+Classification+Tool+and+Safety-Critical+Assessment+Tool#_tabs-5) to assist in assessment.
+
+```{r software_classifcation, echo=FALSE, results='hide'}
+software_class="E"
+safety_critical=FALSE
+```
+
+For `r project`, S&MA and the software project team agree that the NASA standards for software classification provide no guidance on how to classify a library that is released independent of a project. The `r project` team had decided to treat the project as though it were class `r software_class` for purposes of satisfying the requirements of completing a software classifcation matrix for release.
+
++--------------------+---------------------+
+|                    |                     |
++====================+=====================+
+|Classification      | `r software_class`  |
++--------------------+---------------------+
+|Safety Critical?    | `r safety_critical` |
++--------------------+---------------------+
+
+## NPR 7150.2B APPLICABLE REQUIREMENTS
+
+```{r classification_matrix, echo=FALSE, results='hide'}
+cm=read.csv("NPR7150.2B_compliance_matrix.csv")
+cm$Requirement=as.character(cm$Requirement)
+#cm$Requirement = gsub('(.{1,40})(\\cm$Requirement|$)', '\\1\n', cm$Requirement)
+
+class_e = subset(cm, cm$E==1)
+class_e = class_e[, c("SWE", "Requirement")]
+```
+
+```{r echo=FALSE, results='asis'}
+print(xtable(class_e, format="markdown", row.names=FALSE, align=c("p{0cm}", "p{1cm}", "p{12cm}")),
+      include.rownames=FALSE, comment=FALSE)
+```
