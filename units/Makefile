@@ -1,7 +1,6 @@
 NAMESPACE:=units
 
-SRC:=Centimeters.cpp \
-     Days.cpp \
+SRC:=Days.cpp \
      Degrees.cpp \
      Feet.cpp \
      Feetpersecond.cpp \
@@ -20,11 +19,10 @@ SRC:=Centimeters.cpp \
      Milesperhour.cpp \
      Nanoseconds.cpp \
      Radians.cpp \
-     Seconds.cpp \
-     Yards.cpp
+     Seconds.cpp
 
 
-TEST_SRC:=Centimeters_ut.cpp \
+TEST_SRC:=Celsius_ut.cpp \
           Degrees_ut.cpp \
           Feetpersecondpersecond_ut.cpp \
           Feetpersecond_ut.cpp \
@@ -42,8 +40,7 @@ TEST_SRC:=Centimeters_ut.cpp \
           Miles_ut.cpp \
           Nanoseconds_ut.cpp \
           Radians_ut.cpp \
-          Seconds_ut.cpp \
-          Yards_ut.cpp
+          Seconds_ut.cpp
 
 
 TGT:=SPRITE_$(NAMESPACE)

@@ -3,10 +3,8 @@
 
 #include "base/types.h"
 #include "units/Miles.h"
-#include "units/Yards.h"
 #include "units/Kilometers.h"
 #include "units/Meters.h"
-#include "units/Centimeters.h"
 
 namespace units
 {
@@ -16,9 +14,7 @@ namespace units
      */
     class Kilometers;
     class Meters;
-    class Centimeters;
     class Miles;
-    class Yards;
 
     class Feet
     {
@@ -33,15 +29,12 @@ namespace units
             {
             }
 
-
             /**
              * Constructor.
              */
             explicit Feet(const Kilometers& n);
-            explicit Feet(const Centimeters& n);
             explicit Feet(const Meters& n);
             explicit Feet(const Miles& n);
-            explicit Feet(const Yards& n);
 
             /**
              * Type conversion to double.
@@ -51,16 +44,10 @@ namespace units
                 return m_value;
             }
 
-
             /**
              * Type conversion from Feet to Miles.
              */
             units::Miles toMiles() const;
-
-            /**
-             * Type conversion from Feet to Yards.
-             */
-            units::Yards toYards() const;
 
             /**
              * Type conversion from Feet to Meters.

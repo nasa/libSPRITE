@@ -12,12 +12,11 @@ namespace units
     {
         *this = n.toFeetpersecond();
     }
-    
+
     Feetpersecond::Feetpersecond(const Milesperhour& n)
     {
         *this = n.toFeetpersecond();
     }
-    
 
     units::Milesperhour  Feetpersecond::toMilesperhour() const
     {

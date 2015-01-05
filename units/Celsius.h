@@ -82,7 +82,6 @@ namespace units
             double m_value;
     };
 
-
 } // namespace
 
 #endif // __UNITS_CELSIUS_H__

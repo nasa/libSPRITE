@@ -4,9 +4,7 @@
 #include "base/types.h"
 #include "units/Feet.h"
 #include "units/Miles.h"
-#include "units/Yards.h"
 #include "units/Meters.h"
-#include "units/Centimeters.h"
 
 namespace units
 {
@@ -14,11 +12,9 @@ namespace units
     /**
      * Forward declataration of class.
      */
-    class Centimeters;
     class Meters;
     class Feet;
     class Miles;
-    class Yards;
 
     class Kilometers
     {
@@ -37,11 +33,9 @@ namespace units
             /**
              * Constructor.
              */
-            explicit Kilometers(const Centimeters& n);
             explicit Kilometers(const Meters& n);
             explicit Kilometers(const Feet& n);
             explicit Kilometers(const Miles& n);
-            explicit Kilometers(const Yards& n);
 
 
             /**
