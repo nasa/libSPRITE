@@ -1,4 +1,4 @@
-SUBDIRS:=base units util math coord DEM SRTX SCALE
+SUBDIRS:=base units util math SRTX SCALE
 
 SP:=./
 include $(SP)rules.mk
