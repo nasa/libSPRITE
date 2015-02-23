@@ -2,6 +2,7 @@ NAMESPACE:=SRTX
 SRC:=Base_double_buffer.cpp \
      Base_ring_buffer.cpp \
      Buffer.cpp \
+     Container.cpp \
      End_of_frame.cpp \
      Mutex.cpp \
      Syncpoint.cpp \
