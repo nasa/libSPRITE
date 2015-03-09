@@ -1,4 +1,4 @@
 libSPRITE
 =========
 
-Comming Soon!
+Coming Soon!
