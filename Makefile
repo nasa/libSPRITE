@@ -1,4 +1,4 @@
-SUBDIRS:=base units util math SRTX SCALE
+SUBDIRS:=base net units util math SRTX SCALE
 
 SP:=./
 include $(SP)rules.mk
