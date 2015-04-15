@@ -1,6 +1,5 @@
 #include <signal.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <base/XPRINTF.h>
 
@@ -40,11 +39,28 @@ namespace net
     void UDP_client_ut::kill_echo()
     {
         kill(echo_pid, 9);
+        sleep(1);
     }
 
     void UDP_client_ut::test_client()
     {
         UDP_client client("localhost", PORT);
+
+        /* Send a message and look for an echo return.
+         */
+        char sbuffer[] = "Hello world\n";
+        int nsend = strlen(sbuffer);
+        CPPUNIT_ASSERT_EQUAL(nsend, client.write(sbuffer, nsend));
+
+        char rbuffer[BUFF_SIZE];
+        int n = client.read(rbuffer, BUFF_SIZE);
+        rbuffer[n] = '\0';
+        CPPUNIT_ASSERT(0 == strcmp(rbuffer, sbuffer));
+    }
+
+    void UDP_client_ut::test_client_ip()
+    {
+        UDP_client client("127.0.0.1", PORT);
 
         /* Send a message and look for an echo return.
          */

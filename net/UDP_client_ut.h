@@ -12,6 +12,7 @@ namespace net
 
         CPPUNIT_TEST(spawn_echo);
         CPPUNIT_TEST(test_client);
+        CPPUNIT_TEST(test_client_ip);
         CPPUNIT_TEST(kill_echo);
 
         CPPUNIT_TEST_SUITE_END();
@@ -24,6 +25,7 @@ namespace net
         void spawn_echo();
         void kill_echo();
         void test_client();
+        void test_client_ip();
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(UDP_client_ut);
