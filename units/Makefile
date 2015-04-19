@@ -7,8 +7,6 @@ SRC:=Days.cpp \
      Feetpersecondpersecond.cpp \
      Gallons.cpp \
      GPS_time.cpp \
-     J2000_time.cpp \
-     J2010_time.cpp \
      Kilometers.cpp \
      Kilometersperhour.cpp \
      Liters.cpp \
@@ -29,7 +27,6 @@ TEST_SRC:=Celsius_ut.cpp \
           Feet_ut.cpp \
           Gallons_ut.cpp \
           GPS_time_ut.cpp \
-          J2010_time_ut.cpp \
           Kilometersperhour_ut.cpp \
           Kilometers_ut.cpp \
           Liters_ut.cpp \

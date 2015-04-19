@@ -10,7 +10,6 @@ namespace units
      * Forward declataration of class.
      */
     class Days;
-    class J2010_time;
 
     /**
      * This class embodies the concept of GPS time as a unit of measure.
@@ -43,14 +42,6 @@ namespace units
 
 
             /**
-             * Constructor
-             * @param t Time in J2010 format.
-             */
-            explicit GPS_time(const J2010_time& t);
-
-
-
-            /**
              * Accessor method to retrieve the week number.
              * Returns the GPS week number.
              */
@@ -77,12 +68,6 @@ namespace units
              */
             Days toDays() const;
 
-
-            /**
-             * Type conversion from GPS epoch time to J2010 epoch days.
-             * @return GPS time converted to the J2010 epoch and format.
-             */
-            J2010_time toJ2010_time() const;
 
             /**
              * Overload operator+=
