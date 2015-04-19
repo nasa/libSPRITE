@@ -7,9 +7,16 @@ namespace units
 {
     class Celsius_ut : public CppUnit::TestFixture
     {
-
         CPPUNIT_TEST_SUITE(Celsius_ut);
 
+        /**
+         * @verifies{units-1.1}
+         * @verifies{units-1.2}
+         * @verifies{units-1.3}
+         * @verifies{units-1.5}
+         * @verifies{units-1.6}
+         * @verifies{units-1.7}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

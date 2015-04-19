@@ -1,0 +1,70 @@
+[
+  {
+    "id":"units-1"
+    "text":"Support engineering units of degrees Celsius temperature",
+    "success_criteria":[
+      {
+        "id":"units-1.1"
+        "text":"Create a Celsius datatype"
+      },
+      {
+        "id":"units-1.2"
+        "text":"Create a Celsius datatype with an initial value of type double"
+      },
+      {
+        "id":"units-1.3"
+        "text":"Allow implicit conversion of Celsius datatype to double."
+      },
+      {
+        "id":"units-1.4"
+        "text":"Prevent implicit conversion of a numeric datatype to a Celsius value."
+      },
+      {
+        "id":"units-1.5"
+        "text":"Perform routine math operations on a Celsius datatype."
+      },
+      {
+        "id":"units-1.6"
+        "text":"Increment a value of Celsius by a given amount."
+      },
+      {
+        "id":"units-1.7"
+        "text":"Decrement a value of Celsius by a given amount."
+      }
+    ]
+  }
+  {
+    "id":"units-2"
+    "text":"Support engineering units of Days",
+    "success_criteria":[
+      {
+        "id":"units-2.1"
+        "text":"Create a Days datatype"
+      },
+      {
+        "id":"units-2.2"
+        "text":"Create a Days datatype with an initial value of type double"
+      },
+      {
+        "id":"units-2.3"
+        "text":"Allow implicit conversion of Days datatype to double."
+      },
+      {
+        "id":"units-2.4"
+        "text":"Prevent implicit conversion of a Celsius datatype to a Days value."
+      },
+      {
+        "id":"units-2.5"
+        "text":"Perform routine math operations on a Days datatype."
+      },
+      {
+        "id":"units-2.6"
+        "text":"Increment a value of Days by a given amount."
+      },
+      {
+        "id":"units-2.7"
+        "text":"Decrement a value of Days by a given amount."
+      }
+    ]
+  }
+]
