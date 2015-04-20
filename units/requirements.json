@@ -141,7 +141,7 @@
   }
   {
     "id":"units-5"
-    "text":"Support engineering units of degrees Grams temperature",
+    "text":"Support engineering units of degrees Grams mass",
     "success_criteria":[
       {
         "id":"units-5.1"
@@ -162,6 +162,40 @@
       {
         "id":"units-5.5"
         "text":"Perform routine math operations on a Grams values."
+      }
+    ]
+  }
+  {
+    "id":"units-6"
+    "text":"Support engineering units of degrees Kilometers",
+    "success_criteria":[
+      {
+        "id":"units-6.1"
+        "text":"Create an default value instance of Kilometers type with value 0."
+      },
+      {
+        "id":"units-6.2"
+        "text":"Create an instance of Kilometers from an initial value of type double."
+      },
+      {
+        "id":"units-6.3"
+        "text":"Allow implicit conversion of Kilometers to type double."
+      },
+      {
+        "id":"units-6.4"
+        "text":"Prevent implicit conversion of a numeric value to a Kilometers value."
+      },
+      {
+        "id":"units-6.5"
+        "text":"Perform routine math operations on a Kilometers values."
+      }
+      {
+        "id":"units-6.6"
+        "text":"Implement conversion from type Kilometers to type Meters."
+      }
+      {
+        "id":"units-6.7"
+        "text":"Create an instance of Kilometers from and initial value of type Meters."
       }
     ]
   }
