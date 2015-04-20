@@ -1,6 +1,6 @@
 NAMESPACE:=SCALE
 
-LUAINCPATH:=/usr/include/lua
+LUAINCPATH:=/usr/local/include
 LUALIB:=lua
 
 SRC:=Scale_if.cpp \
