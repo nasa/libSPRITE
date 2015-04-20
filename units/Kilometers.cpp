@@ -1,3 +1,4 @@
+#include "units/Meters.h"
 #include "units/Kilometers.h"
 
 namespace units
@@ -6,16 +7,6 @@ namespace units
     Kilometers::Kilometers(const Meters& n)
     {
         *this = n.toKilometers();
-    }
-
-    Kilometers::Kilometers(const Feet& n)
-    {
-        *this = n.toMeters().toKilometers();
-    }
-
-    Kilometers::Kilometers(const Miles& n)
-    {
-        *this = n.toFeet().toMeters().toKilometers();
     }
 
     units::Meters  Kilometers::toMeters() const

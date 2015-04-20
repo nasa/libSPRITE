@@ -2,15 +2,9 @@
 #define __UNITS_METERSPERSECONDPERSECOND_H__
 
 #include "base/types.h"
-#include "units/Feetpersecondpersecond.h"
 
 namespace units
 {
-
-    /**
-     * Forward declataration of class.
-     */
-    class Feetpersecondpersecond;
 
     class Meterspersecondpersecond
     {
@@ -27,23 +21,12 @@ namespace units
 
 
             /**
-             * Constructor.
-             */
-            explicit Meterspersecondpersecond(const Feetpersecondpersecond& n);
-
-            /**
              * Type conversion to double.
              */
             operator double() const
             {
                 return m_value;
             }
-
-            /**
-             * Type conversion from Meterspersecondpersecond to Feetpersecondpersecond.
-             */
-            units::Feetpersecondpersecond toFeetpersecondpersecond() const;
-
 
             /**
              * Overload operator+

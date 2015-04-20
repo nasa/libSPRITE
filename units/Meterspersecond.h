@@ -7,13 +7,6 @@
 namespace units
 {
 
-    /**
-     * Forward declataration of class.
-     */
-    class Kilometersperhour;
-    class Feetpersecond;
-    class Milesperhour;
-
     class Meterspersecond
     {
         public:
@@ -28,52 +21,12 @@ namespace units
             }
 
             /**
-             * Constructor.
-             */
-            explicit Meterspersecond(const Kilometersperhour& n);
-            explicit Meterspersecond(const Feetpersecond& n);
-            explicit Meterspersecond(const Milesperhour& n);
-
-            /**
              * Type conversion to double.
              */
             operator double() const
             {
                 return m_value;
             }
-
-            /**
-             * Type conversion from Meterspersecond to Kilometersperhour.
-             */
-            units::Kilometersperhour toKilometersperhour() const;
-
-            /**
-             * Type conversion from Meterspersecond to Feetpersecond.
-             */
-            units::Feetpersecond toFeetpersecond() const;
-
-
-            /**
-             * Overload operator+
-             * @param rhs Right hand side of the operation.
-             * @return The added value
-             */
-            Meterspersecond operator+(const Meterspersecond& rhs) const
-            {
-                return Meterspersecond(m_value + rhs.m_value);
-            }
-
-
-            /**
-             * Overload operator-
-             * @param rhs Right hand side of the operation.
-             * @return The subtracted value.
-             */
-            Meterspersecond operator-(const Meterspersecond& rhs) const
-            {
-                return Meterspersecond(m_value - rhs.m_value);
-            }
-
 
             /**
              * Overload operator+=

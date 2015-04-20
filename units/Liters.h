@@ -2,16 +2,9 @@
 #define __UNITS_LITERS_H__
 
 #include "base/types.h"
-#include "units/Gallons.h"
 
 namespace units
 {
-
-    /**
-     * Forward declataration of class.
-     */
-    class Gallons;
-
     class Liters
     {
         public:
@@ -27,23 +20,12 @@ namespace units
 
 
             /**
-             * Constructor.
-             */
-            explicit Liters(const Gallons& n);
-
-            /**
              * Type conversion to double.
              */
             operator double() const
             {
                 return m_value;
             }
-
-            /**
-             * Type conversion from Liters to Gallons.
-             */
-            units::Gallons toGallons() const;
-
 
         private:
             double m_value;
