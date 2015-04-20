@@ -1,5 +1,3 @@
-// Liters_ut.h
-
 #ifndef __UNITS_LITERS_UT_H__
 #define __UNITS_LITERS_UT_H__
 
@@ -13,6 +11,9 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Liters_ut);
 
+        /**
+         * @verifies{units-7.2}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

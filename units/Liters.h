@@ -12,8 +12,11 @@ namespace units
             /**
              * Constructor.
              * @param v Number of Liters.
+             * @satisfies{units-7.1}
+             * @satisfies{units-7.2}
+             * @satisfies{units-7.4}
              */
-            explicit Liters(double v)
+            explicit Liters(double v = 0.0)
                 : m_value(v)
             {
             }
@@ -21,6 +24,8 @@ namespace units
 
             /**
              * Type conversion to double.
+             * @satisfies{units-7.3}
+             * @satisfies{units-7.5}
              */
             operator double() const
             {

@@ -199,4 +199,30 @@
       }
     ]
   }
+  {
+    "id":"units-7"
+    "text":"Support engineering units of degrees Liters",
+    "success_criteria":[
+      {
+        "id":"units-7.1"
+        "text":"Create an default value instance of Liters type with value 0."
+      },
+      {
+        "id":"units-7.2"
+        "text":"Create an instance of Liters from an initial value of type double."
+      },
+      {
+        "id":"units-7.3"
+        "text":"Allow implicit conversion of Liters to type double."
+      },
+      {
+        "id":"units-7.4"
+        "text":"Prevent implicit conversion of a numeric value to a Liters value."
+      },
+      {
+        "id":"units-7.5"
+        "text":"Perform routine math operations on a Liters values."
+      }
+    ]
+  }
 ]
