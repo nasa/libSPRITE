@@ -18,6 +18,7 @@ SYSTEM:=$(shell uname)
 ARCH:=$(shell uname -m)
 
 HEADERS:=$(shell ls *\.h 2>/dev/null | grep -s -v _ut\.h)
+HEADERS+=$(shell ls *\.hpp 2>/dev/null)
 
 OBJS:=$(patsubst %.cpp, %.o, $(SRC))
 DEPS:=$(patsubst %.cpp, %.d, $(SRC))

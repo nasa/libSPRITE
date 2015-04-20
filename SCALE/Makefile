@@ -1,7 +1,7 @@
 NAMESPACE:=SCALE
 
-LUAINCPATH:=/usr/local/include
-LUALIB:=lua
+LUA_INCLUDE:=/usr/local/include
+LUA_LIB:=lua
 
 SRC:=Scale_if.cpp \
      Nest.cpp
@@ -13,7 +13,7 @@ TGT:=SPRITE_$(NAMESPACE)
 TGTTYPE:=static_lib
 
 CFLAGS=-O2 -I$(LUAINCPATH) #-DXPRINT_LOCATION -DPRINT_DEBUG
-LDFLAGS+=-lSPRITE_SRTX -lSPRITE_units -lrt -lpthread -l$(LUALIB) -ldl
+LDFLAGS+=-lSPRITE_SRTX -lSPRITE_units -lrt -lpthread -l$(LUA_LIB) -ldl
 
 EXTRA_LIB:=scheduler.lua
 
