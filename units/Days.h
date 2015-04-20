@@ -26,11 +26,13 @@ namespace units
 
         /**
          * Constructor.
+         * @satisfies{units-2.8}
          */
         explicit Days(const Seconds &n);
 
         /**
          * Constructor.
+         * @satisfies{units-2.9}
          */
         explicit Days(const GPS_time &n);
 
@@ -47,6 +49,7 @@ namespace units
         /**
          * Type conversion from days to seconds.
          * @return days value conversion to seconds.
+         * @satisfies{units-2.10}
          */
         Seconds toSeconds() const;
 

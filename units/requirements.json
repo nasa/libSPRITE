@@ -5,23 +5,23 @@
     "success_criteria":[
       {
         "id":"units-1.1"
-        "text":"Create a Celsius datatype"
+        "text":"Create an default value instance of Celsius type with value 0."
       },
       {
         "id":"units-1.2"
-        "text":"Create a Celsius datatype with an initial value of type double"
+        "text":"Create an instance of Celsius from an initial value of type double"
       },
       {
         "id":"units-1.3"
-        "text":"Allow implicit conversion of Celsius datatype to double."
+        "text":"Allow implicit conversion of Celsius to type double."
       },
       {
         "id":"units-1.4"
-        "text":"Prevent implicit conversion of a numeric datatype to a Celsius value."
+        "text":"Prevent implicit conversion of a numeric value to a Celsius value."
       },
       {
         "id":"units-1.5"
-        "text":"Perform routine math operations on a Celsius datatype."
+        "text":"Perform routine math operations on a Celsius values."
       },
       {
         "id":"units-1.6"
@@ -39,23 +39,23 @@
     "success_criteria":[
       {
         "id":"units-2.1"
-        "text":"Create a Days datatype"
+        "text":"Create an default value instance of Days type with value 0."
       },
       {
         "id":"units-2.2"
-        "text":"Create a Days datatype with an initial value of type double"
+        "text":"Create an instance of Days from an initial value of type double"
       },
       {
         "id":"units-2.3"
-        "text":"Allow implicit conversion of Days datatype to double."
+        "text":"Allow implicit conversion of Days to type double."
       },
       {
         "id":"units-2.4"
-        "text":"Prevent implicit conversion of a Celsius datatype to a Days value."
+        "text":"Prevent implicit conversion of a numerical valud to a Days value."
       },
       {
         "id":"units-2.5"
-        "text":"Perform routine math operations on a Days datatype."
+        "text":"Perform routine math operations on a Days values."
       },
       {
         "id":"units-2.6"
@@ -64,6 +64,52 @@
       {
         "id":"units-2.7"
         "text":"Decrement a value of Days by a given amount."
+      },
+      {
+        "id":"units-2.8"
+        "text":"Create an instance of Days from an initial value of type Seconds."
+      },
+      {
+        "id":"units-2.9"
+        "text":"Create an instance of Days from an initial value of type GPS_time."
+      },
+      {
+        "id":"units-2.10"
+        "text":"Implement conversion from type Days to type Seconds."
+      }
+    ]
+  }
+  {
+    "id":"units-3"
+    "text":"Support engineering units of Degrees",
+    "success_criteria":[
+      {
+        "id":"units-3.1"
+        "text":"Create an default value instance of Degrees type with value 0."
+      },
+      {
+        "id":"units-3.2"
+        "text":"Create an instance of Degrees from an initial value of type double"
+      },
+      {
+        "id":"units-3.3"
+        "text":"Allow implicit conversion of Degrees to type double."
+      },
+      {
+        "id":"units-3.4"
+        "text":"Prevent implicit conversion of a numerical valud to a Degrees value."
+      },
+      {
+        "id":"units-3.5"
+        "text":"Perform routine math operations on a Degrees values."
+      },
+      {
+        "id":"units-3.6"
+        "text":"Create an instance of Degrees from an initial value of type Radians."
+      },
+      {
+        "id":"units-3.7"
+        "text":"Implement conversion from type Degrees to type Radians."
       }
     ]
   }
