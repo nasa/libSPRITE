@@ -1,7 +1,7 @@
 [
   {
     "id":"units-1"
-    "text":"Support engineering units of degrees Celsius temperature",
+    "text":"Support engineering units of degrees Celsius temperature.",
     "success_criteria":[
       {
         "id":"units-1.1"
@@ -35,7 +35,7 @@
   }
   {
     "id":"units-2"
-    "text":"Support engineering units of Days",
+    "text":"Support engineering units of Days.",
     "success_criteria":[
       {
         "id":"units-2.1"
@@ -77,7 +77,7 @@
   }
   {
     "id":"units-3"
-    "text":"Support engineering units of Degrees",
+    "text":"Support engineering units of Degrees.",
     "success_criteria":[
       {
         "id":"units-3.1"
@@ -111,7 +111,7 @@
   }
   {
     "id":"units-4"
-    "text":"Support engineering units of GPS_time",
+    "text":"Support engineering units of GPS_time.",
     "success_criteria":[
       {
         "id":"units-4.1"
@@ -141,7 +141,7 @@
   }
   {
     "id":"units-5"
-    "text":"Support engineering units of degrees Grams mass",
+    "text":"Support engineering units of degrees Grams mass.",
     "success_criteria":[
       {
         "id":"units-5.1"
@@ -167,7 +167,7 @@
   }
   {
     "id":"units-6"
-    "text":"Support engineering units of degrees Kilometers",
+    "text":"Support engineering units of degrees Kilometers.",
     "success_criteria":[
       {
         "id":"units-6.1"
@@ -201,7 +201,7 @@
   }
   {
     "id":"units-7"
-    "text":"Support engineering units of degrees Liters",
+    "text":"Support engineering units of degrees Liters.",
     "success_criteria":[
       {
         "id":"units-7.1"
@@ -222,6 +222,56 @@
       {
         "id":"units-7.5"
         "text":"Perform routine math operations on a Liters values."
+      }
+    ]
+  }
+  {
+    "id":"units-8"
+    "text":"Support engineering units of Meters.",
+    "success_criteria":[
+      {
+        "id":"units-8.1"
+        "text":"Create an default value instance of Meters type with value 0."
+      },
+      {
+        "id":"units-8.2"
+        "text":"Create an instance of Meters from an initial value of type double."
+      },
+      {
+        "id":"units-8.3"
+        "text":"Allow implicit conversion of Meters to type double."
+      },
+      {
+        "id":"units-8.4"
+        "text":"Prevent implicit conversion of a numeric value to a Meters value."
+      },
+      {
+        "id":"units-8.5"
+        "text":"Perform routine math operations on a Meters values."
+      },
+      {
+        "id":"units-8.6"
+        "text":"Increment a value of Meters by a given amount."
+      },
+      {
+        "id":"units-8.7"
+        "text":"Decrement a value of Meters by a given amount."
+      }
+      {
+        "id":"units-8.8"
+        "text":"Multiply a value of Meters by a given amount."
+      }
+      {
+        "id":"units-8.9"
+        "text":"Divide a value of Meters by a given amount."
+      }
+      {
+        "id":"units-8.10"
+        "text":"Implement conversion from type Meters to type Kilometers."
+      }
+      {
+        "id":"units-8.11"
+        "text":"Create an instance of Meters from and initial value of type Kilometers."
       }
     ]
   }
