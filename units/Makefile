@@ -2,7 +2,6 @@ NAMESPACE:=units
 
 SRC:=Days.cpp \
      Degrees.cpp \
-     GPS_time.cpp \
      Kilometers.cpp \
      Meters.cpp \
      Nanoseconds.cpp \

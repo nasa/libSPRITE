@@ -9,7 +9,7 @@
       },
       {
         "id":"units-1.2"
-        "text":"Create an instance of Celsius from an initial value of type double"
+        "text":"Create an instance of Celsius from an initial value of type double."
       },
       {
         "id":"units-1.3"
@@ -43,7 +43,7 @@
       },
       {
         "id":"units-2.2"
-        "text":"Create an instance of Days from an initial value of type double"
+        "text":"Create an instance of Days from an initial value of type double."
       },
       {
         "id":"units-2.3"
@@ -70,10 +70,6 @@
         "text":"Create an instance of Days from an initial value of type Seconds."
       },
       {
-        "id":"units-2.9"
-        "text":"Create an instance of Days from an initial value of type GPS_time."
-      },
-      {
         "id":"units-2.10"
         "text":"Implement conversion from type Days to type Seconds."
       }
@@ -89,7 +85,7 @@
       },
       {
         "id":"units-3.2"
-        "text":"Create an instance of Degrees from an initial value of type double"
+        "text":"Create an instance of Degrees from an initial value of type double."
       },
       {
         "id":"units-3.3"
@@ -110,6 +106,36 @@
       {
         "id":"units-3.7"
         "text":"Implement conversion from type Degrees to type Radians."
+      }
+    ]
+  }
+  {
+    "id":"units-4"
+    "text":"Support engineering units of GPS_time",
+    "success_criteria":[
+      {
+        "id":"units-4.1"
+        "text":"Create an default value instance of GPS_time type with value week 1, seconds 0."
+      },
+      {
+        "id":"units-4.2"
+        "text":"Create an instance of GPS_time from given initial values of weeks and seconds."
+      },
+      {
+        "id":"units-4.3"
+        "text":"Provide access to the GPS week number."
+      },
+      {
+        "id":"units-4.4"
+        "text":"Provide access to the GPS seconds value."
+      },
+      {
+        "id":"units-4.5"
+        "text":"Increment a value of GPS_time by a given amount of Seconds."
+      },
+      {
+        "id":"units-4.6"
+        "text":"Compute the difference between two instances of GPS_time."
       }
     ]
   }

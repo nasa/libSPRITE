@@ -31,12 +31,6 @@ namespace units
         explicit Days(const Seconds &n);
 
         /**
-         * Constructor.
-         * @satisfies{units-2.9}
-         */
-        explicit Days(const GPS_time &n);
-
-        /**
          * Type conversion to double.
          * @satisfies{units-2.3}
          * @satisfies{units-2.5}

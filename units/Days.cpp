@@ -1,5 +1,4 @@
 #include "units/Days.h"
-#include "units/GPS_time.h"
 #include "units/Seconds.h"
 
 
@@ -7,11 +6,6 @@ namespace units
 {
 
     Days::Days(const Seconds& n)
-    {
-        *this = n.toDays();
-    }
-
-    Days::Days(const GPS_time& n)
     {
         *this = n.toDays();
     }
