@@ -22,14 +22,6 @@
       {
         "id":"units-1.5"
         "text":"Perform routine math operations on a Celsius values."
-      },
-      {
-        "id":"units-1.6"
-        "text":"Increment a value of Celsius by a given amount."
-      },
-      {
-        "id":"units-1.7"
-        "text":"Decrement a value of Celsius by a given amount."
       }
     ]
   }
@@ -56,14 +48,6 @@
       {
         "id":"units-2.5"
         "text":"Perform routine math operations on a Days values."
-      },
-      {
-        "id":"units-2.6"
-        "text":"Increment a value of Days by a given amount."
-      },
-      {
-        "id":"units-2.7"
-        "text":"Decrement a value of Days by a given amount."
       },
       {
         "id":"units-2.8"
@@ -141,7 +125,7 @@
   }
   {
     "id":"units-5"
-    "text":"Support engineering units of degrees Grams mass.",
+    "text":"Support engineering units of Grams mass.",
     "success_criteria":[
       {
         "id":"units-5.1"
@@ -250,22 +234,6 @@
         "text":"Perform routine math operations on a Meters values."
       },
       {
-        "id":"units-8.6"
-        "text":"Increment a value of Meters by a given amount."
-      },
-      {
-        "id":"units-8.7"
-        "text":"Decrement a value of Meters by a given amount."
-      }
-      {
-        "id":"units-8.8"
-        "text":"Multiply a value of Meters by a given amount."
-      }
-      {
-        "id":"units-8.9"
-        "text":"Divide a value of Meters by a given amount."
-      }
-      {
         "id":"units-8.10"
         "text":"Implement conversion from type Meters to type Kilometers."
       }
@@ -298,14 +266,6 @@
       {
         "id":"units-9.5"
         "text":"Perform routine math operations on a Meterspersecond values."
-      },
-      {
-        "id":"units-9.6"
-        "text":"Increment a value of Meterspersecond by a given amount."
-      },
-      {
-        "id":"units-9.7"
-        "text":"Decrement a value of Meterspersecond by a given amount."
       }
     ]
   }
@@ -332,14 +292,6 @@
       {
         "id":"units-10.5"
         "text":"Perform routine math operations on a Meterspersecondpersecond values."
-      },
-      {
-        "id":"units-10.6"
-        "text":"Increment a value of Meterspersecondpersecond by a given amount."
-      },
-      {
-        "id":"units-10.7"
-        "text":"Decrement a value of Meterspersecondpersecond by a given amount."
       }
     ]
   }

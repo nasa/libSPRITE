@@ -26,7 +26,6 @@ namespace units
             /**
              * Type conversion to double.
              * @satisfies{units-10.3}
-             * @satisfies{units-10.5}
              */
             operator double() const
             {
@@ -37,7 +36,7 @@ namespace units
              * Overload operator+=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value added.
-             * @satisfies{units-10.6}
+             * @satisfies{units-10.5}
              */
             Meterspersecondpersecond& operator+=(const Meterspersecondpersecond& rhs)
             {
@@ -51,7 +50,7 @@ namespace units
              * Overload operator-=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value subtracted.
-             * @satisfies{units-10.7}
+             * @satisfies{units-10.5}
              */
             Meterspersecondpersecond& operator-=(const Meterspersecondpersecond& rhs)
             {

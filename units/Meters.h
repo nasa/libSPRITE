@@ -37,7 +37,6 @@ namespace units
             /**
              * Type conversion to double.
              * @satisfies{units-8.3}
-             * @satisfies{units-8.5}
              */
             operator double() const
             {
@@ -54,7 +53,7 @@ namespace units
              * Overload operator+=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value added.
-             * @satisfies{units-8.6}
+             * @satisfies{units-8.5}
              */
             Meters& operator+=(const Meters& rhs)
             {
@@ -68,7 +67,7 @@ namespace units
              * Overload operator-=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value subtracted.
-             * @satisfies{units-8.7}
+             * @satisfies{units-8.5}
              */
             Meters& operator-=(const Meters& rhs)
             {
@@ -82,7 +81,7 @@ namespace units
              * Overload operator*=
              * @param rhs Right hand side of the operation.
              * @return This instance divided by the right hand side.
-             * @satisfies{units-8.8}
+             * @satisfies{units-8.5}
              */
             Meters& operator*=(const Meters& rhs)
             {
@@ -96,7 +95,7 @@ namespace units
              * Overload operator/=
              * @param rhs Right hand side of the operation.
              * @return This instance divided by the right hand side.
-             * @satisfies{units-8.9}
+             * @satisfies{units-8.5}
              */
             Meters& operator/=(const Meters& rhs)
             {

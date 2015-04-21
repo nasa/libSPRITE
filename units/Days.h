@@ -33,7 +33,6 @@ namespace units
         /**
          * Type conversion to double.
          * @satisfies{units-2.3}
-         * @satisfies{units-2.5}
          */
         operator double() const
         {
@@ -51,7 +50,7 @@ namespace units
          * Overload operator+=
          * @param rhs Right hand side of the operation.
          * @return This instance with the right hand side value added.
-         * @satisfies{units-2.6}
+         * @satisfies{units-2.5}
          */
         Days &operator+=(const Days &rhs)
         {
@@ -64,7 +63,7 @@ namespace units
          * Overload operator-=
          * @param rhs Right hand side of the operation.
          * @return This instance with the right hand side value subtracted.
-         * @satisfies{units-2.7}
+         * @satisfies{units-2.5}
          */
         Days &operator-=(const Days &rhs)
         {

@@ -25,7 +25,6 @@ namespace units
             /**
              * Type conversion to double.
              * @satisfies{units-7.3}
-             * @satisfies{units-7.5}
              */
             operator double() const
             {

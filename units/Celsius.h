@@ -21,7 +21,6 @@ namespace units
         /**
          * Type conversion to double.
          * @satisfies{units-1.3}
-         * @satisfies{units-1.5}
          */
         operator double() const
         {
@@ -32,7 +31,7 @@ namespace units
          * Overload operator+=
          * @param rhs Right hand side of the operation.
          * @return This instance with the right hand side value added.
-         * @satisfies{units-1.6}
+         * @satisfies{units-1.5}
          */
         Celsius &operator+=(const Celsius &rhs)
         {
@@ -45,7 +44,7 @@ namespace units
          * Overload operator-=
          * @param rhs Right hand side of the operation.
          * @return This instance with the right hand side value subtracted.
-         * @satisfies{units-1.7}
+         * @satisfies{units-1.5}
          */
         Celsius &operator-=(const Celsius &rhs)
         {
