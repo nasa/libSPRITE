@@ -389,4 +389,68 @@
       }
     ]
   }
+  {
+    "id":"units-14"
+    "text":"Support engineering units of Radianspersecond.",
+    "success_criteria":[
+      {
+        "id":"units-14.1"
+        "text":"Create an default value instance of Radianspersecond type with value 0."
+      },
+      {
+        "id":"units-14.2"
+        "text":"Create an instance of Radianspersecond from an initial value of type double."
+      },
+      {
+        "id":"units-14.3"
+        "text":"Allow implicit conversion of Radianspersecond to type double."
+      },
+      {
+        "id":"units-14.4"
+        "text":"Prevent implicit conversion of a numeric value to a Radianspersecond value."
+      }
+    ]
+  }
+  {
+    "id":"units-15"
+    "text":"Support engineering units of degrees Seconds.",
+    "success_criteria":[
+      {
+        "id":"units-15.1"
+        "text":"Create an default value instance of Seconds type with value 0."
+      },
+      {
+        "id":"units-15.2"
+        "text":"Create an instance of Seconds from an initial value of type double."
+      },
+      {
+        "id":"units-15.3"
+        "text":"Allow implicit conversion of Seconds to type double."
+      },
+      {
+        "id":"units-15.4"
+        "text":"Prevent implicit conversion of a numeric value to a Seconds value."
+      },
+      {
+        "id":"units-15.5"
+        "text":"Perform routine math operations on a Seconds values."
+      }
+      {
+        "id":"units-15.6"
+        "text":"Implement conversion from type Seconds to type Nanoseconds."
+      }
+      {
+        "id":"units-15.7"
+        "text":"Create an instance of Seconds from and initial value of type Nanoseconds."
+      }
+      {
+        "id":"units-15.8"
+        "text":"Implement conversion from type Seconds to type Days."
+      }
+      {
+        "id":"units-15.9"
+        "text":"Create an instance of Seconds from and initial value of type Days."
+      }
+    ]
+  }
 ]
