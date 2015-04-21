@@ -4,7 +4,6 @@
 #include "SRTX/Symbol_table_ut.h"
 #include "SRTX/Symbol_db.h"
 
-
 namespace SRTX
 {
 
@@ -12,16 +11,14 @@ namespace SRTX
     {
     }
 
-
     void Symbol_table_ut::tearDown()
     {
     }
 
-
     void Symbol_table_ut::test_add_symbol_d()
     {
         Symbol_table<double> tbl;
-        Symbol_table<double>::symbol_t* symbol;
+        Symbol_table<double>::symbol_t *symbol;
         const char *sym_name = "d";
         double d = 1.14;
         double dtmp = 3.14;
@@ -50,14 +47,13 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(dtmp, d);
     }
 
-
     void Symbol_table_ut::test_add_symbol_i()
     {
-        Symbol_db<int>& tbl = Symbol_db<int>::get_instance();
-        Symbol_table<int>::symbol_t* symbol_a;
-        Symbol_table<int>::symbol_t* symbol_b;
-        const char* sym1 = "int_a";
-        const char* sym2 = "int_b";
+        Symbol_db<int> &tbl = Symbol_db<int>::get_instance();
+        Symbol_table<int>::symbol_t *symbol_a;
+        Symbol_table<int>::symbol_t *symbol_b;
+        const char *sym1 = "int_a";
+        const char *sym2 = "int_b";
         int a = 1;
         int b = 2;
 
@@ -90,16 +86,15 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(b, atmp);
     }
 
-
     void Symbol_table_ut::test_add_symbol_p()
     {
-        Symbol_table<int*> tbl;
-        Symbol_table<int*>::symbol_t* symbol_a;
-        Symbol_table<int*>::symbol_t* symbol_b;
-        const char* sym1 = "int_a";
-        const char* sym2 = "int_b";
-        int* a = new int;
-        int* b = new int;
+        Symbol_table<int *> tbl;
+        Symbol_table<int *>::symbol_t *symbol_a;
+        Symbol_table<int *>::symbol_t *symbol_b;
+        const char *sym1 = "int_a";
+        const char *sym2 = "int_b";
+        int *a = new int;
+        int *b = new int;
 
         *a = 1;
         *b = 2;
@@ -114,8 +109,8 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(true, symbol_b->is_valid());
         CPPUNIT_ASSERT_EQUAL(true, symbol_a->entry->write(a));
         CPPUNIT_ASSERT_EQUAL(true, symbol_b->entry->write(b));
-        int* atmp;
-        int* btmp;
+        int *atmp;
+        int *btmp;
         CPPUNIT_ASSERT_EQUAL(true, symbol_a->entry->read(atmp));
         CPPUNIT_ASSERT_EQUAL(a, atmp);
         CPPUNIT_ASSERT_EQUAL(*a, *atmp);
@@ -124,15 +119,14 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(*b, *btmp);
     }
 
-
     void Symbol_table_ut::test_add_alias()
     {
-        Symbol_db<int>& tbl = Symbol_db<int>::get_instance();
+        Symbol_db<int> &tbl = Symbol_db<int>::get_instance();
         char alias[] = "frijole";
 
         /* Attempting to assign an alias to a NULL symbol should fail.
          */
-        Symbol_table<int>::symbol_t* sym;
+        Symbol_table<int>::symbol_t *sym;
         IPRINTF("\nThis test is expected to generate an error message.\n");
         sym = tbl.alias_symbol(alias, NULL);
         CPPUNIT_ASSERT(NULL == sym);
@@ -140,7 +134,7 @@ namespace SRTX
         /* Lookup an existing entry and enter it in the table as an alias.
          */
         char sym_name[] = "int_a";
-        Symbol_table<int>::symbol_t* sym_a;
+        Symbol_table<int>::symbol_t *sym_a;
         sym_a = tbl.lookup_symbol(sym_name);
         CPPUNIT_ASSERT(sym_a != NULL);
         CPPUNIT_ASSERT_EQUAL(true, sym_a->is_valid());
@@ -174,13 +168,12 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(a, alias_a);
     }
 
-
     void sigcatcher(int sig)
     {
         const char *sym_name = "int_blocking";
         typedef Symbol_db<int> sym_tbl_t;
-        static sym_tbl_t& tbl = sym_tbl_t::get_instance();
-        static Symbol_table<int>::symbol_t* sym = tbl.lookup_symbol(sym_name);
+        static sym_tbl_t &tbl = sym_tbl_t::get_instance();
+        static Symbol_table<int>::symbol_t *sym = tbl.lookup_symbol(sym_name);
         static int a(9);
 
         if(SIGALRM == sig)
@@ -189,14 +182,13 @@ namespace SRTX
         }
     }
 
-
     void Symbol_table_ut::test_blocking()
     {
         typedef Symbol_db<int> sym_tbl_t;
-        sym_tbl_t& tbl = sym_tbl_t::get_instance();
+        sym_tbl_t &tbl = sym_tbl_t::get_instance();
 
         char sym_name[] = "int_blocking";
-        Symbol_table<int>::symbol_t* sym = tbl.add_symbol(sym_name);
+        Symbol_table<int>::symbol_t *sym = tbl.add_symbol(sym_name);
 
         /* Verify that we can set and get the value and the basic timeout call
          * works.
@@ -205,8 +197,8 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(true, sym->entry->write(a));
         units::Nanoseconds now;
         get_time(now);
-        CPPUNIT_ASSERT_EQUAL(true, sym->entry->read_blocking(a,
-                    now + units::Nanoseconds(100)));
+        CPPUNIT_ASSERT_EQUAL(
+            true, sym->entry->read_blocking(a, now + units::Nanoseconds(100)));
         CPPUNIT_ASSERT_EQUAL(42, a);
 
         /* Set up the alarm.
@@ -229,13 +221,14 @@ namespace SRTX
         alarm(1);
         // This one should time out early.
         get_time(now);
-        CPPUNIT_ASSERT_EQUAL(true, sym->entry->read_blocking(a,
-                    now + units::Nanoseconds(100)));
+        CPPUNIT_ASSERT_EQUAL(
+            true, sym->entry->read_blocking(a, now + units::Nanoseconds(100)));
         CPPUNIT_ASSERT_EQUAL(10, a);
         // This one should get an updated (incremented) value.
         get_time(now);
-        CPPUNIT_ASSERT_EQUAL(true, sym->entry->read_blocking(a,
-                    now + units::Nanoseconds(units::SEC)));
+        CPPUNIT_ASSERT_EQUAL(
+            true,
+            sym->entry->read_blocking(a, now + units::Nanoseconds(units::SEC)));
         alarm(0);
         CPPUNIT_ASSERT_EQUAL(11, a);
     }

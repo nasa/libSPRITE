@@ -7,32 +7,30 @@ namespace units
 {
     class Liters
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of Liters.
+         * @satisfies{units-7.1}
+         * @satisfies{units-7.2}
+         * @satisfies{units-7.4}
+         */
+        explicit Liters(double v = 0.0)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of Liters.
-             * @satisfies{units-7.1}
-             * @satisfies{units-7.2}
-             * @satisfies{units-7.4}
-             */
-            explicit Liters(double v = 0.0)
-                : m_value(v)
-            {
-            }
+        /**
+         * Type conversion to double.
+         * @satisfies{units-7.3}
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-
-            /**
-             * Type conversion to double.
-             * @satisfies{units-7.3}
-             */
-            operator double() const
-            {
-                return m_value;
-            }
-
-        private:
-            double m_value;
+      private:
+        double m_value;
     };
 
 } // namespace

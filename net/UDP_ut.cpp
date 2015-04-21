@@ -20,7 +20,7 @@ namespace net
         const int port = 7500;
 
         UDP_server server(port);
-        //UDP_client client("localhost", port);
+        // UDP_client client("localhost", port);
         UDP_client client("127.0.0.1", port);
         CPPUNIT_ASSERT(true);
     }

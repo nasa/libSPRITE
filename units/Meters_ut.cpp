@@ -10,24 +10,23 @@ namespace units
     {
     }
 
-
     void Meters_ut::tearDown()
     {
     }
 
-
     void Meters_ut::test()
     {
-        const double KILOMETERS_PER_METER  = 0.001;
-        const double EPSILON               = 1e-12;
+        const double KILOMETERS_PER_METER = 0.001;
+        const double EPSILON = 1e-12;
 
         Meters m(1.0);
-        Kilometers  km(KILOMETERS_PER_METER);
+        Kilometers km(KILOMETERS_PER_METER);
 
         CPPUNIT_ASSERT_EQUAL(m, Meters(km));
         CPPUNIT_ASSERT_EQUAL(m, Meters(m));
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(KILOMETERS_PER_METER, m.toKilometers(), EPSILON);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(KILOMETERS_PER_METER, m.toKilometers(),
+                                     EPSILON);
 
         m = Meters(2 * 3);
 

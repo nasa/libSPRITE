@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace util
 {
 
@@ -17,18 +16,17 @@ namespace util
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test_int();
         void test_double();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Sample_set_ut);
 
-} //namespace
+} // namespace
 
 #endif // __UTIL_SAMPLE_SET_UT_H__

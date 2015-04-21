@@ -20,14 +20,13 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         Message_ut();
         ~Message_ut();
         void setUp();
         void tearDown();
 
-        protected:
-
+      protected:
         void test_Message();
 
         /**

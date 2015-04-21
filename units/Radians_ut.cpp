@@ -3,18 +3,15 @@
 #include "units/Radians.h"
 #include "units/Radians_ut.h"
 
-
 namespace units
 {
     void Radians_ut::setUp()
     {
     }
 
-
     void Radians_ut::tearDown()
     {
     }
-
 
     void Radians_ut::default_constructor()
     {

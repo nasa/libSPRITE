@@ -3,7 +3,6 @@
 #include "units/Kilometers_ut.h"
 #include "base/XPRINTF.h"
 
-
 namespace units
 {
 
@@ -11,25 +10,24 @@ namespace units
     {
     }
 
-
     void Kilometers_ut::tearDown()
     {
     }
 
-
     void Kilometers_ut::test()
     {
 
-        const double METERS_PER_KILOMETER    = 1000;
-        const double EPSILON                 = 1e-12;
+        const double METERS_PER_KILOMETER = 1000;
+        const double EPSILON = 1e-12;
 
         Kilometers km(1.0);
-        Meters  m(METERS_PER_KILOMETER);
+        Meters m(METERS_PER_KILOMETER);
 
         CPPUNIT_ASSERT_EQUAL(km, Kilometers(km));
         CPPUNIT_ASSERT_EQUAL(km, Kilometers(m));
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(METERS_PER_KILOMETER, km.toMeters(), EPSILON);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(METERS_PER_KILOMETER, km.toMeters(),
+                                     EPSILON);
 
         km = Kilometers(2 * 3);
 

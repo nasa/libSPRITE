@@ -14,103 +14,97 @@ namespace units
 
     class Meters
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of seconds.
+         * @satisfies{units-8.1}
+         * @satisfies{units-8.2}
+         * @satisfies{units-8.4}
+         */
+        explicit Meters(double v = 0.0)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of seconds.
-             * @satisfies{units-8.1}
-             * @satisfies{units-8.2}
-             * @satisfies{units-8.4}
-             */
-            explicit Meters(double v = 0.0)
-                : m_value(v)
-            {
-            }
+        /**
+         * Constructor.
+         * @satisfies{units-8.11}
+         */
+        explicit Meters(const Kilometers &n);
 
-            /**
-             * Constructor.
-             * @satisfies{units-8.11}
-             */
-            explicit Meters(const Kilometers& n);
+        /**
+         * Type conversion to double.
+         * @satisfies{units-8.3}
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Type conversion to double.
-             * @satisfies{units-8.3}
-             */
-            operator double() const
-            {
-                return m_value;
-            }
+        /**
+         * Type conversion from Meters to Kilometers.
+         * @satisfies{units-8.10}
+         */
+        units::Kilometers toKilometers() const;
 
-            /**
-             * Type conversion from Meters to Kilometers.
-             * @satisfies{units-8.10}
-             */
-            units::Kilometers toKilometers() const;
+        /**
+         * Overload operator+=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value added.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator+=(const Meters &rhs)
+        {
+            m_value += rhs.m_value;
 
-            /**
-             * Overload operator+=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value added.
-             * @satisfies{units-8.5}
-             */
-            Meters& operator+=(const Meters& rhs)
-            {
-                m_value += rhs.m_value;
+            return *this;
+        }
 
-                return *this;
-            }
+        /**
+         * Overload operator-=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value subtracted.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator-=(const Meters &rhs)
+        {
+            m_value -= rhs.m_value;
 
+            return *this;
+        }
 
-            /**
-             * Overload operator-=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value subtracted.
-             * @satisfies{units-8.5}
-             */
-            Meters& operator-=(const Meters& rhs)
-            {
-                m_value -= rhs.m_value;
+        /**
+         * Overload operator*=
+         * @param rhs Right hand side of the operation.
+         * @return This instance divided by the right hand side.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator*=(const Meters &rhs)
+        {
+            m_value *= rhs.m_value;
 
-                return *this;
-            }
+            return *this;
+        }
 
+        /**
+         * Overload operator/=
+         * @param rhs Right hand side of the operation.
+         * @return This instance divided by the right hand side.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator/=(const Meters &rhs)
+        {
+            m_value /= rhs.m_value;
 
-            /**
-             * Overload operator*=
-             * @param rhs Right hand side of the operation.
-             * @return This instance divided by the right hand side.
-             * @satisfies{units-8.5}
-             */
-            Meters& operator*=(const Meters& rhs)
-            {
-                m_value *= rhs.m_value;
+            return *this;
+        }
 
-                return *this;
-            }
-
-
-            /**
-             * Overload operator/=
-             * @param rhs Right hand side of the operation.
-             * @return This instance divided by the right hand side.
-             * @satisfies{units-8.5}
-             */
-            Meters& operator/=(const Meters& rhs)
-            {
-                m_value /= rhs.m_value;
-
-                return *this;
-            }
-
-        private:
-
-            /**
-             * Stored value.
-             */
-            double m_value;
-
+      private:
+        /**
+         * Stored value.
+         */
+        double m_value;
     };
 
 } // namespace

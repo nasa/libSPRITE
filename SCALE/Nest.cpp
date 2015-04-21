@@ -5,19 +5,17 @@
 namespace SCALE
 {
 
-    Nest::Nest(const char* const name) :
-        SRTX::Task(name),
-        m_scriptname(NULL),
-        m_scale(Scale_if::get_instance())
+    Nest::Nest(const char *const name)
+        : SRTX::Task(name)
+        , m_scriptname(NULL)
+        , m_scale(Scale_if::get_instance())
     {
     }
-
 
     bool Nest::init()
     {
         return true;
     }
-
 
     bool Nest::execute()
     {
@@ -41,7 +39,6 @@ namespace SCALE
          */
         return (m_props.period) ? true : false;
     }
-
 
     void Nest::terminate()
     {

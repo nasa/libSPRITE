@@ -3,22 +3,20 @@
 #include "SRTX/Base_double_buffer.h"
 #include "base/XPRINTF.h"
 
-
 namespace SRTX
 {
 
-    Base_double_buffer::Base_double_buffer(unsigned int nbytes) :
-        Buffer(nbytes),
-        m_selected(0)
+    Base_double_buffer::Base_double_buffer(unsigned int nbytes)
+        : Buffer(nbytes)
+        , m_selected(0)
     {
         m_buffer[0] = malloc(2 * nbytes);
-        m_buffer[1] = static_cast<uint8_t*>(m_buffer[0]) + nbytes;
+        m_buffer[1] = static_cast<uint8_t *>(m_buffer[0]) + nbytes;
 
         m_valid = m_sync.is_valid() && (m_buffer[0] != NULL);
     }
 
-
-    bool Base_double_buffer::read(void* data, unsigned int nbytes)
+    bool Base_double_buffer::read(void *data, unsigned int nbytes)
     {
         /* If the object is valid then we kwow the buffers are not NULL.
         */
@@ -43,9 +41,8 @@ namespace SRTX
         return true;
     }
 
-
-    bool Base_double_buffer::read_blocking(void* data, unsigned int nbytes,
-            const units::Nanoseconds& timeout)
+    bool Base_double_buffer::read_blocking(void *data, unsigned int nbytes,
+                                           const units::Nanoseconds &timeout)
     {
         /* If the object is valid then we kwow the buffers are not NULL.
         */
@@ -77,9 +74,8 @@ namespace SRTX
         return true;
     }
 
-
-    bool Base_double_buffer::write(void const* data, unsigned int nbytes,
-            bool signal)
+    bool Base_double_buffer::write(void const *data, unsigned int nbytes,
+                                   bool signal)
     {
         /* If the object is valid then we kwow the buffers are not NULL.
         */
@@ -121,15 +117,14 @@ namespace SRTX
         return true;
     }
 
-
     Base_double_buffer::~Base_double_buffer()
     {
         m_valid = false;
         free(m_buffer[0]);
     }
 
-    bool copy(Base_double_buffer& dest, Base_double_buffer& src,
-            unsigned int nbytes)
+    bool copy(Base_double_buffer &dest, Base_double_buffer &src,
+              unsigned int nbytes)
     {
 
         uint8_t tmp[nbytes];

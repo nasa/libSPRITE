@@ -20,7 +20,8 @@ namespace units
          * @satisfies{units-2.2}
          * @satisfies{units-2.4}
          */
-        explicit Days(double v = 0.0) : m_value(v)
+        explicit Days(double v = 0.0)
+            : m_value(v)
         {
         }
 

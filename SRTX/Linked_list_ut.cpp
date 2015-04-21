@@ -3,17 +3,13 @@
 namespace SRTX
 {
 
-
-
     void Linked_list_ut::setUp()
     {
     }
 
-
     void Linked_list_ut::tearDown()
     {
     }
-
 
     void Linked_list_ut::test_add_front()
     {
@@ -28,7 +24,6 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(3, ll_node->data);
     }
 
-
     void Linked_list_ut::test_add_back()
     {
         ll.add_back(1);
@@ -41,7 +36,6 @@ namespace SRTX
         ll_node = ll.head();
         CPPUNIT_ASSERT_EQUAL(1, ll_node->data);
     }
-
 
     void Linked_list_ut::test_iterate_forward()
     {
@@ -61,7 +55,6 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(5, i);
     }
 
-
     void Linked_list_ut::test_iterate_reverse()
     {
         ll.add_back(2);
@@ -79,7 +72,6 @@ namespace SRTX
         }
         CPPUNIT_ASSERT_EQUAL(0, i);
     }
-
 
     void Linked_list_ut::test_delete_front()
     {
@@ -106,7 +98,6 @@ namespace SRTX
         CPPUNIT_ASSERT(NULL == ll_node);
     }
 
-
     void Linked_list_ut::test_delete_back()
     {
         ll.add_front(3);
@@ -132,7 +123,6 @@ namespace SRTX
         CPPUNIT_ASSERT(NULL == ll_node);
     }
 
-
     void Linked_list_ut::test_delete_first_node()
     {
         ll.add_front(3);
@@ -146,7 +136,6 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(2, ll_node->data);
     }
 
-
     void Linked_list_ut::test_delete_last_node()
     {
         ll.add_front(3);
@@ -159,7 +148,6 @@ namespace SRTX
         ll_node = ll.tail();
         CPPUNIT_ASSERT_EQUAL(2, ll_node->data);
     }
-
 
     void Linked_list_ut::test_delete_middle_node()
     {
@@ -184,7 +172,6 @@ namespace SRTX
         ll_node = ll_node->next();
         CPPUNIT_ASSERT_EQUAL(3, ll_node->data);
     }
-
 
 #if 0
     /* Define some types to be used in the test below.

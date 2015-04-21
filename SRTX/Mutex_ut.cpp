@@ -1,7 +1,6 @@
 #include "SRTX/Mutex_ut.h"
 #include "SRTX/Mutex.h"
 
-
 namespace SRTX
 {
 
@@ -9,11 +8,9 @@ namespace SRTX
     {
     }
 
-
     void Mutex_ut::tearDown()
     {
     }
-
 
     void Mutex_ut::test_mutex()
     {

@@ -1,7 +1,6 @@
 #ifndef __SRTX_SCHEDULER_TYPES_H__
 #define __SRTX_SCHEDULER_TYPES_H__
 
-
 #include <pthread.h>
 #include "base/types.h"
 

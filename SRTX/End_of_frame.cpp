@@ -1,7 +1,6 @@
 #include "SRTX/End_of_frame.h"
 #include "SRTX/RTC.h"
 
-
 namespace SRTX
 {
 
@@ -31,7 +30,6 @@ namespace SRTX
         return spawn_thread();
     }
 
-
     bool End_of_frame::execute()
     {
         /* This is always the last task in a chain of periodic tasks, so when
@@ -49,4 +47,4 @@ namespace SRTX
         return true;
     }
 
-} //end namespace
+} // end namespace

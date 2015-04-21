@@ -1,11 +1,10 @@
 #include "units/Days.h"
 #include "units/Seconds.h"
 
-
 namespace units
 {
 
-    Days::Days(const Seconds& n)
+    Days::Days(const Seconds &n)
     {
         *this = n.toDays();
     }

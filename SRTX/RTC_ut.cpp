@@ -1,7 +1,6 @@
 #include "SRTX/RTC_ut.h"
 #include "SRTX/RTC.h"
 
-
 namespace SRTX
 {
 
@@ -9,11 +8,9 @@ namespace SRTX
     {
     }
 
-
     void RTC_ut::tearDown()
     {
     }
-
 
     void RTC_ut::test_RTC()
     {

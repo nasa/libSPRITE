@@ -4,12 +4,12 @@
 namespace units
 {
 
-    Kilometers::Kilometers(const Meters& n)
+    Kilometers::Kilometers(const Meters &n)
     {
         *this = n.toKilometers();
     }
 
-    units::Meters  Kilometers::toMeters() const
+    units::Meters Kilometers::toMeters() const
     {
         return Meters(m_value * 1000);
     }

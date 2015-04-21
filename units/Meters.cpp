@@ -4,7 +4,7 @@
 namespace units
 {
 
-    Meters::Meters(const Kilometers& n)
+    Meters::Meters(const Kilometers &n)
     {
         *this = n.toMeters();
     }

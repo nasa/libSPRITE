@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace math
 {
     class trig_ut : public CppUnit::TestFixture
@@ -17,11 +16,11 @@ namespace math
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test_sin();
         void test_cos();
         void test_tan();

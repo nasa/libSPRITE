@@ -14,7 +14,8 @@ namespace units
          * @satisfies{units-1.2}
          * @satisfies{units-1.4}
          */
-        explicit Celsius(double v = 0.0) : m_value(v)
+        explicit Celsius(double v = 0.0)
+            : m_value(v)
         {
         }
 

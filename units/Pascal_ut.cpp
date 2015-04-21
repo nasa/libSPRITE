@@ -2,7 +2,6 @@
 #include "units/Pascal.h"
 #include "units/Pascal_ut.h"
 
-
 namespace units
 {
 
@@ -10,11 +9,9 @@ namespace units
     {
     }
 
-
     void Pascal_ut::tearDown()
     {
     }
-
 
     void Pascal_ut::test()
     {
@@ -24,7 +21,6 @@ namespace units
 
         CPPUNIT_ASSERT_EQUAL(Pascal(tval), p1);
         CPPUNIT_ASSERT_EQUAL(tval, int32_t(p1));
-
 
         CPPUNIT_ASSERT_EQUAL(1002u, int32_t(p1 + p2));
         CPPUNIT_ASSERT_EQUAL(998u, int32_t(p1 - p2));

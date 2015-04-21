@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace SRTX
 {
     /**
@@ -20,15 +19,14 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test_get_priority();
         void test_get_period();
         void test_get_schedule_presence();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Task_properties_ut);

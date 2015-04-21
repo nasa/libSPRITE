@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace units
 {
     class Radians_ut : public CppUnit::TestFixture
@@ -24,11 +23,11 @@ namespace units
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void default_constructor();
         void test();
     };
