@@ -7,10 +7,9 @@ namespace units
 {
 
     /**
-     * Forward declataration of class.
+     * Forward declaration of class.
      */
     class Days;
-    class J2010_time;
 
     /**
      * This class embodies the concept of GPS time as a unit of measure.
@@ -21,6 +20,7 @@ namespace units
 
             /**
              * Default constructor.
+             * @satisfies{units-4.1}
              */
             GPS_time() :
                 m_week(1),
@@ -34,6 +34,7 @@ namespace units
              * @param week Number weeks elapsed since the GPS epoch.
              * @param seconds Number seconds elapsed since the begining of the
              * current GPS week.
+             * @satisfies{units-4.2}
              */
             GPS_time(const unsigned int week, const Seconds& seconds) :
                 m_week(week),
@@ -43,16 +44,9 @@ namespace units
 
 
             /**
-             * Constructor
-             * @param t Time in J2010 format.
-             */
-            explicit GPS_time(const J2010_time& t);
-
-
-
-            /**
              * Accessor method to retrieve the week number.
              * Returns the GPS week number.
+             * @satisfies{units-4.3}
              */
             int week() const
             {
@@ -64,6 +58,7 @@ namespace units
              * Accessor method to retrieve the number of GPS seconds since the
              * beginning of the current week.
              * @return GPS seconds.
+             * @satisfies{units-4.4}
              */
             Seconds seconds() const
             {
@@ -72,22 +67,10 @@ namespace units
 
 
             /**
-             * Type conversion from GPS time to days.
-             * @return GPS time converted to days.
-             */
-            Days toDays() const;
-
-
-            /**
-             * Type conversion from GPS epoch time to J2010 epoch days.
-             * @return GPS time converted to the J2010 epoch and format.
-             */
-            J2010_time toJ2010_time() const;
-
-            /**
              * Overload operator+=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value added.
+             * @satisfies{units-4.5}
              */
             GPS_time& operator+=(const Seconds& rhs)
             {
@@ -106,6 +89,7 @@ namespace units
              * Overload operator-
              * @param rhs Right hand side of the operation.
              * @return The subtracted value.
+             * @satisfies{units-4.6}
              */
             GPS_time operator-(const GPS_time& rhs) const
             {

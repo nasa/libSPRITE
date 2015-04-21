@@ -11,8 +11,11 @@ namespace units
             /**
              * Constructor.
              * @param v Number of Grams.
+             * @satisfies{units-5.1}
+             * @satisfies{units-5.2}
+             * @satisfies{units-5.4}
              */
-            explicit Grams(double v)
+            explicit Grams(double v = 0.0)
                 : m_value(v)
             {
             }
@@ -20,6 +23,7 @@ namespace units
 
             /**
              * Type conversion to double.
+             * @satisfies{units-5.3}
              */
             operator double() const
             {

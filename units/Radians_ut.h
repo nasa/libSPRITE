@@ -10,8 +10,18 @@ namespace units
     {
 
         CPPUNIT_TEST_SUITE(Radians_ut);
+
+        /**
+         * @verifies{units-13.1}
+         */
         CPPUNIT_TEST(default_constructor);
+
+        /**
+         * @verifies{units-13.2}
+         * @verifies{units-13.7}
+         */
         CPPUNIT_TEST(test);
+
         CPPUNIT_TEST_SUITE_END();
 
         public:

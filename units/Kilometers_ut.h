@@ -11,6 +11,11 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Kilometers_ut);
 
+        /**
+         * verifies{units-6.2}
+         * verifies{units-6.6}
+         * verifies{units-6.7}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

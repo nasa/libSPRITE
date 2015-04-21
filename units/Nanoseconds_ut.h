@@ -11,6 +11,10 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Nanoseconds_ut);
 
+        /**
+         * @satisfies{units-11.2}
+         * @satisfies{units-11.7}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

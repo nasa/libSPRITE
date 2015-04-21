@@ -11,6 +11,12 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Meters_ut);
 
+        /**
+         * @verifies{units-8.2}
+         * @verifies{units-8.3}
+         * @verifies{units-8.10}
+         * @verifies{units-8.11}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

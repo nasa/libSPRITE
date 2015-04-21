@@ -5,7 +5,7 @@ namespace units
 {
 
     /**
-     * Forward declataration of class.
+     * Forward declaration of class.
      */
     class Nanoseconds;
     class Days;
@@ -17,6 +17,9 @@ namespace units
             /**
              * Constructor.
              * @param v Number of seconds.
+             * @satisfies{units-15.1}
+             * @satisfies{units-15.2}
+             * @satisfies{units-15.4}
              */
             explicit Seconds(double v = 0.0)
                 : m_value(v)
@@ -26,18 +29,21 @@ namespace units
 
             /**
              * Constructor.
+             * @satisfies{units-15.7}
              */
             explicit Seconds(const Nanoseconds& n);
 
 
             /**
              * Constructor.
+             * @satisfies{units-15.9}
              */
             explicit Seconds(const Days& n);
 
 
             /**
              * Type conversion to double.
+             * @satisfies{units-15.3}
              */
             operator double() const
             {
@@ -48,6 +54,7 @@ namespace units
             /**
              * Type conversion from seconds to nanoseconds.
              * @return seconds value conversion to nanoseconds.
+             * @satisfies{units-15.6}
              */
             units::Nanoseconds toNanoseconds() const;
 
@@ -55,6 +62,7 @@ namespace units
             /**
              * Type conversion from seconds to days.
              * @return seconds value conversion to days.
+             * @satisfies{units-15.8}
              */
             units::Days toDays() const;
 
@@ -63,6 +71,7 @@ namespace units
              * Overload operator+
              * @param rhs Right hand side of the operation.
              * @return The added value
+             * @satisfies{units-15.5}
              */
             Seconds operator+(const Seconds& rhs) const
             {
@@ -74,6 +83,7 @@ namespace units
              * Overload operator-
              * @param rhs Right hand side of the operation.
              * @return The subtracted value.
+             * @satisfies{units-15.5}
              */
             Seconds operator-(const Seconds& rhs) const
             {
@@ -85,6 +95,7 @@ namespace units
              * Overload operator+=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value added.
+             * @satisfies{units-15.5}
              */
             Seconds& operator+=(const Seconds& rhs)
             {
@@ -98,6 +109,7 @@ namespace units
              * Overload operator-=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value subtracted.
+             * @satisfies{units-15.5}
              */
             Seconds& operator-=(const Seconds& rhs)
             {

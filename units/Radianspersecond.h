@@ -16,14 +16,18 @@ namespace units
             /**
              * Constructor.
              * @param v Number of tesla.
+             * @satisfies{units-14.1}
+             * @satisfies{units-14.2}
+             * @satisfies{units-14.4}
              */
             explicit Radianspersecond(double v = 0.0)
+                : m_value(v)
             {
-                m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
             }
 
             /**
              * Type conversion to double.
+             * @satisfies{units-14.3}
              */
             operator double() const
             {

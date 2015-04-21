@@ -11,6 +11,10 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Seconds_ut);
 
+        /**
+         * @verifies{units-15.2}
+         * @verifies{units-15.7}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

@@ -2,19 +2,14 @@
 #define __UNITS_KILOMETERS_H__
 
 #include "base/types.h"
-#include "units/Feet.h"
-#include "units/Miles.h"
-#include "units/Meters.h"
 
 namespace units
 {
 
     /**
-     * Forward declataration of class.
+     * Forward declaration of class.
      */
     class Meters;
-    class Feet;
-    class Miles;
 
     class Kilometers
     {
@@ -23,8 +18,11 @@ namespace units
             /**
              * Constructor.
              * @param v Number of Kilometers.
+             * @satisfies{units-6.1}
+             * @satisfies{units-6.2}
+             * @satisfies{units-6.4}
              */
-            explicit Kilometers(double v)
+            explicit Kilometers(double v = 0.0)
                 : m_value(v)
             {
             }
@@ -32,14 +30,14 @@ namespace units
 
             /**
              * Constructor.
+             * @satisfies{units-6.6}
              */
             explicit Kilometers(const Meters& n);
-            explicit Kilometers(const Feet& n);
-            explicit Kilometers(const Miles& n);
 
 
             /**
              * Type conversion to double.
+             * @satisfies{units-6.3}
              */
             operator double() const
             {
@@ -50,6 +48,7 @@ namespace units
             /**
              * Type conversion from KiloMeters to Meters.
              * @return Kilometers value conversion to Meters.
+             * @satisfies{units-6.6}
              */
             units::Meters toMeters() const;
 

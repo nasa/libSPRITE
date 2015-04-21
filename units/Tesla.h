@@ -16,14 +16,18 @@ namespace units
             /**
              * Constructor.
              * @param v Number of tesla.
+             * @satisfies{units-16.1}
+             * @satisfies{units-16.2}
+             * @satisfies{units-16.4}
              */
             explicit Tesla(double v = 0.0)
+                :m_value(v)
             {
-                m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
             }
 
             /**
              * Type conversion to double.
+             * @satisfies{units-16.3}
              */
             operator double() const
             {

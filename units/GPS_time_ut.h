@@ -11,6 +11,14 @@ namespace units
 
         CPPUNIT_TEST_SUITE(GPS_time_ut);
 
+        /**
+         * @verifies{units-4.1}
+         * @verifies{units-4.2}
+         * @verifies{units-4.3}
+         * @verifies{units-4.4}
+         * @verifies{units-4.5}
+         * @verifies{units-4.6}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();

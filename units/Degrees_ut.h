@@ -11,6 +11,11 @@ namespace units
 
     CPPUNIT_TEST_SUITE(Degrees_ut);
 
+    /**
+     * @verifies{units-3.2}
+     * @verifies{units-3.6}
+     * @verifies{units-3.7}
+     */
     CPPUNIT_TEST(test);
 
     CPPUNIT_TEST_SUITE_END();

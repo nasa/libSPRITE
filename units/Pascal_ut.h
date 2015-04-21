@@ -12,6 +12,11 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Pascal_ut);
 
+        /**
+         * @verifies{units-12.2}
+         * @verifies{units-12.3}
+         * @verifies{units-12.5}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();
