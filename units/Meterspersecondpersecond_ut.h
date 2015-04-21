@@ -11,6 +11,9 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Meterspersecondpersecond_ut);
 
+        /**
+         * @verifies{units-10.2}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();
