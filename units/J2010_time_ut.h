@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace units
 {
     class J2010_time_ut : public CppUnit::TestFixture
@@ -15,13 +14,12 @@ namespace units
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(J2010_time_ut);

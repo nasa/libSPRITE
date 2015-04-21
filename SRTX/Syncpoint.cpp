@@ -4,7 +4,6 @@
 #include "SRTX/Syncpoint.h"
 #include "base/XPRINTF.h"
 
-
 namespace SRTX
 {
 
@@ -15,7 +14,8 @@ namespace SRTX
         pthread_cond_t cond;
         pthread_condattr_t attr;
 
-        Syncpoint_impl() : is_valid(false)
+        Syncpoint_impl()
+            : is_valid(false)
         {
             int rval = pthread_cond_init(&cond, NULL);
             if(rval)
@@ -24,12 +24,12 @@ namespace SRTX
                 return;
             }
 
-            /* This code block was written to try to take advantage of the
-             * monotonic clock, but the pthread_condattr_setclock call is
-             * absent in Cygwin and RTEMS.
-             * TODO Use the monotonic clock when it is available and submit a
-             * patch to RTEMS to support pthread_condattr_setclock.
-             */
+/* This code block was written to try to take advantage of the
+ * monotonic clock, but the pthread_condattr_setclock call is
+ * absent in Cygwin and RTEMS.
+ * TODO Use the monotonic clock when it is available and submit a
+ * patch to RTEMS to support pthread_condattr_setclock.
+ */
 #if defined _POSIX_MONOTONIC_CLOCK && _POSIX_CLOCK_SELECTION
 
             /* Initialize the condition variable attributes.
@@ -67,7 +67,6 @@ namespace SRTX
             is_valid = true;
         }
 
-
         ~Syncpoint_impl()
         {
             pthread_cond_destroy(&cond);
@@ -75,12 +74,11 @@ namespace SRTX
         }
     };
 
-
     Syncpoint::Syncpoint()
-        : m_impl(new Syncpoint_impl),
-        m_valid(false),
-        m_wait_condition(false),
-        m_abort(false)
+        : m_impl(new Syncpoint_impl)
+        , m_valid(false)
+        , m_wait_condition(false)
+        , m_abort(false)
     {
         if(NULL == m_impl)
         {
@@ -90,15 +88,13 @@ namespace SRTX
         m_valid = m_impl->is_valid;
     }
 
-
     Syncpoint::~Syncpoint()
     {
         m_valid = false;
         delete m_impl;
     }
 
-
-    bool Syncpoint::wait(const units::Nanoseconds& timeout)
+    bool Syncpoint::wait(const units::Nanoseconds &timeout)
     {
         /* If timeout is 0, wait forever.
         */
@@ -125,9 +121,11 @@ namespace SRTX
             ts.tv_nsec = timeout % units::SEC;
 
             DPRINTF("Timeout = %d.%ld\n", (int)ts.tv_sec, ts.tv_nsec);
-            while((false == m_wait_condition) && (rval != ETIMEDOUT) && (false == m_abort))
+            while((false == m_wait_condition) && (rval != ETIMEDOUT) &&
+                  (false == m_abort))
             {
-                rval = pthread_cond_timedwait(&(m_impl->cond), get_mutex(), &ts);
+                rval =
+                    pthread_cond_timedwait(&(m_impl->cond), get_mutex(), &ts);
                 if(rval && (rval != ETIMEDOUT))
                 {
                     PERRORNO(rval, "pthread_cond_timeout");
@@ -138,7 +136,6 @@ namespace SRTX
 
         return !m_abort;
     }
-
 
     bool Syncpoint::inverse_wait()
     {
@@ -154,7 +151,6 @@ namespace SRTX
 
         return true;
     }
-
 
     bool Syncpoint::release()
     {

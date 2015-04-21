@@ -7,7 +7,6 @@
 #include <assert.h>
 #include <unistd.h>
 
-
 namespace SRTX
 {
 
@@ -26,7 +25,6 @@ namespace SRTX
         volatile bool done[ntasks];
     }
 
-
     Message_ut::Message_ut()
     {
     }
@@ -35,514 +33,504 @@ namespace SRTX
     {
     }
 
-
-    class Publisher: public Task
+    class Publisher : public Task
     {
-        public:
-            Publisher(const char* const name, const char* const pub_name,
-                    int instance, int ncycles) :
-                Task(name),
-                m_pub_name(pub_name),
-                m_instance(instance),
-                m_cycle(ncycles)
+      public:
+        Publisher(const char *const name, const char *const pub_name,
+                  int instance, int ncycles)
+            : Task(name)
+            , m_pub_name(pub_name)
+            , m_instance(instance)
+            , m_cycle(ncycles)
         {
         }
 
-            bool init()
+        bool init()
+        {
+            m_ip_msg = new Publication<int>(m_pub_name, get_period());
+            if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid()))
             {
-                m_ip_msg = new Publication<int>(m_pub_name, get_period());
-                if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid()))
-                {
-                    return false;
-                }
-
-                /* Seed the initial publication value.
-                 */
-                m_ip_msg->content = 0;
-                return m_ip_msg->put();
+                return false;
             }
 
-            bool execute()
+            /* Seed the initial publication value.
+             */
+            m_ip_msg->content = 0;
+            return m_ip_msg->put();
+        }
+
+        bool execute()
+        {
+            DPRINTF("Running %s\n", m_name);
+
+            ++m_ip_msg->content;
+            if(false == m_ip_msg->put())
             {
-                DPRINTF("Running %s\n", m_name);
-
-                ++m_ip_msg->content;
-                if(false == m_ip_msg->put())
-                {
-                    EPRINTF("%s failed put()\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                /* Have we completed the requested number of cycles?
-                 */
-                if((--m_cycle) <= 0)
-                {
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                DPRINTF("Finished running %s\n", m_name);
-
-                return true;
+                EPRINTF("%s failed put()\n", m_name);
+                done[m_instance] = true;
+                return false;
             }
 
-        private:
-            const char* const m_pub_name;
-            int m_instance;
-            Publication<int>* m_ip_msg;
-            int m_cycle;
+            /* Have we completed the requested number of cycles?
+             */
+            if((--m_cycle) <= 0)
+            {
+                done[m_instance] = true;
+                return false;
+            }
+
+            DPRINTF("Finished running %s\n", m_name);
+
+            return true;
+        }
+
+      private:
+        const char *const m_pub_name;
+        int m_instance;
+        Publication<int> *m_ip_msg;
+        int m_cycle;
     };
 
-
-    class Aperiodic_publisher: public Task
+    class Aperiodic_publisher : public Task
     {
-        public:
-            Aperiodic_publisher(const char* const name,
-                    const char* const pub_name, int instance, int ncycles) :
-                Task(name),
-                m_pub_name(pub_name),
-                m_instance(instance),
-                m_cycle(ncycles)
+      public:
+        Aperiodic_publisher(const char *const name, const char *const pub_name,
+                            int instance, int ncycles)
+            : Task(name)
+            , m_pub_name(pub_name)
+            , m_instance(instance)
+            , m_cycle(ncycles)
         {
         }
 
-            bool init()
+        bool init()
+        {
+            m_ip_msg = new Publication<int>(m_pub_name, get_period());
+            if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid()))
             {
-                m_ip_msg = new Publication<int>(m_pub_name, get_period());
-                if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid()))
-                {
-                    return false;
-                }
-
-                /* Seed the initial publication value.
-                 */
-                m_ip_msg->content = 0;
-                return m_ip_msg->put();
+                return false;
             }
 
-            bool execute()
+            /* Seed the initial publication value.
+             */
+            m_ip_msg->content = 0;
+            return m_ip_msg->put();
+        }
+
+        bool execute()
+        {
+            DPRINTF("Running %s\n", m_name);
+
+            sleep(units::Nanoseconds(30 * units::MSEC));
+
+            ++m_ip_msg->content;
+            if(false == m_ip_msg->put())
             {
-                DPRINTF("Running %s\n", m_name);
-
-                sleep(units::Nanoseconds(30 * units::MSEC));
-
-                ++m_ip_msg->content;
-                if(false == m_ip_msg->put())
-                {
-                    EPRINTF("%s failed put()\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                /* Have we completed the requested number of cycles?
-                 */
-                if(--m_cycle <= 0)
-                {
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                DPRINTF("Finished running %s\n", m_name);
-
-                return true;
+                EPRINTF("%s failed put()\n", m_name);
+                done[m_instance] = true;
+                return false;
             }
 
-        private:
-            const char* const m_pub_name;
-            int m_instance;
-            Publication<int>* m_ip_msg;
-            int m_cycle;
+            /* Have we completed the requested number of cycles?
+             */
+            if(--m_cycle <= 0)
+            {
+                done[m_instance] = true;
+                return false;
+            }
+
+            DPRINTF("Finished running %s\n", m_name);
+
+            return true;
+        }
+
+      private:
+        const char *const m_pub_name;
+        int m_instance;
+        Publication<int> *m_ip_msg;
+        int m_cycle;
     };
 
-
-    class Subscriber: public Task
+    class Subscriber : public Task
     {
-        public:
-            Subscriber(const char* const name, const char* const sub_name,
-                    int instance, int ncycles) :
-                Task(name),
-                m_sub_name(sub_name),
-                m_instance(instance),
-                m_cycle(ncycles),
-                m_ex(0)
+      public:
+        Subscriber(const char *const name, const char *const sub_name,
+                   int instance, int ncycles)
+            : Task(name)
+            , m_sub_name(sub_name)
+            , m_instance(instance)
+            , m_cycle(ncycles)
+            , m_ex(0)
         {
         }
 
-            bool init()
+        bool init()
+        {
+            m_is_msg = new Subscription<int>(m_sub_name, get_period());
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
             {
-                m_is_msg = new Subscription<int>(m_sub_name, get_period());
-                if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
+                return false;
+            }
+
+            return true;
+        }
+
+        bool execute()
+        {
+            DPRINTF("Running %s\n", m_name);
+
+            if(false == m_is_msg->get())
+            {
+                EPRINTF("%s failed get()\n", m_name);
+                done[m_instance] = true;
+                return false;
+            }
+
+            if(false == m_is_msg->was_updated())
+            {
+                EPRINTF("%s did not get an updated message\n", m_name);
+                done[m_instance] = true;
+                return false;
+            }
+
+            /* Determine the expected count value.
+             */
+            if(++m_ex != m_is_msg->content)
+            {
+                EPRINTF("%s expected %d, received %d\n", m_name, m_ex,
+                        m_is_msg->content);
+                done[m_instance] = true;
+                return false;
+            }
+
+            /* Test the message latency. It should be less than the
+             * publisher's period.
+             */
+            units::Nanoseconds now;
+            if(false == get_time(now))
+            {
+                EPRINTF("%s failed get_time()\n", m_name);
+                done[m_instance] = true;
+                return false;
+            }
+            units::Nanoseconds latency = now - m_is_msg->get_publication_time();
+            if(latency >= pub_period)
+            {
+                EPRINTF("%s latency >= pub_period\n", m_name);
+                done[m_instance] = true;
+                return false;
+            }
+
+            /* Have we completed the requested number of cycles?
+             */
+            if(--m_cycle <= 0)
+            {
+                done[m_instance] = true;
+                return false;
+            }
+
+            DPRINTF("Finished running %s\n", m_name);
+
+            return true;
+        }
+
+      private:
+        Subscription<int> *m_is_msg;
+        const char *const m_sub_name;
+        int m_instance;
+        int m_cycle;
+        int m_ex;
+    };
+
+    class Aperiodic_subscriber : public Task
+    {
+      public:
+        Aperiodic_subscriber(const char *const name, const char *const sub_name,
+                             int instance, int ncycles)
+            : Task(name)
+            , m_is_msg(NULL)
+            , m_sub_name(sub_name)
+            , m_instance(instance)
+            , m_cycle(ncycles)
+            , m_run_count(0)
+        {
+        }
+
+        bool init()
+        {
+            m_is_msg = new Subscription<int>(m_sub_name, get_period());
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        bool execute()
+        {
+            DPRINTF("Running %s\n", m_name);
+
+            DPRINTF("%s, waiting for message\n", m_name);
+            if(false == m_is_msg->get_blocking())
+            {
+                EPRINTF("%s failed get_blocking()\n", m_name);
+                /* We did not get the message. Terminate this frame, but let
+                 * the task get rescheduled so it can try blocking on the
+                 * message again.
+                 */
+                return true;
+            }
+            DPRINTF("%s, got message\n", m_name);
+
+            if(m_is_msg->was_updated())
+            {
+                ++m_run_count;
+            }
+
+            /* Have we completed the requested number of cycles?
+             */
+            if(m_is_msg->content >= m_cycle)
+            {
+                /* We're done. Mark the task done and end execution.
+                 */
+                done[m_instance] = true;
+                return false;
+            }
+
+            DPRINTF("Finished running %s\n", m_name);
+
+            return true;
+        }
+
+        void terminate()
+        {
+            DPRINTF("Terminating aperiodic subscriber %d\n", m_instance);
+            if(m_is_msg)
+            {
+                m_is_msg->abort_get();
+            }
+        }
+
+        int get_run_count() const
+        {
+            DPRINTF("Aperiodic subsciber %d run count = %d\n", m_instance,
+                    m_run_count);
+            return m_run_count;
+        }
+
+      private:
+        Subscription<int> *m_is_msg;
+        const char *const m_sub_name;
+        int m_instance;
+        int m_cycle;
+        int m_run_count;
+    };
+
+    class Slow_subscriber : public Task
+    {
+      public:
+        Slow_subscriber(const char *const name, const char *const sub_name,
+                        int instance, int ncycles)
+            : Task(name)
+            , m_sub_name(sub_name)
+            , m_instance(instance)
+            , m_cycle(ncycles)
+            , m_first_pass(true)
+            , m_ex(0)
+        {
+        }
+
+        bool init()
+        {
+            m_is_msg = new Subscription<int>(m_sub_name, get_period());
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        bool execute()
+        {
+            DPRINTF("Running %s\n", m_name);
+
+            if(false == m_is_msg->get())
+            {
+                EPRINTF("%s failed get()\n", m_name);
+                return false;
+            }
+            if(false == m_is_msg->was_updated())
+            {
+                EPRINTF("%s received message was not updated\n", m_name);
+            }
+
+            if(m_first_pass)
+            {
+                m_ex = m_is_msg->content;
+                m_first_pass = false;
+            }
+            else
+            {
+                /* Determine the expected count value.
+                 */
+                m_ex += 2;
+                if(m_ex != m_is_msg->content)
                 {
+                    EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
+                            m_is_msg->content);
+                    done[m_instance] = true;
                     return false;
+                }
+            }
+
+            /* Test the message latency.
+             */
+            units::Nanoseconds now;
+            if(false == get_time(now))
+            {
+                EPRINTF("%s failed get_time()\n", m_name);
+                return false;
+            }
+            units::Nanoseconds latency = now - m_is_msg->get_publication_time();
+            if(latency >= 2 * get_period())
+            {
+                EPRINTF("%s latency >= 2 * pub_period\n", m_name);
+                return false;
+            }
+
+            /* Have we completed the requested number of cycles?
+             */
+            if(--m_cycle <= 0)
+            {
+                done[m_instance] = true;
+                return false;
+            }
+
+            DPRINTF("Finished running %s\n", m_name);
+
+            return true;
+        }
+
+      private:
+        Subscription<int> *m_is_msg;
+        const char *const m_sub_name;
+        int m_instance;
+        int m_cycle;
+        bool m_first_pass;
+        int m_ex;
+    };
+
+    class Fast_subscriber : public Task
+    {
+      public:
+        Fast_subscriber(const char *const name, const char *const sub_name,
+                        int instance, int ncycles)
+            : Task(name)
+            , m_sub_name(sub_name)
+            , m_instance(instance)
+            , m_cycle(ncycles)
+            , m_first_pass(true)
+            , m_ex(0)
+        {
+        }
+
+        bool init()
+        {
+            m_is_msg = new Subscription<int>(m_sub_name, get_period());
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        bool execute()
+        {
+            DPRINTF("Running %s\n", m_name);
+
+            units::Nanoseconds rtime = get_reference_time();
+            if(m_first_pass)
+            {
+                if(0 == (rtime % pub_period))
+                {
+                    m_is_msg->get();
+                    m_ex = m_is_msg->content;
+                    m_first_pass = false;
                 }
 
                 return true;
             }
-
-            bool execute()
+            else
             {
-                DPRINTF("Running %s\n", m_name);
-
                 if(false == m_is_msg->get())
                 {
                     EPRINTF("%s failed get()\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                if(false == m_is_msg->was_updated())
-                {
-                    EPRINTF("%s did not get an updated message\n", m_name);
                     done[m_instance] = true;
                     return false;
                 }
 
                 /* Determine the expected count value.
                  */
-                if(++m_ex != m_is_msg->content)
+                units::Nanoseconds rtime = get_reference_time();
+                if(0 == (rtime % pub_period))
                 {
-                    EPRINTF("%s expected %d, received %d\n", m_name, m_ex,
+                    ++m_ex;
+                }
+
+                if(m_ex != m_is_msg->content)
+                {
+                    EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
                             m_is_msg->content);
                     done[m_instance] = true;
                     return false;
                 }
-
-                /* Test the message latency. It should be less than the
-                 * publisher's period.
-                 */
-                units::Nanoseconds now;
-                if(false == get_time(now))
-                {
-                    EPRINTF("%s failed get_time()\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-                units::Nanoseconds latency =
-                    now - m_is_msg->get_publication_time();
-                if(latency >= pub_period)
-                {
-                    EPRINTF("%s latency >= pub_period\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                /* Have we completed the requested number of cycles?
-                 */
-                if(--m_cycle <= 0)
-                {
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                DPRINTF("Finished running %s\n", m_name);
-
-                return true;
             }
 
-        private:
-            Subscription<int>* m_is_msg;
-            const char* const m_sub_name;
-            int m_instance;
-            int m_cycle;
-            int m_ex;
-    };
+            /* Test the message latency.
+             */
+            units::Nanoseconds now;
+            if(false == get_time(now))
+            {
+                EPRINTF("%s failed get_time()\n", m_name);
+                done[m_instance] = true;
+                return false;
+            }
+            units::Nanoseconds latency = now - m_is_msg->get_publication_time();
+            if(latency >= 2 * pub_period)
+            {
+                EPRINTF("%s latency >= 2 * pub_period\n", m_name);
+                done[m_instance] = true;
+                return false;
+            }
 
+            /* Have we completed the requested number of cycles?
+             */
+            if(--m_cycle <= 0)
+            {
+                done[m_instance] = true;
+                return false;
+            }
 
-    class Aperiodic_subscriber: public Task
-    {
-        public:
-            Aperiodic_subscriber(const char* const name,
-                    const char* const sub_name, int instance, int ncycles) :
-                Task(name),
-                m_is_msg(NULL),
-                m_sub_name(sub_name),
-                m_instance(instance),
-                m_cycle(ncycles),
-                m_run_count(0)
-        {
+            DPRINTF("Finished running %s\n", m_name);
+
+            return true;
         }
 
-            bool init()
-            {
-                m_is_msg = new Subscription<int>(m_sub_name, get_period());
-                if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            bool execute()
-            {
-                DPRINTF("Running %s\n", m_name);
-
-                DPRINTF("%s, waiting for message\n", m_name);
-                if(false == m_is_msg->get_blocking())
-                {
-                    EPRINTF("%s failed get_blocking()\n", m_name);
-                    /* We did not get the message. Terminate this frame, but let
-                     * the task get rescheduled so it can try blocking on the
-                     * message again.
-                     */
-                    return true;
-                }
-                DPRINTF("%s, got message\n", m_name);
-
-                if(m_is_msg->was_updated())
-                {
-                    ++m_run_count;
-                }
-
-                /* Have we completed the requested number of cycles?
-                 */
-                if(m_is_msg->content >= m_cycle)
-                {
-                    /* We're done. Mark the task done and end execution.
-                     */
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                DPRINTF("Finished running %s\n", m_name);
-
-                return true;
-            }
-
-            void terminate()
-            {
-                DPRINTF("Terminating aperiodic subscriber %d\n", m_instance);
-                if(m_is_msg)
-                {
-                    m_is_msg->abort_get();
-                }
-            }
-
-            int get_run_count() const
-            {
-                DPRINTF("Aperiodic subsciber %d run count = %d\n", m_instance,
-                        m_run_count);
-                return m_run_count;
-            }
-
-        private:
-            Subscription<int>* m_is_msg;
-            const char* const m_sub_name;
-            int m_instance;
-            int m_cycle;
-            int m_run_count;
+      private:
+        Subscription<int> *m_is_msg;
+        const char *const m_sub_name;
+        int m_instance;
+        int m_cycle;
+        bool m_first_pass;
+        int m_ex;
     };
-
-
-    class Slow_subscriber: public Task
-    {
-        public:
-            Slow_subscriber(const char* const name, const char* const sub_name,
-                    int instance, int ncycles) :
-                Task(name),
-                m_sub_name(sub_name),
-                m_instance(instance),
-                m_cycle(ncycles),
-                m_first_pass(true),
-                m_ex(0)
-        {
-        }
-
-            bool init()
-            {
-                m_is_msg = new Subscription<int>(m_sub_name, get_period());
-                if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            bool execute()
-            {
-                DPRINTF("Running %s\n", m_name);
-
-                if(false == m_is_msg->get())
-                {
-                    EPRINTF("%s failed get()\n", m_name);
-                    return false;
-                }
-                if(false == m_is_msg->was_updated())
-                {
-                    EPRINTF("%s received message was not updated\n", m_name);
-                }
-
-                if(m_first_pass)
-                {
-                    m_ex = m_is_msg->content;
-                    m_first_pass = false;
-                }
-                else
-                {
-                    /* Determine the expected count value.
-                     */
-                    m_ex += 2;
-                    if(m_ex != m_is_msg->content)
-                    {
-                        EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
-                                m_is_msg->content);
-                        done[m_instance] = true;
-                        return false;
-                    }
-                }
-
-                /* Test the message latency.
-                 */
-                units::Nanoseconds now;
-                if(false == get_time(now))
-                {
-                    EPRINTF("%s failed get_time()\n", m_name);
-                    return false;
-                }
-                units::Nanoseconds latency =
-                    now - m_is_msg->get_publication_time();
-                if(latency >= 2 * get_period())
-                {
-                    EPRINTF("%s latency >= 2 * pub_period\n", m_name);
-                    return false;
-                }
-
-                /* Have we completed the requested number of cycles?
-                 */
-                if(--m_cycle <= 0)
-                {
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                DPRINTF("Finished running %s\n", m_name);
-
-                return true;
-            }
-
-        private:
-            Subscription<int>* m_is_msg;
-            const char* const m_sub_name;
-            int m_instance;
-            int m_cycle;
-            bool m_first_pass;
-            int m_ex;
-    };
-
-
-    class Fast_subscriber: public Task
-    {
-        public:
-            Fast_subscriber(const char* const name, const char* const sub_name,
-                    int instance, int ncycles) :
-                Task(name),
-                m_sub_name(sub_name),
-                m_instance(instance),
-                m_cycle(ncycles),
-                m_first_pass(true),
-                m_ex(0)
-        {
-        }
-
-            bool init()
-            {
-                m_is_msg = new Subscription<int>(m_sub_name, get_period());
-                if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            bool execute()
-            {
-                DPRINTF("Running %s\n", m_name);
-
-                units::Nanoseconds rtime = get_reference_time();
-                if(m_first_pass)
-                {
-                    if(0 == (rtime % pub_period))
-                    {
-                        m_is_msg->get();
-                        m_ex = m_is_msg->content;
-                        m_first_pass = false;
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    if(false == m_is_msg->get())
-                    {
-                        EPRINTF("%s failed get()\n", m_name);
-                        done[m_instance] = true;
-                        return false;
-                    }
-
-                    /* Determine the expected count value.
-                     */
-                    units::Nanoseconds rtime = get_reference_time();
-                    if(0 == (rtime % pub_period))
-                    {
-                        ++m_ex;
-                    }
-
-                    if(m_ex != m_is_msg->content)
-                    {
-                        EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
-                                m_is_msg->content);
-                        done[m_instance] = true;
-                        return false;
-                    }
-                }
-
-                /* Test the message latency.
-                 */
-                units::Nanoseconds now;
-                if(false == get_time(now))
-                {
-                    EPRINTF("%s failed get_time()\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-                units::Nanoseconds latency =
-                    now - m_is_msg->get_publication_time();
-                if(latency >= 2 * pub_period)
-                {
-                    EPRINTF("%s latency >= 2 * pub_period\n", m_name);
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                /* Have we completed the requested number of cycles?
-                 */
-                if(--m_cycle <= 0)
-                {
-                    done[m_instance] = true;
-                    return false;
-                }
-
-                DPRINTF("Finished running %s\n", m_name);
-
-                return true;
-            }
-
-        private:
-            Subscription<int>* m_is_msg;
-            const char* const m_sub_name;
-            int m_instance;
-            int m_cycle;
-            bool m_first_pass;
-            int m_ex;
-    };
-
 
     void Message_ut::setUp()
     {
-        Scheduler& sched = Scheduler::get_instance();
+        Scheduler &sched = Scheduler::get_instance();
         Task_db::value_t task_props;
 
         task_props.period = sched_period;
@@ -559,17 +547,15 @@ namespace SRTX
         }
     }
 
-
     void Message_ut::tearDown()
     {
         DPRINTF("Begin tearDown\n");
 
-        Scheduler& sched = Scheduler::get_instance();
+        Scheduler &sched = Scheduler::get_instance();
         sched.stop();
 
         DPRINTF("tearDown complete\n");
     }
-
 
     void Message_ut::test_Message()
     {
@@ -610,15 +596,14 @@ namespace SRTX
         IPRINTF("Complete %s\n", __func__);
     }
 
-
     void Message_ut::test_pub_sub()
     {
         IPRINTF("\nStart %s\n", __func__);
         const int ncycles = 6;
 
-        const char* const msg1_name = "msg1_";
-        const char* const msg2_name = "msg2_";
-        const char* const msg3_name = "msg3_";
+        const char *const msg1_name = "msg1_";
+        const char *const msg2_name = "msg2_";
+        const char *const msg3_name = "msg3_";
         unsigned int instance = 0;
 
         /* Construct the publishers.
@@ -636,7 +621,7 @@ namespace SRTX
 
         props.period = units::Nanoseconds(0);
         Aperiodic_publisher pub3("Aperiodic_publisher", msg3_name, instance++,
-                ncycles * 10); // 2
+                                 ncycles * 10); // 2
         CPPUNIT_ASSERT_EQUAL(true, pub3.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, pub3.set_properties(props));
 
@@ -659,56 +644,55 @@ namespace SRTX
         props.prio = lowest_priority;
         props.period = units::Nanoseconds(pub_period * 2);
         Slow_subscriber sub3("Slow_subscriber 1", msg1_name, instance++,
-                ncycles / 2); // 6
+                             ncycles / 2); // 6
         CPPUNIT_ASSERT_EQUAL(true, sub3.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub3.set_properties(props));
 
         Slow_subscriber sub5("Slow_subscriber 2", msg1_name, instance++,
-                ncycles / 2); // 7
+                             ncycles / 2); // 7
         CPPUNIT_ASSERT_EQUAL(true, sub5.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub5.set_properties(props));
         Slow_subscriber sub8("Slow_subscriber 3", msg2_name, instance++,
-                ncycles / 2); // 8
+                             ncycles / 2); // 8
         CPPUNIT_ASSERT_EQUAL(true, sub8.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub8.set_properties(props));
 
         props.prio = highest_priority;
         props.period = units::Nanoseconds(pub_period / 2);
         Fast_subscriber sub4("Fast_subscriber 1", msg1_name, instance++,
-                ncycles * 2); // 9
+                             ncycles * 2); // 9
         CPPUNIT_ASSERT_EQUAL(true, sub4.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub4.set_properties(props));
 
         Fast_subscriber sub6("Fast_subscriber 2", msg1_name, instance++,
-                ncycles * 2); // 10
+                             ncycles * 2); // 10
         CPPUNIT_ASSERT_EQUAL(true, sub6.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub6.set_properties(props));
 
         Fast_subscriber sub9("Fast_subscriber 3", msg2_name, instance++,
-                ncycles * 2); // 11
+                             ncycles * 2); // 11
         CPPUNIT_ASSERT_EQUAL(true, sub9.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub9.set_properties(props));
-
 
         props.prio = lowest_priority;
         props.period = units::Nanoseconds(0);
         Aperiodic_subscriber sub10("Aperiodic_subscriber 1", msg1_name,
-                instance++, ncycles); // 12
+                                   instance++, ncycles); // 12
         CPPUNIT_ASSERT_EQUAL(true, sub10.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub10.set_properties(props));
 
         Aperiodic_subscriber sub11("Aperiodic_subscriber 2", msg1_name,
-                instance++, ncycles); // 13
+                                   instance++, ncycles); // 13
         CPPUNIT_ASSERT_EQUAL(true, sub11.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub11.set_properties(props));
 
         Aperiodic_subscriber sub12("Aperiodic_subscriber 3", msg3_name,
-                instance++, ncycles); // 14
+                                   instance++, ncycles); // 14
         CPPUNIT_ASSERT_EQUAL(true, sub12.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub12.set_properties(props));
 
         Aperiodic_subscriber sub13("Aperiodic_subscriber 4", msg3_name,
-                instance++, ncycles); // 15
+                                   instance++, ncycles); // 15
         CPPUNIT_ASSERT_EQUAL(true, sub13.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub13.set_properties(props));
 
@@ -747,8 +731,8 @@ namespace SRTX
         units::Nanoseconds now;
         // Should timeout and therefore, the value should not be updated.
         get_time(now);
-        CPPUNIT_ASSERT_EQUAL(true, msg.get_blocking(now +
-                    units::Nanoseconds(100)));
+        CPPUNIT_ASSERT_EQUAL(true,
+                             msg.get_blocking(now + units::Nanoseconds(100)));
         CPPUNIT_ASSERT_EQUAL(false, msg.was_updated());
         CPPUNIT_ASSERT_EQUAL(ex, msg.content);
         // Should be updated before the timeout.
@@ -768,8 +752,7 @@ namespace SRTX
             {
                 test_done = test_done && done[i];
             }
-        }
-        while(!test_done);
+        } while(!test_done);
         IPRINTF("Completed %s\n", __func__);
     }
 
@@ -786,7 +769,7 @@ namespace SRTX
     void Message_ut::test_async()
     {
         IPRINTF("\nStarted %s\n", __func__);
-        const char* const msg1_name = "amsg_";
+        const char *const msg1_name = "amsg_";
 
         IPRINTF("\nTesting asyncronous subscribers\n");
 
@@ -799,13 +782,11 @@ namespace SRTX
 
         props.prio = higher_priority;
         props.period = units::Nanoseconds(0);
-        Aperiodic_subscriber sub1("Asub 1", msg1_name,
-                0, 10);
+        Aperiodic_subscriber sub1("Asub 1", msg1_name, 0, 10);
         CPPUNIT_ASSERT_EQUAL(true, sub1.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub1.set_properties(props));
 
-        Aperiodic_subscriber sub2("Asub 2", msg1_name,
-                1, 10);
+        Aperiodic_subscriber sub2("Asub 2", msg1_name, 1, 10);
         CPPUNIT_ASSERT_EQUAL(true, sub2.is_valid());
         CPPUNIT_ASSERT_EQUAL(true, sub2.set_properties(props));
 

@@ -2,7 +2,6 @@
 #include "SRTX/Reference_time.h"
 #include "SRTX/Scheduler.h"
 
-
 namespace SRTX
 {
 
@@ -11,10 +10,9 @@ namespace SRTX
     {
     }
 
-
     units::Nanoseconds Reference_time::get_time()
     {
-        //static Scheduler& s = Scheduler::get_instance();
+        // static Scheduler& s = Scheduler::get_instance();
 
         /* The scheduler is the one that updates time, so lock out the
          * scheduler when we're trying to get time.
@@ -28,17 +26,16 @@ namespace SRTX
          * Perhaps the right answer is to make reference time an integral part
          * of the scheduler...
          */
-        //s.lock();
+        // s.lock();
         units::Nanoseconds time = m_value;
-        //s.unlock();
+        // s.unlock();
 
         return time;
     }
 
-
     units::Nanoseconds get_reference_time()
     {
-        static Reference_time& t = Reference_time::get_instance();
+        static Reference_time &t = Reference_time::get_instance();
 
         return t.get_time();
     }

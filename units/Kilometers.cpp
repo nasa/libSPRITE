@@ -3,22 +3,22 @@
 namespace units
 {
 
-    Kilometers::Kilometers(const Meters& n)
+    Kilometers::Kilometers(const Meters &n)
     {
         *this = n.toKilometers();
     }
 
-    Kilometers::Kilometers(const Feet& n)
+    Kilometers::Kilometers(const Feet &n)
     {
         *this = n.toMeters().toKilometers();
     }
 
-    Kilometers::Kilometers(const Miles& n)
+    Kilometers::Kilometers(const Miles &n)
     {
         *this = n.toFeet().toMeters().toKilometers();
     }
 
-    units::Meters  Kilometers::toMeters() const
+    units::Meters Kilometers::toMeters() const
     {
         return Meters(m_value * 1000);
     }

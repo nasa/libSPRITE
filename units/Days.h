@@ -13,125 +13,113 @@ namespace units
 
     class Days
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of days.
+         */
+        explicit Days(double v = 0.0)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of days.
-             */
-            explicit Days(double v = 0.0)
-                : m_value(v)
-            {
-            }
+        /**
+         * Constructor.
+         */
+        explicit Days(const Seconds &n);
 
+        /**
+         * Constructor.
+         */
+        explicit Days(const GPS_time &n);
 
-            /**
-             * Constructor.
-             */
-            explicit Days(const Seconds& n);
+        /**
+         * Type conversion to double.
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
+        /**
+         * Type conversion from days to seconds.
+         * @return days value conversion to seconds.
+         */
+        Seconds toSeconds() const;
 
-            /**
-             * Constructor.
-             */
-            explicit Days(const GPS_time& n);
+        /**
+         * Overload operator+
+         * @param rhs Right hand side of the operation.
+         * @return The added value
+         */
+        Days operator+(const Days &rhs) const
+        {
+            return Days(m_value + rhs.m_value);
+        }
 
+        /**
+         * Overload operator-
+         * @param rhs Right hand side of the operation.
+         * @return The subtracted value.
+         */
+        Days operator-(const Days &rhs) const
+        {
+            return Days(m_value - rhs.m_value);
+        }
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
+        /**
+         * Overload operator+=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value added.
+         */
+        Days &operator+=(const Days &rhs)
+        {
+            m_value += rhs.m_value;
 
+            return *this;
+        }
 
-            /**
-             * Type conversion from days to seconds.
-             * @return days value conversion to seconds.
-             */
-            Seconds toSeconds() const;
+        /**
+         * Overload operator-=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value subtracted.
+         */
+        Days &operator-=(const Days &rhs)
+        {
+            m_value -= rhs.m_value;
 
+            return *this;
+        }
 
-            /**
-             * Overload operator+
-             * @param rhs Right hand side of the operation.
-             * @return The added value
-             */
-            Days operator+(const Days& rhs) const
-            {
-                return Days(m_value + rhs.m_value);
-            }
+        /**
+         * Overload operator+=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value added.
+         */
+        Days &operator+=(const Seconds &rhs)
+        {
+            m_value += Days(rhs);
 
+            return *this;
+        }
 
-            /**
-             * Overload operator-
-             * @param rhs Right hand side of the operation.
-             * @return The subtracted value.
-             */
-            Days operator-(const Days& rhs) const
-            {
-                return Days(m_value - rhs.m_value);
-            }
+        /**
+         * Overload operator-=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value subtracted.
+         */
+        Days &operator-=(const Seconds &rhs)
+        {
+            m_value -= Days(rhs);
 
+            return *this;
+        }
 
-            /**
-             * Overload operator+=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value added.
-             */
-            Days& operator+=(const Days& rhs)
-            {
-                m_value += rhs.m_value;
-
-                return *this;
-            }
-
-
-            /**
-             * Overload operator-=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value subtracted.
-             */
-            Days& operator-=(const Days& rhs)
-            {
-                m_value -= rhs.m_value;
-
-                return *this;
-            }
-
-
-            /**
-             * Overload operator+=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value added.
-             */
-            Days& operator+=(const Seconds& rhs)
-            {
-                m_value += Days(rhs);
-
-                return *this;
-            }
-
-
-            /**
-             * Overload operator-=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value subtracted.
-             */
-            Days& operator-=(const Seconds& rhs)
-            {
-                m_value -= Days(rhs);
-
-                return *this;
-            }
-
-        private:
-
-            /**
-             * Stored number of days.
-             */
-            double m_value;
+      private:
+        /**
+         * Stored number of days.
+         */
+        double m_value;
     };
 
     const Days DAYS_PER_WEEK = Days(7.);

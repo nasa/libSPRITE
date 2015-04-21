@@ -14,39 +14,37 @@ namespace units
 
     class Feetpersecondpersecond
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of Feetpersecondpersecond.
+         */
+        explicit Feetpersecondpersecond(double v)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of Feetpersecondpersecond.
-             */
-            explicit Feetpersecondpersecond(double v)
-                : m_value(v)
-            {
-            }
+        /**
+         * Constructor.
+         */
+        explicit Feetpersecondpersecond(const Meterspersecondpersecond &n);
 
+        /**
+         * Type conversion to double.
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Constructor.
-             */
-            explicit Feetpersecondpersecond(const Meterspersecondpersecond& n);
+        /**
+         * Type conversion from Feetpersecondpersecond to
+         * Meterspersecondpersecond.
+         */
+        units::Meterspersecondpersecond toMeterspersecondpersecond() const;
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
-
-            /**
-             * Type conversion from Feetpersecondpersecond to Meterspersecondpersecond.
-             */
-            units::Meterspersecondpersecond toMeterspersecondpersecond() const;
-
-
-        private:
-            double m_value;
+      private:
+        double m_value;
     };
 
 } // namespace

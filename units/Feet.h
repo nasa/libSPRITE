@@ -18,45 +18,43 @@ namespace units
 
     class Feet
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of seconds.
+         */
+        explicit Feet(double v)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of seconds.
-             */
-            explicit Feet(double v)
-                : m_value(v)
-            {
-            }
+        /**
+         * Constructor.
+         */
+        explicit Feet(const Kilometers &n);
+        explicit Feet(const Meters &n);
+        explicit Feet(const Miles &n);
 
-            /**
-             * Constructor.
-             */
-            explicit Feet(const Kilometers& n);
-            explicit Feet(const Meters& n);
-            explicit Feet(const Miles& n);
+        /**
+         * Type conversion to double.
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
+        /**
+         * Type conversion from Feet to Miles.
+         */
+        units::Miles toMiles() const;
 
-            /**
-             * Type conversion from Feet to Miles.
-             */
-            units::Miles toMiles() const;
+        /**
+         * Type conversion from Feet to Meters.
+         */
+        units::Meters toMeters() const;
 
-            /**
-             * Type conversion from Feet to Meters.
-             */
-            units::Meters toMeters() const;
-
-
-        private:
-            double m_value;
+      private:
+        double m_value;
     };
 
 } // namespace

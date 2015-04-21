@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace math
 {
 
@@ -38,11 +37,11 @@ namespace math
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test_Vec3();
         void test_Vec3_init();
         void test_add_scalar();

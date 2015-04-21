@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace SRTX
 {
     class Mutex_ut : public CppUnit::TestFixture
@@ -15,13 +14,12 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test_mutex();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Mutex_ut);

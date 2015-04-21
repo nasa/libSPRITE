@@ -13,72 +13,72 @@ namespace SRTX
      */
     class Task_properties
     {
-        public:
-            /**
-             * Constructor.
-             */
-            Task_properties() :
-                prio(0),
-                period(0),
-                schedule_presence(0xFFFFFFFF),
-                stack_size(0x1000000),
-                max_runtime(0),
-                last_runtime(0)
+      public:
+        /**
+         * Constructor.
+         */
+        Task_properties()
+            : prio(0)
+            , period(0)
+            , schedule_presence(0xFFFFFFFF)
+            , stack_size(0x1000000)
+            , max_runtime(0)
+            , last_runtime(0)
         {
         }
 
-            /**
-             * Is the task in the given schedule?
-             * @param s Schedule to test.
-             * @return True if the task is in the current schedule, else return
-             * false.
+        /**
+         * Is the task in the given schedule?
+         * @param s Schedule to test.
+         * @return True if the task is in the current schedule, else return
+         * false.
+         */
+        bool is_present_in_schedule(unsigned int s) const
+        {
+            /* Return false if the parameter is out of range.
              */
-            bool is_present_in_schedule(unsigned int s) const
+            if(s > (sizeof(schedule_presence) * 8 - 1))
             {
-                /* Return false if the parameter is out of range.
-                 */
-                if(s > (sizeof(schedule_presence) * 8 - 1))
-                {
-                    return false;
-                }
-
-                return schedule_presence & (1 << s);
+                return false;
             }
 
-            /**
-             * Task priority.
-             */
-            priority_t prio;
+            return schedule_presence & (1 << s);
+        }
 
-            /**
-             * Inidicate the periodic rate of a task in nanoseconds. 0 is
-             * used to indicate an aperiodic task.
-             */
-            units::Nanoseconds period;
+        /**
+         * Task priority.
+         */
+        priority_t prio;
 
-            /**
-             * The system allows for a number of fixed schedules with varying
-             * mixes of task.  This variable is used as a bit-mask indicating
-             * whether the task is present in (1 << n) schedule.
-             */
-            schedule_presence_t schedule_presence;
+        /**
+         * Inidicate the periodic rate of a task in nanoseconds. 0 is
+         * used to indicate an aperiodic task.
+         */
+        units::Nanoseconds period;
 
-            /**
-             * The task stack size.
-             */
-            unsigned int stack_size;
+        /**
+         * The system allows for a number of fixed schedules with varying
+         * mixes of task.  This variable is used as a bit-mask indicating
+         * whether the task is present in (1 << n) schedule.
+         */
+        schedule_presence_t schedule_presence;
 
-            /**
-             * The maximum amount of time it has ever taken for the task to
-             * complete.
-             */
-            units::Nanoseconds max_runtime;
+        /**
+         * The task stack size.
+         */
+        unsigned int stack_size;
 
-            /**
-             * The amount of time it took for the most recent execution of the
-             * task.
-             */
-            units::Nanoseconds last_runtime;
+        /**
+         * The maximum amount of time it has ever taken for the task to
+         * complete.
+         */
+        units::Nanoseconds max_runtime;
+
+        /**
+         * The amount of time it took for the most recent execution of the
+         * task.
+         */
+        units::Nanoseconds last_runtime;
     };
 
     const unsigned int MIN_PRIO = sched_get_priority_min(SCHED_FIFO);

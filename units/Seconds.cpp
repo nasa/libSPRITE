@@ -2,16 +2,15 @@
 #include "units/Nanoseconds.h"
 #include "units/Seconds.h"
 
-
 namespace units
 {
 
-    Seconds::Seconds(const Nanoseconds& n)
+    Seconds::Seconds(const Nanoseconds &n)
     {
         *this = n.toSeconds();
     }
 
-    Seconds::Seconds(const Days& n)
+    Seconds::Seconds(const Days &n)
     {
         *this = n.toSeconds();
     }

@@ -3,16 +3,15 @@
 #include "units/GPS_time.h"
 #include "units/Seconds.h"
 
-
 namespace units
 {
 
-    Days::Days(const Seconds& n)
+    Days::Days(const Seconds &n)
     {
         *this = n.toDays();
     }
 
-    Days::Days(const GPS_time& n)
+    Days::Days(const GPS_time &n)
     {
         *this = n.toDays();
     }

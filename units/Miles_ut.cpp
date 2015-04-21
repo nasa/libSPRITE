@@ -12,21 +12,19 @@ namespace units
     {
     }
 
-
     void Miles_ut::tearDown()
     {
     }
 
-
     void Miles_ut::test()
     {
         const double KILOMETERS_PER_MILE = 201168 / 125000.0;
-        const double METERS_PER_MILE     = 201168 / 125.0;
-        const double FEET_PER_MILE       = 5280.0;
-        const double EPSILON             = 1e-12;
+        const double METERS_PER_MILE = 201168 / 125.0;
+        const double FEET_PER_MILE = 5280.0;
+        const double EPSILON = 1e-12;
 
-        Kilometers  km(KILOMETERS_PER_MILE);
-        Meters  m(METERS_PER_MILE);
+        Kilometers km(KILOMETERS_PER_MILE);
+        Meters m(METERS_PER_MILE);
 
         Feet f(FEET_PER_MILE);
         Miles mi(1.0);

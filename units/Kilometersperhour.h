@@ -18,42 +18,38 @@ namespace units
 
     class Kilometersperhour
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of Kilometersperhour.
+         */
+        explicit Kilometersperhour(double v)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of Kilometersperhour.
-             */
-            explicit Kilometersperhour(double v)
-                : m_value(v)
-            {
-            }
+        /**
+         * Constructor.
+         */
+        explicit Kilometersperhour(const Meterspersecond &n);
+        explicit Kilometersperhour(const Feetpersecond &n);
+        explicit Kilometersperhour(const Milesperhour &n);
 
+        /**
+         * Type conversion to double.
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Constructor.
-             */
-            explicit Kilometersperhour(const Meterspersecond& n);
-            explicit Kilometersperhour(const Feetpersecond& n);
-            explicit Kilometersperhour(const Milesperhour& n);
+        /**
+         * Type conversion from Kilometersperhour to Meterspersecond.
+         */
+        units::Meterspersecond toMeterspersecond() const;
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
-
-            /**
-             * Type conversion from Kilometersperhour to Meterspersecond.
-             */
-            units::Meterspersecond toMeterspersecond() const;
-
-
-
-        private:
-            double m_value;
+      private:
+        double m_value;
     };
 
 } // namespace

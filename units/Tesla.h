@@ -11,32 +11,29 @@ namespace units
      */
     class Tesla
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of tesla.
+         */
+        explicit Tesla(double v = 0.0)
+        {
+            m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of tesla.
-             */
-            explicit Tesla(double v = 0.0)
-            {
-                m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
-            }
+        /**
+         * Type conversion to double.
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
-
-        private:
-
-            /**
-             * Stored value.
-             */
-            double m_value;
-
+      private:
+        /**
+         * Stored value.
+         */
+        double m_value;
     };
 
 } // namespace

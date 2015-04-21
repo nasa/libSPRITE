@@ -12,10 +12,10 @@ namespace SRTX
      */
     struct Runtime_attributes
     {
-        Runtime_attributes() :
-            num_overruns(0),
-            max_runtime(0),
-            last_runtime(0)
+        Runtime_attributes()
+            : num_overruns(0)
+            , max_runtime(0)
+            , last_runtime(0)
         {
         }
 
@@ -29,10 +29,10 @@ namespace SRTX
      */
     typedef Symbol_db<Runtime_attributes> Runtime_attributes_db;
 
-    const char* const runtime_attr_symbol_prefix = "Rategroup_";
-    const char* const minor_frame_runtime_attr_symbol_name =
+    const char *const runtime_attr_symbol_prefix = "Rategroup_";
+    const char *const minor_frame_runtime_attr_symbol_name =
         "Minor Frame RT atttibutes";
 
-} //namepsace
+} // namepsace
 
 #endif // __SRTX_RUNTIME_ATTRIBUTES_H__

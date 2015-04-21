@@ -5,7 +5,6 @@
 
 #include "base/XPRINTF.h"
 
-
 namespace util
 {
 
@@ -27,13 +26,12 @@ namespace util
         const double DELTA = 1e-6;
     }
 
-
     Smooth_ut::Smooth_ut()
     {
         /* Open the file containing the test data.
          */
-        const char* fname = "savgoltest.csv";
-        FILE* fp = fopen(fname, "r");
+        const char *fname = "savgoltest.csv";
+        FILE *fp = fopen(fname, "r");
 
         if(NULL == fp)
         {
@@ -67,16 +65,13 @@ namespace util
         }
     }
 
-
     void Smooth_ut::setUp()
     {
     }
 
-
     void Smooth_ut::tearDown()
     {
     }
-
 
     static void _test_savgol_cubic(unsigned int nelem)
     {
@@ -108,13 +103,14 @@ namespace util
         {
             ss.push(test_vec[i].x);
             np = ss.npopulated();
-            if(np > 23) np = 23;
+            if(np > 23)
+                np = 23;
             idx = (np - 1) / 2;
             y = savgol_cubic(ss);
-            CPPUNIT_ASSERT_DOUBLES_EQUAL(test_vec[i-idx].y[idx-2], y, DELTA);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(test_vec[i - idx].y[idx - 2], y,
+                                         DELTA);
         }
     }
-
 
     static void _test_savgol_cubic_dx(unsigned int nelem)
     {
@@ -125,20 +121,21 @@ namespace util
         ss.push(test_vec[0].x);
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0., savgol_cubic_dx(ss), DELTA);
 
-        /* For the second through fourth points I expect to get back the slope of a line
+        /* For the second through fourth points I expect to get back the slope
+         * of a line
          * through the first and last points.
          */
         ss.push(test_vec[1].x);
         CPPUNIT_ASSERT_DOUBLES_EQUAL((test_vec[1].x - test_vec[0].x) / 2.,
-                savgol_cubic_dx(ss), DELTA);
+                                     savgol_cubic_dx(ss), DELTA);
 
         ss.push(test_vec[2].x);
         CPPUNIT_ASSERT_DOUBLES_EQUAL((test_vec[2].x - test_vec[0].x) / 2.,
-                savgol_cubic_dx(ss), DELTA);
+                                     savgol_cubic_dx(ss), DELTA);
 
         ss.push(test_vec[3].x);
         CPPUNIT_ASSERT_DOUBLES_EQUAL((test_vec[3].x - test_vec[0].x) / 2.,
-                savgol_cubic_dx(ss), DELTA);
+                                     savgol_cubic_dx(ss), DELTA);
 
         /* For the fifth and subsequent points, the algorithm can computes the
          * derivative using the Savitsky-Golay method.
@@ -153,27 +150,25 @@ namespace util
             np = ss.npopulated();
             idx = (np - 1) / 2;
             dy = savgol_cubic_dx(ss);
-            CPPUNIT_ASSERT_DOUBLES_EQUAL(test_vec[i-idx].dy[idx-2], dy, DELTA);
+            CPPUNIT_ASSERT_DOUBLES_EQUAL(test_vec[i - idx].dy[idx - 2], dy,
+                                         DELTA);
         }
     }
 
-
     void Smooth_ut::test_savgol_cubic()
     {
-        for(unsigned int i = 5; i <= 25; i+=2)
+        for(unsigned int i = 5; i <= 25; i += 2)
         {
             _test_savgol_cubic(i);
         }
     }
 
-
     void Smooth_ut::test_savgol_cubic_dx()
     {
-        for(unsigned int i = 5; i <= 25; i+=2)
+        for(unsigned int i = 5; i <= 25; i += 2)
         {
             _test_savgol_cubic_dx(i);
         }
     }
-
 
 } // namespace

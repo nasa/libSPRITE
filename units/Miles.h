@@ -18,43 +18,39 @@ namespace units
 
     class Miles
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of Miles.
+         */
+        explicit Miles(double v)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of Miles.
-             */
-            explicit Miles(double v)
-                : m_value(v)
-            {
-            }
+        /**
+         * Constructor.
+         */
+        explicit Miles(const Kilometers &n);
+        explicit Miles(const Meters &n);
+        explicit Miles(const Feet &n);
 
+        /**
+         * Type conversion to double.
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Constructor.
-             */
-            explicit Miles(const Kilometers& n);
-            explicit Miles(const Meters& n);
-            explicit Miles(const Feet& n);
+        /**
+         * Type conversion from Miles to Feet.
+         * @return Miles value conversion to Feet.
+         */
+        units::Feet toFeet() const;
 
-
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
-
-
-            /**
-             * Type conversion from Miles to Feet.
-             * @return Miles value conversion to Feet.
-             */
-            units::Feet toFeet() const;
-
-        private:
-            double m_value;
+      private:
+        double m_value;
     };
 
 } // namespace
