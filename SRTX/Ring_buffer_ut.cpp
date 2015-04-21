@@ -10,9 +10,11 @@ namespace SRTX
     {
     }
 
+
     void Ring_buffer_ut::tearDown()
     {
     }
+
 
     void Ring_buffer_ut::test_ring_buffer()
     {
@@ -37,9 +39,9 @@ namespace SRTX
 
         /* Fill the buffer.
          */
-        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval + 1));
-        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval + 2));
-        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval + 3));
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval+1));
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval+2));
+        CPPUNIT_ASSERT_EQUAL(true, rb.write(wval+3));
 
         /* Attempt to write more data than the buffer can hold
          */
@@ -48,11 +50,11 @@ namespace SRTX
         /* Read back values and validate them.
          */
         CPPUNIT_ASSERT_EQUAL(true, rb.read(rval));
-        CPPUNIT_ASSERT_EQUAL(wval + 1, rval);
+        CPPUNIT_ASSERT_EQUAL(wval+1, rval);
         CPPUNIT_ASSERT_EQUAL(true, rb.read(rval));
-        CPPUNIT_ASSERT_EQUAL(wval + 2, rval);
+        CPPUNIT_ASSERT_EQUAL(wval+2, rval);
         CPPUNIT_ASSERT_EQUAL(true, rb.read(rval));
-        CPPUNIT_ASSERT_EQUAL(wval + 3, rval);
+        CPPUNIT_ASSERT_EQUAL(wval+3, rval);
 
         /* Assume that we cannot allocate a ring buffer of type array of the
          * maximum number of ints. (Exhaust memory).
@@ -67,9 +69,10 @@ namespace SRTX
          */
         units::Nanoseconds now;
         get_time(now);
-        CPPUNIT_ASSERT_EQUAL(
-            false, rb.read_blocking(rval, now + units::Nanoseconds(100)));
+        CPPUNIT_ASSERT_EQUAL(false, rb.read_blocking(rval, now +
+                    units::Nanoseconds(100)));
     }
+
 
     void Ring_buffer_ut::test_empty()
     {
@@ -111,6 +114,7 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(false, rb.read(wval));
         CPPUNIT_ASSERT_EQUAL(true, rb.is_empty());
     }
+
 
     void Ring_buffer_ut::test_full()
     {
@@ -155,6 +159,7 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(false, rb.read(wval));
         CPPUNIT_ASSERT_EQUAL(false, rb.is_full());
     }
+
 
     void Ring_buffer_ut::test_count()
     {

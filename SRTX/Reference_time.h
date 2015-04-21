@@ -4,6 +4,7 @@
 
 #include "units/Nanoseconds.h"
 
+
 namespace SRTX
 {
 
@@ -17,66 +18,71 @@ namespace SRTX
      */
     class Reference_time
     {
-      public:
-        /**
-         * There is a single instance of reference time in a given domain.
-         * @return A reference to the domain's reference time class.
-         */
-        static Reference_time &get_instance()
-        {
-            static Reference_time instance;
+        public:
 
-            return instance;
-        }
+            /**
+             * There is a single instance of reference time in a given domain.
+             * @return A reference to the domain's reference time class.
+             */
+            static Reference_time& get_instance()
+            {
+                static Reference_time instance;
 
-        /**
-         * Get the domains current reference time.
-         * @return Returns the current time value in nanoseconds.
-         */
-        units::Nanoseconds get_time();
+                return instance;
+            }
 
-        /**
-         * Increment reference time.
-         * @param inc Amount of time to increment by in nanoseconds.
-         * @return The new reference time.
-         */
-        units::Nanoseconds increment(units::Nanoseconds inc)
-        {
-            return m_value = units::Nanoseconds(m_value + inc);
-        }
+            /**
+             * Get the domains current reference time.
+             * @return Returns the current time value in nanoseconds.
+             */
+            units::Nanoseconds get_time();
 
-      private:
-        /**
-         * Constructor.
-         * The constructor is made private as part of the singleton pattern.
-         */
-        Reference_time();
+            /**
+             * Increment reference time.
+             * @param inc Amount of time to increment by in nanoseconds.
+             * @return The new reference time.
+             */
+            units::Nanoseconds increment(units::Nanoseconds inc)
+            {
+                return m_value = units::Nanoseconds(m_value + inc);
+            }
 
-        /**
-         * Copy constructor.
-         * The copy constructor is made private as part of the singleton
-         * pattern.
-         */
-        Reference_time(const Reference_time &);
+        private:
 
-        /**
-         * Assignment operator.
-         * The assignment operator is made private as part of the singleton
-         * pattern.
-         */
-        Reference_time &operator=(const Reference_time &);
+            /**
+             * Constructor.
+             * The constructor is made private as part of the singleton pattern.
+             */
+            Reference_time();
 
-        /**
-         * The reference time value is stored in nanoseconds.
-         */
-        units::Nanoseconds m_value;
+            /**
+             * Copy constructor.
+             * The copy constructor is made private as part of the singleton
+             * pattern.
+             */
+            Reference_time(const Reference_time&);
+
+            /**
+             * Assignment operator.
+             * The assignment operator is made private as part of the singleton
+             * pattern.
+             */
+            Reference_time& operator=(const Reference_time&);
+
+            /**
+             * The reference time value is stored in nanoseconds.
+             */
+            units::Nanoseconds m_value;
+
     };
+
 
     /**
      * Retrieve the domains current reference time value.
      * @return The current time value in nanoseconds.
      */
     units::Nanoseconds get_reference_time();
+
 
 } // namespace
 

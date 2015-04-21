@@ -22,77 +22,80 @@ namespace SRTX
         bool task_terminated;
     }
 
+
     /* This task will sleep during it's execute method to deliberatly cause an
      * overrun.
      */
     class Overrun_task : public Task
     {
-      public:
-        Overrun_task(const char *const name)
-            : Task(name)
+        public:
+            Overrun_task(const char* const name) :
+                Task(name)
         {
         }
 
-        bool execute()
-        {
-            sleep(units::Nanoseconds(100 * units::MSEC));
-            return true;
-        }
+            bool execute()
+            {
+                sleep(units::Nanoseconds(100 * units::MSEC));
+                return true;
+            }
     };
 
     /* This is the test task that we are going to run.
      */
     class Test_task : public Task
     {
-      public:
-        /**
-         * Constructor.
-         * @param name The name of the task.
-         * @param i The task instances number.
-         */
-        Test_task(const char *const name, int i, int run_count = 0)
-            : Task(name)
-            , m_instance(i)
-            , m_run_count(run_count)
+        public:
+
+            /**
+             * Constructor.
+             * @param name The name of the task.
+             * @param i The task instances number.
+             */
+            Test_task(const char* const name, int i, int run_count = 0)
+                : Task(name),
+                m_instance(i),
+                m_run_count(run_count)
         {
         }
 
-        bool execute()
-        {
-            units::Nanoseconds period = get_period();
-
-            ++counter[m_instance];
-            DPRINTF("Running task %d with period %lld\n", m_instance,
-                    (int64_t)period);
-
-            /* If this is a aperiodic task (period is 0), sleep for a
-             * second.
-             */
-            if(0 == period)
+            bool execute()
             {
-                sleep(units::Nanoseconds(1 * units::SEC));
-                if(--m_run_count <= 0)
+                units::Nanoseconds period = get_period();
+
+                ++counter[m_instance];
+                DPRINTF("Running task %d with period %lld\n",
+                        m_instance, (int64_t)period);
+
+                /* If this is a aperiodic task (period is 0), sleep for a
+                 * second.
+                 */
+                if(0 == period)
                 {
-                    return false;
+                    sleep(units::Nanoseconds(1 * units::SEC));
+                    if(--m_run_count <=0)
+                    {
+                        return false;
+                    }
                 }
+
+                return true;
             }
 
-            return true;
-        }
+            void terminate()
+            {
+                task_terminated = true;
+            }
 
-        void terminate()
-        {
-            task_terminated = true;
-        }
-
-      private:
-        int m_instance;
-        int m_run_count;
+        private:
+            int m_instance;
+            int m_run_count;
     };
+
 
     void Scheduler_ut::setUp()
     {
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
         Task_db::value_t task_props;
 
         task_props.period = sched_period;
@@ -112,21 +115,24 @@ namespace SRTX
         memset(counter, 0, sizeof(counter));
     }
 
+
     void Scheduler_ut::tearDown()
     {
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
         sched.stop();
     }
+
 
     void Scheduler_ut::test_scheduler()
     {
         IPRINTF("\nExecuting %s\n", __func__);
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
 
         /* The scheduler should start out running schedule 0.
          */
-        CPPUNIT_ASSERT_EQUAL((schedule_t)0, sched.get_schedule());
+        CPPUNIT_ASSERT_EQUAL((schedule_t) 0, sched.get_schedule());
     }
+
 
     void Scheduler_ut::test_overrun()
     {
@@ -150,13 +156,12 @@ namespace SRTX
 
         /* Set up to read the runtime attributes for this rategroup.
          */
-        Runtime_attributes_db &rt_db = Runtime_attributes_db::get_instance();
+        Runtime_attributes_db& rt_db = Runtime_attributes_db::get_instance();
         Runtime_attributes_db::value_t rt_value;
         char sym_name[SYM_ENTRY_STRLEN + 1];
-        snprintf(sym_name, SYM_ENTRY_STRLEN, "%s%" PRId64 "",
-                 runtime_attr_symbol_prefix, int64_t(tp.period));
-        Runtime_attributes_db::symbol_t *rt_symbol =
-            rt_db.lookup_symbol(sym_name);
+        snprintf(sym_name, SYM_ENTRY_STRLEN, "%s%"PRId64"", runtime_attr_symbol_prefix,
+                int64_t(tp.period));
+        Runtime_attributes_db::symbol_t* rt_symbol = rt_db.lookup_symbol(sym_name);
 
         /* Make sure that we found the symbol.
          */
@@ -168,13 +173,12 @@ namespace SRTX
         CPPUNIT_ASSERT(rt_value.max_runtime > tp.period);
 #ifdef DEBUG_OVERRUN_BUG
         fprintf(stderr, "UT Num overruns = %u\n", rt_value.num_overruns);
-        fprintf(stderr, "UT last runtime = %ld\n",
-                int64_t(rt_value.last_runtime));
-        fprintf(stderr, "UT max runtime = %ld\n",
-                int64_t(rt_value.max_runtime));
+        fprintf(stderr, "UT last runtime = %ld\n", int64_t(rt_value.last_runtime));
+        fprintf(stderr, "UT max runtime = %ld\n", int64_t(rt_value.max_runtime));
 #endif
         CPPUNIT_ASSERT(rt_value.num_overruns);
     }
+
 
     void Scheduler_ut::test_tasks()
     {
@@ -260,17 +264,18 @@ namespace SRTX
         /* Check that the runtimes are reasonable.
          */
         last_runtime = task1.get_last_runtime();
-        IPRINTF("last_runtime = %" PRId64 "\n", int64_t(last_runtime));
-        CPPUNIT_ASSERT(last_runtime > units::Nanoseconds(0));
-        CPPUNIT_ASSERT(task1.get_max_runtime() >= last_runtime);
+        IPRINTF("last_runtime = %"PRId64"\n",int64_t (last_runtime));
+        CPPUNIT_ASSERT (last_runtime > units::Nanoseconds(0));
+        CPPUNIT_ASSERT (task1.get_max_runtime() >= last_runtime);
     }
+
 
     void Scheduler_ut::test_aperiodic_task()
     {
         IPRINTF("\nExecuting %s\n", __func__);
         const units::Nanoseconds test_delay(3 * units::SEC);
         IPRINTF("\nTesting aperiodic tasks. "
-                "This test takes at least %" PRId64 " seconds\n",
+                "This test takes at least %"PRId64" seconds\n",
                 int64_t(test_delay / units::SEC));
 
         /* Create an aperiodic task and make sure it is valid.
@@ -295,12 +300,13 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(3, counter[5]);
     }
 
+
     void Scheduler_ut::test_many_tasks()
     {
         IPRINTF("\nExecuting %s\n", __func__);
         memset(counter, 0, sizeof(counter));
 
-        Test_task *task[NUM_PROCS];
+        Test_task* task[NUM_PROCS];
 
         for(unsigned int i = 0; i < NUM_PROCS; ++i)
         {
@@ -309,10 +315,8 @@ namespace SRTX
             /* Allocate each task to one of 10 rate groups.
              */
             task_props.prio = 70 + (i % 10);
-            task_props.period =
-                (units::Nanoseconds((units::SEC) / ((i % 10) + 1)) /
-                 sched_period) *
-                sched_period;
+            task_props.period = (units::Nanoseconds((units::SEC) /
+                        ((i % 10) + 1)) / sched_period) * sched_period;
             char task_name[20];
             sprintf(task_name, "mtask_%d", i);
 
@@ -340,8 +344,7 @@ namespace SRTX
             int ex = units::SEC / period;
 
             char msg[128];
-            sprintf(msg,
-                    "%s period %" PRId64 ", instance %d ex = %d, actual = %d",
+            sprintf(msg,"%s period %"PRId64", instance %d ex = %d, actual = %d",
                     task[i]->get_name(), (int64_t)period, i, ex, counter[i]);
             CPPUNIT_ASSERT_MESSAGE(msg, counter[i] >= ex);
             CPPUNIT_ASSERT_MESSAGE(msg, counter[i] < (2 * ex));
@@ -354,11 +357,12 @@ namespace SRTX
         }
     }
 
+
     void Scheduler_ut::test_schedules()
     {
         IPRINTF("\nExecuting %s\n", __func__);
         Task_db::value_t task_props;
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
 #if 0
 
         /* Halt the scheduler.
@@ -373,7 +377,7 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(true, sched.set_properties(task_props));
 #endif
 
-        CPPUNIT_ASSERT_EQUAL((unsigned)0, sched.get_schedule());
+        CPPUNIT_ASSERT_EQUAL((unsigned) 0, sched.get_schedule());
 
         for(schedule_t i = 0; i < 32; ++i)
         {
@@ -402,7 +406,7 @@ namespace SRTX
          */
         CPPUNIT_ASSERT_EQUAL(true, task1.start());
         CPPUNIT_ASSERT_EQUAL(true, task2.start());
-        // CPPUNIT_ASSERT_EQUAL(true, sched.start());
+        //CPPUNIT_ASSERT_EQUAL(true, sched.start());
 
         IPRINTF("\nTesting multiple schedules.\n"
                 "This test will take at least 4 seconds to complete.\n");
@@ -449,7 +453,7 @@ namespace SRTX
         task2.stop();
 
         sched.set_schedule(0);
-        CPPUNIT_ASSERT_EQUAL((unsigned)0, sched.get_schedule());
+        CPPUNIT_ASSERT_EQUAL((unsigned) 0, sched.get_schedule());
     }
 
 } // namespace

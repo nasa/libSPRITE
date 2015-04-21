@@ -2,6 +2,7 @@
 #include "units/Seconds.h"
 #include "units/Seconds_ut.h"
 
+
 namespace units
 {
 
@@ -9,9 +10,11 @@ namespace units
     {
     }
 
+
     void Seconds_ut::tearDown()
     {
     }
+
 
     void Seconds_ut::test()
     {

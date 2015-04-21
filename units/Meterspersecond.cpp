@@ -6,17 +6,17 @@
 namespace units
 {
 
-    Meterspersecond::Meterspersecond(const Kilometersperhour &n)
+    Meterspersecond::Meterspersecond(const Kilometersperhour& n)
     {
         *this = n.toMeterspersecond();
     }
 
-    Meterspersecond::Meterspersecond(const Feetpersecond &n)
+    Meterspersecond::Meterspersecond(const Feetpersecond& n)
     {
         *this = n.toMeterspersecond();
     }
 
-    Meterspersecond::Meterspersecond(const Milesperhour &n)
+    Meterspersecond::Meterspersecond(const Milesperhour& n)
     {
         *this = n.toFeetpersecond().toMeterspersecond();
     }

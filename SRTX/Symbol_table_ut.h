@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace SRTX
 {
     class Symbol_table_ut : public CppUnit::TestFixture
@@ -18,11 +19,11 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_add_symbol_d();
         void test_add_symbol_i();
         void test_add_symbol_p();

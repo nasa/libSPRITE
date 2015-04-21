@@ -13,30 +13,30 @@ namespace SRTX
     {
         pthread_t tid;
         pthread_attr_t attr;
-        Syncpoint *rategroup_sync;
-        bool *rategroup_condition;
+        Syncpoint* rategroup_sync;
+        bool* rategroup_condition;
         struct sched_param sched_attr;
         units::Nanoseconds expected_wake_time;
         bool first_pass;
 
-        Task_impl()
-            : tid(0)
-            , rategroup_sync(NULL)
-            , rategroup_condition(NULL)
-            , expected_wake_time(0)
-            , first_pass(true)
+        Task_impl() :
+            tid(0),
+            rategroup_sync(NULL),
+            rategroup_condition(NULL),
+            expected_wake_time(0),
+            first_pass(true)
         {
         }
     };
 
     static volatile bool _thread_initializing;
 
-    Task::Task(const char *name)
-        : m_prop_symbol(NULL)
-        , m_valid(false)
-        , m_operational(false)
-        , m_is_eof_task(false)
-        , m_impl(new Task_impl)
+    Task::Task(const char * name) :
+        m_prop_symbol(NULL),
+        m_valid(false),
+        m_operational(false),
+        m_is_eof_task(false),
+        m_impl(new Task_impl)
     {
         /* Make sure the implementation specific data got allocated.
         */
@@ -49,7 +49,7 @@ namespace SRTX
 
         /* Create a task attribute entry in the task database.
         */
-        Task_db &proc_db = Task_db::get_instance();
+        Task_db& proc_db = Task_db::get_instance();
 
         m_prop_symbol = proc_db.add_symbol(name);
         if((NULL == m_prop_symbol) || (false == m_prop_symbol->is_valid()))
@@ -75,18 +75,20 @@ namespace SRTX
         m_valid = true;
     }
 
-    bool Task::set_properties(const Task_db::value_t &props)
+
+    bool Task::set_properties(const Task_db::value_t& props)
     {
         return m_valid && m_prop_symbol->entry->write(props);
     }
 
-    void *Task::run(void *arg)
+
+    void* Task::run(void* arg)
     {
-        Task *p = reinterpret_cast<Task *>(arg);
+        Task* p = reinterpret_cast<Task*>(arg);
         struct sched_param sched_attr;
         int policy;
         pthread_t tid = pthread_self();
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
 
         m_thread_syncpoint.lock();
         m_thread_syncpoint.condition_satisfied();
@@ -145,8 +147,8 @@ namespace SRTX
             return NULL;
         }
 
-        DPRINTF("Successfully registered task %s at priority %d\n", p->m_name,
-                sched_attr.sched_priority);
+        DPRINTF("Successfully registered task %s at priority %d\n",
+                p->m_name, sched_attr.sched_priority);
 
         units::Nanoseconds ref_time(0);
 
@@ -187,15 +189,14 @@ namespace SRTX
                  * spurious wakeup.
                  */
                 p->m_impl->expected_wake_time += p->m_props.period;
-                DPRINTF("%s: expected wake time = %" PRId64 "\n", p->m_name,
+                DPRINTF("%s: expected wake time = %"PRId64"\n", p->m_name,
                         int64_t(p->m_impl->expected_wake_time));
 
                 while((true == p->m_operational) &&
-                      (ref_time = get_reference_time()) <
-                          p->m_impl->expected_wake_time)
+                        (ref_time = get_reference_time()) <
+                        p->m_impl->expected_wake_time)
                 {
-                    DPRINTF("%s: Tref = %" PRId64
-                            ", expected_wake_time = %" PRId64 "\n",
+                    DPRINTF("%s: Tref = %"PRId64", expected_wake_time = %"PRId64"\n",
                             p->m_name, int64_t(ref_time),
                             int64_t(p->m_impl->expected_wake_time));
                     if(false == p->m_impl->rategroup_sync->wait())
@@ -207,8 +208,7 @@ namespace SRTX
                     DPRINTF("%s:Woke up\n", p->m_name);
                 }
 
-                DPRINTF("%s: Tref = %" PRId64 ", expected_wake_time = %" PRId64
-                        "\n",
+                DPRINTF("%s: Tref = %"PRId64", expected_wake_time = %"PRId64"\n",
                         p->m_name, int64_t(ref_time),
                         int64_t(p->m_impl->expected_wake_time));
 
@@ -253,19 +253,20 @@ namespace SRTX
                 get_time(end_time);
 
                 p->m_props.last_runtime = end_time - start_time;
-                if(p->m_props.last_runtime > p->m_props.max_runtime)
+                if (p->m_props.last_runtime > p->m_props.max_runtime)
                 {
                     p->m_props.max_runtime = p->m_props.last_runtime;
                 }
-                DPRINTF("%s last_runtime = %" PRId64 ", max_runtime = %" PRId64
-                        "\n",
-                        p->m_name, int64_t(p->m_props.last_runtime),
+                DPRINTF("%s last_runtime = %"PRId64", max_runtime = %"PRId64"\n",
+                        p->m_name,
+                        int64_t(p->m_props.last_runtime),
                         int64_t(p->m_props.max_runtime));
             }
         }
 
         return NULL;
     }
+
 
     bool Task::start_prep()
     {
@@ -277,7 +278,7 @@ namespace SRTX
             return false;
         }
         if(pthread_attr_setinheritsched(&(m_impl->attr),
-                                        PTHREAD_EXPLICIT_SCHED) != 0)
+                    PTHREAD_EXPLICIT_SCHED) != 0)
         {
             EPRINTF("%s:Failed setting task schedule inheritance policy\n",
                     m_name);
@@ -293,11 +294,13 @@ namespace SRTX
         }
 
         return true;
+
     }
+
 
     bool Task::spawn_thread()
     {
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
 
         /* If rategroup_sync is not NULL at this point, then the task has been
          * started previously and is already on the scheduler's list.
@@ -305,9 +308,7 @@ namespace SRTX
         if(NULL != m_impl->rategroup_sync)
         {
             m_impl->first_pass = true;
-        }
-        else if(m_props.period && (this != &sched))
-        {
+        } else if(m_props.period && (this != &sched)) {
             m_impl->rategroup_sync = sched.add_task(*this);
             if(NULL == m_impl->rategroup_sync)
             {
@@ -320,7 +321,7 @@ namespace SRTX
         m_thread_syncpoint.lock();
         m_thread_syncpoint.condition_cleared();
         if(pthread_create(&(m_impl->tid), &(m_impl->attr), run,
-                          reinterpret_cast<void *>(this)) != 0)
+                    reinterpret_cast<void*>(this)) != 0)
         {
             m_thread_syncpoint.unlock();
             EPRINTF("%s: Failed to spawn thread\n", m_name);
@@ -337,6 +338,7 @@ namespace SRTX
 
         return true;
     }
+
 
     bool Task::start()
     {
@@ -371,13 +373,14 @@ namespace SRTX
 
         /* Schedule the task.
         */
-        Scheduler &sched = Scheduler::get_instance();
+        Scheduler& sched = Scheduler::get_instance();
         sched.lock();
         bool rval = spawn_thread();
         sched.unlock();
 
         return rval;
     }
+
 
     void Task::stop()
     {
@@ -415,8 +418,7 @@ namespace SRTX
         {
             if(m_impl->tid)
             {
-                DPRINTF("%s: Joining thread; Waiting for termination\n",
-                        m_name);
+                DPRINTF("%s: Joining thread; Waiting for termination\n", m_name);
                 void *res;
                 int rval = pthread_join(m_impl->tid, &res);
                 if((0 != rval) && (PTHREAD_CANCELED != res))
@@ -429,7 +431,7 @@ namespace SRTX
                 pthread_attr_destroy(&(m_impl->attr));
             }
 
-            delete (m_impl);
+            delete(m_impl);
             m_impl = NULL;
         }
 

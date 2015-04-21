@@ -6,17 +6,19 @@
 namespace SRTX
 {
 
-    Base_ring_buffer::Base_ring_buffer(unsigned int nbytes, unsigned int nelem)
-        : Buffer(nbytes)
-        , m_nelems(nelem)
-        , m_free(nelem)
-        , m_size(nbytes * nelem)
+    Base_ring_buffer::Base_ring_buffer(unsigned int nbytes,
+            unsigned int nelem) :
+        Buffer(nbytes),
+        m_nelems(nelem),
+        m_free(nelem),
+        m_size(nbytes * nelem)
     {
-        m_head = m_tail = m_buffer = static_cast<char *>(malloc(m_size));
+        m_head = m_tail = m_buffer = static_cast<char*>(malloc(m_size));
         m_valid = m_sync.is_valid() && (m_buffer != NULL);
     }
 
-    bool Base_ring_buffer::_read(void *data, unsigned int nbytes)
+
+    bool Base_ring_buffer::_read(void* data, unsigned int nbytes)
     {
         memcpy(data, m_tail, nbytes);
         ++m_free;
@@ -34,7 +36,8 @@ namespace SRTX
         return true;
     }
 
-    bool Base_ring_buffer::read(void *data, unsigned int nbytes)
+
+    bool Base_ring_buffer::read(void* data, unsigned int nbytes)
     {
         /* If the object is valid then we kwow the buffer is not NULL.
          */
@@ -56,8 +59,9 @@ namespace SRTX
         return this->_read(data, nbytes);
     }
 
-    bool Base_ring_buffer::read_blocking(void *data, unsigned int nbytes,
-                                         const units::Nanoseconds &timeout)
+
+    bool Base_ring_buffer::read_blocking(void* data, unsigned int nbytes,
+            const units::Nanoseconds& timeout)
     {
         /* If the object is valid then we kwow the buffer is not NULL.
          */
@@ -83,8 +87,9 @@ namespace SRTX
         return this->_read(data, nbytes);
     }
 
-    bool Base_ring_buffer::write(void const *data, unsigned int nbytes,
-                                 bool signal)
+
+    bool Base_ring_buffer::write(void const* data, unsigned int nbytes,
+            bool signal)
     {
         /* If the object is valid then we kwow the buffer is not NULL.
         */
@@ -126,6 +131,7 @@ namespace SRTX
 
         return true;
     }
+
 
     Base_ring_buffer::~Base_ring_buffer()
     {

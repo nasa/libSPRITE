@@ -2,14 +2,16 @@
 #include "SRTX/Buffer.h"
 #include "base/XPRINTF.h"
 
+
 namespace SRTX
 {
 
-    Buffer::Buffer(unsigned int nbytes)
-        : m_nbytes(nbytes)
-        , m_update_count(0)
+    Buffer::Buffer(unsigned int nbytes) :
+        m_nbytes(nbytes),
+        m_update_count(0)
     {
     }
+
 
     void Buffer::abort_read()
     {
@@ -28,7 +30,8 @@ namespace SRTX
         }
     }
 
-    bool copy_entry(Buffer &dest, Buffer &src, unsigned int nbytes)
+
+    bool copy_entry(Buffer& dest, Buffer& src, unsigned int nbytes)
     {
         uint8_t tmp[nbytes];
         return src.read(tmp, nbytes) && dest.write(tmp, nbytes);

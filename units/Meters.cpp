@@ -6,17 +6,17 @@
 namespace units
 {
 
-    Meters::Meters(const Kilometers &n)
+    Meters::Meters(const Kilometers& n)
     {
         *this = n.toMeters();
     }
 
-    Meters::Meters(const Feet &n)
+    Meters::Meters(const Feet& n)
     {
         *this = n.toMeters();
     }
 
-    Meters::Meters(const Miles &n)
+    Meters::Meters(const Miles& n)
     {
         *this = n.toFeet().toMeters();
     }

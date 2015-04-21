@@ -14,36 +14,39 @@ namespace units
 
     class Liters
     {
-      public:
-        /**
-         * Constructor.
-         * @param v Number of Liters.
-         */
-        explicit Liters(double v)
-            : m_value(v)
-        {
-        }
+        public:
 
-        /**
-         * Constructor.
-         */
-        explicit Liters(const Gallons &n);
+            /**
+             * Constructor.
+             * @param v Number of Liters.
+             */
+            explicit Liters(double v)
+                : m_value(v)
+            {
+            }
 
-        /**
-         * Type conversion to double.
-         */
-        operator double() const
-        {
-            return m_value;
-        }
 
-        /**
-         * Type conversion from Liters to Gallons.
-         */
-        units::Gallons toGallons() const;
+            /**
+             * Constructor.
+             */
+            explicit Liters(const Gallons& n);
 
-      private:
-        double m_value;
+            /**
+             * Type conversion to double.
+             */
+            operator double() const
+            {
+                return m_value;
+            }
+
+            /**
+             * Type conversion from Liters to Gallons.
+             */
+            units::Gallons toGallons() const;
+
+
+        private:
+            double m_value;
     };
 
 } // namespace

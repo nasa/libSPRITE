@@ -5,13 +5,13 @@
 
 namespace net
 {
-    class UDP_client : public UDP_connection
+    class UDP_client: public UDP_connection
     {
-      public:
-        /**
-         * Create a UDP server.
-         */
-        UDP_client(const char *host, int port);
+        public:
+            /**
+             * Create a UDP server.
+             */
+            UDP_client(const char* host, int port);
     };
 }
 

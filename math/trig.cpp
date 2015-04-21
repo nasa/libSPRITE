@@ -5,27 +5,27 @@
 namespace math
 {
 
-    double sin(const units::Radians &r)
+    double sin(const units::Radians& r)
     {
         return ::sin(r);
     }
 
-    double sin(const units::Degrees &d)
+    double sin(const units::Degrees& d)
     {
         return sin(units::Radians(d));
     }
 
-    double cos(const units::Radians &r)
+    double cos(const units::Radians& r)
     {
         return ::cos(r);
     }
 
-    double cos(const units::Degrees &d)
+    double cos(const units::Degrees& d)
     {
         return cos(units::Radians(d));
     }
 
-    double tan(const units::Radians &r)
+    double tan(const units::Radians& r)
     {
         /* The value of tan(pi/2) is infinite. Assert if someone tries to
          * calculate it.
@@ -35,7 +35,7 @@ namespace math
         return ::tan(r);
     }
 
-    double tan(const units::Degrees &d)
+    double tan(const units::Degrees& d)
     {
         return tan(units::Radians(d));
     }

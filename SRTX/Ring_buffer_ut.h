@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace SRTX
 {
     class Ring_buffer_ut : public CppUnit::TestFixture
@@ -17,15 +18,16 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_ring_buffer();
         void test_empty();
         void test_full();
         void test_count();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Ring_buffer_ut);

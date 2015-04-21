@@ -4,6 +4,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include "SRTX/Linked_list.h"
 
+
 namespace SRTX
 {
 
@@ -24,11 +25,11 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_add_front();
         void test_add_back();
         void test_iterate_forward();
@@ -39,13 +40,14 @@ namespace SRTX
         void test_delete_last_node();
         void test_delete_middle_node();
 
-      private:
+        private:
         Linked_list<int> ll;
-        Linked_list<int>::Node *ll_node;
+        Linked_list<int>::Node* ll_node;
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Linked_list_ut);
 
-} // namespace
+} //namespace
 
 #endif // __SRTX_LINKED_LIST_UT_H__

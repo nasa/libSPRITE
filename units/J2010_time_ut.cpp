@@ -2,6 +2,7 @@
 #include "units/J2010_time.h"
 #include "units/J2010_time_ut.h"
 
+
 namespace units
 {
 
@@ -9,9 +10,11 @@ namespace units
     {
     }
 
+
     void J2010_time_ut::tearDown()
     {
     }
+
 
     void J2010_time_ut::test()
     {
@@ -24,12 +27,13 @@ namespace units
         CPPUNIT_ASSERT_EQUAL(Days(1), Days(t1));
 
         t1 += Seconds(1.0);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(Days(Seconds(SECONDS_PER_DAY + 1)),
-                                     Days(t1), 1e-14);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL( Days(Seconds(SECONDS_PER_DAY + 1)),
+                Days(t1), 1e-14);
 
         t1 -= Seconds(2.0);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(Days(Seconds(SECONDS_PER_DAY - 1)),
-                                     Days(t1), 1e-14);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(
+                Days(Seconds(SECONDS_PER_DAY - 1)), Days(t1),
+                    1e-14);
 
         const double t = 651.5;
         J2010_time t2(t);

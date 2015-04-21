@@ -2,18 +2,20 @@
 #include "base/XPRINTF.h"
 #include <dlfcn.h>
 
+
 namespace SRTX
 {
 
-    Container::Container(const char *const name, const char *const appname)
-        : Task(name)
-        , m_appname(appname)
-        , m_dll(NULL)
-        , m_init(NULL)
-        , m_execute(NULL)
-        , m_terminate(NULL)
+    Container::Container(const char* const name, const char* const appname) :
+        Task(name),
+        m_appname(appname),
+        m_dll(NULL),
+        m_init(NULL),
+        m_execute(NULL),
+        m_terminate(NULL)
     {
     }
+
 
     bool Container::init()
     {
@@ -50,10 +52,12 @@ namespace SRTX
         return m_init();
     }
 
+
     bool Container::execute()
     {
         return m_execute();
     }
+
 
     void Container::terminate()
     {

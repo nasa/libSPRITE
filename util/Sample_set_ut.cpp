@@ -1,6 +1,7 @@
 #include "util/Sample_set.h"
 #include "util/Sample_set_ut.h"
 
+
 namespace util
 {
 
@@ -8,9 +9,11 @@ namespace util
     {
     }
 
+
     void Sample_set_ut::tearDown()
     {
     }
+
 
     void Sample_set_ut::test_int()
     {
@@ -49,6 +52,7 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(3, ss(4));
         CPPUNIT_ASSERT_EQUAL(2, ss(5));
     }
+
 
     void Sample_set_ut::test_double()
     {

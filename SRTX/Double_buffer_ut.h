@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace SRTX
 {
     class Double_buffer_ut : public CppUnit::TestFixture
@@ -14,12 +15,13 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_double_buffer();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Double_buffer_ut);

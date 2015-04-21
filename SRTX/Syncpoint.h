@@ -12,103 +12,106 @@ namespace SRTX
      */
     struct Syncpoint_impl;
 
+
     class Syncpoint : public Mutex
     {
 
-      public:
-        /**
-         * Constructor.
-         */
-        Syncpoint();
+        public:
 
-        /**
-         * Is the class in a valid state?
-         * @return true if valid, else false.
-         */
-        bool is_valid() const
-        {
-            return m_valid;
-        }
+            /**
+             * Constructor.
+             */
+            Syncpoint();
 
-        /**
-         * Wait for release from the syncpoint or optionally timeout.
-         * @param timeout Absolute time of timeout in nanoseconds. If
-         * timeout is 0, it is ignored, and the call waits forever.
-         * @return True if released or timed out. False on failure.
-         * @note The associated mutex must be locked prior to calling this
-         * routine and will be locked when this routine returns.
-         */
-        bool wait(const units::Nanoseconds &timeout = units::Nanoseconds(0));
+            /**
+             * Is the class in a valid state?
+             * @return true if valid, else false.
+             */
+            bool is_valid() const
+            {
+                return m_valid;
+            }
 
-        /**
-         * Wait, but with the wait condition inverted.
-         * @return True on success, false on failure.
-         */
-        bool inverse_wait();
+            /**
+             * Wait for release from the syncpoint or optionally timeout.
+             * @param timeout Absolute time of timeout in nanoseconds. If
+             * timeout is 0, it is ignored, and the call waits forever.
+             * @return True if released or timed out. False on failure.
+             * @note The associated mutex must be locked prior to calling this
+             * routine and will be locked when this routine returns.
+             */
+            bool wait(const units::Nanoseconds& timeout = units::Nanoseconds(0));
 
-        /**
-         * Release threads blocked on this condition.
-         * @return True on success or false on failure.
-         * @note It is recommended that the associated mutex be locked
-         * during this call to ensure deterministic behavior.
-         */
-        bool release();
+            /**
+             * Wait, but with the wait condition inverted.
+             * @return True on success, false on failure.
+             */
+            bool inverse_wait();
 
-        /**
-         * Let the syncpoint know that the condition to release tasks
-         * has been satisfied.
-         */
-        void condition_satisfied(void)
-        {
-            m_wait_condition = true;
-        }
+            /**
+             * Release threads blocked on this condition.
+             * @return True on success or false on failure.
+             * @note It is recommended that the associated mutex be locked
+             * during this call to ensure deterministic behavior.
+             */
+            bool release();
 
-        /**
-         * Abort the wait even though the condition is not satisified.
-         */
-        void abort_wait(void)
-        {
-            m_abort = true;
-            release();
-        }
+            /**
+             * Let the syncpoint know that the condition to release tasks
+             * has been satisfied.
+             */
+            void condition_satisfied(void)
+            {
+                m_wait_condition = true;
+            }
 
-        /**
-         * Let the syncpoint know that the condition to release tasks
-         * is no longer satisfied.
-         */
-        void condition_cleared(void)
-        {
-            m_wait_condition = false;
-        }
+            /**
+             * Abort the wait even though the condition is not satisified.
+             */
+            void abort_wait(void)
+            {
+                m_abort = true;
+                release();
+            }
 
-        /**
-         * Destructor.
-         */
-        virtual ~Syncpoint();
+            /**
+             * Let the syncpoint know that the condition to release tasks
+             * is no longer satisfied.
+             */
+            void condition_cleared(void)
+            {
+                m_wait_condition = false;
+            }
 
-      private:
-        /**
-         * Pointer to the specific implementation of the Syncpoint.
-         * (PIMPL pattern).
-         */
-        Syncpoint_impl *m_impl;
+            /**
+             * Destructor.
+             */
+            virtual ~Syncpoint();
 
-        /**
-         * Boolean indicating if the mutex was successfully constructed.
-         */
-        bool m_valid;
+        private:
 
-        /**
-         * Condition used to indicate whether the wait criteria has been
-         * satisfied.
-         */
-        bool m_wait_condition;
+            /**
+             * Pointer to the specific implementation of the Syncpoint.
+             * (PIMPL pattern).
+             */
+            Syncpoint_impl* m_impl;
 
-        /**
-         * Flag to indicate that we want to abort the wait even tough the
-         * condition has not been satisfied.
-         */
-        bool m_abort;
+            /**
+             * Boolean indicating if the mutex was successfully constructed.
+             */
+            bool m_valid;
+
+            /**
+             * Condition used to indicate whether the wait criteria has been
+             * satisfied.
+             */
+            bool m_wait_condition;
+
+            /**
+             * Flag to indicate that we want to abort the wait even tough the
+             * condition has not been satisfied.
+             */
+            bool m_abort;
     };
 
 } // namespace

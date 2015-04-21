@@ -8,17 +8,17 @@
 namespace math
 {
 
-    double sin(const units::Radians &r);
+    double sin(const units::Radians& r);
 
-    double sin(const units::Degrees &d);
+    double sin(const units::Degrees& d);
 
-    double cos(const units::Radians &r);
+    double cos(const units::Radians& r);
 
-    double cos(const units::Degrees &d);
+    double cos(const units::Degrees& d);
 
-    double tan(const units::Radians &r);
+    double tan(const units::Radians& r);
 
-    double tan(const units::Degrees &d);
+    double tan(const units::Degrees& d);
 
     units::Radians asin2(double x);
 

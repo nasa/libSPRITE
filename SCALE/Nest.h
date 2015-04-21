@@ -11,50 +11,52 @@ namespace SCALE
     /**
      * This class is a SRTX task that loads and runs a Lua script.
      */
-    class Nest : public SRTX::Task
+    class Nest: public SRTX::Task
     {
 
-      public:
-        /**
-         * Constructor.
-         * @param name Task name.
-         */
-        Nest(const char *const name);
+        public:
 
-        /**
-         * Initialization routine.
-         * @return true on success or false on failure.
-         */
-        bool init();
+            /**
+             * Constructor.
+             * @param name Task name.
+             */
+            Nest(const char* const name);
 
-        /**
-         * This the the function that gets executed on a periodic basis
-         * each time this task is scheduler to run.
-         * @return Return true to continue execution or false to terminate
-         * the task.
-         */
-        bool execute();
+            /**
+             * Initialization routine.
+             * @return true on success or false on failure.
+             */
+            bool init();
 
-        /**
-         * Terminate routine.
-         */
-        void terminate();
+            /**
+             * This the the function that gets executed on a periodic basis
+             * each time this task is scheduler to run.
+             * @return Return true to continue execution or false to terminate
+             * the task.
+             */
+            bool execute();
 
-        /**
-         * Tell the task what script you want it to run.
-         */
-        void register_script(char *scriptname)
-        {
-            m_scriptname = scriptname;
-        }
+            /**
+             * Terminate routine.
+             */
+            void terminate();
 
-      private:
-        char *m_scriptname;
+            /**
+             * Tell the task what script you want it to run.
+             */
+            void register_script(char* scriptname)
+            {
+                m_scriptname = scriptname;
+            }
 
-        /**
-         * Interface to the SCALE engine.
-         */
-        Scale_if &m_scale;
+        private:
+
+            char* m_scriptname;
+
+            /**
+             * Interface to the SCALE engine.
+             */
+            Scale_if& m_scale;
     };
 
 } // namespace

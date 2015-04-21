@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace SRTX
 {
     /**
@@ -17,16 +18,19 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
+
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
+
         /**
          * This test verifies that the scheduler can be trigger by an external
          * source.
          */
         void test_trigger();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(External_trigger_ut);

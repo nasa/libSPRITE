@@ -5,13 +5,13 @@
 
 namespace net
 {
-    class UDP_server : public UDP_connection
+    class UDP_server: public UDP_connection
     {
-      public:
-        /**
-         * Create a UDP server.
-         */
-        UDP_server(int port);
+        public:
+            /**
+             * Create a UDP server.
+             */
+            UDP_server(int port);
     };
 }
 

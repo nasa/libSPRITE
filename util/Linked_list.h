@@ -11,234 +11,235 @@ namespace util
      * list data structure.
      * @param T The type of data in the linked list.
      */
-    template <typename T> class Linked_list
-    {
-      public:
-        /**
-         * The structure of each node in the linked list.
-         */
-        class Node
+    template<typename T>
+        class Linked_list
         {
-            /**
-             * The owning class must be a friend in order to manipulate
-             * the list.
-             */
-            friend class Linked_list<T>;
+            public:
+                /**
+                 * The structure of each node in the linked list.
+                 */
+                class Node
+                {
+                    /**
+                     * The owning class must be a friend in order to manipulate
+                     * the list.
+                     */
+                    friend class Linked_list<T>;
 
-          public:
-            /**
-             * The data stored in the list.
-             */
-            T data;
+                    public:
+                    /**
+                     * The data stored in the list.
+                     */
+                    T data;
 
-            /**
-             * Prefix increment operator.
-             * @return The next node in the list.
-             */
-            Node *next()
+                    /**
+                     * Prefix increment operator.
+                     * @return The next node in the list.
+                     */
+                    Node* next()
+                    {
+                        return this->m_next;
+                    }
+
+                    Node* prev()
+                    {
+                        return this->m_prev;
+                    }
+
+                    private:
+                    /**
+                     * A pointer to the previous node.
+                     */
+                    Node* m_prev;
+
+                    /**
+                     * A pointer to the next node.
+                     */
+                    Node* m_next;
+
+                    /**
+                     * Node constructor.
+                     * @param t Node data.
+                     * @param p Pointer to the previous node in the list.
+                     * @param n Pointer to the next node in the list.
+                     */
+                    Node(T t, Node* p, Node* n) :
+                        data(t),
+                        m_prev(p),
+                        m_next(n)
+                    {
+                    }
+                };
+
+                /**
+                 * Construct a queue, initialize as
+                 * empty.
+                 */
+                Linked_list() :
+                    m_head(NULL),
+                    m_tail(NULL)
             {
-                return this->m_next;
             }
 
-            Node *prev()
-            {
-                return this->m_prev;
-            }
+                /**
+                 * Get a pointer to the head of the list.
+                 * @return Pointer to the head node.
+                 */
+                Node* head() const
+                {
+                    return m_head;
+                }
 
-          private:
-            /**
-             * A pointer to the previous node.
-             */
-            Node *m_prev;
+                /**
+                 * Get a pointer to the tail of the list.
+                 * @return Pointer to the tail node.
+                 */
+                Node* tail() const
+                {
+                    return m_tail;
+                }
 
-            /**
-             * A pointer to the next node.
-             */
-            Node *m_next;
+                /**
+                 * Put an element on the front of the list.
+                 * @param t Data element to add the the list.
+                 */
+                void add_front(T t)
+                {
+                    m_head = new Node(t, NULL, m_head);
 
-            /**
-             * Node constructor.
-             * @param t Node data.
-             * @param p Pointer to the previous node in the list.
-             * @param n Pointer to the next node in the list.
-             */
-            Node(T t, Node *p, Node *n)
-                : data(t)
-                , m_prev(p)
-                , m_next(n)
-            {
-            }
+                    if(m_head->m_next)
+                    {
+                        m_head->m_next->m_prev = m_head;
+                    }
+
+                    if(!m_tail)
+                    {
+                        m_tail = m_head;
+                    }
+                }
+
+                /**
+                 * Put an element on the tail of the list.
+                 * @param t Data element to add the the list.
+                 */
+                void add_back(T t)
+                {
+                    m_tail = new Node(t, m_tail, NULL);
+
+                    if(m_tail->m_prev)
+                    {
+                        m_tail->m_prev->m_next = m_tail;
+                    }
+
+                    if(!m_head)
+                    {
+                        m_head = m_tail;
+                    }
+                }
+
+                /**
+                 * Remove an element from the front of the list.
+                 */
+                void delete_front()
+                {
+                    if(!m_head)
+                    {
+                        return;
+                    }
+
+                    Node* temp(m_head);
+                    m_head = m_head->m_next;
+
+                    if(m_head)
+                    {
+                        m_head->m_prev = NULL;
+                    }
+                    else
+                    {
+                        m_tail = NULL;
+                    }
+
+                    delete temp;
+                }
+
+                /**
+                 * Remove an element from the tail of the list.
+                 * @param t Data element to add the the list.
+                 */
+                void delete_back()
+                {
+                    if(!m_tail)
+                    {
+                        return;
+                    }
+
+                    Node* temp(m_tail);
+                    m_tail = m_tail->m_prev;
+
+                    if(m_tail)
+                    {
+                        m_tail->m_next = NULL;
+                    }
+                    else
+                    {
+                        m_head = NULL;
+                    }
+
+                    delete temp;
+                }
+
+                /**
+                 * Remove the given node from the linked list.
+                 * @param node The node to be deleted.
+                 */
+                void delete_node(Node* node)
+                {
+                    /* Handle the case where the node is the first element in
+                     * the list.
+                     */
+                    if(node == m_head)
+                    {
+                        delete_front();
+                        node = NULL;
+                        return;
+                    }
+
+                    /* Handle the case where the node is the last element in
+                     * the list.
+                     */
+                    if(node == m_tail)
+                    {
+                        delete_back();
+                        node = NULL;
+                        return;
+                    }
+
+                    /* All other cases.
+                     */
+                    node->m_prev->m_next = node->m_next;
+                    node->m_next->m_prev = node->m_prev;
+
+                    delete node;
+                    node = NULL;
+                }
+
+            private:
+                /**
+                 * The first node in the list.
+                 */
+                Node* m_head;
+
+                /**
+                 * The last node in the list.
+                 */
+                Node* m_tail;
         };
 
-        /**
-         * Construct a queue, initialize as
-         * empty.
-         */
-        Linked_list()
-            : m_head(NULL)
-            , m_tail(NULL)
-        {
-        }
-
-        /**
-         * Get a pointer to the head of the list.
-         * @return Pointer to the head node.
-         */
-        Node *head() const
-        {
-            return m_head;
-        }
-
-        /**
-         * Get a pointer to the tail of the list.
-         * @return Pointer to the tail node.
-         */
-        Node *tail() const
-        {
-            return m_tail;
-        }
-
-        /**
-         * Put an element on the front of the list.
-         * @param t Data element to add the the list.
-         */
-        void add_front(T t)
-        {
-            m_head = new Node(t, NULL, m_head);
-
-            if(m_head->m_next)
-            {
-                m_head->m_next->m_prev = m_head;
-            }
-
-            if(!m_tail)
-            {
-                m_tail = m_head;
-            }
-        }
-
-        /**
-         * Put an element on the tail of the list.
-         * @param t Data element to add the the list.
-         */
-        void add_back(T t)
-        {
-            m_tail = new Node(t, m_tail, NULL);
-
-            if(m_tail->m_prev)
-            {
-                m_tail->m_prev->m_next = m_tail;
-            }
-
-            if(!m_head)
-            {
-                m_head = m_tail;
-            }
-        }
-
-        /**
-         * Remove an element from the front of the list.
-         */
-        void delete_front()
-        {
-            if(!m_head)
-            {
-                return;
-            }
-
-            Node *temp(m_head);
-            m_head = m_head->m_next;
-
-            if(m_head)
-            {
-                m_head->m_prev = NULL;
-            }
-            else
-            {
-                m_tail = NULL;
-            }
-
-            delete temp;
-        }
-
-        /**
-         * Remove an element from the tail of the list.
-         * @param t Data element to add the the list.
-         */
-        void delete_back()
-        {
-            if(!m_tail)
-            {
-                return;
-            }
-
-            Node *temp(m_tail);
-            m_tail = m_tail->m_prev;
-
-            if(m_tail)
-            {
-                m_tail->m_next = NULL;
-            }
-            else
-            {
-                m_head = NULL;
-            }
-
-            delete temp;
-        }
-
-        /**
-         * Remove the given node from the linked list.
-         * @param node The node to be deleted.
-         */
-        void delete_node(Node *node)
-        {
-            /* Handle the case where the node is the first element in
-             * the list.
-             */
-            if(node == m_head)
-            {
-                delete_front();
-                node = NULL;
-                return;
-            }
-
-            /* Handle the case where the node is the last element in
-             * the list.
-             */
-            if(node == m_tail)
-            {
-                delete_back();
-                node = NULL;
-                return;
-            }
-
-            /* All other cases.
-             */
-            node->m_prev->m_next = node->m_next;
-            node->m_next->m_prev = node->m_prev;
-
-            delete node;
-            node = NULL;
-        }
-
-      private:
-        /**
-         * The first node in the list.
-         */
-        Node *m_head;
-
-        /**
-         * The last node in the list.
-         */
-        Node *m_tail;
-    };
-
-/* This code was supposed to reduce code bloat by mapping all pointers to a
- * single instantiation of the template. With only a couple of pointer
- * types being stored, it actually made the code size bigger. I think it
- * may be because of the nested Node class, but that's just a guess. -DLH
- */
+    /* This code was supposed to reduce code bloat by mapping all pointers to a
+     * single instantiation of the template. With only a couple of pointer
+     * types being stored, it actually made the code size bigger. I think it
+     * may be because of the nested Node class, but that's just a guess. -DLH
+     */
 #if 0
     /**
      * The linked list class is a simple template for creating a doubly linked

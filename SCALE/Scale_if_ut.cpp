@@ -4,6 +4,7 @@
 #include "SCALE/Test_task_ext.h"
 #include "SCALE/Nest_lua.h"
 
+
 namespace SCALE
 {
 
@@ -11,20 +12,23 @@ namespace SCALE
     {
     }
 
+
     void Scale_if_ut::tearDown()
     {
     }
 
+
     void Scale_if_ut::test_task_properties()
     {
-        Scale_if &scale = Scale_if::get_instance();
+        Scale_if& scale = Scale_if::get_instance();
 
         CPPUNIT_ASSERT(scale.run_script("Task_properties_ut.lua"));
     }
 
+
     void Scale_if_ut::test_scheduler()
     {
-        Scale_if &scale = Scale_if::get_instance();
+        Scale_if& scale = Scale_if::get_instance();
 
         /* Register my test task with with the Lua executive.
          */
@@ -36,7 +40,7 @@ namespace SCALE
 
     void Scale_if_ut::test_nesting()
     {
-        Scale_if &scale = Scale_if::get_instance();
+        Scale_if& scale = Scale_if::get_instance();
 
         /* Register my test task with with the Lua executive.
          */

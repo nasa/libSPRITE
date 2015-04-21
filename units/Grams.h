@@ -6,26 +6,28 @@ namespace units
 
     class Grams
     {
-      public:
-        /**
-         * Constructor.
-         * @param v Number of Grams.
-         */
-        explicit Grams(double v)
-            : m_value(v)
-        {
-        }
+        public:
 
-        /**
-         * Type conversion to double.
-         */
-        operator double() const
-        {
-            return m_value;
-        }
+            /**
+             * Constructor.
+             * @param v Number of Grams.
+             */
+            explicit Grams(double v)
+                : m_value(v)
+            {
+            }
 
-      private:
-        double m_value;
+
+            /**
+             * Type conversion to double.
+             */
+            operator double() const
+            {
+                return m_value;
+            }
+
+        private:
+            double m_value;
     };
 
 } // namespace

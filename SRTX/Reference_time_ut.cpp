@@ -1,6 +1,7 @@
 #include "SRTX/Reference_time_ut.h"
 #include "SRTX/Reference_time.h"
 
+
 namespace SRTX
 {
 
@@ -8,9 +9,11 @@ namespace SRTX
     {
     }
 
+
     void Reference_time_ut::tearDown()
     {
     }
+
 
     void Reference_time_ut::test_reference_time()
     {
@@ -18,7 +21,7 @@ namespace SRTX
 
         CPPUNIT_ASSERT(0 == ref_time);
 
-        Reference_time &rtimer = Reference_time::get_instance();
+        Reference_time& rtimer = Reference_time::get_instance();
 
         ref_time = rtimer.increment(units::MSEC);
 

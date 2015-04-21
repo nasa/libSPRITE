@@ -2,6 +2,7 @@
 #include "units/GPS_time.h"
 #include "units/GPS_time_ut.h"
 
+
 namespace units
 {
 
@@ -9,9 +10,11 @@ namespace units
     {
     }
 
+
     void GPS_time_ut::tearDown()
     {
     }
+
 
     void GPS_time_ut::test()
     {
@@ -19,10 +22,10 @@ namespace units
         CPPUNIT_ASSERT_EQUAL(1, t1.week());
         CPPUNIT_ASSERT_EQUAL(Seconds(0.0), t1.seconds());
 
-        /* Add a bit more than a week and make sure the values incremented
-         * properly.
+        /* Add a bit more than a week and make sure the values incremented properly.
          */
         t1 += Seconds(604801);
+
 
         /* Make sure fractions of a second work too.
          */

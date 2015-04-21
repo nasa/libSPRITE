@@ -15,44 +15,51 @@ namespace units
 
     class J2000_time : public Days
     {
-      public:
-        /**
-         * Constructor.
-         */
-        explicit J2000_time(double n = 0)
-            : Days(n)
+        public:
+
+            /**
+             * Constructor.
+             */
+            explicit J2000_time(double n = 0) :
+                Days(n)
         {
         }
 
-        /**
-         * Constructor.
-         */
-        explicit J2000_time(const Days &n)
-            : Days(n)
+
+            /**
+             * Constructor.
+             */
+            explicit J2000_time(const Days& n) :
+                Days(n)
         {
         }
 
-        /**
-         * Constructor.
-         */
-        explicit J2000_time(const J2010_time &n);
 
-        /**
-         * Constructor.
-         */
-        explicit J2000_time(const GPS_time &n);
+            /**
+             * Constructor.
+             */
+            explicit J2000_time(const J2010_time& n);
 
-        /**
-         * Type conversion from J2000 epoch to J2010 time.
-         * @return Time with respect to the J2010 epoch and format.
-         */
-        J2010_time toJ2010_time() const;
 
-        /**
-         * Type conversion from J2000 epoch to GPS time.
-         * @return Time with respect to the GPS epoch and format.
-         */
-        GPS_time toGPS_time() const;
+            /**
+             * Constructor.
+             */
+            explicit J2000_time(const GPS_time& n);
+
+
+            /**
+             * Type conversion from J2000 epoch to J2010 time.
+             * @return Time with respect to the J2010 epoch and format.
+             */
+            J2010_time toJ2010_time() const;
+
+
+            /**
+             * Type conversion from J2000 epoch to GPS time.
+             * @return Time with respect to the GPS epoch and format.
+             */
+            GPS_time toGPS_time() const;
+
     };
 
 #if 0

@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace SCALE
 {
     /**
@@ -19,14 +20,15 @@ namespace SCALE
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_task_properties();
         void test_scheduler();
         void test_nesting();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Scale_if_ut);

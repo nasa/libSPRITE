@@ -16,9 +16,10 @@ namespace SRTX
         }
     };
 
+
     Mutex::Mutex()
-        : m_impl(new Mutex_impl)
-        , m_valid(false)
+        : m_impl(new Mutex_impl),
+        m_valid(false)
     {
         if(NULL == m_impl)
         {
@@ -34,6 +35,7 @@ namespace SRTX
 
         m_valid = (0 == pthread_mutex_init(&(m_impl->mutex), &(m_impl->attr)));
     }
+
 
     bool Mutex::lock()
     {
@@ -55,6 +57,7 @@ namespace SRTX
         return true;
     }
 
+
     bool Mutex::unlock()
     {
         if(false == m_valid)
@@ -75,10 +78,12 @@ namespace SRTX
         return true;
     }
 
-    mutex_t *Mutex::get_mutex()
+
+    mutex_t* Mutex::get_mutex()
     {
         return &(m_impl->mutex);
     }
+
 
     Mutex::~Mutex()
     {

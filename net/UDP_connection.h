@@ -20,7 +20,7 @@ namespace net
          * @parm hostname Name or IP address of the host server.
          * @param port UDP port.
          */
-        UDP_connection(const char *hostname, int port);
+        UDP_connection(const char* hostname, int port);
 
         /**
          * Read from a port.
@@ -28,7 +28,7 @@ namespace net
          * @param nbytes Size of the buffer.
          * @return Number of bytes read or -1 on error.
          */
-        int read(void *buffer, unsigned int nbytes);
+        int read(void* buffer, unsigned int nbytes);
 
         /**
          * Write to a port.

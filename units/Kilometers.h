@@ -18,39 +18,43 @@ namespace units
 
     class Kilometers
     {
-      public:
-        /**
-         * Constructor.
-         * @param v Number of Kilometers.
-         */
-        explicit Kilometers(double v)
-            : m_value(v)
-        {
-        }
+        public:
 
-        /**
-         * Constructor.
-         */
-        explicit Kilometers(const Meters &n);
-        explicit Kilometers(const Feet &n);
-        explicit Kilometers(const Miles &n);
+            /**
+             * Constructor.
+             * @param v Number of Kilometers.
+             */
+            explicit Kilometers(double v)
+                : m_value(v)
+            {
+            }
 
-        /**
-         * Type conversion to double.
-         */
-        operator double() const
-        {
-            return m_value;
-        }
 
-        /**
-         * Type conversion from KiloMeters to Meters.
-         * @return Kilometers value conversion to Meters.
-         */
-        units::Meters toMeters() const;
+            /**
+             * Constructor.
+             */
+            explicit Kilometers(const Meters& n);
+            explicit Kilometers(const Feet& n);
+            explicit Kilometers(const Miles& n);
 
-      private:
-        double m_value;
+
+            /**
+             * Type conversion to double.
+             */
+            operator double() const
+            {
+                return m_value;
+            }
+
+
+            /**
+             * Type conversion from KiloMeters to Meters.
+             * @return Kilometers value conversion to Meters.
+             */
+            units::Meters toMeters() const;
+
+        private:
+            double m_value;
     };
 
 } // namespace

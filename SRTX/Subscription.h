@@ -7,6 +7,7 @@
 #include "SRTX/Message.h"
 #include "SRTX/Symbol_db.h"
 
+
 namespace SRTX
 {
     /**
@@ -14,25 +15,26 @@ namespace SRTX
      * pub/sub system.
      * @param T The type of data carried by the message.
      */
-    template <typename T> class Subscription : public Message<T>
+    template<typename T>
+        class Subscription : public Message<T>
     {
 
         typedef Symbol_db<Message<T> > db_t;
 
-      public:
+        public:
+
         /**
          * Constructor.
          * @param name Name of the subscription.
          * @param period Periodic rate of the message's receiver.
          */
-        explicit Subscription(
-            const char *name,
-            const units::Nanoseconds period = units::Nanoseconds(0))
-            : m_valid(false)
-            , m_updated(false)
-            , m_last_publication_time(-1)
+        explicit Subscription(const char* name,
+                const units::Nanoseconds period = units::Nanoseconds(0)) :
+            m_valid(false),
+            m_updated(false),
+            m_last_publication_time(-1)
         {
-            static db_t &msg_db = db_t::get_instance();
+            static db_t& msg_db = db_t::get_instance();
 
             /* See if there is already a symbol for the message in the
              * database. If there is no symbol yet, create one.
@@ -41,8 +43,8 @@ namespace SRTX
              * which is the same as the alias for aperiodic subscriptions.
              */
             char sym_name[SYM_ENTRY_STRLEN + 1];
-            snprintf(sym_name, SYM_ENTRY_STRLEN, "%s%" PRId64, name,
-                     int64_t(period));
+            snprintf(sym_name, SYM_ENTRY_STRLEN, "%s%"PRId64, name,
+                    int64_t(period));
             m_symbol = msg_db.lookup_symbol(sym_name);
             if(m_symbol)
             {
@@ -63,13 +65,13 @@ namespace SRTX
 
             /* Get a reference to the data router.
              */
-            Data_router &router = Data_router::get_instance();
+            Data_router& router = Data_router::get_instance();
 
             /* Look for the message alias (name without the period appended)
              * and register the symbol with the data router to handle data
              * routing between rategroups.
              */
-            Symbol<Message<T> > *alias = msg_db.lookup_symbol(name);
+            Symbol<Message<T> >* alias = msg_db.lookup_symbol(name);
             if(NULL == alias)
             {
                 DPRINTF("%s: No alias found\n", sym_name);
@@ -83,29 +85,29 @@ namespace SRTX
 
                 units::Nanoseconds slower_period =
                     (period > pub_period) ? period : pub_period;
-                DPRINTF(
-                    "%s: Registering a transfer request from period = %" PRId64
-                    " to period %" PRId64 "\n",
-                    sym_name, int64_t(pub_period), int64_t(period));
+                DPRINTF("%s: Registering a transfer request from period = %"
+                        PRId64" to period %"PRId64"\n", sym_name,
+                        int64_t(pub_period), int64_t(period));
 
                 /* Register a request to the data router to move data from the
                  * aliased publication symbol table entry to the subscribers
                  * symbol table entry at the slower of the publisher's and
                  * subscriber's period.
                  */
-                if(false ==
-                   router.register_transfer(*alias->entry, *m_symbol->entry,
-                                            sizeof(Message<T>), slower_period))
+                if(false == router.register_transfer(*alias->entry,
+                            *m_symbol->entry, sizeof(Message<T>), slower_period))
                 {
                     EPRINTF("Register transfer failed\n");
                     delete m_symbol;
                     m_symbol = NULL;
                     return;
                 }
+
             }
 
             m_valid = true;
         }
+
 
         /**
          * Is the subscription valid?
@@ -116,6 +118,7 @@ namespace SRTX
             return m_valid;
         }
 
+
         /**
          * Get the latest data.
          * @return True on success or false on failure.
@@ -124,9 +127,8 @@ namespace SRTX
         {
             if(false == m_valid)
             {
-                EPRINTF(
-                    "Attempting to get data from an invalid subscription: %s\n",
-                    m_symbol->get_name());
+                EPRINTF("Attempting to get data from an invalid subscription: %s\n",
+                        m_symbol->get_name());
                 return false;
             }
 
@@ -155,6 +157,7 @@ namespace SRTX
             return true;
         }
 
+
         /**
          * Block on the subscription until new data is published, then get the
          * new data.
@@ -162,14 +165,13 @@ namespace SRTX
          * behavior (timeout=0) is to wait forever.
          * @return True on success or false on failure.
          */
-        bool
-        get_blocking(const units::Nanoseconds &timeout = units::Nanoseconds(0))
+        bool get_blocking(const units::Nanoseconds& timeout =
+                units::Nanoseconds(0))
         {
             if(false == m_valid)
             {
-                EPRINTF(
-                    "Attempting to get data from an invalid subscription: %s\n",
-                    m_symbol->get_name());
+                EPRINTF("Attempting to get data from an invalid subscription: %s\n",
+                        m_symbol->get_name());
                 return false;
             }
 
@@ -199,6 +201,7 @@ namespace SRTX
             return true;
         }
 
+
         /**
          * Force all pending get_value_blocking calls to be released
          * immediately.  This function is used to cause a get_value_blocking
@@ -210,6 +213,7 @@ namespace SRTX
             m_symbol->entry->abort_read();
         }
 
+
         /**
          * Was the subscription updated on the last call to get()?
          * @return True if the subscription was updated, else false.
@@ -219,7 +223,8 @@ namespace SRTX
             return m_updated;
         }
 
-      private:
+        private:
+
         /**
          * Flag indicating if the subscription was validly constructed.
          */
@@ -240,7 +245,8 @@ namespace SRTX
          * A pointer to the symbol for the message transport mechanism in the
          * message database.
          */
-        Symbol<Message<T> > *m_symbol;
+        Symbol<Message<T> >* m_symbol;
+
     };
 
 } // namespace

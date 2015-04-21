@@ -11,38 +11,41 @@ namespace units
 
     class Degrees
     {
-      public:
-        /**
-         * Constructor.
-         * @param v Floating point value of radians.
-         */
-        explicit Degrees(double v)
-            : m_value(v)
-        {
-        }
+        public:
 
-        /**
-         * Constructor.
-         * @param r Units of radians to be converted to degrees.
-         */
-        explicit Degrees(const Radians &r);
+            /**
+             * Constructor.
+             * @param v Floating point value of radians.
+             */
+            explicit Degrees(double v)
+                : m_value(v)
+            {
+            }
 
-        /**
-         * Type conversion to double.
-         */
-        operator double() const
-        {
-            return m_value;
-        }
 
-        /**
-         * Type conversion from radians to degrees.
-         * @return Radian value converted to degrees.
-         */
-        Radians toRadians() const;
+            /**
+             * Constructor.
+             * @param r Units of radians to be converted to degrees.
+             */
+            explicit Degrees(const Radians& r);
 
-      private:
-        double m_value;
+
+            /**
+             * Type conversion to double.
+             */
+            operator double() const
+            {
+                return m_value;
+            }
+
+            /**
+             * Type conversion from radians to degrees.
+             * @return Radian value converted to degrees.
+             */
+            Radians toRadians() const;
+
+        private:
+            double m_value;
     };
 
 } // namespace

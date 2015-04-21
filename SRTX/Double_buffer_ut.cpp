@@ -9,9 +9,11 @@ namespace SRTX
     {
     }
 
+
     void Double_buffer_ut::tearDown()
     {
     }
+
 
     void Double_buffer_ut::test_double_buffer()
     {
@@ -37,7 +39,7 @@ namespace SRTX
         /* Attempt to read and write more data than was allocated by the
          * buffer. This test should fail.
          */
-        Base_double_buffer *bdb = &db;
+        Base_double_buffer* bdb = &db;
         CPPUNIT_ASSERT_EQUAL(false, bdb->read(&wval, sizeof(int) + 1));
         CPPUNIT_ASSERT_EQUAL(false, bdb->write(&wval, sizeof(int) + 1));
 

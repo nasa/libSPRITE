@@ -4,6 +4,7 @@
 #include "math/Quaternion_ut.h"
 #include "math/Euler.h"
 
+
 namespace math
 {
 
@@ -11,9 +12,11 @@ namespace math
     {
     }
 
+
     void Quaternion_ut::tearDown()
     {
     }
+
 
     void Quaternion_ut::test_Quaternion()
     {
@@ -24,6 +27,7 @@ namespace math
         CPPUNIT_ASSERT_EQUAL(0.0, q.vector(2));
         CPPUNIT_ASSERT_EQUAL(0.0, q.vector(3));
     }
+
 
     void Quaternion_ut::test_Quaternion_from_scalar_vector()
     {
@@ -45,12 +49,14 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, q.vector(3), epsilon);
     }
 
+
 #if 0
     void Quaternion_ut::test_Quaternion_from_angle_vector()
     {
         CPPUNIT_ASSERT(false);
     }
 #endif
+
 
     void Quaternion_ut::test_Quaternion_from_Euler()
     {
@@ -74,7 +80,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(yaw, e.get_yaw(), epsilon);
 
         epsilon = 0.0001;
-        roll = units::Radians(M_PI / 2);
+        roll = units::Radians(M_PI/2);
         pitch = units::Radians(0);
         yaw = units::Radians(0);
         e = Euler(roll, pitch, yaw);
@@ -93,7 +99,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(yaw, e.get_yaw(), epsilon);
 
         epsilon = 0.0001;
-        roll = units::Radians(-M_PI / 2);
+        roll = units::Radians(-M_PI/2);
         pitch = units::Radians(0);
         yaw = units::Radians(0);
         e = Euler(roll, pitch, yaw);
@@ -112,9 +118,9 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(yaw, e.get_yaw(), epsilon);
 
         epsilon = 0.0001;
-        roll = units::Radians(M_PI / 2);
-        pitch = units::Radians(-M_PI / 3);
-        yaw = units::Radians(M_PI / 6);
+        roll = units::Radians(M_PI/2);
+        pitch = units::Radians(-M_PI/3);
+        yaw = units::Radians(M_PI/6);
         e = Euler(roll, pitch, yaw);
         q = Quaternion(e);
         v = q.vector();
@@ -232,6 +238,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(M_PI, fabs(e.get_yaw()), epsilon);
     }
 
+
     void Quaternion_ut::test_Quaternion_from_DCM()
     {
         /* Example from Matlab documentation.
@@ -246,11 +253,13 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, v(2), epsilon);
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, v(3), epsilon);
 
+
         /* Start with DCM generated from random numbers.
          */
         epsilon = 0.0001;
-        dcm = DCM(0.9649, 0.9572, 0.1419, 0.1576, 0.4854, 0.4218, 0.9706,
-                  0.8003, 0.9157);
+        dcm = DCM(0.9649, 0.9572, 0.1419,
+                0.1576, 0.4854, 0.4218,
+                0.9706, 0.8003, 0.9157);
         q = Quaternion(dcm);
         v = q.vector();
 
@@ -264,15 +273,15 @@ namespace math
         /* The conversion process changes the matrix, so we don't get the same
          * result back...
          */
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.7928, dcm(1, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3715, dcm(1, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4832, dcm(1, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4696, dcm(2, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8777, dcm(2, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.0956, dcm(2, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3886, dcm(3, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3026, dcm(3, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8703, dcm(3, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.7928, dcm(1,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3715, dcm(1,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4832, dcm(1,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4696, dcm(2,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8777, dcm(2,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.0956, dcm(2,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3886, dcm(3,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3026, dcm(3,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8703, dcm(3,3), epsilon);
 
         /* Convert the same DCM back to a quaternion
          */
@@ -288,15 +297,15 @@ namespace math
 
         /* And now back to a DCM again. We should get the scaling this time.
          */
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.7928, dcm(1, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3715, dcm(1, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4832, dcm(1, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4696, dcm(2, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8777, dcm(2, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.0956, dcm(2, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3886, dcm(3, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3026, dcm(3, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8703, dcm(3, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.7928, dcm(1,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3715, dcm(1,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4832, dcm(1,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.4696, dcm(2,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8777, dcm(2,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.0956, dcm(2,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3886, dcm(3,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3026, dcm(3,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.8703, dcm(3,3), epsilon);
 
         /* 180 degree roll.
          */
@@ -312,15 +321,15 @@ namespace math
 
         dcm = DCM(q);
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, dcm(1, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(2, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(3, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, dcm(1,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(2,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(3,3), epsilon);
 
         /* 180 degree pitch.
          */
@@ -335,15 +344,15 @@ namespace math
 
         dcm = DCM(q);
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(1, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, dcm(2, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(3, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(1,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, dcm(2,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(3,3), epsilon);
 
         /* 180 degree yaw.
          */
@@ -358,15 +367,15 @@ namespace math
 
         dcm = DCM(q);
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(1, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(2, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2, 3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3, 1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3, 2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, dcm(3, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(1,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(1,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, dcm(2,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(2,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3,1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, dcm(3,2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, dcm(3,3), epsilon);
 
         /* 90 degree roll.
          */
@@ -382,8 +391,9 @@ namespace math
 
         /* roll = pi; pitch = -pi/3; yaw = pi/6;
          */
-        dcm = DCM(0.4330, 0.2500, 0.8660, -0.7500, -0.4330, 0.5000, 0.5000,
-                  -0.8660, 0);
+        dcm = DCM(0.4330, 0.2500, 0.8660,
+                -0.7500, -0.4330, 0.5000,
+                0.5000, -0.8660, 0);
         q = Quaternion(dcm);
         v = q.vector();
 
@@ -392,6 +402,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.1830, v(2), epsilon);
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.5, v(3), epsilon);
     }
+
 
     void Quaternion_ut::test_operator_multiply()
     {
@@ -418,6 +429,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6628, v(2), epsilon);
         CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.2840, v(3), epsilon);
     }
+
 
     void Quaternion_ut::test_operator_multiply_equal()
     {
@@ -446,6 +458,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.2840, v(3), epsilon);
     }
 
+
     void Quaternion_ut::test_operator_multiply_vector()
     {
         /* Examples from Matlab documentation.
@@ -472,6 +485,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.9333, n(3), epsilon);
     }
 
+
     void Quaternion_ut::test_conjugate()
     {
         double epsilon = 0.0001;
@@ -487,6 +501,7 @@ namespace math
         CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.7071, v(2), epsilon);
         CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, v(3), epsilon);
     }
+
 
     void Quaternion_ut::test_inverse()
     {

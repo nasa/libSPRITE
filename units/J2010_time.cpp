@@ -2,15 +2,16 @@
 #include "units/J2010_time.h"
 #include "units/GPS_time.h"
 
+
 namespace units
 {
 
-    J2010_time::J2010_time(const J2000_time &n)
+    J2010_time::J2010_time(const J2000_time& n)
     {
         *this = n.toJ2010_time();
     }
 
-    J2010_time::J2010_time(const GPS_time &n)
+    J2010_time::J2010_time(const GPS_time& n)
     {
         *this = n.toJ2010_time();
     }

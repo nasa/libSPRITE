@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace SRTX
 {
     /**
@@ -22,11 +23,12 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
+
         /**
          * This test verifies some the of basic mechanics of the scheduler.
          */
@@ -62,6 +64,7 @@ namespace SRTX
          * the scheduler.
          */
         void test_schedules();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Scheduler_ut);

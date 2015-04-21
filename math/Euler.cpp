@@ -3,6 +3,7 @@
 #include "math/Quaternion.h"
 #include "math/trig.h"
 
+
 namespace math
 {
 
@@ -23,9 +24,9 @@ namespace math
         const double spsy = sp * sy;
         const double spcy = sp * cy;
 
-        return DCM(cp * cy, cp * sy, -sp, sr * spcy - cr * sy,
-                   sr * spsy + cr * cy, sr * cp, cr * spcy + sr * sy,
-                   cr * spsy - sr * cy, cr * cp);
+        return DCM(cp*cy, cp*sy, -sp,
+                sr*spcy - cr*sy, sr*spsy + cr*cy, sr*cp,
+                cr*spcy + sr*sy, cr*spsy - sr*cy, cr*cp);
     }
 
     Quaternion Euler::toQuaternion() const
@@ -48,8 +49,9 @@ namespace math
         const double spsy = sp * sy;
 
         return Quaternion(cr * cpcy + sr * spsy,
-                          Vec3<>(sr * cpcy - cr * spsy, cr * spcy + sr * cpsy,
-                                 cr * cpsy - sr * spcy));
+                Vec3<>(sr * cpcy - cr * spsy,
+                    cr * spcy + sr * cpsy,
+                    cr * cpsy - sr * spcy));
     }
 
 } // namespace

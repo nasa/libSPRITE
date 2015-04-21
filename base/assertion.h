@@ -8,12 +8,9 @@
  */
 #ifdef ASSERT_THROWS_EXCEPTION
 #undef assert
-#define assert(x)                                                              \
-    do                                                                         \
-    {                                                                          \
-        if(!(x))                                                               \
-            throw - 1;                                                         \
-    } while(0)
+#define assert(x) do { \
+    if(!(x)) throw -1; \
+} while(0)
 #endif
 
 /**
@@ -21,12 +18,7 @@
  * @note This must be used in a function. There are alternatives that use
  * typedefs for C++ templates to avoid that precondition.
  */
-#define ct_assert(pred)                                                        \
-    switch(0)                                                                  \
-    {                                                                          \
-    case 0:                                                                    \
-    case pred:                                                                 \
-        ;                                                                      \
-    }
+#define ct_assert(pred) \
+    switch(0){case 0: case pred:;}
 
 #endif // __BASE_ASSERTION_H__

@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace util
 {
 
@@ -16,19 +17,21 @@ namespace util
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
+
         Smooth_ut();
 
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_savgol_cubic();
         void test_savgol_cubic_dx();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Smooth_ut);
 
-} // namespace
+} //namespace
 
 #endif // __UTIL_SMOOTH_UT_H__

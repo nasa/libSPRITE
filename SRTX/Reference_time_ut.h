@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace sys
 {
     /**
@@ -17,15 +18,17 @@ namespace sys
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
+
         /**
          * Test the ability to get and set reference time.
          */
         void test_reference_time();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Reference_time_ut);

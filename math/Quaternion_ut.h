@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace math
 {
     class Quaternion_ut : public CppUnit::TestFixture
@@ -25,11 +26,11 @@ namespace math
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test_Quaternion();
         void test_Quaternion_from_scalar_vector();
 #if 0
@@ -42,6 +43,7 @@ namespace math
         void test_operator_multiply_vector();
         void test_conjugate();
         void test_inverse();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Quaternion_ut);

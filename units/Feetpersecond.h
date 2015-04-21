@@ -18,43 +18,46 @@ namespace units
 
     class Feetpersecond
     {
-      public:
-        /**
-         * Constructor.
-         * @param v Number of Feetpersecond.
-         */
-        explicit Feetpersecond(double v)
-            : m_value(v)
-        {
-        }
+        public:
 
-        /**
-         * Constructor.
-         */
-        explicit Feetpersecond(const Kilometersperhour &n);
-        explicit Feetpersecond(const Meterspersecond &n);
-        explicit Feetpersecond(const Milesperhour &n);
+            /**
+             * Constructor.
+             * @param v Number of Feetpersecond.
+             */
+            explicit Feetpersecond(double v)
+                : m_value(v)
+            {
+            }
 
-        /**
-         * Type conversion to double.
-         */
-        operator double() const
-        {
-            return m_value;
-        }
 
-        /**
-         * Type conversion from Feetpersecond to Milesperhour.
-         */
-        units::Milesperhour toMilesperhour() const;
+            /**
+             * Constructor.
+             */
+            explicit Feetpersecond(const Kilometersperhour& n);
+            explicit Feetpersecond(const Meterspersecond& n);
+            explicit Feetpersecond(const Milesperhour& n);
 
-        /**
-         * Type conversion from Feetpersecond to Meterspersecond.
-         */
-        units::Meterspersecond toMeterspersecond() const;
+            /**
+             * Type conversion to double.
+             */
+            operator double() const
+            {
+                return m_value;
+            }
 
-      private:
-        double m_value;
+            /**
+             * Type conversion from Feetpersecond to Milesperhour.
+             */
+            units::Milesperhour toMilesperhour() const;
+
+            /**
+             * Type conversion from Feetpersecond to Meterspersecond.
+             */
+            units::Meterspersecond toMeterspersecond() const;
+
+
+        private:
+            double m_value;
     };
 
 } // namespace

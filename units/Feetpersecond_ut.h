@@ -3,6 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
+
 namespace units
 {
     class Feetpersecond_ut : public CppUnit::TestFixture
@@ -14,12 +15,13 @@ namespace units
 
         CPPUNIT_TEST_SUITE_END();
 
-      public:
+        public:
         void setUp();
         void tearDown();
 
-      protected:
+        protected:
         void test();
+
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Feetpersecond_ut);

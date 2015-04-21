@@ -2,10 +2,11 @@
 #include "SRTX/RTC.h"
 #include "base/XPRINTF.h"
 
+
 namespace SRTX
 {
 
-    bool get_time(units::Nanoseconds &time)
+    bool get_time(units::Nanoseconds& time)
     {
         struct timespec ts;
 
@@ -20,7 +21,7 @@ namespace SRTX
         return true;
     }
 
-    bool sleep(const units::Nanoseconds &time)
+    bool sleep(const units::Nanoseconds& time)
     {
         struct timespec ts;
 
