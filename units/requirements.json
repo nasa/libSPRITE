@@ -343,4 +343,38 @@
       }
     ]
   }
+  {
+    "id":"units-11"
+    "text":"Support engineering units of Nanoseconds.",
+    "success_criteria":[
+      {
+        "id":"units-11.1"
+        "text":"Create an default value instance of Nanoseconds type with value 0."
+      },
+      {
+        "id":"units-11.2"
+        "text":"Create an instance of Nanoseconds from an initial value of type unit64_t."
+      },
+      {
+        "id":"units-11.3"
+        "text":"Allow implicit conversion of Nanoseconds to type unit64_t."
+      },
+      {
+        "id":"units-11.4"
+        "text":"Prevent implicit conversion of a numeric value to a Nanoseconds value."
+      },
+      {
+        "id":"units-11.5"
+        "text":"Perform routine math operations on a Nanoseconds values."
+      },
+      {
+        "id":"units-11.6"
+        "text":"Implement conversion from type Nanoseconds to type Seconds."
+      }
+      {
+        "id":"units-11.7"
+        "text":"Create an instance of Nanoseconds from and initial value of type Seconds."
+      }
+    ]
+  }
 ]
