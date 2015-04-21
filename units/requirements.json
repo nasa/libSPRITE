@@ -275,4 +275,38 @@
       }
     ]
   }
+  {
+    "id":"units-9"
+    "text":"Support engineering units of Meterspersecond.",
+    "success_criteria":[
+      {
+        "id":"units-9.1"
+        "text":"Create an default value instance of Meterspersecond type with value 0."
+      },
+      {
+        "id":"units-9.2"
+        "text":"Create an instance of Meterspersecond from an initial value of type double."
+      },
+      {
+        "id":"units-9.3"
+        "text":"Allow implicit conversion of Meterspersecond to type double."
+      },
+      {
+        "id":"units-9.4"
+        "text":"Prevent implicit conversion of a numeric value to a Meterspersecond value."
+      },
+      {
+        "id":"units-9.5"
+        "text":"Perform routine math operations on a Meterspersecond values."
+      },
+      {
+        "id":"units-9.6"
+        "text":"Increment a value of Meterspersecond by a given amount."
+      },
+      {
+        "id":"units-9.7"
+        "text":"Decrement a value of Meterspersecond by a given amount."
+      }
+    ]
+  }
 ]

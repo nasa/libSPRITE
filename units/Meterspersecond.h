@@ -14,14 +14,19 @@ namespace units
             /**
              * Constructor.
              * @param v Number of Meterspersecond.
+             * @satisfies{units-9.1}
+             * @satisfies{units-9.2}
+             * @satisfies{units-9.4}
              */
             explicit Meterspersecond(double v = 0.0)
+                : m_value(v)
             {
-                m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
             }
 
             /**
              * Type conversion to double.
+             * @satisfies{units-9.3}
+             * @satisfies{units-9.5}
              */
             operator double() const
             {
@@ -32,6 +37,7 @@ namespace units
              * Overload operator+=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value added.
+             * @satisfies{units-9.6}
              */
             Meterspersecond& operator+=(const Meterspersecond& rhs)
             {
@@ -45,6 +51,7 @@ namespace units
              * Overload operator-=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value subtracted.
+             * @satisfies{units-9.7}
              */
             Meterspersecond& operator-=(const Meterspersecond& rhs)
             {
