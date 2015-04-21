@@ -15,8 +15,11 @@ namespace units
             /**
              * Constructor.
              * @param v Number of seconds.
+             * @satisfies{units-12.1}
+             * @satisfies{units-12.2}
+             * @satisfies{units-12.4}
              */
-            explicit Pascal(uint32_t v = 0.0)
+            explicit Pascal(int32_t v = 0.0)
                 : m_value(v)
             {
             }
@@ -24,8 +27,9 @@ namespace units
 
             /**
              * Type conversion to an integer.
+             * @satisfies{units-12.3}
              */
-            operator uint32_t() const
+            operator int32_t() const
             {
                 return m_value;
             }
@@ -35,6 +39,7 @@ namespace units
              * Overload operator+
              * @param rhs Right hand side of the operation.
              * @return The added value
+             * @satisfies{units-12.5}
              */
             Pascal operator+(const Pascal& rhs) const
             {
@@ -46,6 +51,7 @@ namespace units
              * Overload operator-
              * @param rhs Right hand side of the operation.
              * @return The subtracted value.
+             * @satisfies{units-12.5}
              */
             Pascal operator-(const Pascal& rhs) const
             {
@@ -57,6 +63,7 @@ namespace units
              * Overload operator+=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value added.
+             * @satisfies{units-12.5}
              */
             Pascal& operator+=(const Pascal& rhs)
             {
@@ -70,6 +77,7 @@ namespace units
              * Overload operator-=
              * @param rhs Right hand side of the operation.
              * @return This instance with the right hand side value subtracted.
+             * @satisfies{units-12.5}
              */
             Pascal& operator-=(const Pascal& rhs)
             {
@@ -83,7 +91,7 @@ namespace units
             /**
              * Stored number of seconds.
              */
-            uint32_t m_value;
+            int32_t m_value;
     };
 
 
