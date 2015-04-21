@@ -355,4 +355,38 @@
       }
     ]
   }
+  {
+    "id":"units-13"
+    "text":"Support engineering units of Radians.",
+    "success_criteria":[
+      {
+        "id":"units-13.1"
+        "text":"Create an default value instance of Radians type with value 0."
+      },
+      {
+        "id":"units-13.2"
+        "text":"Create an instance of Radians from an initial value of type double."
+      },
+      {
+        "id":"units-13.3"
+        "text":"Allow implicit conversion of Radians to type double."
+      },
+      {
+        "id":"units-13.4"
+        "text":"Prevent implicit conversion of a numeric value to a Radians value."
+      },
+      {
+        "id":"units-13.5"
+        "text":"Perform routine math operations on a Radians values."
+      },
+      {
+        "id":"units-13.6"
+        "text":"Implement conversion from type Radians to type Degrees."
+      }
+      {
+        "id":"units-13.7"
+        "text":"Create an instance of Radians from and initial value of type Degrees."
+      }
+    ]
+  }
 ]

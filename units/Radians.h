@@ -16,31 +16,26 @@ namespace units
 
             /**
              * Default constructor
+             * @satisfies{units-13.1}
+             * @satisfies{units-13.2}
+             * @satisfies{units-13.4}
              */
-            Radians()
-                : m_value(0)
-            {
-            }
-
-            /**
-             * Constructor.
-             * @param v Floating point value of radians.
-             */
-            explicit Radians(double v)
+            explicit Radians(double v = 0.0)
                 : m_value(v)
             {
             }
 
-
             /**
              * Constructor.
              * @param d Units of degrees to be converted to radians.
+             * @satisfies{units-13.7}
              */
             explicit Radians(const Degrees& d);
 
 
             /**
              * Type conversion to double.
+             * @satisfies{units-13.3}
              */
             operator double() const
             {
@@ -51,6 +46,7 @@ namespace units
             /**
              * Type conversion from radians to degrees.
              * @return Radian value converted to degrees.
+             * @satisfies{units-13.6}
              */
             Degrees toDegrees() const;
 
