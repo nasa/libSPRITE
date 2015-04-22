@@ -12,14 +12,71 @@ namespace util
 
         CPPUNIT_TEST_SUITE(Linked_list_ut);
 
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.4}
+         * @verifies{util-1.5}
+         */
         CPPUNIT_TEST(test_add_front);
+
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.4}
+         * @verifies{util-1.6}
+         */
         CPPUNIT_TEST(test_add_back);
+
+        /**
+         * @verifies{util-1.1}
+         * @verifies{util-1.3}
+         * @verifies{util-1.5}
+         * @verifies{util-1.6}
+         */
         CPPUNIT_TEST(test_iterate_forward);
+
+        /**
+         * @verifies{util-1.2}
+         * @verifies{util-1.4}
+         * @verifies{util-1.5}
+         * @verifies{util-1.6}
+         */
         CPPUNIT_TEST(test_iterate_reverse);
+
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.4}
+         * @verifies{util-1.5}
+         */
         CPPUNIT_TEST(test_delete_front);
+
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.4}
+         * @verifies{util-1.5}
+         * @verifies{util-1.8}
+         */
         CPPUNIT_TEST(test_delete_back);
+
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.5}
+         * @verifies{util-1.9}
+         */
         CPPUNIT_TEST(test_delete_first_node);
+
+        /**
+         * @verifies{util-1.4}
+         * @verifies{util-1.5}
+         * @verifies{util-1.9}
+         */
         CPPUNIT_TEST(test_delete_last_node);
+
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.4}
+         * @verifies{util-1.5}
+         * @verifies{util-1.9}
+         */
         CPPUNIT_TEST(test_delete_middle_node);
 
         CPPUNIT_TEST_SUITE_END();
