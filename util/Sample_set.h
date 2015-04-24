@@ -18,6 +18,7 @@ namespace util
          * Constructor.
          * @param nelem Number of elements that can be stored in the
          * buffer.
+         * @satisfies{util-2.1}
          */
         Sample_set(unsigned int nelem)
             : m_head(nelem - 1)
@@ -50,6 +51,7 @@ namespace util
         /**
          * Return the number of elements in a sample set.
          * @return Number of elements or 0 if invalid.
+         * @satisfies{util-2.2}
          */
         unsigned int nelem() const
         {
@@ -59,6 +61,7 @@ namespace util
         /**
          * Test if the sample set is full.
          * @return True if full, else false.
+         * @satisfies{util-2.3}
          */
         bool is_full() const
         {
@@ -68,6 +71,7 @@ namespace util
         /**
          * Return the number of elements populated.
          * @return The number of elements that have been populated.
+         * @satisfies{util-2.4}
          */
         unsigned int npopulated() const
         {
@@ -97,6 +101,8 @@ namespace util
          * Add a new sample to the sample set. If the sample set is full,
          * the oldest sample will be replaced.
          * @param val Sample value to store.
+         * @satisfies{util-2.5}
+         * @satisfies{util-2.6}
          */
         void push(const T val)
         {

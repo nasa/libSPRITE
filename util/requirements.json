@@ -41,4 +41,34 @@
       }
     ]
   }
+  {
+    "id":"util-2"
+    "text":"Provide a class that stores the last N samples of typed data.",
+    "success_criteria":[
+      {
+        "id":"util-2.1"
+        "text":"Create a set instance with a fixed number of elements."
+      },
+      {
+        "id":"util-2.2"
+        "text":"Return the number of maximum number of elements that can be in the set."
+      },
+      {
+        "id":"util-2.3"
+        "text":"Provide a test indicating if the set is full."
+      },
+      {
+        "id":"util-2.4"
+        "text":"Return the number of elements in the set."
+      },
+      {
+        "id":"util-2.5"
+        "text":"Add an item to the set."
+      },
+      {
+        "id":"util-2.6"
+        "text":"If the set is full, adding an element replaces the oldest element in the set."
+      }
+    ]
+  }
 ]
