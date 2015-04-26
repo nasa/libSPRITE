@@ -10,11 +10,23 @@ namespace net
 
         CPPUNIT_TEST_SUITE(UDP_server_ut);
 
+        /**
+         * @verifies{net-1.1}
+         */
         CPPUNIT_TEST(test_server_create);
         CPPUNIT_TEST(spawn_echo);
+
+        /**
+         * @verifies{net-1.4}
+         * @verifies{net-1.5}
+         */
         CPPUNIT_TEST(test_server_echo);
         CPPUNIT_TEST(kill_echo);
         CPPUNIT_TEST(test_server_delete);
+
+        /**
+         * @verifies{net-1.1}
+         */
         CPPUNIT_TEST(test_server_recreate);
 
         CPPUNIT_TEST_SUITE_END();

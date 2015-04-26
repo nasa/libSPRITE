@@ -1,0 +1,28 @@
+[
+  {
+    "id":"net-1"
+    "text":"Provide the capability to manage a UDP connection.",
+    "success_criteria":[
+      {
+        "id":"net-1.1"
+        "text":"Create a UDP server given a port number."
+      },
+      {
+        "id":"net-1.2"
+        "text":"Create a UDP client connection given a host name and port number."
+      },
+      {
+        "id":"net-1.3"
+        "text":"Create a UDP client connection given a host IP address and port number."
+      },
+      {
+        "id":"net-1.4"
+        "text":"read from a UDP connection."
+      },
+      {
+        "id":"net-1.5"
+        "text":"Write to a UDP connection."
+      }
+    ]
+  }
+]

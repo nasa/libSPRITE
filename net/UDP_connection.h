@@ -27,6 +27,7 @@ namespace net
          * @param buffer Buffer to read data into.
          * @param nbytes Size of the buffer.
          * @return Number of bytes read or -1 on error.
+         * @satisfies{net-1.4}
          */
         int read(void *buffer, unsigned int nbytes);
 
@@ -35,6 +36,7 @@ namespace net
          * @param buffer Data to write.
          * @param nbytes Number of bytes to write.
          * @return Number of bytes written or -1 on error.
+         * @satisfies{net-1.5}
          */
         int write(void *buffer, unsigned int nbytes);
 

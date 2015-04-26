@@ -9,7 +9,9 @@ namespace net
     {
       public:
         /**
-         * Create a UDP server.
+         * Create a UDP client.
+         * @satisfies{net-1.2}
+         * @satisfies{net-1.3}
          */
         UDP_client(const char *host, int port);
     };

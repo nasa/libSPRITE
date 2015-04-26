@@ -10,6 +10,7 @@ namespace net
       public:
         /**
          * Create a UDP server.
+         * @satisfies{net-1.1}
          */
         UDP_server(int port);
     };

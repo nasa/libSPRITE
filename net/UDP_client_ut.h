@@ -11,7 +11,19 @@ namespace net
         CPPUNIT_TEST_SUITE(UDP_client_ut);
 
         CPPUNIT_TEST(spawn_echo);
+
+        /**
+         * @verifies{net-1.2}
+         * @verifies{net-1.4}
+         * @verifies{net-1.5}
+         */
         CPPUNIT_TEST(test_client);
+
+        /**
+         * @verifies{net-1.3}
+         * @verifies{net-1.4}
+         * @verifies{net-1.5}
+         */
         CPPUNIT_TEST(test_client_ip);
         CPPUNIT_TEST(kill_echo);
 
