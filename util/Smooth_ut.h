@@ -11,7 +11,14 @@ namespace util
 
         CPPUNIT_TEST_SUITE(Smooth_ut);
 
+        /**
+         * @verifies{util-3.1}
+         */
         CPPUNIT_TEST(test_savgol_cubic);
+
+        /**
+         * @verifies{util-4.1}
+         */
         CPPUNIT_TEST(test_savgol_cubic_dx);
 
         CPPUNIT_TEST_SUITE_END();

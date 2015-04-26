@@ -71,4 +71,24 @@
       }
     ]
   }
+  {
+    "id":"util-3"
+    "text":"Smooth a consequtive set of data points.",
+    "success_criteria":[
+      {
+        "id":"util-3.1"
+        "text":"Smoth data according to the Savitzly-Golay cubic smoothing alogorithm."
+      }
+    ]
+  }
+  {
+    "id":"util-4"
+    "text":"Compute the derivative of a consecquitive set of data points.",
+    "success_criteria":[
+      {
+        "id":"util-4.1"
+        "text":"Compute the Savitzly-Golay estimate of the first derivative of a set of data points."
+      }
+    ]
+  }
 ]

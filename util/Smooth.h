@@ -13,6 +13,7 @@ namespace util
      * polynomial fit.
      * @param points Set of points to be smoothed.
      * @return Estimated value at the center of the window.
+     * @satisfies{util-3.1}
      */
     template <typename T> T savgol_cubic(Sample_set<T> &points);
 
@@ -23,6 +24,7 @@ namespace util
      * polynomial fit.
      * @param points Set of points to be smoothed.
      * @return Estimated derivative at the center of the window.
+     * @satisfies{util-4.1}
      */
     template <typename T> double savgol_cubic_dx(Sample_set<T> &points);
 
