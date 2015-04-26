@@ -11,7 +11,24 @@ namespace util
 
         CPPUNIT_TEST_SUITE(Sample_set_ut);
 
+        /**
+         * @verifies{util-2.1}
+         * @verifies{util-2.2}
+         * @verifies{util-2.3}
+         * @verifies{util-2.4}
+         * @verifies{util-2.5}
+         * @verifies{util-2.6}
+         */
         CPPUNIT_TEST(test_int);
+
+        /**
+         * @verifies{util-2.1}
+         * @verifies{util-2.2}
+         * @verifies{util-2.3}
+         * @verifies{util-2.4}
+         * @verifies{util-2.5}
+         * @verifies{util-2.6}
+         */
         CPPUNIT_TEST(test_double);
 
         CPPUNIT_TEST_SUITE_END();

@@ -34,12 +34,18 @@ namespace util
             /**
              * Prefix increment operator.
              * @return The next node in the list.
+             * @satisfies{util-1.1}
              */
             Node *next()
             {
                 return this->m_next;
             }
 
+            /**
+             * Reverse increment operator.
+             * @return The previous node in the list.
+             * @satisfies{util-1.2}
+             */
             Node *prev()
             {
                 return this->m_prev;
@@ -71,8 +77,7 @@ namespace util
         };
 
         /**
-         * Construct a queue, initialize as
-         * empty.
+         * Construct an empty list empty.
          */
         Linked_list()
             : m_head(NULL)
@@ -83,6 +88,7 @@ namespace util
         /**
          * Get a pointer to the head of the list.
          * @return Pointer to the head node.
+         * @satisfies{util-1.3}
          */
         Node *head() const
         {
@@ -92,6 +98,7 @@ namespace util
         /**
          * Get a pointer to the tail of the list.
          * @return Pointer to the tail node.
+         * @satisfies{util-1.4}
          */
         Node *tail() const
         {
@@ -101,6 +108,7 @@ namespace util
         /**
          * Put an element on the front of the list.
          * @param t Data element to add the the list.
+         * @satisfies{util-1.5}
          */
         void add_front(T t)
         {
@@ -120,6 +128,7 @@ namespace util
         /**
          * Put an element on the tail of the list.
          * @param t Data element to add the the list.
+         * @satisfies{util-1.6}
          */
         void add_back(T t)
         {
@@ -138,6 +147,7 @@ namespace util
 
         /**
          * Remove an element from the front of the list.
+         * @satisfies{util-1.7}
          */
         void delete_front()
         {
@@ -164,6 +174,7 @@ namespace util
         /**
          * Remove an element from the tail of the list.
          * @param t Data element to add the the list.
+         * @satisfies{util-1.8}
          */
         void delete_back()
         {
