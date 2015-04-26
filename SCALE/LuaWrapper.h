@@ -5,7 +5,7 @@ namespace SCALE
 {
 #define LUAW_NO_CXX11
 #include "SCALE/luawrapper.hpp"
-#include "luawrapperutil.hpp"
+#include "SCALE/luawrapperutil.hpp"
 }
 
 #endif // __SCALE_LUA_WRAPPER_H__
