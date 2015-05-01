@@ -79,11 +79,11 @@
       },
       {
         "id":"math-4.6"
-        "text":"Calculate the magitude of the vecor."
+        "text":"Calculate the magitude of the vector."
       },
       {
         "id":"math-4.7"
-        "text":"Calculate the magitude of the vecor squared."
+        "text":"Calculate the magitude of the vector squared."
       },
       {
         "id":"math-4.8"
@@ -96,6 +96,64 @@
       {
         "id":"math-4.10"
         "text":"Calculate the cross product of two vectors."
+      }
+    ]
+  }
+  {
+    "id":"math-5"
+    "text":"Provide a 3x3 Matrix.",
+    "success_criteria":[
+      {
+        "id":"math-5.1"
+        "text":"Create a default instance with all elements set to 0."
+      },
+      {
+        "id":"math-5.2"
+        "text":"Create an instance with the element values provided."
+      },
+      {
+        "id":"math-5.3"
+        "text":"Access the matrix elements using the () operator with an index starting at 1 (Matlab style)."
+      },
+      {
+        "id":"math-5.4"
+        "text":"Perform routine scalar math operations on the matrix."
+      },
+      {
+        "id":"math-5.5"
+        "text":"Perform routine matrix math operations with another matrix."
+      },
+      {
+        "id":"math-5.6"
+        "text":"Convert a direction cosine matrix (DCM) to a standard 3x3 matrix."
+      },
+      {
+        "id":"math-5.7"
+        "text":"Test two matrices for equality."
+      },
+      {
+        "id":"math-5.8"
+        "text":"Test two matrices for inequality."
+      },
+      {
+        "id":"math-5.9"
+        "text":"Perform matrix multiplication between a matrix and a vector."
+      },
+      {
+        "id":"math-5.10"
+        "text":"Transpose a matrix."
+      },
+      {
+        "id":"math-5.11"
+        "text":"Invert a matrix."
+      },
+      {
+        "id":"math-5.12"
+        "text":"Compute the matrix determinant."
+      },
+      {
+        "id":"math-5.13"
+        "text":"Compute the matrix trace."
       }
     ]
   }

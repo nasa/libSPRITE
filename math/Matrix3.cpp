@@ -25,11 +25,6 @@ namespace math
         m_[2][2] = e33;
     }
 
-    Matrix3::Matrix3(double e[9])
-    {
-        memcpy(m_, e, sizeof(m_));
-    }
-
     Matrix3::Matrix3(const DCM &d)
     {
         *this = d.toMatrix3();
