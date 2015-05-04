@@ -43,7 +43,7 @@ namespace SCALE
          */
         static int register_script(lua_State *L)
         {
-            Nest *n = SCALE::luaW_check<Nest>(L, 1);
+            Nest *n = luaW_check<Nest>(L, 1);
             n->register_script(const_cast<char *>(luaL_checkstring(L, 2)));
             return 0;
         }
@@ -57,8 +57,8 @@ namespace SCALE
          */
         static int register_class(lua_State *L)
         {
-            SCALE::luaW_register<Nest>(L, "Nest", NULL, methods, allocator);
-            SCALE::luaW_extend<Nest, SRTX::Task>(L);
+            luaW_register<Nest>(L, "Nest", NULL, methods, allocator);
+            luaW_extend<Nest, SRTX::Task>(L);
             return 0;
         }
     };

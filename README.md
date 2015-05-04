@@ -16,7 +16,7 @@ distributions place it elsewhere. You can change where the Makefile looks for
 the Lua include files by specifying the `LUA_INCLUDE` variable in the arguments
 to `make`.
 
-ex.: `make LUA_INCLUDE=/usr/include/lua5.2
+ex.: `make LUA_INCLUDE=/usr/include/lua5.2`
 
 You can also change the number of Lua library to link to by setting the
 `LUA_LIB` variable.
