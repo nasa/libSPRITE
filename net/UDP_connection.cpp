@@ -76,7 +76,7 @@ namespace net
         return rval;
     }
 
-    int UDP_connection::write(void *buffer, unsigned int nbytes)
+    int UDP_connection::write(const void *buffer, unsigned int nbytes)
     {
         int rval;
 

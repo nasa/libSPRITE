@@ -38,7 +38,7 @@ namespace net
          * @return Number of bytes written or -1 on error.
          * @satisfies{net-1.5}
          */
-        int write(void *buffer, unsigned int nbytes);
+        int write(const void *buffer, unsigned int nbytes);
 
       protected:
         /**
