@@ -157,4 +157,82 @@
       }
     ]
   }
+  {
+    "id":"math-6"
+    "text":"Provide a Quaternion class.",
+    "success_criteria":[
+      {
+        "id":"math-6.1"
+        "text":"Create a default instance with vector elements set to 0 and magniture set to 1."
+      },
+      {
+        "id":"math-6.2"
+        "text":"Create an instance with a provided scalar and vector."
+      },
+      {
+        "id":"math-6.3"
+        "text":"Create a quaternion from a set of Euler angles."
+      },
+      {
+        "id":"math-6.4"
+        "text":"Create a quaternion from a direction cosine matrix."
+      },
+      {
+        "id":"math-6.5"
+        "text":"Get the scalar value portion of the quaternion."
+      },
+      {
+        "id":"math-6.6"
+        "text":"Get a reference to the scalar portion of the quaternion."
+      },
+      {
+        "id":"math-6.7"
+        "text":"Get the vector value portion of the quaternion."
+      },
+      {
+        "id":"math-6.8"
+        "text":"Get a reference to the vector portion of the quaternion."
+      },
+      {
+        "id":"math-6.9"
+        "text":"Get an element of the vector value portion of the quaternion."
+      },
+      {
+        "id":"math-6.10"
+        "text":"Get a reference to an element of the vector portion of the quaternion."
+      },
+      {
+        "id":"math-6.11"
+        "text":"Produce the product of two quaternions."
+      },
+      {
+        "id":"math-6.12"
+        "text":"Assign the product of two quaternions to the current class."
+      },
+      {
+        "id":"math-6.13"
+        "text":"Perform a vector rotation."
+      },
+      {
+        "id":"math-6.14"
+        "text":"Conjugate the current quaternion."
+      },
+      {
+        "id":"math-6.15"
+        "text":"Invert the current quaternion."
+      },
+      {
+        "id":"math-6.16"
+        "text":"Convert the quaternion to a set of Euler angles."
+      },
+      {
+        "id":"math-6.17"
+        "text":"Convert the quaternion to a direction cosine matrix."
+      },
+      {
+        "id":"math-6.18"
+        "text":"Normalize the quaternion."
+      }
+    ]
+  }
 ]
