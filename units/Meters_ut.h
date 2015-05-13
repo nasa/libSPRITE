@@ -18,6 +18,12 @@ namespace units
          */
         CPPUNIT_TEST(test);
 
+        /**
+         * @verifies{units-8.12}
+         * @verifies{units-8.13}
+         */
+        CPPUNIT_TEST(test_millimeters);
+
         CPPUNIT_TEST_SUITE_END();
 
       public:
@@ -26,6 +32,7 @@ namespace units
 
       protected:
         void test();
+        void test_millimeters();
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Meters_ut);

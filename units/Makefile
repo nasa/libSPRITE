@@ -4,6 +4,7 @@ SRC:=Days.cpp \
      Degrees.cpp \
      Kilometers.cpp \
      Meters.cpp \
+     Millimeters.cpp \
      Nanoseconds.cpp \
      Radians.cpp \
      Seconds.cpp
@@ -17,6 +18,7 @@ TEST_SRC:=Celsius_ut.cpp \
           Meterspersecondpersecond_ut.cpp \
           Meterspersecond_ut.cpp \
           Meters_ut.cpp \
+          Millimeters_ut.cpp \
           Nanoseconds_ut.cpp \
           Radians_ut.cpp \
           Seconds_ut.cpp

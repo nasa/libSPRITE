@@ -1,5 +1,5 @@
-#ifndef __UNITS_METERS_H__
-#define __UNITS_METERS_H__
+#ifndef __UNITS_MILLIMETERS_H__
+#define __UNITS_MILLIMETERS_H__
 
 #include <math.h>
 #include "base/types.h"
@@ -8,66 +8,53 @@ namespace units
 {
 
     /**
-     * Forward declataration of class.
+     * Forward declaration of class.
      */
-    class Kilometers;
-    class Millimeters;
+    class Meters;
 
-    class Meters
+    class Millimeters
     {
       public:
         /**
          * Constructor.
          * @param v Number of seconds.
-         * @satisfies{units-8.1}
-         * @satisfies{units-8.2}
-         * @satisfies{units-8.4}
+         * @satisfies{units-17.1}
+         * @satisfies{units-17.2}
+         * @satisfies{units-17.4}
          */
-        explicit Meters(double v = 0.0)
+        explicit Millimeters(int64_t v = 0)
             : m_value(v)
         {
         }
 
         /**
          * Constructor.
-         * @satisfies{units-8.11}
+         * @satisfies{units-17.11}
          */
-        explicit Meters(const Kilometers &n);
+        explicit Millimeters(const Meters &m);
 
         /**
-         * Constructor.
-         * @satisfies{units-8.13}
+         * Type conversion to 64-bit integer.
+         * @satisfies{units-17.3}
          */
-        explicit Meters(const Millimeters &n);
-
-        /**
-         * Type conversion to double.
-         * @satisfies{units-8.3}
-         */
-        operator double() const
+        operator int64_t() const
         {
             return m_value;
         }
 
         /**
-         * Type conversion from Meters to Kilometers.
-         * @satisfies{units-8.10}
+         * Type conversion from Millimeters to Meters.
+         * @satisfies{units-17.10}
          */
-        units::Kilometers toKilometers() const;
-
-        /**
-         * Type conversion from Meters to Millimeters.
-         * @satisfies{units-8.12}
-         */
-        units::Millimeters toMillimeters() const;
+        units::Meters toMeters() const;
 
         /**
          * Overload operator+=
          * @param rhs Right hand side of the operation.
          * @return This instance with the right hand side value added.
-         * @satisfies{units-8.5}
+         * @satisfies{units-17.5}
          */
-        Meters &operator+=(const Meters &rhs)
+        Millimeters &operator+=(const Millimeters &rhs)
         {
             m_value += rhs.m_value;
 
@@ -78,9 +65,9 @@ namespace units
          * Overload operator-=
          * @param rhs Right hand side of the operation.
          * @return This instance with the right hand side value subtracted.
-         * @satisfies{units-8.5}
+         * @satisfies{units-17.5}
          */
-        Meters &operator-=(const Meters &rhs)
+        Millimeters &operator-=(const Millimeters &rhs)
         {
             m_value -= rhs.m_value;
 
@@ -91,9 +78,9 @@ namespace units
          * Overload operator*=
          * @param rhs Right hand side of the operation.
          * @return This instance divided by the right hand side.
-         * @satisfies{units-8.5}
+         * @satisfies{units-17.5}
          */
-        Meters &operator*=(const Meters &rhs)
+        Millimeters &operator*=(const Millimeters &rhs)
         {
             m_value *= rhs.m_value;
 
@@ -104,9 +91,9 @@ namespace units
          * Overload operator/=
          * @param rhs Right hand side of the operation.
          * @return This instance divided by the right hand side.
-         * @satisfies{units-8.5}
+         * @satisfies{units-17.5}
          */
-        Meters &operator/=(const Meters &rhs)
+        Millimeters &operator/=(const Millimeters &rhs)
         {
             m_value /= rhs.m_value;
 
@@ -117,9 +104,9 @@ namespace units
         /**
          * Stored value.
          */
-        double m_value;
+        int64_t m_value;
     };
 
 } // namespace
 
-#endif // __UNITS_METERS_H__
+#endif // __UNITS_MILLIMETERS_H__
