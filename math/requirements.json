@@ -125,7 +125,7 @@
       },
       {
         "id":"math-5.6"
-        "text":"Convert a direction cosine matrix (DCM) to a standard 3x3 matrix."
+        "text":"Create an instance from a direction cosine matrix (DCM)."
       },
       {
         "id":"math-5.7"
@@ -232,6 +232,56 @@
       {
         "id":"math-6.18"
         "text":"Normalize the quaternion."
+      }
+    ]
+  }
+  {
+    "id":"math-7"
+    "text":"Provide a directiion cosine matrix (DCM) as a special case of a 3x3 Matrix.",
+    "success_criteria":[
+      {
+        "id":"math-7.1"
+        "text":"Create a default instance with all elements set to 0."
+      },
+      {
+        "id":"math-7.2"
+        "text":"Create an instance with the element values provided."
+      },
+      {
+        "id":"math-7.3"
+        "text":"Access the matrix elements using the () operator with an index starting at 1 (Matlab style)."
+      },
+      {
+        "id":"math-7.4"
+        "text":"Create an instance from a 3x3 matrix."
+      },
+      {
+        "id":"math-7.5"
+        "text":"Create an instance from a set of Euler angles."
+      },
+      {
+        "id":"math-7.6"
+        "text":"Convert a direction cosine matrix (DCM) to a standard 3x3 matrix."
+      },
+      {
+        "id":"math-7.7"
+        "text":"Convert a direction cosine matrix (DCM) to a set of Euler angles."
+      },
+      {
+        "id":"math-7.8"
+        "text":"Convert a direction cosine matrix (DCM) to a Quaternion."
+      },
+      {
+        "id":"math-7.9"
+        "text":"Perform matrix multiplication between a DCM and a vector."
+      },
+      {
+        "id":"math-7.10"
+        "text":"Transpose a DCM."
+      },
+      {
+        "id":"math-7.11"
+        "text":"Invert a DCM."
       }
     ]
   }
