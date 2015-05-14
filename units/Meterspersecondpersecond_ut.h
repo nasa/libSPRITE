@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace units
 {
     class Meterspersecondpersecond_ut : public CppUnit::TestFixture
@@ -11,17 +10,19 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Meterspersecondpersecond_ut);
 
+        /**
+         * @verifies{units-10.2}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Meterspersecondpersecond_ut);

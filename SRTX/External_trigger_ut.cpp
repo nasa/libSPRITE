@@ -14,10 +14,9 @@ namespace SRTX
         units::Nanoseconds sched_period(10 * units::MSEC);
     }
 
-
     void External_trigger_ut::setUp()
     {
-        Scheduler& sched = Scheduler::get_instance();
+        Scheduler &sched = Scheduler::get_instance();
         Task_db::value_t task_props;
 
         task_props.period = sched_period;
@@ -41,21 +40,19 @@ namespace SRTX
         sleep(units::Nanoseconds(0.1 * units::SEC));
     }
 
-
     void External_trigger_ut::tearDown()
     {
-        Scheduler& sched = Scheduler::get_instance();
+        Scheduler &sched = Scheduler::get_instance();
         sched.stop();
     }
-
 
     void External_trigger_ut::test_trigger()
     {
         IPRINTF("\nStarting %s\n", __func__);
 
-        Scheduler& sched = Scheduler::get_instance();
+        Scheduler &sched = Scheduler::get_instance();
         Task_db::value_t task_props;
-        Reference_time& rtime = Reference_time::get_instance();
+        Reference_time &rtime = Reference_time::get_instance();
 
         units::Nanoseconds time = rtime.get_time();
         CPPUNIT_ASSERT_EQUAL(time, rtime.get_time());

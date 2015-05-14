@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace SRTX
 {
     /**
@@ -18,18 +17,16 @@ namespace SRTX
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
-
+      protected:
         /**
          * Test the ability to get the system time and sleep for a specified
          * period of time.
          */
         void test_RTC();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(RTC_ut);

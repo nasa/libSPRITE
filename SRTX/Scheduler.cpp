@@ -8,13 +8,12 @@
 #include "SRTX/Scheduler.h"
 #include "base/XPRINTF.h"
 
-
 namespace SRTX
 {
 
     namespace
     {
-        const char* const task_name = "Scheduler";
+        const char *const task_name = "Scheduler";
         unsigned int sched_unwind_tics = 1;
     }
 
@@ -23,23 +22,21 @@ namespace SRTX
     struct Sched_item
     {
         Sched_item(units::Nanoseconds p)
-            : period(p), finished(true)
+            : period(p)
+            , finished(true)
         {
         }
 
         Runtime_attributes rt_attr;
-        Runtime_attributes_db::symbol_t* rt_attr_symbol;
+        Runtime_attributes_db::symbol_t *rt_attr_symbol;
         units::Nanoseconds period;
         Syncpoint sync;
-        End_of_frame* eof_task;
+        End_of_frame *eof_task;
         bool finished;
         units::Nanoseconds start_time;
         units::Nanoseconds end_time;
-
     };
-    typedef Linked_list<Sched_item*> Sched_list;
-
-
+    typedef Linked_list<Sched_item *> Sched_list;
 
     struct Scheduler_impl
     {
@@ -51,8 +48,7 @@ namespace SRTX
         Syncpoint sync;
     };
 
-
-    Scheduler& Scheduler::get_instance()
+    Scheduler &Scheduler::get_instance()
     {
         if(!m_instance)
         {
@@ -62,12 +58,11 @@ namespace SRTX
         return *m_instance;
     }
 
-
-    Scheduler::Scheduler() :
-        Task(task_name),
-        m_sched_impl(new Scheduler_impl),
-        m_schedule(0),
-        m_use_external_clock(false)
+    Scheduler::Scheduler()
+        : Task(task_name)
+        , m_sched_impl(new Scheduler_impl)
+        , m_schedule(0)
+        , m_use_external_clock(false)
     {
         /* Presumably the base class set the valid flag to true. If we couldn't
          * allocate the schedule implementation structure, then construction
@@ -78,7 +73,6 @@ namespace SRTX
             m_valid = false;
         }
     }
-
 
     /* The number of unwind tics is the number of times the scheduler must run
      * to ensure that all rategroups have completed.
@@ -91,8 +85,7 @@ namespace SRTX
         }
     }
 
-
-    Syncpoint* Scheduler::add_task(Task& p)
+    Syncpoint *Scheduler::add_task(Task &p)
     {
         static unsigned int list_len = 0;
         const units::Nanoseconds p_period = p.get_period();
@@ -105,12 +98,12 @@ namespace SRTX
          */
         if((p_period < s_period) || ((p_period % s_period) != 0))
         {
-            EPRINTF("Invalid task period: %"PRId64"\n", int64_t(p_period));
+            EPRINTF("Invalid task period: %" PRId64 "\n", int64_t(p_period));
             return NULL;
         }
 
-        Sched_list& list = m_sched_impl->rategroup;
-        Sched_list::Node* n = list.head();
+        Sched_list &list = m_sched_impl->rategroup;
+        Sched_list::Node *n = list.head();
 
         /* Search for an existing rategroup entry with the same period.
         */
@@ -129,9 +122,9 @@ namespace SRTX
 
         /* Didn't find the rategroup. We'll have to add an entry in the list.
         */
-        DPRINTF("Adding rategroup entry for %"PRId64" period\n",
+        DPRINTF("Adding rategroup entry for %" PRId64 " period\n",
                 int64_t(p_period));
-        Sched_item* item = new Sched_item(p_period);
+        Sched_item *item = new Sched_item(p_period);
         if(NULL == item)
         {
             return NULL;
@@ -139,15 +132,16 @@ namespace SRTX
 
         /* Add a symbol table entry for the runtime attributes of the rategroup.
         */
-        Runtime_attributes_db& rt_db = Runtime_attributes_db::get_instance();
+        Runtime_attributes_db &rt_db = Runtime_attributes_db::get_instance();
         char name[SYM_ENTRY_STRLEN + 1];
-        snprintf(name, SYM_ENTRY_STRLEN, "%s%"PRId64"",
-                runtime_attr_symbol_prefix, int64_t(p_period));
+        snprintf(name, SYM_ENTRY_STRLEN, "%s%" PRId64 "",
+                 runtime_attr_symbol_prefix, int64_t(p_period));
         item->rt_attr_symbol = rt_db.add_symbol(name);
         if((NULL == item->rt_attr_symbol) ||
-                (false == item->rt_attr_symbol->is_valid()))
+           (false == item->rt_attr_symbol->is_valid()))
         {
-            EPRINTF("Failed while adding runtime attributes symbol table entry\n");
+            EPRINTF(
+                "Failed while adding runtime attributes symbol table entry\n");
             delete item;
             return NULL;
         }
@@ -164,9 +158,8 @@ namespace SRTX
          */
         if(p_period == s_period)
         {
-            Runtime_attributes_db::symbol_t* rt_sym_alias =
-                rt_db.alias_symbol(minor_frame_runtime_attr_symbol_name,
-                        item->rt_attr_symbol);
+            Runtime_attributes_db::symbol_t *rt_sym_alias = rt_db.alias_symbol(
+                minor_frame_runtime_attr_symbol_name, item->rt_attr_symbol);
             if((NULL == rt_sym_alias) || (false == rt_sym_alias->is_valid()))
             {
                 EPRINTF("Failed while aliasing runtime attributes symbol table "
@@ -174,7 +167,6 @@ namespace SRTX
                 delete item;
                 return NULL;
             }
-
 
             DPRINTF("Aliased the minor frame runtime attributes symbol\n");
         }
@@ -191,18 +183,17 @@ namespace SRTX
         Task_properties tprops;
         tprops.period = p_period;
         tprops.prio = MIN_PRIO;
-        snprintf(name, SYM_ENTRY_STRLEN, "End_of_frame_%"PRId64,
-                int64_t(p_period));
-        item->eof_task = new End_of_frame(name, item->finished, item->end_time,
-                item->sync);
+        snprintf(name, SYM_ENTRY_STRLEN, "End_of_frame_%" PRId64,
+                 int64_t(p_period));
+        item->eof_task =
+            new End_of_frame(name, item->finished, item->end_time, item->sync);
         item->eof_task->set_properties(tprops);
         item->eof_task->start();
 
         return &(item->sync);
     }
 
-
-    void Scheduler::remove_task(Task& p)
+    void Scheduler::remove_task(Task &p)
     {
 #if 0
         Sched_list& list = m_sched_impl->rategroup;
@@ -227,7 +218,6 @@ namespace SRTX
         }
 #endif
     }
-
 
     bool Scheduler::start()
     {
@@ -272,7 +262,6 @@ namespace SRTX
         return spawn_thread();
     }
 
-
     bool Scheduler::execute()
     {
         static units::Nanoseconds time(0);
@@ -304,7 +293,7 @@ namespace SRTX
          * and gets incremented by the scheduler's period each time the
          * scheduler runs.
          */
-        Reference_time& rtimer = Reference_time::get_instance();
+        Reference_time &rtimer = Reference_time::get_instance();
         units::Nanoseconds ref_time(0);
 
         /* We have to have the mutex before calling wait.
@@ -318,14 +307,14 @@ namespace SRTX
         /* Get an reference to the data router. We'll be calling this to move
          * data for the pub/sub system.
          */
-        Data_router& router = Data_router::get_instance();
+        Data_router &router = Data_router::get_instance();
 
         DPRINTF("Entering the scheduler loop\n");
 
         /* Here's the meat of the show! This stuff is done in an infinite loop
          * while the task is running.
          */
-        Sched_list& list = m_sched_impl->rategroup;
+        Sched_list &list = m_sched_impl->rategroup;
         while(this->is_operational() || sched_unwind_tics)
         {
             /* If the scheduler has been asked to halt, start counting down the
@@ -347,7 +336,9 @@ namespace SRTX
             if(m_use_external_clock)
             {
                 time = units::Nanoseconds(0);
-            } else {
+            }
+            else
+            {
                 time = units::Nanoseconds(m_props.period + time);
             }
 
@@ -371,7 +362,7 @@ namespace SRTX
              */
             ref_time = rtimer.increment(m_props.period);
 
-            DPRINTF("ref_time = %"PRId64"\n", int64_t(ref_time));
+            DPRINTF("ref_time = %" PRId64 "\n", int64_t(ref_time));
 
             /* Transfer all registered data that is scheduled to be moved this
              * period.
@@ -385,7 +376,7 @@ namespace SRTX
              * time.
              */
             unsigned int item_num = 0;
-            for(Sched_list::Node* n = list.head(); n; n = n->next())
+            for(Sched_list::Node *n = list.head(); n; n = n->next())
             {
                 ++item_num;
                 DPRINTF("Checking list item number %u\n", item_num);
@@ -393,11 +384,11 @@ namespace SRTX
                 {
                     if(n->data->finished)
                     {
-                        n->data->rt_attr.last_runtime = n->data->end_time -
-                            n->data->start_time;
+                        n->data->rt_attr.last_runtime =
+                            n->data->end_time - n->data->start_time;
 
                         if(n->data->rt_attr.last_runtime >
-                                n->data->rt_attr.max_runtime)
+                           n->data->rt_attr.max_runtime)
                         {
                             n->data->rt_attr.max_runtime =
                                 n->data->rt_attr.last_runtime;
@@ -405,13 +396,16 @@ namespace SRTX
                     }
                     else
                     {
-                        WPRINTF("OVERRUN Rategroup %"PRId64"\n",
+                        WPRINTF("OVERRUN Rategroup %" PRId64 "\n",
                                 int64_t(n->data->period));
                         ++(n->data->rt_attr.num_overruns);
 #ifdef DEBUG_OVERRUN_BUG
-                        fprintf(stderr, "num overruns = %u\n", n->data->rt_attr.num_overruns);
-                        fprintf(stderr, "last runtime = %ld\n", int64_t(n->data->rt_attr.last_runtime));
-                        fprintf(stderr, "max runtime = %ld\n", int64_t(n->data->rt_attr.max_runtime));
+                        fprintf(stderr, "num overruns = %u\n",
+                                n->data->rt_attr.num_overruns);
+                        fprintf(stderr, "last runtime = %ld\n",
+                                int64_t(n->data->rt_attr.last_runtime));
+                        fprintf(stderr, "max runtime = %ld\n",
+                                int64_t(n->data->rt_attr.max_runtime));
 #endif
                         n->data->rt_attr_symbol->entry->write(n->data->rt_attr);
                         /* If an overrun occurs in this rategroup, break out.
@@ -423,7 +417,7 @@ namespace SRTX
                     }
                     n->data->rt_attr_symbol->entry->write(n->data->rt_attr);
 
-                    DPRINTF("Signaling %"PRId64" period tasks\n",
+                    DPRINTF("Signaling %" PRId64 " period tasks\n",
                             int64_t(n->data->period));
                     if(false == n->data->sync.lock())
                     {
@@ -453,7 +447,6 @@ namespace SRTX
         return false;
     }
 
-
     void Scheduler::terminate()
     {
         if(m_use_external_clock)
@@ -468,7 +461,9 @@ namespace SRTX
                 usleep(s_period / 1000);
                 trigger();
             }
-        } else {
+        }
+        else
+        {
             this->lock();
             m_sched_impl->sync.condition_satisfied();
             m_sched_impl->sync.release();
@@ -476,24 +471,20 @@ namespace SRTX
         }
     }
 
-
     bool Scheduler::lock()
     {
         return m_sched_impl->sync.lock();
     }
-
 
     bool Scheduler::unlock()
     {
         return m_sched_impl->sync.unlock();
     }
 
-
     void Scheduler::use_external_trigger(bool slave)
     {
         m_use_external_clock = slave;
     }
-
 
     bool Scheduler::trigger(void)
     {
@@ -527,7 +518,6 @@ namespace SRTX
         return true;
     }
 
-
-    Scheduler* Scheduler::m_instance(NULL);
+    Scheduler *Scheduler::m_instance(NULL);
 
 } // namespace

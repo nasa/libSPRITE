@@ -11,136 +11,113 @@ namespace units
      * Forward declataration of class.
      */
     class Kilometers;
-    class Centimeters;
-    class Feet;
-    class Miles;
-    class Yards;
+    class Millimeters;
 
     class Meters
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of seconds.
+         * @satisfies{units-8.1}
+         * @satisfies{units-8.2}
+         * @satisfies{units-8.4}
+         */
+        explicit Meters(double v = 0.0)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of seconds.
-             */
-            explicit Meters(double v = 0.0)
-            {
-                m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
-            }
+        /**
+         * Constructor.
+         * @satisfies{units-8.11}
+         */
+        explicit Meters(const Kilometers &n);
 
-            /**
-             * Constructor.
-             */
-            explicit Meters(const Kilometers& n);
-            explicit Meters(const Centimeters& n);
-            explicit Meters(const Feet& n);
-            explicit Meters(const Miles& n);
-            explicit Meters(const Yards& n);
+        /**
+         * Constructor.
+         * @satisfies{units-8.13}
+         */
+        explicit Meters(const Millimeters &n);
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
+        /**
+         * Type conversion to double.
+         * @satisfies{units-8.3}
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Type conversion from Meters to Kilometers.
-             */
-            units::Kilometers toKilometers() const;
+        /**
+         * Type conversion from Meters to Kilometers.
+         * @satisfies{units-8.10}
+         */
+        units::Kilometers toKilometers() const;
 
-            /**
-             * Type conversion from Meters to Centimeters.
-             */
-            units::Centimeters toCentimeters() const;
+        /**
+         * Type conversion from Meters to Millimeters.
+         * @satisfies{units-8.12}
+         */
+        units::Millimeters toMillimeters() const;
 
-            /**
-             * Type conversion from Meters to Feet.
-             */
-            units::Feet toFeet() const;
+        /**
+         * Overload operator+=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value added.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator+=(const Meters &rhs)
+        {
+            m_value += rhs.m_value;
 
-#if 0
-            /**
-             * Type conversion from Meters to Miles.
-             */
-            units::Miles toMiles() const;
+            return *this;
+        }
 
-            /**
-             * Type conversion from Meters to Yards.
-             */
-            units::Yards toYards() const;
-#endif
+        /**
+         * Overload operator-=
+         * @param rhs Right hand side of the operation.
+         * @return This instance with the right hand side value subtracted.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator-=(const Meters &rhs)
+        {
+            m_value -= rhs.m_value;
 
+            return *this;
+        }
 
-            /**
-             * Overload operator+
-             * @param rhs Right hand side of the operation.
-             * @return The added value
-             */
-            Meters operator+(const Meters& rhs) const
-            {
-                return Meters(m_value + rhs.m_value);
-            }
+        /**
+         * Overload operator*=
+         * @param rhs Right hand side of the operation.
+         * @return This instance divided by the right hand side.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator*=(const Meters &rhs)
+        {
+            m_value *= rhs.m_value;
 
+            return *this;
+        }
 
-            /**
-             * Overload operator-
-             * @param rhs Right hand side of the operation.
-             * @return The subtracted value.
-             */
-            Meters operator-(const Meters& rhs) const
-            {
-                return Meters(m_value - rhs.m_value);
-            }
+        /**
+         * Overload operator/=
+         * @param rhs Right hand side of the operation.
+         * @return This instance divided by the right hand side.
+         * @satisfies{units-8.5}
+         */
+        Meters &operator/=(const Meters &rhs)
+        {
+            m_value /= rhs.m_value;
 
+            return *this;
+        }
 
-            /**
-             * Overload operator+=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value added.
-             */
-            Meters& operator+=(const Meters& rhs)
-            {
-                m_value += rhs.m_value;
-
-                return *this;
-            }
-
-
-            /**
-             * Overload operator-=
-             * @param rhs Right hand side of the operation.
-             * @return This instance with the right hand side value subtracted.
-             */
-            Meters& operator-=(const Meters& rhs)
-            {
-                m_value -= rhs.m_value;
-
-                return *this;
-            }
-
-
-            /**
-             * Overload operator/=
-             * @param rhs Right hand side of the operation.
-             * @return This instance divided by the right hand side.
-             */
-            Meters& operator/=(const Meters& rhs)
-            {
-                m_value /= rhs.m_value;
-
-                return *this;
-            }
-
-        private:
-
-            /**
-             * Stored value.
-             */
-            double m_value;
-
+      private:
+        /**
+         * Stored value.
+         */
+        double m_value;
     };
 
 } // namespace

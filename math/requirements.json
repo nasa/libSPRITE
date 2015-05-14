@@ -1,0 +1,288 @@
+[
+  {
+    "id":"math-1"
+    "text":"Provide trig functions that operate on units::Radians.",
+    "success_criteria":[
+      {
+        "id":"math-1.1"
+        "text":"Implement the sin() function using units::Radians."
+      },
+      {
+        "id":"math-1.2"
+        "text":"Implement the cos() function using units::Radians."
+      },
+      {
+        "id":"math-1.3"
+        "text":"Implement the tan() function using units::Radians."
+      }
+    ]
+  }
+  {
+    "id":"math-2"
+    "text":"Provide trig functions that operate on units::Degrees.",
+    "success_criteria":[
+      {
+        "id":"math-2.1"
+        "text":"Implement the sin() function using units::Degrees."
+      },
+      {
+        "id":"math-2.2"
+        "text":"Implement the cos() function using units::Degrees."
+      },
+      {
+        "id":"math-2.3"
+        "text":"Implement the tan() function using units::Degrees."
+      }
+    ]
+  }
+  {
+    "id":"math-3"
+    "text":"Provide inverse functions that return units::Radians.",
+    "success_criteria":[
+      {
+        "id":"math-3.1"
+        "text":"Implement the asin2() function return units::Radians."
+      },
+      {
+        "id":"math-3.2"
+        "text":"Implement the acos2() function return units::Radians."
+      },
+      {
+        "id":"math-3.3"
+        "text":"Implement the atan2() function return units::Radians."
+      }
+    ]
+  }
+  {
+    "id":"math-4"
+    "text":"Provide a 3 element vector.",
+    "success_criteria":[
+      {
+        "id":"math-4.1"
+        "text":"Create a default instance with all elements set to 0."
+      },
+      {
+        "id":"math-4.2"
+        "text":"Create an instance with the element values provided."
+      },
+      {
+        "id":"math-4.3"
+        "text":"Access the vector elements using the () operator with an index starting at 1 (Matlab style)."
+      },
+      {
+        "id":"math-4.4"
+        "text":"Perform routine scalar math operations on the vector."
+      },
+      {
+        "id":"math-4.5"
+        "text":"Perform routine vector math operations with the vector."
+      },
+      {
+        "id":"math-4.6"
+        "text":"Calculate the magitude of the vector."
+      },
+      {
+        "id":"math-4.7"
+        "text":"Calculate the magitude of the vector squared."
+      },
+      {
+        "id":"math-4.8"
+        "text":"Normalize the vector."
+      },
+      {
+        "id":"math-4.9"
+        "text":"Calculate the dot product of two vectors."
+      },
+      {
+        "id":"math-4.10"
+        "text":"Calculate the cross product of two vectors."
+      }
+    ]
+  }
+  {
+    "id":"math-5"
+    "text":"Provide a 3x3 Matrix.",
+    "success_criteria":[
+      {
+        "id":"math-5.1"
+        "text":"Create a default instance with all elements set to 0."
+      },
+      {
+        "id":"math-5.2"
+        "text":"Create an instance with the element values provided."
+      },
+      {
+        "id":"math-5.3"
+        "text":"Access the matrix elements using the () operator with an index starting at 1 (Matlab style)."
+      },
+      {
+        "id":"math-5.4"
+        "text":"Perform routine scalar math operations on the matrix."
+      },
+      {
+        "id":"math-5.5"
+        "text":"Perform routine matrix math operations with another matrix."
+      },
+      {
+        "id":"math-5.6"
+        "text":"Create an instance from a direction cosine matrix (DCM)."
+      },
+      {
+        "id":"math-5.7"
+        "text":"Test two matrices for equality."
+      },
+      {
+        "id":"math-5.8"
+        "text":"Test two matrices for inequality."
+      },
+      {
+        "id":"math-5.9"
+        "text":"Perform matrix multiplication between a matrix and a vector."
+      },
+      {
+        "id":"math-5.10"
+        "text":"Transpose a matrix."
+      },
+      {
+        "id":"math-5.11"
+        "text":"Invert a matrix."
+      },
+      {
+        "id":"math-5.12"
+        "text":"Compute the matrix determinant."
+      },
+      {
+        "id":"math-5.13"
+        "text":"Compute the matrix trace."
+      }
+    ]
+  }
+  {
+    "id":"math-6"
+    "text":"Provide a Quaternion class.",
+    "success_criteria":[
+      {
+        "id":"math-6.1"
+        "text":"Create a default instance with vector elements set to 0 and magniture set to 1."
+      },
+      {
+        "id":"math-6.2"
+        "text":"Create an instance with a provided scalar and vector."
+      },
+      {
+        "id":"math-6.3"
+        "text":"Create a quaternion from a set of Euler angles."
+      },
+      {
+        "id":"math-6.4"
+        "text":"Create a quaternion from a direction cosine matrix."
+      },
+      {
+        "id":"math-6.5"
+        "text":"Get the scalar value portion of the quaternion."
+      },
+      {
+        "id":"math-6.6"
+        "text":"Get a reference to the scalar portion of the quaternion."
+      },
+      {
+        "id":"math-6.7"
+        "text":"Get the vector value portion of the quaternion."
+      },
+      {
+        "id":"math-6.8"
+        "text":"Get a reference to the vector portion of the quaternion."
+      },
+      {
+        "id":"math-6.9"
+        "text":"Get an element of the vector value portion of the quaternion."
+      },
+      {
+        "id":"math-6.10"
+        "text":"Get a reference to an element of the vector portion of the quaternion."
+      },
+      {
+        "id":"math-6.11"
+        "text":"Produce the product of two quaternions."
+      },
+      {
+        "id":"math-6.12"
+        "text":"Assign the product of two quaternions to the current class."
+      },
+      {
+        "id":"math-6.13"
+        "text":"Perform a vector rotation."
+      },
+      {
+        "id":"math-6.14"
+        "text":"Conjugate the current quaternion."
+      },
+      {
+        "id":"math-6.15"
+        "text":"Invert the current quaternion."
+      },
+      {
+        "id":"math-6.16"
+        "text":"Convert the quaternion to a set of Euler angles."
+      },
+      {
+        "id":"math-6.17"
+        "text":"Convert the quaternion to a direction cosine matrix."
+      },
+      {
+        "id":"math-6.18"
+        "text":"Normalize the quaternion."
+      }
+    ]
+  }
+  {
+    "id":"math-7"
+    "text":"Provide a directiion cosine matrix (DCM) as a special case of a 3x3 Matrix.",
+    "success_criteria":[
+      {
+        "id":"math-7.1"
+        "text":"Create a default instance with all elements set to 0."
+      },
+      {
+        "id":"math-7.2"
+        "text":"Create an instance with the element values provided."
+      },
+      {
+        "id":"math-7.3"
+        "text":"Access the matrix elements using the () operator with an index starting at 1 (Matlab style)."
+      },
+      {
+        "id":"math-7.4"
+        "text":"Create an instance from a 3x3 matrix."
+      },
+      {
+        "id":"math-7.5"
+        "text":"Create an instance from a set of Euler angles."
+      },
+      {
+        "id":"math-7.6"
+        "text":"Convert a direction cosine matrix (DCM) to a standard 3x3 matrix."
+      },
+      {
+        "id":"math-7.7"
+        "text":"Convert a direction cosine matrix (DCM) to a set of Euler angles."
+      },
+      {
+        "id":"math-7.8"
+        "text":"Convert a direction cosine matrix (DCM) to a Quaternion."
+      },
+      {
+        "id":"math-7.9"
+        "text":"Perform matrix multiplication between a DCM and a vector."
+      },
+      {
+        "id":"math-7.10"
+        "text":"Transpose a DCM."
+      },
+      {
+        "id":"math-7.11"
+        "text":"Invert a DCM."
+      }
+    ]
+  }
+]

@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace units
 {
     class Nanoseconds_ut : public CppUnit::TestFixture
@@ -11,17 +10,20 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Nanoseconds_ut);
 
+        /**
+         * @satisfies{units-11.2}
+         * @satisfies{units-11.7}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Nanoseconds_ut);

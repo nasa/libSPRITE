@@ -1,0 +1,520 @@
+[
+  {
+    "id":"units-1"
+    "text":"Support engineering units of degrees Celsius temperature.",
+    "success_criteria":[
+      {
+        "id":"units-1.1"
+        "text":"Create an default value instance of Celsius type with value 0."
+      },
+      {
+        "id":"units-1.2"
+        "text":"Create an instance of Celsius from an initial value of type double."
+      },
+      {
+        "id":"units-1.3"
+        "text":"Allow implicit conversion of Celsius to type double."
+      },
+      {
+        "id":"units-1.4"
+        "text":"Prevent implicit conversion of a numeric value to a Celsius value."
+      },
+      {
+        "id":"units-1.5"
+        "text":"Perform routine math operations on a Celsius values."
+      }
+    ]
+  }
+  {
+    "id":"units-2"
+    "text":"Support engineering units of Days.",
+    "success_criteria":[
+      {
+        "id":"units-2.1"
+        "text":"Create an default value instance of Days type with value 0."
+      },
+      {
+        "id":"units-2.2"
+        "text":"Create an instance of Days from an initial value of type double."
+      },
+      {
+        "id":"units-2.3"
+        "text":"Allow implicit conversion of Days to type double."
+      },
+      {
+        "id":"units-2.4"
+        "text":"Prevent implicit conversion of a numerical valud to a Days value."
+      },
+      {
+        "id":"units-2.5"
+        "text":"Perform routine math operations on a Days values."
+      },
+      {
+        "id":"units-2.8"
+        "text":"Create an instance of Days from an initial value of type Seconds."
+      },
+      {
+        "id":"units-2.10"
+        "text":"Implement conversion from type Days to type Seconds."
+      }
+    ]
+  }
+  {
+    "id":"units-3"
+    "text":"Support engineering units of Degrees.",
+    "success_criteria":[
+      {
+        "id":"units-3.1"
+        "text":"Create an default value instance of Degrees type with value 0."
+      },
+      {
+        "id":"units-3.2"
+        "text":"Create an instance of Degrees from an initial value of type double."
+      },
+      {
+        "id":"units-3.3"
+        "text":"Allow implicit conversion of Degrees to type double."
+      },
+      {
+        "id":"units-3.4"
+        "text":"Prevent implicit conversion of a numerical valud to a Degrees value."
+      },
+      {
+        "id":"units-3.5"
+        "text":"Perform routine math operations on a Degrees values."
+      },
+      {
+        "id":"units-3.6"
+        "text":"Create an instance of Degrees from an initial value of type Radians."
+      },
+      {
+        "id":"units-3.7"
+        "text":"Implement conversion from type Degrees to type Radians."
+      }
+    ]
+  }
+  {
+    "id":"units-4"
+    "text":"Support engineering units of GPS_time.",
+    "success_criteria":[
+      {
+        "id":"units-4.1"
+        "text":"Create an default value instance of GPS_time type with value week 1, seconds 0."
+      },
+      {
+        "id":"units-4.2"
+        "text":"Create an instance of GPS_time from given initial values of weeks and seconds."
+      },
+      {
+        "id":"units-4.3"
+        "text":"Provide access to the GPS week number."
+      },
+      {
+        "id":"units-4.4"
+        "text":"Provide access to the GPS seconds value."
+      },
+      {
+        "id":"units-4.5"
+        "text":"Increment a value of GPS_time by a given amount of Seconds."
+      },
+      {
+        "id":"units-4.6"
+        "text":"Compute the difference between two instances of GPS_time."
+      }
+    ]
+  }
+  {
+    "id":"units-5"
+    "text":"Support engineering units of Grams mass.",
+    "success_criteria":[
+      {
+        "id":"units-5.1"
+        "text":"Create an default value instance of Grams type with value 0."
+      },
+      {
+        "id":"units-5.2"
+        "text":"Create an instance of Grams from an initial value of type double."
+      },
+      {
+        "id":"units-5.3"
+        "text":"Allow implicit conversion of Grams to type double."
+      },
+      {
+        "id":"units-5.4"
+        "text":"Prevent implicit conversion of a numeric value to a Grams value."
+      },
+      {
+        "id":"units-5.5"
+        "text":"Perform routine math operations on a Grams values."
+      }
+    ]
+  }
+  {
+    "id":"units-6"
+    "text":"Support engineering units of degrees Kilometers.",
+    "success_criteria":[
+      {
+        "id":"units-6.1"
+        "text":"Create an default value instance of Kilometers type with value 0."
+      },
+      {
+        "id":"units-6.2"
+        "text":"Create an instance of Kilometers from an initial value of type double."
+      },
+      {
+        "id":"units-6.3"
+        "text":"Allow implicit conversion of Kilometers to type double."
+      },
+      {
+        "id":"units-6.4"
+        "text":"Prevent implicit conversion of a numeric value to a Kilometers value."
+      },
+      {
+        "id":"units-6.5"
+        "text":"Perform routine math operations on a Kilometers values."
+      }
+      {
+        "id":"units-6.6"
+        "text":"Implement conversion from type Kilometers to type Meters."
+      }
+      {
+        "id":"units-6.7"
+        "text":"Create an instance of Kilometers from and initial value of type Meters."
+      }
+    ]
+  }
+  {
+    "id":"units-7"
+    "text":"Support engineering units of degrees Liters.",
+    "success_criteria":[
+      {
+        "id":"units-7.1"
+        "text":"Create an default value instance of Liters type with value 0."
+      },
+      {
+        "id":"units-7.2"
+        "text":"Create an instance of Liters from an initial value of type double."
+      },
+      {
+        "id":"units-7.3"
+        "text":"Allow implicit conversion of Liters to type double."
+      },
+      {
+        "id":"units-7.4"
+        "text":"Prevent implicit conversion of a numeric value to a Liters value."
+      },
+      {
+        "id":"units-7.5"
+        "text":"Perform routine math operations on a Liters values."
+      }
+    ]
+  }
+  {
+    "id":"units-8"
+    "text":"Support engineering units of Meters.",
+    "success_criteria":[
+      {
+        "id":"units-8.1"
+        "text":"Create an default value instance of Meters type with value 0."
+      },
+      {
+        "id":"units-8.2"
+        "text":"Create an instance of Meters from an initial value of type double."
+      },
+      {
+        "id":"units-8.3"
+        "text":"Allow implicit conversion of Meters to type double."
+      },
+      {
+        "id":"units-8.4"
+        "text":"Prevent implicit conversion of a numeric value to a Meters value."
+      },
+      {
+        "id":"units-8.5"
+        "text":"Perform routine math operations on a Meters values."
+      },
+      {
+        "id":"units-8.10"
+        "text":"Implement conversion from type Meters to type Kilometers."
+      },
+      {
+        "id":"units-8.11"
+        "text":"Create an instance of Meters from and initial value of type Kilometers."
+      },
+      {
+        "id":"units-8.12"
+        "text":"Implement conversion from type Meters to type Milimeters."
+      },
+      {
+        "id":"units-8.13"
+        "text":"Create an instance of Meters from and initial value of type Millimeters."
+      }
+    ]
+  }
+  {
+    "id":"units-9"
+    "text":"Support engineering units of Meterspersecond.",
+    "success_criteria":[
+      {
+        "id":"units-9.1"
+        "text":"Create an default value instance of Meterspersecond type with value 0."
+      },
+      {
+        "id":"units-9.2"
+        "text":"Create an instance of Meterspersecond from an initial value of type double."
+      },
+      {
+        "id":"units-9.3"
+        "text":"Allow implicit conversion of Meterspersecond to type double."
+      },
+      {
+        "id":"units-9.4"
+        "text":"Prevent implicit conversion of a numeric value to a Meterspersecond value."
+      },
+      {
+        "id":"units-9.5"
+        "text":"Perform routine math operations on a Meterspersecond values."
+      }
+    ]
+  }
+  {
+    "id":"units-10"
+    "text":"Support engineering units of Meterspersecondpersecond.",
+    "success_criteria":[
+      {
+        "id":"units-10.1"
+        "text":"Create an default value instance of Meterspersecondpersecond type with value 0."
+      },
+      {
+        "id":"units-10.2"
+        "text":"Create an instance of Meterspersecondpersecond from an initial value of type double."
+      },
+      {
+        "id":"units-10.3"
+        "text":"Allow implicit conversion of Meterspersecondpersecond to type double."
+      },
+      {
+        "id":"units-10.4"
+        "text":"Prevent implicit conversion of a numeric value to a Meterspersecondpersecond value."
+      },
+      {
+        "id":"units-10.5"
+        "text":"Perform routine math operations on a Meterspersecondpersecond values."
+      }
+    ]
+  }
+  {
+    "id":"units-11"
+    "text":"Support engineering units of Nanoseconds.",
+    "success_criteria":[
+      {
+        "id":"units-11.1"
+        "text":"Create an default value instance of Nanoseconds type with value 0."
+      },
+      {
+        "id":"units-11.2"
+        "text":"Create an instance of Nanoseconds from an initial value of type unit64_t."
+      },
+      {
+        "id":"units-11.3"
+        "text":"Allow implicit conversion of Nanoseconds to type uint64_t."
+      },
+      {
+        "id":"units-11.4"
+        "text":"Prevent implicit conversion of a numeric value to a Nanoseconds value."
+      },
+      {
+        "id":"units-11.5"
+        "text":"Perform routine math operations on a Nanoseconds values."
+      },
+      {
+        "id":"units-11.6"
+        "text":"Implement conversion from type Nanoseconds to type Seconds."
+      }
+      {
+        "id":"units-11.7"
+        "text":"Create an instance of Nanoseconds from and initial value of type Seconds."
+      }
+    ]
+  }
+  {
+    "id":"units-12"
+    "text":"Support engineering units of Pascal.",
+    "success_criteria":[
+      {
+        "id":"units-12.1"
+        "text":"Create an default value instance of Pascal type with value 0."
+      },
+      {
+        "id":"units-12.2"
+        "text":"Create an instance of Pascal from an initial value of type int32_t."
+      },
+      {
+        "id":"units-12.3"
+        "text":"Allow implicit conversion of Pascal to type int32_t."
+      },
+      {
+        "id":"units-12.4"
+        "text":"Prevent implicit conversion of a numeric value to a Pascal value."
+      },
+      {
+        "id":"units-12.5"
+        "text":"Perform routine math operations on a Pascal values."
+      }
+    ]
+  }
+  {
+    "id":"units-13"
+    "text":"Support engineering units of Radians.",
+    "success_criteria":[
+      {
+        "id":"units-13.1"
+        "text":"Create an default value instance of Radians type with value 0."
+      },
+      {
+        "id":"units-13.2"
+        "text":"Create an instance of Radians from an initial value of type double."
+      },
+      {
+        "id":"units-13.3"
+        "text":"Allow implicit conversion of Radians to type double."
+      },
+      {
+        "id":"units-13.4"
+        "text":"Prevent implicit conversion of a numeric value to a Radians value."
+      },
+      {
+        "id":"units-13.5"
+        "text":"Perform routine math operations on a Radians values."
+      },
+      {
+        "id":"units-13.6"
+        "text":"Implement conversion from type Radians to type Degrees."
+      }
+      {
+        "id":"units-13.7"
+        "text":"Create an instance of Radians from and initial value of type Degrees."
+      }
+    ]
+  }
+  {
+    "id":"units-14"
+    "text":"Support engineering units of Radianspersecond.",
+    "success_criteria":[
+      {
+        "id":"units-14.1"
+        "text":"Create an default value instance of Radianspersecond type with value 0."
+      },
+      {
+        "id":"units-14.2"
+        "text":"Create an instance of Radianspersecond from an initial value of type double."
+      },
+      {
+        "id":"units-14.3"
+        "text":"Allow implicit conversion of Radianspersecond to type double."
+      },
+      {
+        "id":"units-14.4"
+        "text":"Prevent implicit conversion of a numeric value to a Radianspersecond value."
+      }
+    ]
+  }
+  {
+    "id":"units-15"
+    "text":"Support engineering units of degrees Seconds.",
+    "success_criteria":[
+      {
+        "id":"units-15.1"
+        "text":"Create an default value instance of Seconds type with value 0."
+      },
+      {
+        "id":"units-15.2"
+        "text":"Create an instance of Seconds from an initial value of type double."
+      },
+      {
+        "id":"units-15.3"
+        "text":"Allow implicit conversion of Seconds to type double."
+      },
+      {
+        "id":"units-15.4"
+        "text":"Prevent implicit conversion of a numeric value to a Seconds value."
+      },
+      {
+        "id":"units-15.5"
+        "text":"Perform routine math operations on a Seconds values."
+      }
+      {
+        "id":"units-15.6"
+        "text":"Implement conversion from type Seconds to type Nanoseconds."
+      }
+      {
+        "id":"units-15.7"
+        "text":"Create an instance of Seconds from and initial value of type Nanoseconds."
+      }
+      {
+        "id":"units-15.8"
+        "text":"Implement conversion from type Seconds to type Days."
+      }
+      {
+        "id":"units-15.9"
+        "text":"Create an instance of Seconds from and initial value of type Days."
+      }
+    ]
+  }
+  {
+    "id":"units-16"
+    "text":"Support engineering units of degrees Tesla.",
+    "success_criteria":[
+      {
+        "id":"units-16.1"
+        "text":"Create an default value instance of Tesla type with value 0."
+      },
+      {
+        "id":"units-16.2"
+        "text":"Create an instance of Tesla from an initial value of type double."
+      },
+      {
+        "id":"units-16.3"
+        "text":"Allow implicit conversion of Tesla to type double."
+      },
+      {
+        "id":"units-16.4"
+        "text":"Prevent implicit conversion of a numeric value to a Tesla value."
+      }
+    ]
+  }
+  {
+    "id":"units-17"
+    "text":"Support engineering units of Millimeters.",
+    "success_criteria":[
+      {
+        "id":"units-17.1"
+        "text":"Create an default value instance of Millimeters type with value 0."
+      },
+      {
+        "id":"units-17.2"
+        "text":"Create an instance of Millimeters from an initial value of type int16_4."
+      },
+      {
+        "id":"units-17.3"
+        "text":"Allow implicit conversion of Millimeters to type int64_t."
+      },
+      {
+        "id":"units-17.4"
+        "text":"Prevent implicit conversion of a numeric value to a Millimeters value."
+      },
+      {
+        "id":"units-17.5"
+        "text":"Perform routine math operations on a Millimeters values."
+      },
+      {
+        "id":"units-17.10"
+        "text":"Implement conversion from type Millimeters to type Meters."
+      },
+      {
+        "id":"units-17.11"
+        "text":"Create an instance of Millimeters from and initial value of type Meters."
+      }
+    ]
+  }
+]

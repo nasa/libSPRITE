@@ -1,24 +1,13 @@
 #include "units/Meters.h"
-#include "units/Feet.h"
-#include "units/Miles.h"
 #include "units/Kilometers.h"
+#include "units/Millimeters.h"
 
 namespace units
 {
 
-    Meters::Meters(const Kilometers& n)
+    Meters::Meters(const Kilometers &n)
     {
         *this = n.toMeters();
-    }
-
-    Meters::Meters(const Feet& n)
-    {
-        *this = n.toMeters();
-    }
-
-    Meters::Meters(const Miles& n)
-    {
-        *this = n.toFeet().toMeters();
     }
 
     units::Kilometers Meters::toKilometers() const
@@ -26,16 +15,14 @@ namespace units
         return Kilometers(m_value * .001);
     }
 
-    units::Feet Meters::toFeet() const
+    Meters::Meters(const Millimeters &n)
     {
-        return Feet(m_value * 1250 / 381);
+        *this = n.toMeters();
     }
 
-#if 0
-    units::Miles Meters::toMiles() const
+    units::Millimeters Meters::toMillimeters() const
     {
-        return n.toFeet().toMiles();
+        return Millimeters(m_value * 1000);
     }
-#endif
 
 } // namespace

@@ -3,7 +3,6 @@
 #include "SRTX/Data_router.h"
 #include "SRTX/Linked_list.h"
 
-
 namespace SRTX
 {
 
@@ -12,43 +11,41 @@ namespace SRTX
      */
     struct Transfer_item
     {
-        Transfer_item(Base_double_buffer& s, Base_double_buffer& d,
-                unsigned int n, units::Nanoseconds p) :
-            source(s),
-            dest(d),
-            nbytes(n),
-            period(p),
-            last_update_count(0)
+        Transfer_item(Base_double_buffer &s, Base_double_buffer &d,
+                      unsigned int n, units::Nanoseconds p)
+            : source(s)
+            , dest(d)
+            , nbytes(n)
+            , period(p)
+            , last_update_count(0)
         {
         }
 
-        Base_double_buffer& source;
-        Base_double_buffer& dest;
+        Base_double_buffer &source;
+        Base_double_buffer &dest;
         unsigned int nbytes;
         const units::Nanoseconds period;
         unsigned int last_update_count;
     };
-    typedef Linked_list<Transfer_item*> Transfer_list;
-
+    typedef Linked_list<Transfer_item *> Transfer_list;
 
     /* These are subscription request that are waiting to be matched up with a
      * publication.
      */
     struct Orphan_item
     {
-        Orphan_item(const char* n, units::Nanoseconds p,
-                Base_double_buffer& b) :
-            name(n),
-            period(p),
-            buffer(b)
+        Orphan_item(const char *n, units::Nanoseconds p, Base_double_buffer &b)
+            : name(n)
+            , period(p)
+            , buffer(b)
         {
         }
 
-        const char* name;
+        const char *name;
         units::Nanoseconds period;
-        Base_double_buffer& buffer;
+        Base_double_buffer &buffer;
     };
-    typedef Linked_list<Orphan_item*> Orphan_list;
+    typedef Linked_list<Orphan_item *> Orphan_list;
 
     /* Internal implementation dependent stuff. See PIMPL pattern.
      */
@@ -64,43 +61,41 @@ namespace SRTX
         Orphan_list orphan;
     };
 
-
-    Data_router::Data_router() :
-        m_impl(new Data_router_impl)
+    Data_router::Data_router()
+        : m_impl(new Data_router_impl)
     {
     }
-
 
     Data_router::~Data_router()
     {
         delete m_impl;
     }
 
-
-    bool Data_router::register_transfer(Base_double_buffer& source,
-            Base_double_buffer& dest, unsigned int nbytes,
-            units::Nanoseconds period)
+    bool Data_router::register_transfer(Base_double_buffer &source,
+                                        Base_double_buffer &dest,
+                                        unsigned int nbytes,
+                                        units::Nanoseconds period)
     {
         m_impl->transfer.add_back(
-                new Transfer_item(source, dest, nbytes, period));
+            new Transfer_item(source, dest, nbytes, period));
 
         return true;
     }
 
-
-    void Data_router::register_orphan(const char* name,
-            units::Nanoseconds period, Base_double_buffer& buffer)
+    void Data_router::register_orphan(const char *name,
+                                      units::Nanoseconds period,
+                                      Base_double_buffer &buffer)
     {
         m_impl->orphan.add_back(new Orphan_item(name, period, buffer));
     }
 
-
-    void Data_router::adopt_orphans(const char* name,
-            Base_double_buffer& buffer, unsigned int nbytes,
-            units::Nanoseconds period)
+    void Data_router::adopt_orphans(const char *name,
+                                    Base_double_buffer &buffer,
+                                    unsigned int nbytes,
+                                    units::Nanoseconds period)
     {
-        Orphan_list& list = m_impl->orphan;
-        Orphan_list::Node* n = list.head();
+        Orphan_list &list = m_impl->orphan;
+        Orphan_list::Node *n = list.head();
 
         DPRINTF("%s: Looking for orphans\n", name);
         while(n)
@@ -126,13 +121,13 @@ namespace SRTX
                     units::Nanoseconds slower_period =
                         (period > n->data->period) ? period : n->data->period;
                     this->register_transfer(buffer, n->data->buffer, nbytes,
-                            slower_period);
+                                            slower_period);
                 }
 
                 /* Now that that orphan has been adopted, we can take it off
                  * the list.
                  */
-                Orphan_list::Node* tmp = n;
+                Orphan_list::Node *tmp = n;
                 n = n->next();
                 list.delete_node(tmp);
             }
@@ -143,11 +138,10 @@ namespace SRTX
         }
     }
 
-
-    void Data_router::do_transfers(const units::Nanoseconds& ref_time)
+    void Data_router::do_transfers(const units::Nanoseconds &ref_time)
     {
-        Transfer_list& list = m_impl->transfer;
-        Transfer_list::Node* n = list.head();
+        Transfer_list &list = m_impl->transfer;
+        Transfer_list::Node *n = list.head();
 
         while(n)
         {
@@ -167,8 +161,8 @@ namespace SRTX
                     DPRINTF("Transferring %lld period data\n",
                             int64_t(n->data->period));
                     n->data->last_update_count = current_update_count;
-                    if(false == copy(n->data->dest, n->data->source,
-                                n->data->nbytes))
+                    if(false ==
+                       copy(n->data->dest, n->data->source, n->data->nbytes))
                     {
                         EPRINTF("Error performing data copy\n");
                     }

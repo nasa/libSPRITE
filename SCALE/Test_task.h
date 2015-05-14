@@ -5,24 +5,23 @@
 
 namespace SCALE
 {
-    class Test_task: public SRTX::Task
+    class Test_task : public SRTX::Task
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param name Task name.
+         */
+        Test_task(const char *const name);
 
-            /**
-             * Constructor.
-             * @param name Task name.
-             */
-            Test_task(const char* const name);
-
-            /**
-             * Function to execute when the task is released.
-             * @return True if the task should continue running or false to
-             * halt the task.
-             */
-            bool execute();
+        /**
+         * Function to execute when the task is released.
+         * @return True if the task should continue running or false to
+         * halt the task.
+         */
+        bool execute();
     };
 
-} //namespace
+} // namespace
 
 #endif //__SCALE_TEST_TASK_H__

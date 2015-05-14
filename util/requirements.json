@@ -1,0 +1,94 @@
+[
+  {
+    "id":"util-1"
+    "text":"Provide a reusable type-aware linked list data structure.",
+    "success_criteria":[
+      {
+        "id":"util-1.1"
+        "text":"Iterate forward through the list."
+      },
+      {
+        "id":"util-1.2"
+        "text":"Iterate backward through the list."
+      },
+      {
+        "id":"util-1.3"
+        "text":"Get a pointer to the beginning of the list."
+      },
+      {
+        "id":"util-1.4"
+        "text":"Get a pointer to the end of the list."
+      },
+      {
+        "id":"util-1.5"
+        "text":"Add an item to the front of the list."
+      },
+      {
+        "id":"util-1.6"
+        "text":"Add an item to the back of the list."
+      },
+      {
+        "id":"util-1.7"
+        "text":"Delete an item to the front of the list."
+      },
+      {
+        "id":"util-1.8"
+        "text":"Delte an item to the back of the list."
+      },
+      {
+        "id":"util-1.9"
+        "text":"Delete a given node from the list."
+      }
+    ]
+  }
+  {
+    "id":"util-2"
+    "text":"Provide a class that stores the last N samples of typed data.",
+    "success_criteria":[
+      {
+        "id":"util-2.1"
+        "text":"Create a set instance with a fixed number of elements."
+      },
+      {
+        "id":"util-2.2"
+        "text":"Return the number of maximum number of elements that can be in the set."
+      },
+      {
+        "id":"util-2.3"
+        "text":"Provide a test indicating if the set is full."
+      },
+      {
+        "id":"util-2.4"
+        "text":"Return the number of elements in the set."
+      },
+      {
+        "id":"util-2.5"
+        "text":"Add an item to the set."
+      },
+      {
+        "id":"util-2.6"
+        "text":"If the set is full, adding an element replaces the oldest element in the set."
+      }
+    ]
+  }
+  {
+    "id":"util-3"
+    "text":"Smooth a consequtive set of data points.",
+    "success_criteria":[
+      {
+        "id":"util-3.1"
+        "text":"Smoth data according to the Savitzly-Golay cubic smoothing alogorithm."
+      }
+    ]
+  }
+  {
+    "id":"util-4"
+    "text":"Compute the derivative of a consecquitive set of data points.",
+    "success_criteria":[
+      {
+        "id":"util-4.1"
+        "text":"Compute the Savitzly-Golay estimate of the first derivative of a set of data points."
+      }
+    ]
+  }
+]

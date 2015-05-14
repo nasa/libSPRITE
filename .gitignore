@@ -3,3 +3,4 @@
 *.a
 *.d
 tags
+run_test

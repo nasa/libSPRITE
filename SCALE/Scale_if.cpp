@@ -4,7 +4,6 @@
 #include "SCALE/Task_properties.h"
 #include "SCALE/Task.h"
 
-
 namespace SCALE
 {
 
@@ -18,7 +17,6 @@ namespace SCALE
 
         return true;
     }
-
 
 #if 0
     static int dostring (lua_State *L, const char *s, const char *name)
@@ -34,9 +32,8 @@ namespace SCALE
     }
 #endif
 
-
-    Scale_if::Scale_if() :
-        m_L(luaL_newstate())
+    Scale_if::Scale_if()
+        : m_L(luaL_newstate())
     {
         if(NULL == m_L)
         {
@@ -52,11 +49,10 @@ namespace SCALE
         Scheduler::register_class(m_L);
     }
 
-
-    bool Scale_if::run_script(const char* script_name)
+    bool Scale_if::run_script(const char *script_name)
     {
         return dofile(m_L, script_name);
-        //return __run_script(script_name);
+        // return __run_script(script_name);
     }
 
 } // end namespace

@@ -11,32 +11,33 @@ namespace units
      */
     class Radianspersecond
     {
-        public:
+      public:
+        /**
+         * Constructor.
+         * @param v Number of tesla.
+         * @satisfies{units-14.1}
+         * @satisfies{units-14.2}
+         * @satisfies{units-14.4}
+         */
+        explicit Radianspersecond(double v = 0.0)
+            : m_value(v)
+        {
+        }
 
-            /**
-             * Constructor.
-             * @param v Number of tesla.
-             */
-            explicit Radianspersecond(double v = 0.0)
-            {
-                m_value = (fabs(v) > NEAR_ZERO) ? v : 0;
-            }
+        /**
+         * Type conversion to double.
+         * @satisfies{units-14.3}
+         */
+        operator double() const
+        {
+            return m_value;
+        }
 
-            /**
-             * Type conversion to double.
-             */
-            operator double() const
-            {
-                return m_value;
-            }
-
-        private:
-
-            /**
-             * Stored value.
-             */
-            double m_value;
-
+      private:
+        /**
+         * Stored value.
+         */
+        double m_value;
     };
 
 } // namespace

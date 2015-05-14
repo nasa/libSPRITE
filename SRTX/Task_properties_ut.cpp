@@ -1,7 +1,6 @@
 #include "Task_properties_ut.h"
 #include "Task_properties.h"
 
-
 namespace SRTX
 {
 
@@ -9,11 +8,9 @@ namespace SRTX
     {
     }
 
-
     void Task_properties_ut::tearDown()
     {
     }
-
 
     void Task_properties_ut::test_get_priority()
     {
@@ -22,14 +19,12 @@ namespace SRTX
         CPPUNIT_ASSERT(0 == sp.prio);
     }
 
-
     void Task_properties_ut::test_get_period()
     {
         Task_properties sp;
 
         CPPUNIT_ASSERT(0 == sp.period);
     }
-
 
     void Task_properties_ut::test_get_schedule_presence()
     {
@@ -45,8 +40,9 @@ namespace SRTX
         /* If we try a schedule greater than the number of allowable schedules
          * we should get a false return value.
          */
-        CPPUNIT_ASSERT(false == sp.is_present_in_schedule(
-                           sizeof(schedule_presence_t) * 8 + 1));
+        CPPUNIT_ASSERT(
+            false ==
+            sp.is_present_in_schedule(sizeof(schedule_presence_t) * 8 + 1));
 
         /* Nothing changed, just explicitly set the schedule presence
          * mask to be zeroes.
@@ -54,10 +50,9 @@ namespace SRTX
          */
         sp.schedule_presence = 0x00000000;
 
-        for (int i = 0; i < 32; ++i)
+        for(int i = 0; i < 32; ++i)
         {
-            CPPUNIT_ASSERT_EQUAL(false, sp.
-                                 is_present_in_schedule(i));
+            CPPUNIT_ASSERT_EQUAL(false, sp.is_present_in_schedule(i));
         }
 
         /* Explicitly set schedule presence to be true for all schedules.
@@ -65,10 +60,9 @@ namespace SRTX
          */
         sp.schedule_presence = 0xFFFFFFFF;
 
-        for (int i = 0; i < 32; ++i)
+        for(int i = 0; i < 32; ++i)
         {
-            CPPUNIT_ASSERT_EQUAL(true, sp.
-                                 is_present_in_schedule(i));
+            CPPUNIT_ASSERT_EQUAL(true, sp.is_present_in_schedule(i));
         }
 
         /* Alternate the schedule presence with LSB as zero
@@ -76,17 +70,15 @@ namespace SRTX
          */
         sp.schedule_presence = 0xAAAAAAAA;
 
-        for (int i = 0; i < 32; ++i)
+        for(int i = 0; i < 32; ++i)
         {
-            if (0 == i % 2)
+            if(0 == i % 2)
             {
-                CPPUNIT_ASSERT_EQUAL(false, sp.
-                                     is_present_in_schedule(i));
+                CPPUNIT_ASSERT_EQUAL(false, sp.is_present_in_schedule(i));
             }
             else
             {
-                CPPUNIT_ASSERT_EQUAL(true, sp.
-                                     is_present_in_schedule(i));
+                CPPUNIT_ASSERT_EQUAL(true, sp.is_present_in_schedule(i));
             }
         }
 
@@ -95,17 +87,15 @@ namespace SRTX
          */
         sp.schedule_presence = 0x55555555;
 
-        for (int i = 0; i < 32; ++i)
+        for(int i = 0; i < 32; ++i)
         {
-            if (0 == i % 2)
+            if(0 == i % 2)
             {
-                CPPUNIT_ASSERT_EQUAL(true, sp.
-                                     is_present_in_schedule(i));
+                CPPUNIT_ASSERT_EQUAL(true, sp.is_present_in_schedule(i));
             }
             else
             {
-                CPPUNIT_ASSERT_EQUAL(false, sp.
-                                     is_present_in_schedule(i));
+                CPPUNIT_ASSERT_EQUAL(false, sp.is_present_in_schedule(i));
             }
         }
     }

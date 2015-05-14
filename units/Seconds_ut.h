@@ -3,7 +3,6 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-
 namespace units
 {
     class Seconds_ut : public CppUnit::TestFixture
@@ -11,17 +10,20 @@ namespace units
 
         CPPUNIT_TEST_SUITE(Seconds_ut);
 
+        /**
+         * @verifies{units-15.2}
+         * @verifies{units-15.7}
+         */
         CPPUNIT_TEST(test);
 
         CPPUNIT_TEST_SUITE_END();
 
-        public:
+      public:
         void setUp();
         void tearDown();
 
-        protected:
+      protected:
         void test();
-
     };
 
     CPPUNIT_TEST_SUITE_REGISTRATION(Seconds_ut);

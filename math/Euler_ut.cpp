@@ -4,18 +4,15 @@
 #include "math/Euler_ut.h"
 #include "math/Matrix3.h"
 
-
 namespace math
 {
     void Euler_ut::setUp()
     {
     }
 
-
     void Euler_ut::tearDown()
     {
     }
-
 
     void Euler_ut::test_Euler()
     {
@@ -44,7 +41,6 @@ namespace math
         CPPUNIT_ASSERT_EQUAL(c, e.get_roll());
     }
 
-
     void Euler_ut::test_pitch()
     {
         const units::Radians c(1.0);
@@ -56,7 +52,6 @@ namespace math
 
         CPPUNIT_ASSERT_EQUAL(c, e.get_pitch());
     }
-
 
     void Euler_ut::test_yaw()
     {
@@ -78,43 +73,43 @@ namespace math
         DCM d = e.toDCM();
         Matrix3 m = d.toMatrix3();
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(1,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1,3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(2,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2,3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, m(3,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(1, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(2, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, m(3, 3), epsilon);
 
         e = Euler(units::Radians(0), units::Radians(M_PI), units::Radians(0));
         d = e.toDCM();
         m = d.toMatrix3();
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(1,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1,3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, m(2,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2,3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(3,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(1, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(1, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, m(2, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(2, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.0, m(3, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-1.0, m(3, 3), epsilon);
 
         e = Euler(units::Radians(6), units::Radians(3), units::Radians(1));
         d = e.toDCM();
         m = d.toMatrix3();
 
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.5349, m(1,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.8330, m(1,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.1411, m(1,3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.8293, m(2,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.4856, m(2,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2766, m(2,3), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.1619, m(3,1), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2650, m(3,2), epsilon);
-        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.9506, m(3,3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.5349, m(1, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.8330, m(1, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.1411, m(1, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.8293, m(2, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.4856, m(2, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2766, m(2, 3), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.1619, m(3, 1), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2650, m(3, 2), epsilon);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(-0.9506, m(3, 3), epsilon);
     }
 
 } // namespace
