@@ -33,16 +33,6 @@ namespace math
                        (7 == m(3, 1)) && (8 == m(3, 2)) && (9 == m(3, 3)));
     }
 
-    void Matrix3_ut::test_Matrix3_init_array()
-    {
-        double e[] = { 1.0, 2, 3, 4, 5, 6, 7, 8, 9 };
-        Matrix3 m(e);
-
-        CPPUNIT_ASSERT((1 == m(1, 1)) && (2 == m(1, 2)) && (3 == m(1, 3)) &&
-                       (4 == m(2, 1)) && (5 == m(2, 2)) && (6 == m(2, 3)) &&
-                       (7 == m(3, 1)) && (8 == m(3, 2)) && (9 == m(3, 3)));
-    }
-
     void Matrix3_ut::test_equal()
     {
         Matrix3 m(1, 2, 3, 4, 5, 6, 7, 8, 9);
@@ -354,7 +344,7 @@ namespace math
          */
         CPPUNIT_ASSERT(0 == m.determinant());
 
-        /* Change m slightly so it's determinate in non-zero.
+        /* Change m slightly so it's determinate is non-zero.
          */
         m(3, 3) = 0;
         CPPUNIT_ASSERT(27 == m.determinant());
