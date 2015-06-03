@@ -1,0 +1,6 @@
+<map id="SRTX::Double_buffer&lt; T &gt;" name="SRTX::Double_buffer&lt; T &gt;">
+<area shape="rect" id="node2" href="$classSRTX_1_1Base__double__buffer.html" title="An untyped double buffer. " alt="" coords="5,251,187,277"/>
+<area shape="rect" id="node3" href="$classSRTX_1_1Buffer.html" title="An untyped data buffer. " alt="" coords="45,173,147,200"/>
+<area shape="rect" id="node4" href="$classSRTX_1_1Syncpoint.html" title="SRTX::Syncpoint" alt="" coords="34,83,157,109"/>
+<area shape="rect" id="node5" href="$classSRTX_1_1Mutex.html" title="SRTX::Mutex" alt="" coords="45,5,147,32"/>
+</map>

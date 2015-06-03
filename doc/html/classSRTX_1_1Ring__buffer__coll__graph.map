@@ -1,0 +1,6 @@
+<map id="SRTX::Ring_buffer&lt; T &gt;" name="SRTX::Ring_buffer&lt; T &gt;">
+<area shape="rect" id="node2" href="$classSRTX_1_1Base__ring__buffer.html" title="An untyped ring buffer. " alt="" coords="5,251,168,277"/>
+<area shape="rect" id="node3" href="$classSRTX_1_1Buffer.html" title="An untyped data buffer. " alt="" coords="36,173,137,200"/>
+<area shape="rect" id="node4" href="$classSRTX_1_1Syncpoint.html" title="SRTX::Syncpoint" alt="" coords="25,83,148,109"/>
+<area shape="rect" id="node5" href="$classSRTX_1_1Mutex.html" title="SRTX::Mutex" alt="" coords="35,5,137,32"/>
+</map>

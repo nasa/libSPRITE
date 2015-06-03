@@ -1,0 +1,8 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classSRTX_1_1Buffer.html" title="An untyped data buffer. " alt="" coords="5,96,107,123"/>
+<area shape="rect" id="node2" href="$classSRTX_1_1Base__double__buffer.html" title="An untyped double buffer. " alt="" coords="155,71,336,97"/>
+<area shape="rect" id="node5" href="$classSRTX_1_1Base__ring__buffer.html" title="An untyped ring buffer. " alt="" coords="163,121,327,148"/>
+<area shape="rect" id="node3" href="$classSRTX_1_1Double__buffer.html" title="SRTX::Double_buffer\l\&lt; SRTX::Message\&lt; T \&gt; \&gt;" alt="" coords="386,5,561,46"/>
+<area shape="rect" id="node4" href="$classSRTX_1_1Double__buffer.html" title="SRTX::Double_buffer\&lt; T \&gt;" alt="" coords="384,71,563,97"/>
+<area shape="rect" id="node6" href="$classSRTX_1_1Ring__buffer.html" title="SRTX::Ring_buffer\&lt; T \&gt;" alt="" coords="391,121,556,148"/>
+</map>

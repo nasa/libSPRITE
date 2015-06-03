@@ -1,0 +1,5 @@
+<map id="net::UDP_connection" name="net::UDP_connection">
+<area shape="rect" id="node3" href="$classnet_1_1UDP__client.html" title="net::UDP_client" alt="" coords="5,155,120,181"/>
+<area shape="rect" id="node4" href="$classnet_1_1UDP__server.html" title="net::UDP_server" alt="" coords="144,155,264,181"/>
+<area shape="rect" id="node2" href="$classnet_1_1Socket.html" title="net::Socket" alt="" coords="89,5,177,32"/>
+</map>

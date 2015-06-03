@@ -1,0 +1,9 @@
+<map id="net/Socket.h" name="net/Socket.h">
+<area shape="rect" id="node2" href="$Socket_8cpp.html" title="net/Socket.cpp" alt="" coords="30,81,140,107"/>
+<area shape="rect" id="node3" href="$UDP__connection_8h.html" title="net/UDP_connection.h" alt="" coords="165,81,319,107"/>
+<area shape="rect" id="node4" href="$UDP__client_8h.html" title="net/UDP_client.h" alt="" coords="12,155,135,182"/>
+<area shape="rect" id="node6" href="$UDP__connection_8cpp.html" title="net/UDP_connection.cpp" alt="" coords="159,155,327,182"/>
+<area shape="rect" id="node7" href="$UDP__server_8h.html" title="net/UDP_server.h" alt="" coords="351,155,477,182"/>
+<area shape="rect" id="node5" href="$UDP__client_8cpp.html" title="net/UDP_client.cpp" alt="" coords="5,230,140,257"/>
+<area shape="rect" id="node8" href="$UDP__server_8cpp.html" title="net/UDP_server.cpp" alt="" coords="344,230,484,257"/>
+</map>

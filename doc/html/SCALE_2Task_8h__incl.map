@@ -1,0 +1,20 @@
+<map id="SCALE/Task.h" name="SCALE/Task.h">
+<area shape="rect" id="node2" href="$LuaWrapper_8h.html" title="SCALE/LuaWrapper.h" alt="" coords="186,80,336,107"/>
+<area shape="rect" id="node8" href="$SRTX_2Task_8h.html" title="SRTX/Task.h" alt="" coords="405,80,507,107"/>
+<area shape="rect" id="node3" href="$luawrapper_8hpp.html" title="SCALE/luawrapper.hpp" alt="" coords="46,229,204,256"/>
+<area shape="rect" id="node6" href="$luawrapperutil_8hpp.html" title="SCALE/luawrapperutil.hpp" alt="" coords="174,155,348,181"/>
+<area shape="rect" id="node9" href="$Symbol__db_8h.html" title="SRTX/Symbol_db.h" alt="" coords="387,155,525,181"/>
+<area shape="rect" id="node28" href="$SRTX_2Task__properties_8h.html" title="SRTX/Task_properties.h" alt="" coords="486,603,652,629"/>
+<area shape="rect" id="node10" href="$Symbol__table_8h.html" title="SRTX/Symbol_table.h" alt="" coords="380,229,532,256"/>
+<area shape="rect" id="node11" href="$Symbol_8h.html" title="SRTX/Symbol.h" alt="" coords="404,304,520,331"/>
+<area shape="rect" id="node27" href="$SRTX_2Linked__list_8h.html" title="SRTX/Linked_list.h" alt="" coords="134,752,268,779"/>
+<area shape="rect" id="node13" href="$Double__buffer_8h.html" title="SRTX/Double_buffer.h" alt="" coords="229,379,383,405"/>
+<area shape="rect" id="node25" href="$XPRINTF_8h.html" title="base/XPRINTF.h" alt="" coords="408,379,531,405"/>
+<area shape="rect" id="node14" href="$Base__double__buffer_8h.html" title="SRTX/Base_double_buffer.h" alt="" coords="226,453,413,480"/>
+<area shape="rect" id="node15" href="$Buffer_8h.html" title="SRTX/Buffer.h" alt="" coords="266,528,373,555"/>
+<area shape="rect" id="node16" href="$Syncpoint_8h.html" title="SRTX/Syncpoint.h" alt="" coords="255,603,384,629"/>
+<area shape="rect" id="node17" href="$Mutex_8h.html" title="SRTX/Mutex.h" alt="" coords="252,677,361,704"/>
+<area shape="rect" id="node24" href="$Nanoseconds_8h.html" title="units/Nanoseconds.h" alt="" coords="386,677,531,704"/>
+<area shape="rect" id="node18" href="$types_8h.html" title="base/types.h" alt="" coords="258,827,355,853"/>
+<area shape="rect" id="node22" href="$Scheduler__types_8h.html" title="SRTX/Scheduler_types.h" alt="" coords="395,752,565,779"/>
+</map>
