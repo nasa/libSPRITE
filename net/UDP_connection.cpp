@@ -43,6 +43,7 @@ namespace net
         if(NULL == host)
         {
             PERROR("gethostbyname");
+            m_valid = false;
             return;
         }
 
