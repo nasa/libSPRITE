@@ -10,9 +10,9 @@ CPP:=g++
 LD:=g++
 AR:=ar
 
-CFLAGS+=-Wall -fPIC -I$(BASEDIR)
-CPPFLAGS+=$(CFLAGS)
-LDFLAGS+=-L$(LIBDIR)
+CFLAGS+=-Wall -fPIC -I$(BASEDIR) $(USER_CFLAGS)
+CPPFLAGS+=$(CFLAGS) $(USER_CPPFLAGS)
+LDFLAGS+=-L$(LIBDIR) $(USER_LDFLAGS)
 
 SYSTEM:=$(shell uname)
 ARCH:=$(shell uname -m)
