@@ -42,6 +42,14 @@
       {
         "id":"util-1.10"
         "text":"Indicate if the list is empty."
+      },
+      {
+        "id":"util-1.11"
+        "text":"Return the list value from the front of the list and delete that list node."
+      },
+      {
+        "id":"util-1.12"
+        "text":"Return the list value from the back of the list and delete that list node."
       }
     ]
   }

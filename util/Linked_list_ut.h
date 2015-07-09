@@ -56,12 +56,24 @@ namespace util
         CPPUNIT_TEST(test_delete_front);
 
         /**
+         * @verifies{util-1.5}
+         * @verifies{util-1.11}
+         */
+        CPPUNIT_TEST(test_pop_front);
+
+        /**
          * @verifies{util-1.3}
          * @verifies{util-1.4}
          * @verifies{util-1.5}
          * @verifies{util-1.8}
          */
         CPPUNIT_TEST(test_delete_back);
+
+        /**
+         * @verifies{util-1.3}
+         * @verifies{util-1.12}
+         */
+        CPPUNIT_TEST(test_pop_back);
 
         /**
          * @verifies{util-1.3}
@@ -98,7 +110,9 @@ namespace util
         void test_iterate_forward();
         void test_iterate_reverse();
         void test_delete_front();
+        void test_pop_front();
         void test_delete_back();
+        void test_pop_back();
         void test_delete_first_node();
         void test_delete_last_node();
         void test_delete_middle_node();

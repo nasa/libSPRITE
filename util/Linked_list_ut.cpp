@@ -2,7 +2,6 @@
 
 namespace util
 {
-
     void Linked_list_ut::setUp()
     {
     }
@@ -107,6 +106,22 @@ namespace util
         CPPUNIT_ASSERT(NULL == ll_node);
     }
 
+    void Linked_list_ut::test_pop_front()
+    {
+        ll.add_front(2);
+        ll.add_front(1);
+
+        int data;
+
+        CPPUNIT_ASSERT_EQUAL(true, ll.pop_front(data));
+        CPPUNIT_ASSERT_EQUAL(1, data);
+
+        CPPUNIT_ASSERT_EQUAL(true, ll.pop_front(data));
+        CPPUNIT_ASSERT_EQUAL(2, data);
+
+        CPPUNIT_ASSERT_EQUAL(false, ll.pop_front(data));
+    }
+
     void Linked_list_ut::test_delete_back()
     {
         ll.add_front(3);
@@ -130,6 +145,22 @@ namespace util
 
         ll_node = ll.tail();
         CPPUNIT_ASSERT(NULL == ll_node);
+    }
+
+    void Linked_list_ut::test_pop_back()
+    {
+        ll.add_front(2);
+        ll.add_front(1);
+
+        int data;
+
+        CPPUNIT_ASSERT_EQUAL(true, ll.pop_back(data));
+        CPPUNIT_ASSERT_EQUAL(2, data);
+
+        CPPUNIT_ASSERT_EQUAL(true, ll.pop_back(data));
+        CPPUNIT_ASSERT_EQUAL(1, data);
+
+        CPPUNIT_ASSERT_EQUAL(false, ll.pop_back(data));
     }
 
     void Linked_list_ut::test_delete_first_node()

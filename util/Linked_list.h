@@ -182,6 +182,26 @@ namespace util
         }
 
         /**
+         * Pop an element from the front of the list.
+         * @param t Returned value from the list.
+         * @return true if an element was returned, else false.
+         * @satisfies{util-1.11}
+         */
+        bool pop_front(T &t)
+        {
+            if(NULL == m_head)
+            {
+                return false;
+            }
+
+            t = m_head->data;
+
+            delete_front();
+
+            return true;
+        }
+
+        /**
          * Remove an element from the tail of the list.
          * @param t Data element to add the the list.
          * @satisfies{util-1.8}
@@ -206,6 +226,26 @@ namespace util
             }
 
             delete temp;
+        }
+
+        /**
+         * Pop an element from the back of the list.
+         * @param t Returned value from the list.
+         * @return true if an element was returned, else false.
+         * @satisfies{util-1.12}
+         */
+        bool pop_back(T &t)
+        {
+            if(NULL == m_tail)
+            {
+                return false;
+            }
+
+            t = m_tail->data;
+
+            delete_back();
+
+            return true;
         }
 
         /**
