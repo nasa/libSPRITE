@@ -32,7 +32,7 @@ namespace util
             T data;
 
             /**
-             * Prefix increment operator.
+             * Return the next entry in the list.
              * @return The next node in the list.
              */
             Node *next()
@@ -40,6 +40,10 @@ namespace util
                 return this->m_next;
             }
 
+            /**
+             * Return the previous entry in the list.
+             * @return The previous node in the list.
+             */
             Node *prev()
             {
                 return this->m_prev;
@@ -78,6 +82,14 @@ namespace util
             : m_head(NULL)
             , m_tail(NULL)
         {
+        }
+
+        /**
+         * Test if the list is empty
+         */
+        bool is_empty() const
+        {
+            return NULL == m_head;
         }
 
         /**

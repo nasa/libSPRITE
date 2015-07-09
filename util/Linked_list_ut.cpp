@@ -1,4 +1,4 @@
-#include "Linked_list_ut.h"
+#include "util/Linked_list_ut.h"
 
 namespace util
 {
@@ -9,6 +9,15 @@ namespace util
 
     void Linked_list_ut::tearDown()
     {
+    }
+
+    void Linked_list_ut::test_empty()
+    {
+        Linked_list<float> local_ll;
+        CPPUNIT_ASSERT_EQUAL(true, local_ll.is_empty());
+
+        local_ll.add_front(1.2);
+        CPPUNIT_ASSERT_EQUAL(false, local_ll.is_empty());
     }
 
     void Linked_list_ut::test_add_front()

@@ -12,6 +12,7 @@ namespace util
 
         CPPUNIT_TEST_SUITE(Linked_list_ut);
 
+        CPPUNIT_TEST(test_empty);
         CPPUNIT_TEST(test_add_front);
         CPPUNIT_TEST(test_add_back);
         CPPUNIT_TEST(test_iterate_forward);
@@ -29,6 +30,7 @@ namespace util
         void tearDown();
 
       protected:
+        void test_empty();
         void test_add_front();
         void test_add_back();
         void test_iterate_forward();
