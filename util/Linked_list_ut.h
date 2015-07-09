@@ -13,6 +13,12 @@ namespace util
         CPPUNIT_TEST_SUITE(Linked_list_ut);
 
         /**
+         * @verifies{util-1.7}
+         * @verifies{util-1.10}
+         */
+        CPPUNIT_TEST(test_empty);
+
+        /**
          * @verifies{util-1.3}
          * @verifies{util-1.4}
          * @verifies{util-1.5}
@@ -86,6 +92,7 @@ namespace util
         void tearDown();
 
       protected:
+        void test_empty();
         void test_add_front();
         void test_add_back();
         void test_iterate_forward();

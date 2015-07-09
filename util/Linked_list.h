@@ -32,7 +32,7 @@ namespace util
             T data;
 
             /**
-             * Prefix increment operator.
+             * Return the next entry in the list.
              * @return The next node in the list.
              * @satisfies{util-1.1}
              */
@@ -42,7 +42,7 @@ namespace util
             }
 
             /**
-             * Reverse increment operator.
+             * Return the previous entry in the list.
              * @return The previous node in the list.
              * @satisfies{util-1.2}
              */
@@ -83,6 +83,16 @@ namespace util
             : m_head(NULL)
             , m_tail(NULL)
         {
+        }
+
+        /**
+         * Test if the list is empty
+         * @return true if the list is empty, else false.
+         * @satisfies{util-1.10}
+         */
+        bool is_empty() const
+        {
+            return NULL == m_head;
         }
 
         /**

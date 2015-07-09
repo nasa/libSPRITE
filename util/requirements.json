@@ -38,6 +38,10 @@
       {
         "id":"util-1.9"
         "text":"Delete a given node from the list."
+      },
+      {
+        "id":"util-1.10"
+        "text":"Indicate if the list is empty."
       }
     ]
   }
