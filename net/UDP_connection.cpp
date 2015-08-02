@@ -77,6 +77,32 @@ namespace net
         return rval;
     }
 
+    int UDP_connection::read(void *buffer, unsigned int nbytes,
+                             units::Nanoseconds timeout)
+    {
+        /* Set timeout.
+         */
+        struct timeval tv;
+        tv.tv_sec = timeout / units::SEC;
+        tv.tv_usec = (timeout % units::SEC) / units::USEC;
+
+        /* Use select to see if data is ready to be read within the timeout
+         * period.
+         */
+        fd_set m_readfds;
+        FD_ZERO(&m_readfds);
+        FD_SET(m_fd, &m_readfds);
+        if(-1 == select(m_fd + 1, &m_readfds, NULL, NULL, &tv))
+        {
+            PERROR("select");
+            return -1;
+        }
+
+        /* If there is data to read, read it, else, return 0.
+         */
+        return (FD_ISSET(m_fd, &m_readfds)) ? read(buffer, nbytes) : 0;
+    }
+
     int UDP_connection::write(const void *buffer, unsigned int nbytes)
     {
         int rval;

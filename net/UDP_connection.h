@@ -2,7 +2,9 @@
 #define __NET_UDP_CONNECTION_H__
 
 #include <netinet/in.h>
+
 #include "net/Socket.h"
+#include "units/Nanoseconds.h"
 
 namespace net
 {
@@ -30,6 +32,16 @@ namespace net
          * @satisfies{net-1.4}
          */
         int read(void *buffer, unsigned int nbytes);
+
+        /**
+         * Read from a port with timeout
+         * @param buffer Buffer to read data into.
+         * @param nbytes Size of the buffer.
+         * @oaram timeout Timeout. 0 means poll.
+         * @return Number of bytes read or -1 on error.
+         * @satisfies{net-1.6}
+         */
+        int read(void *buffer, unsigned int nbytes, units::Nanoseconds timeout);
 
         /**
          * Write to a port.

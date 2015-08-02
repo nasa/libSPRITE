@@ -17,11 +17,15 @@
       },
       {
         "id":"net-1.4"
-        "text":"read from a UDP connection."
+        "text":"Read from a UDP connection."
       },
       {
         "id":"net-1.5"
         "text":"Write to a UDP connection."
+      },
+      {
+        "id":"net-1.6"
+        "text":"Allow read to timeout."
       }
     ]
   }

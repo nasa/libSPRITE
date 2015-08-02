@@ -58,6 +58,28 @@ namespace net
         CPPUNIT_ASSERT(0 == strcmp(rbuffer, sbuffer));
     }
 
+    void UDP_client_ut::test_read_timeout()
+    {
+        UDP_client client("localhost", PORT);
+        units::Nanoseconds timeout(units::Nanoseconds(units::USEC * 10));
+
+        char rbuffer[BUFF_SIZE];
+        CPPUNIT_ASSERT_EQUAL(0, client.read(rbuffer, BUFF_SIZE, timeout));
+
+        timeout = units::Nanoseconds(0);
+        CPPUNIT_ASSERT_EQUAL(0, client.read(rbuffer, BUFF_SIZE, timeout));
+
+        /* Send a message and look for an echo return.
+         */
+        char sbuffer[] = "Hello world\n";
+        int nsend = strlen(sbuffer);
+        CPPUNIT_ASSERT_EQUAL(nsend, client.write(sbuffer, nsend));
+
+        int n = client.read(rbuffer, BUFF_SIZE);
+        rbuffer[n] = '\0';
+        CPPUNIT_ASSERT(0 == strcmp(rbuffer, sbuffer));
+    }
+
     void UDP_client_ut::test_client_ip()
     {
         UDP_client client("127.0.0.1", PORT);
