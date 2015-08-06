@@ -134,7 +134,7 @@ namespace SRTX
              * among derived and inherited classes but as a practical mattter,
              * all known compilers store the base class data members first
              * followed by the data members of the derived class and we are
-             * exploiting that fact when we copy a mesassage.
+             * exploiting that fact when we copy a message.
              */
             if(false == m_symbol->entry->read(*this))
             {
