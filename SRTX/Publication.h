@@ -1,6 +1,7 @@
 #ifndef __SRTX_PUBLICATION_H__
 #define __SRTX_PUBLICATION_H__
 
+#include "base/types.h"
 #include "base/XPRINTF.h"
 #include "SRTX/Data_router.h"
 #include "SRTX/Message.h"

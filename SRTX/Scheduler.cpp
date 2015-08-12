@@ -6,6 +6,7 @@
 #include "SRTX/RTC.h"
 #include "SRTX/Runtime_attributes.h"
 #include "SRTX/Scheduler.h"
+#include "base/types.h"
 #include "base/XPRINTF.h"
 
 namespace SRTX

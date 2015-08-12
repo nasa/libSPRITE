@@ -1,7 +1,7 @@
 #ifndef __SRTX_SUBSCRIPTION_H__
 #define __SRTX_SUBSCRIPTION_H__
 
-#include "base/assertion.h"
+#include "base/types.h"
 #include "base/XPRINTF.h"
 #include "SRTX/Data_router.h"
 #include "SRTX/Message.h"

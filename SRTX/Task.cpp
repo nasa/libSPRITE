@@ -4,6 +4,7 @@
 #include "SRTX/Reference_time.h"
 #include "SRTX/RTC.h"
 #include "SRTX/Scheduler.h"
+#include "base/types.h"
 #include "base/XPRINTF.h"
 
 namespace SRTX
