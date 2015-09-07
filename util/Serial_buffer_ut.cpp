@@ -83,14 +83,15 @@ namespace util
         ++expected_value16;
 
         buf.setByteOrder(LittleEndian);
-        //buf.setByteOrder((LittleEndian == native_order) ? BigEndian : LittleEndian);
+        // buf.setByteOrder((LittleEndian == native_order) ? BigEndian :
+        // LittleEndian);
         CPPUNIT_ASSERT_EQUAL(true, buf.get16(value16));
         CPPUNIT_ASSERT_EQUAL(expected_value16, value16);
         CPPUNIT_ASSERT_EQUAL(true, buf.seek(buf.getPosition() - 2));
         expected_value8 = expected_value16 & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
-        expected_value8 = (expected_value16  >> 8) & 0xFF;
+        expected_value8 = (expected_value16 >> 8) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
         ++expected_value16;
@@ -99,7 +100,7 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(true, buf.get16(value16));
         CPPUNIT_ASSERT_EQUAL(expected_value16, value16);
         CPPUNIT_ASSERT_EQUAL(true, buf.seek(buf.getPosition() - 2));
-        expected_value8 = (expected_value16  >> 8) & 0xFF;
+        expected_value8 = (expected_value16 >> 8) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
         expected_value8 = expected_value16 & 0xFF;
@@ -139,13 +140,13 @@ namespace util
         expected_value8 = expected_value32 & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
-        expected_value8 = (expected_value32  >> 8) & 0xFF;
+        expected_value8 = (expected_value32 >> 8) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
-        expected_value8 = (expected_value32  >> 16) & 0xFF;
+        expected_value8 = (expected_value32 >> 16) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
-        expected_value8 = (expected_value32  >> 24) & 0xFF;
+        expected_value8 = (expected_value32 >> 24) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
         ++expected_value32;
@@ -154,13 +155,13 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(true, buf.get32(value32));
         CPPUNIT_ASSERT_EQUAL(expected_value32, value32);
         CPPUNIT_ASSERT_EQUAL(true, buf.seek(buf.getPosition() - 4));
-        expected_value8 = (expected_value32  >> 24) & 0xFF;
+        expected_value8 = (expected_value32 >> 24) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
-        expected_value8 = (expected_value32  >> 16) & 0xFF;
+        expected_value8 = (expected_value32 >> 16) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
-        expected_value8 = (expected_value32  >> 8) & 0xFF;
+        expected_value8 = (expected_value32 >> 8) & 0xFF;
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8, value8);
         expected_value8 = expected_value32 & 0xFF;
@@ -172,6 +173,15 @@ namespace util
 
         // Runs off the end of buffer. Should fail.
         CPPUNIT_ASSERT_EQUAL(false, buf.get32(value32));
+
+        /* Test getting the buffer address and look for the expected values.
+         */
+        uint32_t *bptr = static_cast<uint32_t *>(buf.getAddr());
+        value32 =
+            (LittleEndian == native_order) ? bptr[0] : byteswap32(bptr[0]);
+        CPPUNIT_ASSERT_EQUAL(expected_value32 - 2, value32);
+        value32 = (BigEndian == native_order) ? bptr[1] : byteswap32(bptr[1]);
+        CPPUNIT_ASSERT_EQUAL(expected_value32 - 1, value32);
 
         /* Try some 64 bit values.
          */
