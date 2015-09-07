@@ -28,6 +28,7 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(true, buf.is_valid());
         CPPUNIT_ASSERT_EQUAL(0U, buf.getPosition());
         CPPUNIT_ASSERT_EQUAL(CAPACITY, buf.getCapacity());
+        CPPUNIT_ASSERT_EQUAL(0U, buf.getBufferLength());
 
         /* Put some data.
          */
@@ -35,11 +36,12 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(true, buf.put8(value8++));
         CPPUNIT_ASSERT_EQUAL(true, buf.put8(value8++));
         CPPUNIT_ASSERT_EQUAL(2U, buf.getPosition());
+        CPPUNIT_ASSERT_EQUAL(2U, buf.getBufferLength());
 
         /* Seek to the begining and and test the written values.
          */
         uint8_t expected_value8 = 0x01;
-        buf.clear();
+        buf.seek(0);
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
         CPPUNIT_ASSERT_EQUAL(expected_value8++, value8);
         CPPUNIT_ASSERT_EQUAL(true, buf.get8(value8));
@@ -60,6 +62,7 @@ namespace util
         uint16_t expected_value16 = value16;
 
         // Puts
+        buf.clear();
         CPPUNIT_ASSERT_EQUAL(true, buf.seek(CAPACITY - 8));
         CPPUNIT_ASSERT_EQUAL(true, buf.put16(value16));
         ++value16;
@@ -132,7 +135,7 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(false, buf.put32(value32));
 
         // Gets
-        buf.clear();
+        buf.seek(0);
         buf.setByteOrder(LittleEndian);
         CPPUNIT_ASSERT_EQUAL(true, buf.get32(value32));
         CPPUNIT_ASSERT_EQUAL(expected_value32, value32);
@@ -174,6 +177,10 @@ namespace util
         // Runs off the end of buffer. Should fail.
         CPPUNIT_ASSERT_EQUAL(false, buf.get32(value32));
 
+        /* Test buffer length.
+         */
+        CPPUNIT_ASSERT_EQUAL(8U, buf.getBufferLength());
+
         /* Test getting the buffer address and look for the expected values.
          */
         uint32_t *bptr = static_cast<uint32_t *>(buf.getAddr());
@@ -196,7 +203,7 @@ namespace util
         CPPUNIT_ASSERT_EQUAL(false, buf.get64(value64));
 
         // Gets
-        buf.clear();
+        buf.seek(0);
         CPPUNIT_ASSERT_EQUAL(true, buf.get64(value64));
         CPPUNIT_ASSERT_EQUAL(expected_value64, value64);
 
