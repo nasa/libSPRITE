@@ -1,10 +1,12 @@
 
 NAMESPACE:=util
 
-SRC:=Smooth.cpp
+SRC:=Serial_buffer.cpp \
+     Smooth.cpp
 
 TEST_SRC:=Linked_list_ut.cpp \
           Sample_set_ut.cpp \
+          Serial_buffer_ut.cpp \
           Smooth_ut.cpp
 
 TGT:=SPRITE_$(NAMESPACE)

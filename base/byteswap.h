@@ -4,13 +4,20 @@
 #include "base/types.h"
 #include <string.h>
 
+enum ByteOrder
+{
+    LittleEndian,
+    BigEndian
+};
+
 #define byteswap16(x)                                                          \
-    ((((uint16_t)(x) & 0xff00) >> 8) | (((uint16_t)(x) & 0x00ff) << 8))
+    (uint16_t)((((uint16_t)(x) & 0xff00) >> 8) |                               \
+               (((uint16_t)(x) & 0x00ff) << 8))
 #define byteswap32(x)                                                          \
-    ((((uint32_t)(x) & 0xff000000) >> 24) |                                    \
-     (((uint32_t)(x) & 0x00ff0000) >> 8) |                                     \
-     (((uint32_t)(x) & 0x0000ff00) << 8) |                                     \
-     (((uint32_t)(x) & 0x000000ff) << 24))
+    (uint32_t)((((uint32_t)(x) & 0xff000000) >> 24) |                          \
+               (((uint32_t)(x) & 0x00ff0000) >> 8) |                           \
+               (((uint32_t)(x) & 0x0000ff00) << 8) |                           \
+               (((uint32_t)(x) & 0x000000ff) << 24))
 
 static __inline__ uint64_t byteswap64(uint64_t x)
 {
@@ -22,10 +29,6 @@ static __inline__ uint64_t byteswap64(uint64_t x)
 
 static __inline__ int isbigendian()
 {
-#ifdef USED_TO_WORK
-    static unsigned char endian_test[2] = { 1, 0 };
-    return 1 != *(uint16_t *)endian_test;
-#else
     union endian_test_u
     {
         unsigned char bytes[2];
@@ -36,7 +39,6 @@ static __inline__ int isbigendian()
     endian_test.bytes[1] = 0;
 
     return 1 != endian_test.value;
-#endif
 }
 
 #endif /* __BASE_BYTESWAP__ */
