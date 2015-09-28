@@ -21,17 +21,32 @@ ex.: `make LUA_INCLUDE=/usr/include/lua5.2`
 You can also change the number of Lua library to link to by setting the
 `LUA_LIB` variable.
 
-#Testing
+# Testing
 'make test' will build the unit tests for this package. You must have *cppunit*
 installed to compile and run the unit tests. After compiling, run './run_test'
 to execute the unit tests. You will have to run as root to execute all test cases.
 
 NOTE: You must start from a clean systems ('make clean') before running 'make test'. Otherwise, some tests that depend on compile time assertions will fail.
 
-#Makefile Overrides
+# Makefile Overrides
 By default, libSPRITE sends output to stdout and stderr for info, warnings, and errors. To supress these messages, you can specifiy `-DNO_PRINT_INFO -DNO_PRINT_WARNING -DNO_PRINT_ERROR`. The best way to do that is by appending to these options to the `USER_CFLAGS`. For example:
 
     make USER_CFLAGS='-DNO_PRINT_INFO -DNO_PRINT_WARNING'
 
 There are also overides for CPPFLAGS (USER_CPPFLAGS) and LDFLAGS (USER_LDFLAGS).
 
+# Using CMake
+Use of `cmake` is currently in beta.
+
+To build with `cmake`, create a directory called `build`, `cd` to the `build` directory and type `cmake ../`.
+
+To specify the build prefix, using the `CMAKE_INSTALL_PREFIX` macro. Example
+
+    cmake -DCMAKE_INSTALL_PREFIX=/usr/local/
+
+By default, the build type is Release. To build unit tests us the `CMAKE_BUILD_TYPE` macro. Example:
+
+    cmake -DCMAKE_BUILD_TYPE=Test
+
+After specifying `cmake` with this macro, `make` will create a `run_test` executable in each folder. Execute the `run_test` executable for the folder you wish to test.
+    -DCMAKE_BUILD_TYPE=
