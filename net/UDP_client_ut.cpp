@@ -6,10 +6,8 @@
 #include "net/UDP_client.h"
 #include "net/UDP_client_ut.h"
 
-namespace net
-{
-    namespace
-    {
+namespace net {
+    namespace {
         const int PORT = 7500;
         const unsigned int BUFF_SIZE = 128;
         pid_t echo_pid;
@@ -26,12 +24,9 @@ namespace net
     void UDP_client_ut::spawn_echo()
     {
         echo_pid = fork();
-        if(0 == echo_pid)
-        {
-            execlp("./udpecho.py", "./udpecho.py", "-s", "7500", (char *)NULL);
-        }
-        else
-        {
+        if(0 == echo_pid) {
+            execlp("udpecho.py", "udpecho.py", "-s", "7500", (char *)NULL);
+        } else {
             sleep(1);
         }
     }

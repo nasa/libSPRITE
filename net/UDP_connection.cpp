@@ -4,8 +4,7 @@
 
 #include "net/UDP_connection.h"
 
-namespace net
-{
+namespace net {
 
     static bool set_reuse(int fd)
     {
@@ -14,8 +13,8 @@ namespace net
          * socket on the same address after the socket is closed.
          */
         int one = 1;
-        if(setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char *)&one, sizeof(one)))
-        {
+        if(setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char *)&one,
+                      sizeof(one))) {
             PERROR("setsockopt");
             return false;
         }
@@ -25,6 +24,7 @@ namespace net
 
     UDP_connection::UDP_connection(int port)
         : Socket(SOCK_DGRAM)
+        , m_addr()
     {
         m_addr.sin_family = AF_INET;
         m_addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -35,13 +35,13 @@ namespace net
 
     UDP_connection::UDP_connection(const char *hostname, int port)
         : Socket(SOCK_DGRAM)
+        , m_addr()
     {
         /* TODO: gethostbyname is deprecated. Replace with getaddrinfo.
          */
         hostent *host;
         host = gethostbyname(hostname);
-        if(NULL == host)
-        {
+        if(NULL == host) {
             PERROR("gethostbyname");
             m_valid = false;
             return;
@@ -62,6 +62,10 @@ namespace net
         m_valid = set_reuse(m_fd);
     }
 
+    UDP_connection::~UDP_connection()
+    {
+    }
+
     int UDP_connection::read(void *buffer, unsigned int nbytes)
     {
         static socklen_t addr_len = sizeof(m_addr);
@@ -69,8 +73,7 @@ namespace net
 
         rval = recvfrom(m_fd, buffer, nbytes, 0, (struct sockaddr *)(&m_addr),
                         &addr_len);
-        if(-1 == rval)
-        {
+        if(-1 == rval) {
             PERROR("recvfrom");
         }
 
@@ -92,8 +95,7 @@ namespace net
         fd_set m_readfds;
         FD_ZERO(&m_readfds);
         FD_SET(m_fd, &m_readfds);
-        if(-1 == select(m_fd + 1, &m_readfds, NULL, NULL, &tv))
-        {
+        if(-1 == select(m_fd + 1, &m_readfds, NULL, NULL, &tv)) {
             PERROR("select");
             return -1;
         }
@@ -109,8 +111,7 @@ namespace net
 
         rval = sendto(m_fd, buffer, nbytes, 0, (struct sockaddr *)(&m_addr),
                       sizeof(m_addr));
-        if(-1 == rval)
-        {
+        if(-1 == rval) {
             PERROR("sendto");
         }
 
