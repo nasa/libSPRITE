@@ -1,11 +1,9 @@
 #include "trig_ut.h"
 #include "trig.h"
 
-namespace math
-{
+namespace math {
 
-    namespace
-    {
+    namespace {
         double DELTA = 1e-12;
     }
 

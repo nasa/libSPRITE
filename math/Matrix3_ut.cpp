@@ -4,8 +4,7 @@
 #include "math/Vec3.h"
 #include "base/XPRINTF.h"
 
-namespace math
-{
+namespace math {
 
     void Matrix3_ut::setUp()
     {
@@ -303,10 +302,8 @@ namespace math
         Matrix3 r = (n * 10000) / 10000;
 
         DPRINTF("\n\n");
-        for(int i = 1; i <= 3; ++i)
-        {
-            for(int j = 1; j <= 3; ++j)
-            {
+        for(int i = 1; i <= 3; ++i) {
+            for(int j = 1; j <= 3; ++j) {
                 r(i, j) = round(r(i, j) * 10000);
                 DPRINTF("r(%d,%d) = %g%c", i, j, r(i, j),
                         (3 == j) ? '\n' : ' ');
@@ -321,10 +318,8 @@ namespace math
 
         r = n.inverse();
         DPRINTF("\n\n");
-        for(int i = 1; i <= 3; ++i)
-        {
-            for(int j = 1; j <= 3; ++j)
-            {
+        for(int i = 1; i <= 3; ++i) {
+            for(int j = 1; j <= 3; ++j) {
                 r(i, j) = round(r(i, j));
                 DPRINTF("r(%d,%d) = %g%c", i, j, r(i, j),
                         (3 == j) ? '\n' : ' ');

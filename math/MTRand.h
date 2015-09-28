@@ -71,30 +71,25 @@
 #include <math.h>
 #include "base/types.h"
 
-namespace math
-{
+namespace math {
 
     /**
      * Random number and distribution generator.
      */
-    class MTRand
-    {
+    class MTRand {
         // Data
       public:
         typedef unsigned long uint32; // unsigned integer type, at least 32 bits
 
-        enum
-        {
+        enum {
             N = 624
         }; // length of state vector
-        enum
-        {
+        enum {
             SAVE = N + 1
         }; // length of array for save()
 
       protected:
-        enum
-        {
+        enum {
             M = 397
         }; // period parameter
 
@@ -182,15 +177,13 @@ namespace math
 
         uint32 h1 = 0;
         unsigned char *p = (unsigned char *)&t;
-        for(size_t i = 0; i < sizeof(t); ++i)
-        {
+        for(size_t i = 0; i < sizeof(t); ++i) {
             h1 *= UCHAR_MAX + 2U;
             h1 += p[i];
         }
         uint32 h2 = 0;
         p = (unsigned char *)&c;
-        for(size_t j = 0; j < sizeof(c); ++j)
-        {
+        for(size_t j = 0; j < sizeof(c); ++j) {
             h2 *= UCHAR_MAX + 2U;
             h2 += p[j];
         }
@@ -208,8 +201,7 @@ namespace math
         register uint32 *r = state;
         register int i = 1;
         *s++ = seed & 0xffffffffUL;
-        for(; i < N; ++i)
-        {
+        for(; i < N; ++i) {
             *s++ = (1812433253UL * (*r ^ (*r >> 30)) + i) & 0xffffffffUL;
             r++;
         }
@@ -251,31 +243,27 @@ namespace math
         register int i = 1;
         register uint32 j = 0;
         register int k = (N > seedLength ? N : seedLength);
-        for(; k; --k)
-        {
+        for(; k; --k) {
             state[i] =
                 state[i] ^ ((state[i - 1] ^ (state[i - 1] >> 30)) * 1664525UL);
             state[i] += (bigSeed[j] & 0xffffffffUL) + j;
             state[i] &= 0xffffffffUL;
             ++i;
             ++j;
-            if(i >= N)
-            {
+            if(i >= N) {
                 state[0] = state[N - 1];
                 i = 1;
             }
             if(j >= seedLength)
                 j = 0;
         }
-        for(k = N - 1; k; --k)
-        {
+        for(k = N - 1; k; --k) {
             state[i] = state[i] ^
                        ((state[i - 1] ^ (state[i - 1] >> 30)) * 1566083941UL);
             state[i] -= i;
             state[i] &= 0xffffffffUL;
             ++i;
-            if(i >= N)
-            {
+            if(i >= N) {
                 state[0] = state[N - 1];
                 i = 1;
             }
@@ -291,8 +279,7 @@ namespace math
 
         // First try getting an array from /dev/urandom
         FILE *urandom = fopen("/dev/urandom", "rb");
-        if(urandom)
-        {
+        if(urandom) {
             uint32 bigSeed[N];
             register uint32 *s = bigSeed;
             register int i = N;
@@ -300,8 +287,7 @@ namespace math
             while(success && i--)
                 success = fread(s++, sizeof(uint32), 1, urandom);
             fclose(urandom);
-            if(success)
-            {
+            if(success) {
                 seed(bigSeed, N);
                 return;
             }
@@ -331,8 +317,7 @@ namespace math
         register const uint32 *t = o.state;
         register uint32 *s = state;
         register int i = N;
-        for(; i--; *s++ = *t++)
-        {
+        for(; i--; *s++ = *t++) {
         }
         left = o.left;
         pNext = &state[N - left];
@@ -418,8 +403,7 @@ namespace math
         // mean and standard deviation by polar form of Box-Muller
         // transformation
         double x, y, r;
-        do
-        {
+        do {
             x = 2.0 * rand() - 1.0;
             y = 2.0 * rand() - 1.0;
             r = x * x + y * y;
@@ -438,8 +422,7 @@ namespace math
         register const uint32 *s = state;
         register uint32 *sa = saveArray;
         register int i = N;
-        for(; i--; *sa++ = *s++)
-        {
+        for(; i--; *sa++ = *s++) {
         }
         *sa = left;
     }
@@ -449,8 +432,7 @@ namespace math
         register uint32 *s = state;
         register uint32 *la = loadArray;
         register int i = N;
-        for(; i--; *s++ = *la++)
-        {
+        for(; i--; *s++ = *la++) {
         }
         left = *la;
         pNext = &state[N - left];
@@ -463,8 +445,7 @@ namespace math
         register const uint32 *t = o.state;
         register uint32 *s = state;
         register int i = N;
-        for(; i--; *s++ = *t++)
-        {
+        for(; i--; *s++ = *t++) {
         }
         left = o.left;
         pNext = &state[N - left];

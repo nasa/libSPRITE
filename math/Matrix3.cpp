@@ -3,8 +3,7 @@
 #include "math/Matrix3.h"
 #include "math/Vec3.h"
 
-namespace math
-{
+namespace math {
 
     Matrix3::Matrix3()
     {
@@ -23,6 +22,10 @@ namespace math
         m_[2][0] = e31;
         m_[2][1] = e32;
         m_[2][2] = e33;
+    }
+
+    Matrix3::~Matrix3()
+    {
     }
 
     Matrix3::Matrix3(const DCM &d)

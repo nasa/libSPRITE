@@ -3,8 +3,7 @@
 #include "math/Vec3.h"
 #include "units/Meters.h"
 
-namespace math
-{
+namespace math {
 
     void Vec3_ut::setUp()
     {

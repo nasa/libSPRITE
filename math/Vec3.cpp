@@ -1,7 +1,6 @@
 #include "math/Vec3.h"
 
-namespace math
-{
+namespace math {
 
     Vec3<> cross(const Vec3<> &v1, const Vec3<> &v2)
     {

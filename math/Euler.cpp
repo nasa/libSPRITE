@@ -3,12 +3,13 @@
 #include "math/Quaternion.h"
 #include "math/trig.h"
 
-namespace math
-{
+namespace math {
 
     Euler::Euler(const Quaternion q)
+        : m_roll(q.toEuler().get_roll())
+        , m_pitch(q.toEuler().get_pitch())
+        , m_yaw(q.toEuler().get_yaw())
     {
-        *this = q.toEuler();
     }
 
     DCM Euler::toDCM() const

@@ -3,8 +3,7 @@
 
 #include "units/Radians.h"
 
-namespace math
-{
+namespace math {
 
     /**
      * Forward declaration of class.
@@ -12,8 +11,7 @@ namespace math
     class DCM;
     class Quaternion;
 
-    class Euler
-    {
+    class Euler {
       public:
         /**
          * Default constructor.

@@ -2,8 +2,7 @@
 #include "base/assertion.h"
 #include "math/trig.h"
 
-namespace math
-{
+namespace math {
 
     double sin(const units::Radians &r)
     {

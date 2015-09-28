@@ -8,8 +8,7 @@
 #define QUAT_NORMALIZATION_EPSILON 1e-12
 #endif
 
-namespace math
-{
+namespace math {
 
     Quaternion::Quaternion(double s, const Vec3<> &v)
         : m_w(s)
@@ -37,13 +36,15 @@ namespace math
 #endif
 
     Quaternion::Quaternion(const Euler &e)
+        : m_w(e.toQuaternion().scalar())
+        , m_v(e.toQuaternion().vector())
     {
-        *this = e.toQuaternion();
     }
 
     Quaternion::Quaternion(const DCM &dcm)
+        : m_w(dcm.toQuaternion().scalar())
+        , m_v(dcm.toQuaternion().vector())
     {
-        *this = dcm.toQuaternion();
     }
 
     Quaternion Quaternion::operator*(const Quaternion &rhs) const
@@ -110,11 +111,9 @@ namespace math
         return DCM(1.0 - 2.0 * (m_v(2) * m_v(2) + m_v(3) * m_v(3)),
                    2.0 * (m_v(1) * m_v(2) + m_w * m_v(3)),
                    2.0 * (m_v(1) * m_v(3) - m_w * m_v(2)),
-
                    2.0 * (m_v(1) * m_v(2) - m_w * m_v(3)),
                    1.0 - 2.0 * (m_v(1) * m_v(1) + m_v(3) * m_v(3)),
                    2.0 * (m_v(2) * m_v(3) + m_w * m_v(1)),
-
                    2.0 * (m_v(1) * m_v(3) + m_w * m_v(2)),
                    2.0 * (m_v(2) * m_v(3) - m_w * m_v(1)),
                    1.0 - 2.0 * (m_v(1) * m_v(1) + m_v(2) * m_v(2)));
@@ -131,15 +130,13 @@ namespace math
          * and the sqrt() function is expensive. If you've already done the
          * sqrt() then you might as well divide.
          */
-        if(fabs(mag2 - 1) > QUAT_NORMALIZATION_EPSILON)
-        {
+        if(fabs(mag2 - 1) > QUAT_NORMALIZATION_EPSILON) {
             double mag = sqrt(mag2);
 
             m_w /= mag;
             m_v /= mag;
 
-            if(fabs(m_w) <= NEAR_ZERO)
-            {
+            if(fabs(m_w) <= NEAR_ZERO) {
                 m_w = 0;
             }
         }

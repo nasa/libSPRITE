@@ -4,8 +4,7 @@
 #include "math/Euler_ut.h"
 #include "math/Matrix3.h"
 
-namespace math
-{
+namespace math {
     void Euler_ut::setUp()
     {
     }

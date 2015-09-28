@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace math
-{
-    class Matrix3_ut : public CppUnit::TestFixture
-    {
+namespace math {
+    class Matrix3_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Matrix3_ut);
 
