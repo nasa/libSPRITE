@@ -20,6 +20,7 @@ TEST_SRC:=Celsius_ut.cpp \
           Meters_ut.cpp \
           Millimeters_ut.cpp \
           Nanoseconds_ut.cpp \
+          Pascal_ut.cpp \
           Radians_ut.cpp \
           Seconds_ut.cpp
 
