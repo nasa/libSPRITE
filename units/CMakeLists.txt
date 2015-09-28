@@ -11,7 +11,7 @@ add_library(SPRITE_units
     )
 
 # Installation rules.
-install(TARGETS SPRITE_units DESTINATION SPRITE/lib)
+install(TARGETS SPRITE_units DESTINATION lib/SPRITE)
 install(FILES
     Celsius.h
     Days.h
@@ -30,12 +30,12 @@ install(FILES
     Radianspersecond.h
     Seconds.h
     Tesla.h
-    DESTINATION include)
+    DESTINATION include/SPRITE/units)
 
 # Build unit tests.
 if(CMAKE_BUILD_TYPE MATCHES Test)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_TEST}")
-    add_executable(run_test ../test_harness.cpp
+    add_executable(run_test_units ../test_harness.cpp
         Celsius_ut.cpp
         Degrees_ut.cpp
         GPS_time_ut.cpp
@@ -50,5 +50,5 @@ if(CMAKE_BUILD_TYPE MATCHES Test)
         Radians_ut.cpp
         Seconds_ut.cpp
         )
-    target_link_libraries(run_test SPRITE_units cppunit)
+    target_link_libraries(run_test_units SPRITE_units cppunit)
 endif()

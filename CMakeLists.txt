@@ -26,6 +26,7 @@ set(CMAKE_BUILD_TYPE "${CMAKE_BUILD_TYPE}" CACHE STRING "Choose the type of buil
 
 # Add the subdirectories.
 add_subdirectory(units)
+add_subdirectory(net)
 
 # Build a CPack driven installer package.
 include (InstallRequiredSystemLibraries)
