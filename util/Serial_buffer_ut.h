@@ -3,11 +3,9 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace util
-{
+namespace util {
 
-    class Serial_buffer_ut : public CppUnit::TestFixture
-    {
+    class Serial_buffer_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Serial_buffer_ut);
 

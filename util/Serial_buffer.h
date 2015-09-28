@@ -4,8 +4,7 @@
 #include "base/types.h"
 #include "base/byteswap.h"
 
-namespace util
-{
+namespace util {
     /**
      * A buffer of bytes with useful get/set methods.
      *
@@ -18,8 +17,7 @@ namespace util
      * read/write pointer. Reading or writing advances the pointer by
      * the size of whatever was read.
      */
-    class Serial_buffer
-    {
+    class Serial_buffer {
       public:
         /**
          * Create a serial buffer capable of holding up to maxsize bytes.
@@ -176,13 +174,16 @@ namespace util
          * Declare the storage buffer as a union of many different types of
          * pointers so we can easily access different data types.
          */
-        union Multi_ptr_t
-        {
+        union Multi_ptr_t {
             void *vptr;
             uint8_t *u8;
             uint16_t *u16;
             uint32_t *u32;
             uint64_t *u64;
+
+            Multi_ptr_t() : vptr(NULL)
+            {
+            }
         };
 
         Multi_ptr_t m_buffer;
@@ -192,8 +193,8 @@ namespace util
         unsigned int m_pos;
         unsigned int m_blen;
 
-        ByteOrder m_byteOrder;
         ByteOrder m_nativeByteOrder;
+        ByteOrder m_byteOrder;
     };
 
 } // namespace

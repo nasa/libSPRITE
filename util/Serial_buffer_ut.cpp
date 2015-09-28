@@ -3,8 +3,7 @@
 
 #include "base/XPRINTF.h"
 
-namespace util
-{
+namespace util {
     Serial_buffer_ut::Serial_buffer_ut()
     {
     }

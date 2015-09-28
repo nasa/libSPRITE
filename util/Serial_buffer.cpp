@@ -4,10 +4,8 @@
 #include "base/assertion.h"
 #include "base/byteswap.h"
 
-namespace util
-{
-    namespace
-    {
+namespace util {
+    namespace {
         uint16_t (*swap16_)(uint16_t);
         uint32_t (*swap32_)(uint32_t);
         uint64_t (*swap64_)(uint64_t);
@@ -44,14 +42,14 @@ namespace util
     }
 
     Serial_buffer::Serial_buffer(unsigned int maxSize)
-        : m_maxsize(maxSize)
+        : m_buffer()
+        , m_valid(false)
+        , m_maxsize(maxSize)
         , m_pos(0)
         , m_blen(0)
+        , m_nativeByteOrder((isbigendian()) ? BigEndian : LittleEndian)
+        , m_byteOrder(m_nativeByteOrder)
     {
-        // Determine the byte order of the machine we're running on.
-        m_nativeByteOrder = (isbigendian()) ? BigEndian : LittleEndian;
-        m_byteOrder = m_nativeByteOrder;
-
         /* Set the initial function pointers for btyeswapping to be a NOP.
          */
         swap16_ = _nop16;
@@ -66,8 +64,7 @@ namespace util
 
     Serial_buffer::~Serial_buffer()
     {
-        if(m_buffer.vptr != NULL)
-        {
+        if(m_buffer.vptr != NULL) {
             free(m_buffer.vptr);
         }
 
@@ -77,14 +74,11 @@ namespace util
     void Serial_buffer::setByteOrder(ByteOrder order)
     {
         m_byteOrder = order;
-        if(order == m_nativeByteOrder)
-        {
+        if(order == m_nativeByteOrder) {
             swap16_ = _nop16;
             swap32_ = _nop32;
             swap64_ = _nop64;
-        }
-        else
-        {
+        } else {
             swap16_ = _swap16;
             swap32_ = _swap32;
             swap64_ = _swap64;
@@ -98,8 +92,7 @@ namespace util
 
     bool Serial_buffer::seek(unsigned int p)
     {
-        if((false == m_valid) || (p >= m_maxsize))
-        {
+        if((false == m_valid) || (p >= m_maxsize)) {
             return false;
         }
 
@@ -110,8 +103,7 @@ namespace util
 
     bool Serial_buffer::get8(uint8_t &val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -123,8 +115,7 @@ namespace util
 
     bool Serial_buffer::put8(uint8_t val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -137,8 +128,7 @@ namespace util
 
     bool Serial_buffer::get16(uint16_t &val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -153,8 +143,7 @@ namespace util
 
     bool Serial_buffer::put16(uint16_t val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -170,8 +159,7 @@ namespace util
 
     bool Serial_buffer::get32(uint32_t &val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -186,8 +174,7 @@ namespace util
 
     bool Serial_buffer::put32(uint32_t val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -203,8 +190,7 @@ namespace util
 
     bool Serial_buffer::get64(uint64_t &val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 
@@ -219,8 +205,7 @@ namespace util
 
     bool Serial_buffer::put64(uint64_t val)
     {
-        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val))))
-        {
+        if((false == m_valid) || (m_pos >= (m_maxsize - sizeof(val)))) {
             return false;
         }
 

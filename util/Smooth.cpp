@@ -3,8 +3,7 @@
 #include "util/Smooth.h"
 #include "base/XPRINTF.h"
 
-namespace util
-{
+namespace util {
 
     template <typename T> T savgol_cubic(Sample_set<T> &points)
     {
@@ -31,8 +30,7 @@ namespace util
         /* We must use an odd number of points. If we are given an even number,
          * reduces the sample set by one.
          */
-        if(0 == (np % 2))
-        {
+        if(0 == (np % 2)) {
             --np;
         }
 
@@ -41,8 +39,7 @@ namespace util
          * are correct according to multiple sources, but the results do not
          * match those from R so we'll only allow up to 23 for the time being.
          */
-        if(np > 23)
-        {
+        if(np > 23) {
             np = 23;
         }
 
@@ -51,8 +48,7 @@ namespace util
 
         /* Sum the sample values from -i to i
          */
-        for(int i = -idx; i <= idx; ++i, --np)
-        {
+        for(int i = -idx; i <= idx; ++i, --np) {
             DPRINTF("coeff [%d][%d] = %d\n", idx, i, coeff[idx][abs(i)]);
             DPRINTF("i(%d) point(%d)\n", i, np);
             sum += static_cast<double>(coeff[idx][abs(i)] * points(np));
@@ -73,31 +69,27 @@ namespace util
 
         /* Handle the special case of 1 or fewer points.
          */
-        if(np <= 1)
-        {
+        if(np <= 1) {
             return 0;
         }
 
         /* If we have two points, the the derivative is the slope of the line
          * through those points.
          */
-        if(np < 5)
-        {
+        if(np < 5) {
             return (points(1) - points(np)) / 2.;
         }
 
         /* We must use an odd number of points. If we are given an even number,
          * reduces the sample set by one.
          */
-        if(0 == (np % 2))
-        {
+        if(0 == (np % 2)) {
             --np;
         }
 
         /* The maximum number of points we can filter on is 25.
          */
-        if(np > 25)
-        {
+        if(np > 25) {
             np = 25;
         }
 
@@ -106,8 +98,7 @@ namespace util
 
         /* Sum the sample values from -i to i
          */
-        for(int i = -idx; i <= idx; ++i, --np)
-        {
+        for(int i = -idx; i <= idx; ++i, --np) {
             sum += i * points(np);
         }
 

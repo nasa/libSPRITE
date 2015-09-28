@@ -3,11 +3,9 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace util
-{
+namespace util {
 
-    class Smooth_ut : public CppUnit::TestFixture
-    {
+    class Smooth_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Smooth_ut);
 
