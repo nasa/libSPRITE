@@ -1,5 +1,5 @@
 ---
-Language:        Cpp
+#Language:        Cpp
 AccessModifierOffset: -2
 ConstructorInitializerIndentWidth: 4
 AlignEscapedNewlinesLeft: false
@@ -7,10 +7,9 @@ AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: true
 #AllowShortCaseLabelsOnASingleLine: false
 #AllowShortFunctionsOnASingleLine: None
-AllowShortBlocksOnASingleLine: false
+#AllowShortBlocksOnASingleLine: false
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
 AlwaysBreakTemplateDeclarations: false
 AlwaysBreakBeforeMultilineStrings: false
 BreakBeforeBinaryOperators: false
@@ -20,15 +19,15 @@ BinPackParameters: true
 ColumnLimit:     80
 #ConstructorInitializerAllOnOneLineOrOnePerLine: true
 DerivePointerBinding: false
-DerivePointerAlignment: false
+#DerivePointerAlignment: false
 ExperimentalAutoDetectBinPacking: false
 IndentCaseLabels: false
-IndentWrappedFunctionNames: false
+#IndentWrappedFunctionNames: false
 IndentFunctionDeclarationAfterType: false
 MaxEmptyLinesToKeep: 1
-KeepEmptyLinesAtTheStartOfBlocks: true
+#KeepEmptyLinesAtTheStartOfBlocks: true
 NamespaceIndentation: All
-ObjCSpaceAfterProperty: false
+#ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: true
 PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakComment: 60
@@ -37,26 +36,26 @@ PenaltyBreakFirstLessLess: 120
 PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 60
 PointerBindsToType: false
-PointerAlignment: Right
+#PointerAlignment: Right
 SpacesBeforeTrailingComments: 1
 Cpp11BracedListStyle: false
 Standard:        Cpp03
 IndentWidth:     4
 TabWidth:        4
 UseTab:          Never
-BreakBeforeBraces: Allman #Stroustrup
+BreakBeforeBraces: Stroustrup
 IndentFunctionDeclarationAfterType: false
 SpacesInParentheses: false
 SpacesInAngles:  false
 SpaceInEmptyParentheses: false
 SpacesInCStyleCastParentheses: false
-SpacesInContainerLiterals: true
+#SpacesInContainerLiterals: true
 SpaceAfterControlStatementKeyword: false
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
-CommentPragmas:  '^ IWYU pragma:'
-ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
-SpaceBeforeParens: Never
-DisableFormat:   false
+#CommentPragmas:  '^ IWYU pragma:'
+#ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
+#SpaceBeforeParens: Never
+#DisableFormat:   false
 ...
 
