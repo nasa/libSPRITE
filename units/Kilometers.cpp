@@ -1,12 +1,10 @@
 #include "units/Meters.h"
 #include "units/Kilometers.h"
 
-namespace units
-{
+namespace units {
 
-    Kilometers::Kilometers(const Meters &n)
+    Kilometers::Kilometers(const Meters &n) : m_value(double(n.toKilometers()))
     {
-        *this = n.toKilometers();
     }
 
     units::Meters Kilometers::toMeters() const

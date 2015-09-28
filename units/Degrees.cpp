@@ -2,12 +2,10 @@
 #include "units/Degrees.h"
 #include "units/Radians.h"
 
-namespace units
-{
+namespace units {
 
-    Degrees::Degrees(const Radians &r)
+    Degrees::Degrees(const Radians &r) : m_value(double(r.toDegrees()))
     {
-        *this = r.toDegrees();
     }
 
     Radians Degrees::toRadians() const
