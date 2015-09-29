@@ -4,8 +4,7 @@
 
 #include "units/Nanoseconds.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Reference time is an incrementing value referenced to a fixed epoch.
@@ -15,8 +14,7 @@ namespace SRTX
      * relative to the reference time and is incremented by the application
      * code in a controlled manner.
      */
-    class Reference_time
-    {
+    class Reference_time {
       public:
         /**
          * There is a single instance of reference time in a given domain.

@@ -1,8 +1,7 @@
 #include "SRTX/RTC_ut.h"
 #include "SRTX/RTC.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     void RTC_ut::setUp()
     {

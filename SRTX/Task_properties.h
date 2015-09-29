@@ -4,15 +4,13 @@
 #include "SRTX/Scheduler_types.h"
 #include "units/Nanoseconds.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * This class defines the configurable properties of a task and
      * mechanisms to manipulate those properties.
      */
-    class Task_properties
-    {
+    class Task_properties {
       public:
         /**
          * Constructor.
@@ -37,8 +35,7 @@ namespace SRTX
         {
             /* Return false if the parameter is out of range.
              */
-            if(s > (sizeof(schedule_presence) * 8 - 1))
-            {
+            if(s > (sizeof(schedule_presence) * 8 - 1)) {
                 return false;
             }
 

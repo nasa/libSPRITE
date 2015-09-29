@@ -4,16 +4,14 @@
 #include "SRTX/Mutex.h"
 #include "units/Nanoseconds.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Forward declare the implementation of the mutex (PIMPL pattern).
      */
     struct Syncpoint_impl;
 
-    class Syncpoint : public Mutex
-    {
+    class Syncpoint : public Mutex {
 
       public:
         /**
@@ -87,6 +85,20 @@ namespace SRTX
         virtual ~Syncpoint();
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Syncpoint(const Syncpoint &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Syncpoint &operator=(const Syncpoint &);
+
         /**
          * Pointer to the specific implementation of the Syncpoint.
          * (PIMPL pattern).

@@ -3,10 +3,8 @@
 
 #include "SRTX/Symbol_table.h"
 
-namespace SRTX
-{
-    template <typename T> class Symbol_db : public Symbol_table<T>
-    {
+namespace SRTX {
+    template <typename T> class Symbol_db : public Symbol_table<T> {
       public:
         /**
          * Define a type alias (shorthand) for the type of data stored in

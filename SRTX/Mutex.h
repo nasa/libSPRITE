@@ -4,16 +4,14 @@
 #include "base/types.h"
 #include "SRTX/Scheduler_types.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Forward declare the implementation of the mutex (PIMPL pattern).
      */
     struct Mutex_impl;
 
-    class Mutex
-    {
+    class Mutex {
 
       public:
         /**
@@ -56,6 +54,20 @@ namespace SRTX
         mutex_t *get_mutex();
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Mutex(const Mutex &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Mutex &operator=(const Mutex &);
+
         /**
          * Pointer to the specific implementation of the mutex.
          * (PIMPL pattern).

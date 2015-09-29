@@ -3,15 +3,13 @@
 
 #include "units/Nanoseconds.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * This struct stores attributes that decribe the runtime behavior of a
      * SRTX rategroup.
      */
-    struct Runtime_attributes
-    {
+    struct Runtime_attributes {
         Runtime_attributes()
             : num_overruns(0)
             , max_runtime(0)

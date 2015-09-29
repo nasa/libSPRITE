@@ -3,22 +3,28 @@
 
 #include "units/Nanoseconds.h"
 
-namespace SRTX
-{
+namespace SRTX {
     /**
      * This is a strongly typed message that is communicated through the
      * pub/sub system.
      * @param T The type of data carried by the message.
      */
-    template <typename T> class Message
-    {
+    template <typename T> class Message {
       public:
         /**
          * Constructor.
          */
         Message()
-            : m_time_of_publication(-1)
+            : content()
+            , m_time_of_publication(-1)
             , m_publication_period(-1)
+        {
+        }
+
+        /**
+         * Destructor.
+         */
+        virtual ~Message()
         {
         }
 

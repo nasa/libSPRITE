@@ -3,13 +3,11 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
+namespace SRTX {
     /**
      * Provide a number of tests for task scheduling.
      */
-    class Scheduler_ut : public CppUnit::TestFixture
-    {
+    class Scheduler_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Scheduler_ut);
 

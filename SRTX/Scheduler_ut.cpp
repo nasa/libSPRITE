@@ -6,11 +6,9 @@
 #include "RTC.h"
 #include "Runtime_attributes.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
-    namespace
-    {
+    namespace {
         units::Nanoseconds sched_period(10 * units::MSEC);
         const unsigned int NUM_PROCS = 101;
         int counter[NUM_PROCS];
@@ -25,11 +23,9 @@ namespace SRTX
     /* This task will sleep during it's execute method to deliberatly cause an
      * overrun.
      */
-    class Overrun_task : public Task
-    {
+    class Overrun_task : public Task {
       public:
-        Overrun_task(const char *const name)
-            : Task(name)
+        Overrun_task(const char *const name) : Task(name)
         {
         }
 
@@ -42,8 +38,7 @@ namespace SRTX
 
     /* This is the test task that we are going to run.
      */
-    class Test_task : public Task
-    {
+    class Test_task : public Task {
       public:
         /**
          * Constructor.
@@ -68,11 +63,9 @@ namespace SRTX
             /* If this is a aperiodic task (period is 0), sleep for a
              * second.
              */
-            if(0 == period)
-            {
+            if(0 == period) {
                 sleep(units::Nanoseconds(1 * units::SEC));
-                if(--m_run_count <= 0)
-                {
+                if(--m_run_count <= 0) {
                     return false;
                 }
             }
@@ -96,15 +89,13 @@ namespace SRTX
         Task_db::value_t task_props;
 
         task_props.period = sched_period;
-        if(false == sched.set_properties(task_props))
-        {
+        if(false == sched.set_properties(task_props)) {
             EPRINTF("Error setting scheduler properties\n");
             return;
         }
 
         sched.use_external_trigger(false);
-        if(false == sched.start())
-        {
+        if(false == sched.start()) {
             EPRINTF("Error starting the scheduler\n");
             return;
         }
@@ -302,8 +293,7 @@ namespace SRTX
 
         Test_task *task[NUM_PROCS];
 
-        for(unsigned int i = 0; i < NUM_PROCS; ++i)
-        {
+        for(unsigned int i = 0; i < NUM_PROCS; ++i) {
             Task_properties task_props;
 
             /* Allocate each task to one of 10 rate groups.
@@ -323,15 +313,13 @@ namespace SRTX
             CPPUNIT_ASSERT_EQUAL(true, task[i]->is_valid());
         }
 
-        for(unsigned int i = 0; i < NUM_PROCS; ++i)
-        {
+        for(unsigned int i = 0; i < NUM_PROCS; ++i) {
             CPPUNIT_ASSERT_EQUAL(true, task[i]->start());
         }
 
         sleep(units::Nanoseconds(1 * units::SEC));
 
-        for(unsigned int i = 0; i < NUM_PROCS; ++i)
-        {
+        for(unsigned int i = 0; i < NUM_PROCS; ++i) {
             /* Since each task should have run for a bit more than one
              * seconds its count should be greater than its frequency, but
              * probably not more than double that.
@@ -348,8 +336,7 @@ namespace SRTX
             task[i]->stop();
         }
 
-        for(unsigned int i = 0; i < NUM_PROCS; ++i)
-        {
+        for(unsigned int i = 0; i < NUM_PROCS; ++i) {
             delete task[i];
         }
     }
@@ -375,8 +362,7 @@ namespace SRTX
 
         CPPUNIT_ASSERT_EQUAL((unsigned)0, sched.get_schedule());
 
-        for(schedule_t i = 0; i < 32; ++i)
-        {
+        for(schedule_t i = 0; i < 32; ++i) {
             sched.set_schedule(i);
             CPPUNIT_ASSERT_EQUAL(i, sched.get_schedule());
         }
@@ -406,8 +392,7 @@ namespace SRTX
 
         IPRINTF("\nTesting multiple schedules.\n"
                 "This test will take at least 4 seconds to complete.\n");
-        for(int i = 0; i < 4; ++i)
-        {
+        for(int i = 0; i < 4; ++i) {
             sched.set_schedule(i);
 
             /* Not the most reliable timing method.
@@ -420,21 +405,15 @@ namespace SRTX
              * variance to account for the imprecision of halting the task
              * based on a timer.
              */
-            if(task1.is_present_in_schedule(i))
-            {
+            if(task1.is_present_in_schedule(i)) {
                 CPPUNIT_ASSERT((counter[1] >= 48) && (counter[1] <= 60));
-            }
-            else
-            {
+            } else {
                 CPPUNIT_ASSERT_EQUAL(0, counter[1]);
             }
 
-            if(task2.is_present_in_schedule(i))
-            {
+            if(task2.is_present_in_schedule(i)) {
                 CPPUNIT_ASSERT((counter[2] >= 48) && (counter[2] <= 60));
-            }
-            else
-            {
+            } else {
                 CPPUNIT_ASSERT_EQUAL(0, counter[2]);
             }
 

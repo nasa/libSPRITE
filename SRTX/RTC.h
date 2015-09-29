@@ -3,8 +3,7 @@
 
 #include "units/Nanoseconds.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Get time from the system clock.

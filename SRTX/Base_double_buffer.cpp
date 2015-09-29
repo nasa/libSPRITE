@@ -3,8 +3,7 @@
 #include "SRTX/Base_double_buffer.h"
 #include "base/XPRINTF.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     Base_double_buffer::Base_double_buffer(unsigned int nbytes)
         : Buffer(nbytes)
@@ -20,21 +19,18 @@ namespace SRTX
     {
         /* If the object is valid then we kwow the buffers are not NULL.
         */
-        if((false == m_valid) || (nbytes > m_nbytes))
-        {
+        if((false == m_valid) || (nbytes > m_nbytes)) {
             return false;
         }
 
-        if(false == m_sync.lock())
-        {
+        if(false == m_sync.lock()) {
             EPRINTF("Failed to get mutex\n");
             return false;
         }
 
         memcpy(data, m_buffer[m_selected], nbytes);
 
-        if(false == m_sync.unlock())
-        {
+        if(false == m_sync.unlock()) {
             EPRINTF("Failed to release mutex\n");
         }
 
@@ -46,19 +42,16 @@ namespace SRTX
     {
         /* If the object is valid then we kwow the buffers are not NULL.
         */
-        if((false == m_valid) || (nbytes > m_nbytes))
-        {
+        if((false == m_valid) || (nbytes > m_nbytes)) {
             return false;
         }
 
-        if(false == m_sync.lock())
-        {
+        if(false == m_sync.lock()) {
             EPRINTF("Failed to lock mutex\n");
             return false;
         }
 
-        if(false == m_sync.wait(timeout))
-        {
+        if(false == m_sync.wait(timeout)) {
             m_sync.unlock();
             return false;
         }
@@ -66,8 +59,7 @@ namespace SRTX
 
         memcpy(data, m_buffer[m_selected], nbytes);
 
-        if(false == m_sync.unlock())
-        {
+        if(false == m_sync.unlock()) {
             EPRINTF("Failed to release mutex\n");
         }
 
@@ -79,15 +71,13 @@ namespace SRTX
     {
         /* If the object is valid then we kwow the buffers are not NULL.
         */
-        if((false == m_valid) || (nbytes > m_nbytes))
-        {
+        if((false == m_valid) || (nbytes > m_nbytes)) {
             return false;
         }
 
         /* Copy data to the buffer that is not selected.
         */
-        if(false == m_sync.lock())
-        {
+        if(false == m_sync.lock()) {
             EPRINTF("Failed to obtain lock\n");
             return false;
         }
@@ -103,14 +93,12 @@ namespace SRTX
         /* Signal blocked processes that an update to the buffer has
          * occured and unlock the syncpoint so they can proceed.
          */
-        if(signal)
-        {
+        if(signal) {
             m_sync.condition_satisfied();
             m_sync.release();
         }
 
-        if(false == m_sync.unlock())
-        {
+        if(false == m_sync.unlock()) {
             EPRINTF("Failed to release lock\n");
         }
 
@@ -128,8 +116,7 @@ namespace SRTX
     {
 
         uint8_t tmp[nbytes];
-        if(false == src.read(tmp, nbytes))
-        {
+        if(false == src.read(tmp, nbytes)) {
             return false;
         }
 

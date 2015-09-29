@@ -3,14 +3,12 @@
 
 #include "SRTX/Syncpoint.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * An untyped data buffer.
      */
-    class Buffer
-    {
+    class Buffer {
       public:
         /**
          * Constructor.
@@ -84,11 +82,6 @@ namespace SRTX
          * Number of bytes of data stored in a buffer.
          */
         unsigned int m_nbytes;
-
-        /**
-         * Selector that indicates which buffer is active.
-         */
-        unsigned int m_selected;
 
         /**
          * State variable that indicates whether the class was validily

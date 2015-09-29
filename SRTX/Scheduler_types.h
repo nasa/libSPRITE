@@ -4,8 +4,7 @@
 #include <pthread.h>
 #include "base/types.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Alias the native OS type for a mutex.

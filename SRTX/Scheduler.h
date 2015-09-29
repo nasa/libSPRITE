@@ -5,8 +5,7 @@
 #include "SRTX/Task.h"
 #include "SRTX/Syncpoint.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Forward declare the implementation details of the scheduler
@@ -17,8 +16,7 @@ namespace SRTX
     /**
      * This is the basic executive that schedules task.
      */
-    class Scheduler : public Task
-    {
+    class Scheduler : public Task {
       public:
         /**
          * There is a single instance of the scheduler in a given domain.

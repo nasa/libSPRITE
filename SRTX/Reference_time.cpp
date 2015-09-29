@@ -2,11 +2,9 @@
 #include "SRTX/Reference_time.h"
 #include "SRTX/Scheduler.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
-    Reference_time::Reference_time()
-        : m_value(units::Nanoseconds(0))
+    Reference_time::Reference_time() : m_value(units::Nanoseconds(0))
     {
     }
 

@@ -4,16 +4,14 @@
 #include "units/Nanoseconds.h"
 #include "SRTX/Base_double_buffer.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Forward declare the implementation details of a process (PIMPL pattern).
      */
     struct Data_router_impl;
 
-    class Data_router
-    {
+    class Data_router {
       public:
         /**
          * Get an instance to the symbol database.

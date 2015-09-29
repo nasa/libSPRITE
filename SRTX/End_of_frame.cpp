@@ -1,29 +1,25 @@
 #include "SRTX/End_of_frame.h"
 #include "SRTX/RTC.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     bool End_of_frame::start()
     {
         /* If construction was not successful, don't bother trying to start.
          */
-        if(false == m_valid)
-        {
+        if(false == m_valid) {
             EPRINTF("%s:Invalid task\n", m_name);
             return false;
         }
 
         /* Get the task attributes.
          */
-        if(false == m_prop_symbol->entry->read(m_props))
-        {
+        if(false == m_prop_symbol->entry->read(m_props)) {
             EPRINTF("%s:Failed to get task properties\n", m_name);
             return false;
         }
 
-        if(false == start_prep())
-        {
+        if(false == start_prep()) {
             return false;
         }
 

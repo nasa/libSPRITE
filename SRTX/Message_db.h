@@ -4,11 +4,9 @@
 #include "SRTX/Symbol_table.h"
 #include "SRTX/Message.h"
 
-namespace SRTX
-{
+namespace SRTX {
     template <typename T, template <typename> class msg_t>
-    class Message_db : public Symbol_table<msg_t<T> >
-    {
+    class Message_db : public Symbol_table<msg_t<T> > {
       public:
         /**
          * Get an instance to the message database.

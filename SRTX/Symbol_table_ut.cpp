@@ -4,8 +4,7 @@
 #include "SRTX/Symbol_table_ut.h"
 #include "SRTX/Symbol_db.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     void Symbol_table_ut::setUp()
     {
@@ -176,8 +175,7 @@ namespace SRTX
         static Symbol_table<int>::symbol_t *sym = tbl.lookup_symbol(sym_name);
         static int a(9);
 
-        if(SIGALRM == sig)
-        {
+        if(SIGALRM == sig) {
             CPPUNIT_ASSERT_EQUAL(true, sym->entry->write(++a));
         }
     }

@@ -4,10 +4,8 @@
 #include "SRTX/Symbol.h"
 #include "SRTX/Linked_list.h"
 
-namespace SRTX
-{
-    template <typename T> class Symbol_table
-    {
+namespace SRTX {
+    template <typename T> class Symbol_table {
       public:
         /**
          * Storage for the symbol tables.
@@ -18,6 +16,20 @@ namespace SRTX
         typedef Linked_list<symbol_t *> list_t;
 
         /**
+         * Constructor.
+         */
+        Symbol_table() : m_table()
+        {
+        }
+
+        /**
+         * Destructor.
+         */
+        virtual ~Symbol_table()
+        {
+        }
+
+        /**
          * Add a symbol to the table.
          * @param name Symbol name.
          * @return A pointer to the symmbol on success or NULL on failure.
@@ -25,8 +37,7 @@ namespace SRTX
         symbol_t *add_symbol(const char *name)
         {
             symbol_t *symbol = new symbol_t(name);
-            if((NULL == symbol) || (false == symbol->is_valid()))
-            {
+            if((NULL == symbol) || (false == symbol->is_valid())) {
                 EPRINTF("Failed to allocate symbol\n");
                 delete symbol;
                 return NULL;
@@ -50,10 +61,8 @@ namespace SRTX
             /* Perform a linear search on the linked list to find the
              * symbol.
              */
-            while(node)
-            {
-                if(0 == strcmp(name, node->data->get_name()))
-                {
+            while(node) {
+                if(0 == strcmp(name, node->data->get_name())) {
                     DPRINTF("Found symbol %s\n", name);
                     return node->data;
                 }
@@ -73,15 +82,13 @@ namespace SRTX
          */
         symbol_t *alias_symbol(const char *name, symbol_t *symbol)
         {
-            if(NULL == symbol)
-            {
+            if(NULL == symbol) {
                 EPRINTF("Attemping to alias a NULL symbol\n");
                 return NULL;
             }
 
             symbol_t *alias = new symbol_t(name, symbol->entry);
-            if((NULL == alias) || (false == alias->is_valid()))
-            {
+            if((NULL == alias) || (false == alias->is_valid())) {
                 EPRINTF("Failed to allocate symbol\n");
                 delete alias;
                 return NULL;

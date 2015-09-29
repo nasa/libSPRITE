@@ -5,15 +5,13 @@
 #include "SRTX/Double_buffer.h"
 #include "base/XPRINTF.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
 #ifndef SYM_ENTRY_STRLEN
     const unsigned int SYM_ENTRY_STRLEN = 256;
 #endif
 
-    template <typename T> class Symbol
-    {
+    template <typename T> class Symbol {
       public:
         /**
          * Constructor for symbolic entries.
@@ -26,23 +24,20 @@ namespace SRTX
         {
             /* Make sure that the symbol name is not too long to be stored.
              */
-            if(strlen(sym_name) > SYM_ENTRY_STRLEN)
-            {
+            if(strlen(sym_name) > SYM_ENTRY_STRLEN) {
                 EPRINTF("Symbol name %s is too long\n", sym_name);
                 return;
             }
 
             /* If no entry was passed in, allocate one.
             */
-            if(NULL == entry)
-            {
+            if(NULL == entry) {
                 entry = new Double_buffer<T>;
                 static T ival;
                 entry->write(ival);
             }
 
-            if((NULL == entry) || (false == entry->is_valid()))
-            {
+            if((NULL == entry) || (false == entry->is_valid())) {
                 EPRINTF("Invalid symbol table data\n");
                 delete entry;
                 return;

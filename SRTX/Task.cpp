@@ -7,11 +7,9 @@
 #include "base/types.h"
 #include "base/XPRINTF.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
-    struct Task_impl
-    {
+    struct Task_impl {
         pthread_t tid;
         pthread_attr_t attr;
         Syncpoint *rategroup_sync;
@@ -22,8 +20,10 @@ namespace SRTX
 
         Task_impl()
             : tid(0)
+            , attr()
             , rategroup_sync(NULL)
             , rategroup_condition(NULL)
+            , sched_attr()
             , expected_wake_time(0)
             , first_pass(true)
         {
@@ -33,16 +33,17 @@ namespace SRTX
     static volatile bool _thread_initializing;
 
     Task::Task(const char *name)
-        : m_prop_symbol(NULL)
+        : m_props()
+        , m_prop_symbol(NULL)
         , m_valid(false)
         , m_operational(false)
+        , m_name(NULL)
         , m_is_eof_task(false)
         , m_impl(new Task_impl)
     {
         /* Make sure the implementation specific data got allocated.
         */
-        if(NULL == m_impl)
-        {
+        if(NULL == m_impl) {
             EPRINTF("Failed to allocation task implementation "
                     "attributes\n");
             return;
@@ -53,8 +54,7 @@ namespace SRTX
         Task_db &proc_db = Task_db::get_instance();
 
         m_prop_symbol = proc_db.add_symbol(name);
-        if((NULL == m_prop_symbol) || (false == m_prop_symbol->is_valid()))
-        {
+        if((NULL == m_prop_symbol) || (false == m_prop_symbol->is_valid())) {
             EPRINTF("Failed while adding task symbol table entry\n");
             return;
         }
@@ -65,8 +65,7 @@ namespace SRTX
 
         /* Initialize the pthread attributes.
         */
-        if(pthread_attr_init(&(m_impl->attr)) != 0)
-        {
+        if(pthread_attr_init(&(m_impl->attr)) != 0) {
             EPRINTF("Failed to initialize thread attributes\n");
             return;
         }
@@ -96,8 +95,7 @@ namespace SRTX
          * parameters are set before creating the thread. The parameters must
          * be set BY the affected thread. Stupid little penguins!!!
          */
-        if(pthread_getschedparam(tid, &policy, &sched_attr) != 0)
-        {
+        if(pthread_getschedparam(tid, &policy, &sched_attr) != 0) {
             m_thread_syncpoint.release();
             m_thread_syncpoint.lock();
             EPRINTF("Failed getting task schedule parameters\n");
@@ -106,8 +104,7 @@ namespace SRTX
 
         policy = SCHED_FIFO;
         sched_attr.sched_priority = p->m_props.prio;
-        if(pthread_setschedparam(tid, policy, &sched_attr) != 0)
-        {
+        if(pthread_setschedparam(tid, policy, &sched_attr) != 0) {
             m_thread_syncpoint.release();
             m_thread_syncpoint.unlock();
             EPRINTF("Failed setting task schedule parameters\n");
@@ -121,24 +118,21 @@ namespace SRTX
          * scheduling. Otherwise, the checks below will fail and we'll exit the
          * thread.
          */
-        if(pthread_getschedparam(tid, &policy, &sched_attr) != 0)
-        {
+        if(pthread_getschedparam(tid, &policy, &sched_attr) != 0) {
             m_thread_syncpoint.release();
             m_thread_syncpoint.unlock();
             EPRINTF("Failed getting task schedule parameters\n");
             return NULL;
         }
 
-        if(SCHED_FIFO != policy)
-        {
+        if(SCHED_FIFO != policy) {
             m_thread_syncpoint.release();
             m_thread_syncpoint.unlock();
             EPRINTF("Failed to set real time scheduling policy\n");
             return NULL;
         }
 
-        if(sched_attr.sched_priority != static_cast<int>(p->m_props.prio))
-        {
+        if(sched_attr.sched_priority != static_cast<int>(p->m_props.prio)) {
             m_thread_syncpoint.release();
             m_thread_syncpoint.unlock();
             EPRINTF("Failed to set real time priority for task %s\n",
@@ -155,17 +149,14 @@ namespace SRTX
         m_thread_syncpoint.release();
         m_thread_syncpoint.unlock();
 
-        while(true)
-        {
+        while(true) {
             units::Nanoseconds start_time(0);
             get_time(start_time);
 
             /* If this is a periodic tasks, wait to be scheduled.
             */
-            if(p->m_impl->rategroup_sync)
-            {
-                if(p->m_impl->first_pass)
-                {
+            if(p->m_impl->rategroup_sync) {
+                if(p->m_impl->first_pass) {
                     /* We grab the lock and hold it while we're executing so no
                      * other task jumps in. One task at a time per
                      * rategroup!  The lock gets released once we get into the
@@ -193,14 +184,12 @@ namespace SRTX
 
                 while((true == p->m_operational) &&
                       (ref_time = get_reference_time()) <
-                          p->m_impl->expected_wake_time)
-                {
+                          p->m_impl->expected_wake_time) {
                     DPRINTF("%s: Tref = %" PRId64
                             ", expected_wake_time = %" PRId64 "\n",
                             p->m_name, int64_t(ref_time),
                             int64_t(p->m_impl->expected_wake_time));
-                    if(false == p->m_impl->rategroup_sync->wait())
-                    {
+                    if(false == p->m_impl->rategroup_sync->wait()) {
                         EPRINTF("%s: Error in periodic wait\n", p->m_name);
                         p->m_impl->rategroup_sync->unlock();
                         return NULL;
@@ -221,31 +210,25 @@ namespace SRTX
                  * priority order). The end of frame task signals all of the
                  * others that they may proceed.
                  */
-                if(false == p->m_is_eof_task)
-                {
+                if(false == p->m_is_eof_task) {
                     p->m_impl->rategroup_sync->inverse_wait();
                 }
             }
 
-            if(false == p->m_operational)
-            {
+            if(false == p->m_operational) {
                 DPRINTF("%s: No longer operational\n", p->m_name);
-                if(p->m_impl->rategroup_sync)
-                {
+                if(p->m_impl->rategroup_sync) {
                     p->m_impl->rategroup_sync->unlock();
                 }
 
                 return NULL;
             }
 
-            if(p->m_props.is_present_in_schedule(sched.get_schedule()))
-            {
+            if(p->m_props.is_present_in_schedule(sched.get_schedule())) {
                 DPRINTF("Executing task %s\n", p->m_name);
-                if(false == p->execute())
-                {
+                if(false == p->execute()) {
                     DPRINTF("Task %s exiting\n", p->m_name);
-                    if(p->m_impl->rategroup_sync)
-                    {
+                    if(p->m_impl->rategroup_sync) {
                         p->m_impl->rategroup_sync->unlock();
                     }
                     return NULL;
@@ -254,8 +237,7 @@ namespace SRTX
                 get_time(end_time);
 
                 p->m_props.last_runtime = end_time - start_time;
-                if(p->m_props.last_runtime > p->m_props.max_runtime)
-                {
+                if(p->m_props.last_runtime > p->m_props.max_runtime) {
                     p->m_props.max_runtime = p->m_props.last_runtime;
                 }
                 DPRINTF("%s last_runtime = %" PRId64 ", max_runtime = %" PRId64
@@ -272,14 +254,13 @@ namespace SRTX
     {
         /* Set pthread attributes.
         */
-        if(pthread_attr_setstacksize(&(m_impl->attr), m_props.stack_size) != 0)
-        {
+        if(pthread_attr_setstacksize(&(m_impl->attr), m_props.stack_size) !=
+           0) {
             EPRINTF("%s:Failed setting task stack size\n", m_name);
             return false;
         }
         if(pthread_attr_setinheritsched(&(m_impl->attr),
-                                        PTHREAD_EXPLICIT_SCHED) != 0)
-        {
+                                        PTHREAD_EXPLICIT_SCHED) != 0) {
             EPRINTF("%s:Failed setting task schedule inheritance policy\n",
                     m_name);
             return false;
@@ -287,8 +268,7 @@ namespace SRTX
 
         /* Call the task's initialization routine.
         */
-        if(false == init())
-        {
+        if(false == init()) {
             EPRINTF("%s:Failed initialization\n", m_name);
             return false;
         }
@@ -303,15 +283,11 @@ namespace SRTX
         /* If rategroup_sync is not NULL at this point, then the task has been
          * started previously and is already on the scheduler's list.
          */
-        if(NULL != m_impl->rategroup_sync)
-        {
+        if(NULL != m_impl->rategroup_sync) {
             m_impl->first_pass = true;
-        }
-        else if(m_props.period && (this != &sched))
-        {
+        } else if(m_props.period && (this != &sched)) {
             m_impl->rategroup_sync = sched.add_task(*this);
-            if(NULL == m_impl->rategroup_sync)
-            {
+            if(NULL == m_impl->rategroup_sync) {
                 return false;
             }
         }
@@ -321,8 +297,7 @@ namespace SRTX
         m_thread_syncpoint.lock();
         m_thread_syncpoint.condition_cleared();
         if(pthread_create(&(m_impl->tid), &(m_impl->attr), run,
-                          reinterpret_cast<void *>(this)) != 0)
-        {
+                          reinterpret_cast<void *>(this)) != 0) {
             m_thread_syncpoint.unlock();
             EPRINTF("%s: Failed to spawn thread\n", m_name);
             return false;
@@ -343,30 +318,26 @@ namespace SRTX
     {
         /* If construction was not successful, don't bother trying to start.
         */
-        if(false == m_valid)
-        {
+        if(false == m_valid) {
             EPRINTF("%s:Invalid task\n", m_name);
             return false;
         }
 
         /* Get the task attributes.
         */
-        if(false == m_prop_symbol->entry->read(m_props))
-        {
+        if(false == m_prop_symbol->entry->read(m_props)) {
             EPRINTF("%s:Failed to get task properties\n", m_name);
             return false;
         }
 
         /* Make sure the task priority is valid.
         */
-        if((m_props.prio < (MIN_PRIO + 1)) || (m_props.prio > (MAX_PRIO - 1)))
-        {
+        if((m_props.prio < (MIN_PRIO + 1)) || (m_props.prio > (MAX_PRIO - 1))) {
             EPRINTF("%s:Invalid task priority\n", m_name);
             return false;
         }
 
-        if(false == start_prep())
-        {
+        if(false == start_prep()) {
             return false;
         }
 
@@ -412,16 +383,13 @@ namespace SRTX
         m_valid = false;
         stop();
 
-        if(m_impl)
-        {
-            if(m_impl->tid)
-            {
+        if(m_impl) {
+            if(m_impl->tid) {
                 DPRINTF("%s: Joining thread; Waiting for termination\n",
                         m_name);
                 void *res;
                 int rval = pthread_join(m_impl->tid, &res);
-                if((0 != rval) && (PTHREAD_CANCELED != res))
-                {
+                if((0 != rval) && (PTHREAD_CANCELED != res)) {
                     EPRINTF("%s:Error joining thread\n", m_name);
                 }
                 m_impl->tid = 0;

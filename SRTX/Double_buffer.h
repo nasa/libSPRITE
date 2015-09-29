@@ -3,15 +3,12 @@
 
 #include "SRTX/Base_double_buffer.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
-    template <typename T> class Double_buffer : public Base_double_buffer
-    {
+    template <typename T> class Double_buffer : public Base_double_buffer {
 
       public:
-        Double_buffer()
-            : Base_double_buffer(sizeof(T))
+        Double_buffer() : Base_double_buffer(sizeof(T))
         {
         }
 
@@ -32,9 +29,8 @@ namespace SRTX
          * Default behavior (timeout=0) is to wait forever.
          * @return True on success or false on failure.
          */
-        bool
-        read_blocking(T &data,
-                      const units::Nanoseconds &timeout = units::Nanoseconds(0))
+        bool read_blocking(T &data, const units::Nanoseconds &timeout =
+                                        units::Nanoseconds(0))
         {
             return Base_double_buffer::read_blocking(&data, sizeof(T), timeout);
         }

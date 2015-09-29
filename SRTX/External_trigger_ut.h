@@ -3,13 +3,11 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
+namespace SRTX {
     /**
      * Provide tests for initiating the SRTX scheduler from an external trigger.
      */
-    class External_trigger_ut : public CppUnit::TestFixture
-    {
+    class External_trigger_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(External_trigger_ut);
 
