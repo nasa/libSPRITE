@@ -29,6 +29,7 @@ namespace SCALE
          */
         static SRTX::Scheduler *allocator(lua_State *L)
         {
+            (void)L; // Supress compiler warning for unused parameter.
             return &SRTX::Scheduler::get_instance();
         }
 
@@ -41,6 +42,8 @@ namespace SCALE
          */
         static void deallocator(lua_State *L, SRTX::Scheduler *s)
         {
+            (void)L; // Supress compiler warning for unused parameter.
+            (void)s; // Supress compiler warning for unused parameter.
             // do nothing.
         }
 
@@ -64,7 +67,7 @@ namespace SCALE
         static int start(lua_State *L)
         {
             SRTX::Scheduler *s = luaW_check<SRTX::Scheduler>(L, 1);
-            lua_pushnumber(L, (s->start()) ? 0 : -1);
+            lua_pushnumber(L, (s->start()) ? 1 : -1);
             return 1;
         }
 

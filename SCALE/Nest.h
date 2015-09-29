@@ -1,4 +1,3 @@
-
 #ifndef __SCALE_NEST_H__
 #define __SCALE_NEST_H__
 
@@ -49,6 +48,20 @@ namespace SCALE
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Nest(const Nest &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Nest &operator=(const Nest &);
+
         char *m_scriptname;
 
         /**

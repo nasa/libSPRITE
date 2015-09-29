@@ -60,6 +60,7 @@ extern "C"
 // after pushing or popping things off the stack
 inline int luaW_correctindex(lua_State* L, int index, int correction)
 {
+    (void)L; // Supress compiler warning.
     return index < 0 ? index - correction : index;
 }
 
