@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace units
-{
-    class GPS_time_ut : public CppUnit::TestFixture
-    {
+namespace units {
+    class GPS_time_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(GPS_time_ut);
 

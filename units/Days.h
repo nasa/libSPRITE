@@ -1,8 +1,7 @@
 #ifndef __UNITS_DAYS_H__
 #define __UNITS_DAYS_H__
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declataration of class.
@@ -10,8 +9,7 @@ namespace units
     class GPS_time;
     class Seconds;
 
-    class Days
-    {
+    class Days {
       public:
         /**
          * Constructor.
@@ -20,8 +18,7 @@ namespace units
          * @satisfies{units-2.2}
          * @satisfies{units-2.4}
          */
-        explicit Days(double v = 0.0)
-            : m_value(v)
+        explicit Days(double v = 0.0) : m_value(v)
         {
         }
 

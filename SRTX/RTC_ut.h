@@ -3,13 +3,11 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
+namespace SRTX {
     /**
      * Test the reference time class.
      */
-    class RTC_ut : public CppUnit::TestFixture
-    {
+    class RTC_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(RTC_ut);
 

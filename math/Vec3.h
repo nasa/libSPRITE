@@ -5,14 +5,12 @@
 #include "base/types.h"
 #include <math.h>
 
-namespace math
-{
+namespace math {
 
     /**
      * This class manages the common case of three element vectors.
      */
-    template <typename T = double> class Vec3
-    {
+    template <typename T = double> class Vec3 {
       public:
         /**
          * Constructor

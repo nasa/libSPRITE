@@ -1,8 +1,7 @@
 #ifndef __UNITS_SECONDS_H__
 #define __UNITS_SECONDS_H__
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declaration of class.
@@ -10,8 +9,7 @@ namespace units
     class Nanoseconds;
     class Days;
 
-    class Seconds
-    {
+    class Seconds {
       public:
         /**
          * Constructor.
@@ -20,8 +18,7 @@ namespace units
          * @satisfies{units-15.2}
          * @satisfies{units-15.4}
          */
-        explicit Seconds(double v = 0.0)
-            : m_value(v)
+        explicit Seconds(double v = 0.0) : m_value(v)
         {
         }
 

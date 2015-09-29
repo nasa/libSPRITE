@@ -3,11 +3,9 @@
 
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
-    class Meterspersecondpersecond
-    {
+    class Meterspersecondpersecond {
       public:
         /**
          * Constructor.
@@ -16,8 +14,7 @@ namespace units
          * @satisfies{units-10.2}
          * @satisfies{units-10.4}
          */
-        explicit Meterspersecondpersecond(double v = 0.0)
-            : m_value(v)
+        explicit Meterspersecondpersecond(double v = 0.0) : m_value(v)
         {
         }
 

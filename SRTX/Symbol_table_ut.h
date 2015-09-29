@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
-    class Symbol_table_ut : public CppUnit::TestFixture
-    {
+namespace SRTX {
+    class Symbol_table_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Symbol_table_ut);
 

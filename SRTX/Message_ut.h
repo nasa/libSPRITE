@@ -3,14 +3,12 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * A set of test for sending messages through a publish/subscribe system.
      */
-    class Message_ut : public CppUnit::TestFixture
-    {
+    class Message_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Message_ut);
 

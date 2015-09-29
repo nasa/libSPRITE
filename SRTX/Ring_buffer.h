@@ -3,11 +3,9 @@
 
 #include "SRTX/Base_ring_buffer.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
-    template <typename T> class Ring_buffer : public Base_ring_buffer
-    {
+    template <typename T> class Ring_buffer : public Base_ring_buffer {
 
       public:
         /**
@@ -15,8 +13,7 @@ namespace SRTX
          * @param nelem Number of elememnts that can be stored in the
          * buffer.
          */
-        Ring_buffer(unsigned int nelem)
-            : Base_ring_buffer(sizeof(T), nelem)
+        Ring_buffer(unsigned int nelem) : Base_ring_buffer(sizeof(T), nelem)
         {
         }
 
@@ -37,9 +34,8 @@ namespace SRTX
          * Default behavior (timeout=0) is to wait forever.
          * @return True on success or false on failure.
          */
-        bool
-        read_blocking(T &data,
-                      const units::Nanoseconds &timeout = units::Nanoseconds(0))
+        bool read_blocking(T &data, const units::Nanoseconds &timeout =
+                                        units::Nanoseconds(0))
         {
             return Base_ring_buffer::read_blocking(&data, sizeof(T), timeout);
         }

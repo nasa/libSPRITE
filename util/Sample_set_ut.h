@@ -3,11 +3,9 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace util
-{
+namespace util {
 
-    class Sample_set_ut : public CppUnit::TestFixture
-    {
+    class Sample_set_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Sample_set_ut);
 

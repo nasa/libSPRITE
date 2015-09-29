@@ -2,16 +2,14 @@
 #include "net/Socket.h"
 #include "base/XPRINTF.h"
 
-namespace net
-{
+namespace net {
 
     Socket::Socket(int type)
         : m_valid(false)
         , m_fd(-1)
     {
         m_fd = socket(PF_INET, type, 0);
-        if(-1 == m_fd)
-        {
+        if(-1 == m_fd) {
             PERROR("socket");
             return;
         }

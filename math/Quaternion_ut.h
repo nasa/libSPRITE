@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace math
-{
-    class Quaternion_ut : public CppUnit::TestFixture
-    {
+namespace math {
+    class Quaternion_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Quaternion_ut);
 

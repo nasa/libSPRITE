@@ -1,12 +1,10 @@
 #include "units/Days.h"
 #include "units/Seconds.h"
 
-namespace units
-{
+namespace units {
 
-    Days::Days(const Seconds &n)
+    Days::Days(const Seconds &n) : m_value(double(n.toDays()))
     {
-        *this = n.toDays();
     }
 
     units::Seconds Days::toSeconds() const

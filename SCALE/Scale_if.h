@@ -7,10 +7,8 @@ extern "C" {
 #include "lualib.h"
 }
 
-namespace SCALE
-{
-    class Scale_if
-    {
+namespace SCALE {
+    class Scale_if {
       public:
         /**
          * Get and instance to the Scale_if Lua interpreter state

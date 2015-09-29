@@ -4,8 +4,7 @@
 
 #include "net/UDP_client.h"
 
-namespace net
-{
+namespace net {
     UDP_client::UDP_client(const char *hostname, int port)
         : UDP_connection(hostname, port)
     {

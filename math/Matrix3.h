@@ -3,16 +3,14 @@
 
 #include <base/assertion.h>
 
-namespace math
-{
+namespace math {
     /**
      * Forward declaration of classes.
      */
     template <typename T> class Vec3;
     class DCM;
 
-    class Matrix3
-    {
+    class Matrix3 {
 
       public:
         /**
@@ -27,6 +25,11 @@ namespace math
          */
         Matrix3(double e11, double e12, double e13, double e21, double e22,
                 double e23, double e31, double e32, double e33);
+
+        /**
+         * Destructor.
+         */
+        virtual ~Matrix3();
 
         /**
          * Convert a DCM to a standard 3x3 matrix.

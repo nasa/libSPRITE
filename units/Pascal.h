@@ -4,11 +4,9 @@
 
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
-    class Pascal
-    {
+    class Pascal {
       public:
         /**
          * Constructor.
@@ -17,8 +15,7 @@ namespace units
          * @satisfies{units-12.2}
          * @satisfies{units-12.4}
          */
-        explicit Pascal(int32_t v = 0.0)
-            : m_value(v)
+        explicit Pascal(int32_t v = 0.0) : m_value(v)
         {
         }
 

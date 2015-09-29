@@ -1,18 +1,15 @@
-
 #ifndef __SCALE_NEST_H__
 #define __SCALE_NEST_H__
 
 #include "SRTX/Task.h"
 #include "SCALE/Scale_if.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
     /**
      * This class is a SRTX task that loads and runs a Lua script.
      */
-    class Nest : public SRTX::Task
-    {
+    class Nest : public SRTX::Task {
 
       public:
         /**
@@ -49,6 +46,20 @@ namespace SCALE
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Nest(const Nest &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Nest &operator=(const Nest &);
+
         char *m_scriptname;
 
         /**

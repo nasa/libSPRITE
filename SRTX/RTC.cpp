@@ -2,15 +2,13 @@
 #include "SRTX/RTC.h"
 #include "base/XPRINTF.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     bool get_time(units::Nanoseconds &time)
     {
         struct timespec ts;
 
-        if(-1 == clock_gettime(CLOCK_REALTIME, &ts))
-        {
+        if(-1 == clock_gettime(CLOCK_REALTIME, &ts)) {
             PERROR("clock_gettime");
             return false;
         }

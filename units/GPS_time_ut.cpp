@@ -2,8 +2,7 @@
 #include "units/GPS_time.h"
 #include "units/GPS_time_ut.h"
 
-namespace units
-{
+namespace units {
 
     void GPS_time_ut::setUp()
     {

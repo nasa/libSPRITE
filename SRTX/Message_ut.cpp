@@ -7,11 +7,9 @@
 #include <assert.h>
 #include <unistd.h>
 
-namespace SRTX
-{
+namespace SRTX {
 
-    namespace
-    {
+    namespace {
         units::Nanoseconds sched_period(10 * units::MSEC);
         const priority_t highest_priority = 80;
         const priority_t higher_priority = highest_priority - 1;
@@ -33,14 +31,14 @@ namespace SRTX
     {
     }
 
-    class Publisher : public Task
-    {
+    class Publisher : public Task {
       public:
         Publisher(const char *const name, const char *const pub_name,
                   int instance, int ncycles)
             : Task(name)
             , m_pub_name(pub_name)
             , m_instance(instance)
+            , m_ip_msg(NULL)
             , m_cycle(ncycles)
         {
         }
@@ -48,8 +46,7 @@ namespace SRTX
         bool init()
         {
             m_ip_msg = new Publication<int>(m_pub_name, get_period());
-            if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid()))
-            {
+            if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid())) {
                 return false;
             }
 
@@ -64,8 +61,7 @@ namespace SRTX
             DPRINTF("Running %s\n", m_name);
 
             ++m_ip_msg->content;
-            if(false == m_ip_msg->put())
-            {
+            if(false == m_ip_msg->put()) {
                 EPRINTF("%s failed put()\n", m_name);
                 done[m_instance] = true;
                 return false;
@@ -73,8 +69,7 @@ namespace SRTX
 
             /* Have we completed the requested number of cycles?
              */
-            if((--m_cycle) <= 0)
-            {
+            if((--m_cycle) <= 0) {
                 done[m_instance] = true;
                 return false;
             }
@@ -85,20 +80,34 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Publisher(const Publisher &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Publisher &operator=(const Publisher &);
+
         const char *const m_pub_name;
         int m_instance;
         Publication<int> *m_ip_msg;
         int m_cycle;
     };
 
-    class Aperiodic_publisher : public Task
-    {
+    class Aperiodic_publisher : public Task {
       public:
         Aperiodic_publisher(const char *const name, const char *const pub_name,
                             int instance, int ncycles)
             : Task(name)
             , m_pub_name(pub_name)
             , m_instance(instance)
+            , m_ip_msg(NULL)
             , m_cycle(ncycles)
         {
         }
@@ -106,8 +115,7 @@ namespace SRTX
         bool init()
         {
             m_ip_msg = new Publication<int>(m_pub_name, get_period());
-            if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid()))
-            {
+            if((NULL == m_ip_msg) || (false == m_ip_msg->is_valid())) {
                 return false;
             }
 
@@ -124,8 +132,7 @@ namespace SRTX
             sleep(units::Nanoseconds(30 * units::MSEC));
 
             ++m_ip_msg->content;
-            if(false == m_ip_msg->put())
-            {
+            if(false == m_ip_msg->put()) {
                 EPRINTF("%s failed put()\n", m_name);
                 done[m_instance] = true;
                 return false;
@@ -133,8 +140,7 @@ namespace SRTX
 
             /* Have we completed the requested number of cycles?
              */
-            if(--m_cycle <= 0)
-            {
+            if(--m_cycle <= 0) {
                 done[m_instance] = true;
                 return false;
             }
@@ -145,18 +151,32 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Aperiodic_publisher(const Aperiodic_publisher &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Aperiodic_publisher &operator=(const Aperiodic_publisher &);
+
         const char *const m_pub_name;
         int m_instance;
         Publication<int> *m_ip_msg;
         int m_cycle;
     };
 
-    class Subscriber : public Task
-    {
+    class Subscriber : public Task {
       public:
         Subscriber(const char *const name, const char *const sub_name,
                    int instance, int ncycles)
             : Task(name)
+            , m_is_msg(NULL)
             , m_sub_name(sub_name)
             , m_instance(instance)
             , m_cycle(ncycles)
@@ -167,8 +187,7 @@ namespace SRTX
         bool init()
         {
             m_is_msg = new Subscription<int>(m_sub_name, get_period());
-            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-            {
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid())) {
                 return false;
             }
 
@@ -179,15 +198,13 @@ namespace SRTX
         {
             DPRINTF("Running %s\n", m_name);
 
-            if(false == m_is_msg->get())
-            {
+            if(false == m_is_msg->get()) {
                 EPRINTF("%s failed get()\n", m_name);
                 done[m_instance] = true;
                 return false;
             }
 
-            if(false == m_is_msg->was_updated())
-            {
+            if(false == m_is_msg->was_updated()) {
                 EPRINTF("%s did not get an updated message\n", m_name);
                 done[m_instance] = true;
                 return false;
@@ -195,8 +212,7 @@ namespace SRTX
 
             /* Determine the expected count value.
              */
-            if(++m_ex != m_is_msg->content)
-            {
+            if(++m_ex != m_is_msg->content) {
                 EPRINTF("%s expected %d, received %d\n", m_name, m_ex,
                         m_is_msg->content);
                 done[m_instance] = true;
@@ -207,15 +223,13 @@ namespace SRTX
              * publisher's period.
              */
             units::Nanoseconds now;
-            if(false == get_time(now))
-            {
+            if(false == get_time(now)) {
                 EPRINTF("%s failed get_time()\n", m_name);
                 done[m_instance] = true;
                 return false;
             }
             units::Nanoseconds latency = now - m_is_msg->get_publication_time();
-            if(latency >= pub_period)
-            {
+            if(latency >= pub_period) {
                 EPRINTF("%s latency >= pub_period\n", m_name);
                 done[m_instance] = true;
                 return false;
@@ -223,8 +237,7 @@ namespace SRTX
 
             /* Have we completed the requested number of cycles?
              */
-            if(--m_cycle <= 0)
-            {
+            if(--m_cycle <= 0) {
                 done[m_instance] = true;
                 return false;
             }
@@ -235,6 +248,20 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Subscriber(const Subscriber &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Subscriber &operator=(const Subscriber &);
+
         Subscription<int> *m_is_msg;
         const char *const m_sub_name;
         int m_instance;
@@ -242,8 +269,7 @@ namespace SRTX
         int m_ex;
     };
 
-    class Aperiodic_subscriber : public Task
-    {
+    class Aperiodic_subscriber : public Task {
       public:
         Aperiodic_subscriber(const char *const name, const char *const sub_name,
                              int instance, int ncycles)
@@ -259,8 +285,7 @@ namespace SRTX
         bool init()
         {
             m_is_msg = new Subscription<int>(m_sub_name, get_period());
-            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-            {
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid())) {
                 return false;
             }
 
@@ -272,8 +297,7 @@ namespace SRTX
             DPRINTF("Running %s\n", m_name);
 
             DPRINTF("%s, waiting for message\n", m_name);
-            if(false == m_is_msg->get_blocking())
-            {
+            if(false == m_is_msg->get_blocking()) {
                 EPRINTF("%s failed get_blocking()\n", m_name);
                 /* We did not get the message. Terminate this frame, but let
                  * the task get rescheduled so it can try blocking on the
@@ -283,15 +307,13 @@ namespace SRTX
             }
             DPRINTF("%s, got message\n", m_name);
 
-            if(m_is_msg->was_updated())
-            {
+            if(m_is_msg->was_updated()) {
                 ++m_run_count;
             }
 
             /* Have we completed the requested number of cycles?
              */
-            if(m_is_msg->content >= m_cycle)
-            {
+            if(m_is_msg->content >= m_cycle) {
                 /* We're done. Mark the task done and end execution.
                  */
                 done[m_instance] = true;
@@ -306,8 +328,7 @@ namespace SRTX
         void terminate()
         {
             DPRINTF("Terminating aperiodic subscriber %d\n", m_instance);
-            if(m_is_msg)
-            {
+            if(m_is_msg) {
                 m_is_msg->abort_get();
             }
         }
@@ -320,6 +341,20 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Aperiodic_subscriber(const Aperiodic_subscriber &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Aperiodic_subscriber &operator=(const Aperiodic_subscriber &);
+
         Subscription<int> *m_is_msg;
         const char *const m_sub_name;
         int m_instance;
@@ -327,12 +362,12 @@ namespace SRTX
         int m_run_count;
     };
 
-    class Slow_subscriber : public Task
-    {
+    class Slow_subscriber : public Task {
       public:
         Slow_subscriber(const char *const name, const char *const sub_name,
                         int instance, int ncycles)
             : Task(name)
+            , m_is_msg(NULL)
             , m_sub_name(sub_name)
             , m_instance(instance)
             , m_cycle(ncycles)
@@ -344,8 +379,7 @@ namespace SRTX
         bool init()
         {
             m_is_msg = new Subscription<int>(m_sub_name, get_period());
-            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-            {
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid())) {
                 return false;
             }
 
@@ -356,28 +390,22 @@ namespace SRTX
         {
             DPRINTF("Running %s\n", m_name);
 
-            if(false == m_is_msg->get())
-            {
+            if(false == m_is_msg->get()) {
                 EPRINTF("%s failed get()\n", m_name);
                 return false;
             }
-            if(false == m_is_msg->was_updated())
-            {
+            if(false == m_is_msg->was_updated()) {
                 EPRINTF("%s received message was not updated\n", m_name);
             }
 
-            if(m_first_pass)
-            {
+            if(m_first_pass) {
                 m_ex = m_is_msg->content;
                 m_first_pass = false;
-            }
-            else
-            {
+            } else {
                 /* Determine the expected count value.
                  */
                 m_ex += 2;
-                if(m_ex != m_is_msg->content)
-                {
+                if(m_ex != m_is_msg->content) {
                     EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
                             m_is_msg->content);
                     done[m_instance] = true;
@@ -388,22 +416,19 @@ namespace SRTX
             /* Test the message latency.
              */
             units::Nanoseconds now;
-            if(false == get_time(now))
-            {
+            if(false == get_time(now)) {
                 EPRINTF("%s failed get_time()\n", m_name);
                 return false;
             }
             units::Nanoseconds latency = now - m_is_msg->get_publication_time();
-            if(latency >= 2 * get_period())
-            {
+            if(latency >= 2 * get_period()) {
                 EPRINTF("%s latency >= 2 * pub_period\n", m_name);
                 return false;
             }
 
             /* Have we completed the requested number of cycles?
              */
-            if(--m_cycle <= 0)
-            {
+            if(--m_cycle <= 0) {
                 done[m_instance] = true;
                 return false;
             }
@@ -414,6 +439,20 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Slow_subscriber(const Slow_subscriber &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Slow_subscriber &operator=(const Slow_subscriber &);
+
         Subscription<int> *m_is_msg;
         const char *const m_sub_name;
         int m_instance;
@@ -422,12 +461,12 @@ namespace SRTX
         int m_ex;
     };
 
-    class Fast_subscriber : public Task
-    {
+    class Fast_subscriber : public Task {
       public:
         Fast_subscriber(const char *const name, const char *const sub_name,
                         int instance, int ncycles)
             : Task(name)
+            , m_is_msg(NULL)
             , m_sub_name(sub_name)
             , m_instance(instance)
             , m_cycle(ncycles)
@@ -439,8 +478,7 @@ namespace SRTX
         bool init()
         {
             m_is_msg = new Subscription<int>(m_sub_name, get_period());
-            if((NULL == m_is_msg) || (false == m_is_msg->is_valid()))
-            {
+            if((NULL == m_is_msg) || (false == m_is_msg->is_valid())) {
                 return false;
             }
 
@@ -452,21 +490,16 @@ namespace SRTX
             DPRINTF("Running %s\n", m_name);
 
             units::Nanoseconds rtime = get_reference_time();
-            if(m_first_pass)
-            {
-                if(0 == (rtime % pub_period))
-                {
+            if(m_first_pass) {
+                if(0 == (rtime % pub_period)) {
                     m_is_msg->get();
                     m_ex = m_is_msg->content;
                     m_first_pass = false;
                 }
 
                 return true;
-            }
-            else
-            {
-                if(false == m_is_msg->get())
-                {
+            } else {
+                if(false == m_is_msg->get()) {
                     EPRINTF("%s failed get()\n", m_name);
                     done[m_instance] = true;
                     return false;
@@ -475,13 +508,11 @@ namespace SRTX
                 /* Determine the expected count value.
                  */
                 units::Nanoseconds rtime = get_reference_time();
-                if(0 == (rtime % pub_period))
-                {
+                if(0 == (rtime % pub_period)) {
                     ++m_ex;
                 }
 
-                if(m_ex != m_is_msg->content)
-                {
+                if(m_ex != m_is_msg->content) {
                     EPRINTF("%s expected %d but received %d\n", m_name, m_ex,
                             m_is_msg->content);
                     done[m_instance] = true;
@@ -492,15 +523,13 @@ namespace SRTX
             /* Test the message latency.
              */
             units::Nanoseconds now;
-            if(false == get_time(now))
-            {
+            if(false == get_time(now)) {
                 EPRINTF("%s failed get_time()\n", m_name);
                 done[m_instance] = true;
                 return false;
             }
             units::Nanoseconds latency = now - m_is_msg->get_publication_time();
-            if(latency >= 2 * pub_period)
-            {
+            if(latency >= 2 * pub_period) {
                 EPRINTF("%s latency >= 2 * pub_period\n", m_name);
                 done[m_instance] = true;
                 return false;
@@ -508,8 +537,7 @@ namespace SRTX
 
             /* Have we completed the requested number of cycles?
              */
-            if(--m_cycle <= 0)
-            {
+            if(--m_cycle <= 0) {
                 done[m_instance] = true;
                 return false;
             }
@@ -520,6 +548,20 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Fast_subscriber(const Fast_subscriber &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Fast_subscriber &operator=(const Fast_subscriber &);
+
         Subscription<int> *m_is_msg;
         const char *const m_sub_name;
         int m_instance;
@@ -534,14 +576,12 @@ namespace SRTX
         Task_db::value_t task_props;
 
         task_props.period = sched_period;
-        if(false == sched.set_properties(task_props))
-        {
+        if(false == sched.set_properties(task_props)) {
             EPRINTF("Error setting scheduler properties\n");
             return;
         }
 
-        if(false == sched.start())
-        {
+        if(false == sched.start()) {
             EPRINTF("Error starting the scheduler\n");
             return;
         }
@@ -701,8 +741,7 @@ namespace SRTX
          */
         assert(instance == ntasks);
 
-        for(unsigned int i = 0; i < ntasks; ++i)
-        {
+        for(unsigned int i = 0; i < ntasks; ++i) {
             done[i] = false;
         }
         CPPUNIT_ASSERT_EQUAL(true, sub12.start());
@@ -745,11 +784,9 @@ namespace SRTX
          * are running.
          */
         bool test_done;
-        do
-        {
+        do {
             test_done = true;
-            for(unsigned int i = 0; i < ntasks; ++i)
-            {
+            for(unsigned int i = 0; i < ntasks; ++i) {
                 test_done = test_done && done[i];
             }
         } while(!test_done);

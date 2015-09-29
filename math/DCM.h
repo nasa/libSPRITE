@@ -1,11 +1,10 @@
 #ifndef __MATH_DCM_H__
 #define __MATH_DCM_H__
 
-#include "Vec3.h"
-#include "Matrix3.h"
+#include "math/Vec3.h"
+#include "math/Matrix3.h"
 
-namespace math
-{
+namespace math {
 
     /**
      * Forward declaration of class.
@@ -17,16 +16,14 @@ namespace math
      * Direction Cosine Matrix (DCM)
      * A direction cosine matrix is a specialized form of a 3x3 matrix.
      */
-    class DCM : private Matrix3
-    {
+    class DCM : private Matrix3 {
 
       public:
         /**
          * Default contructor
          * @satisfies{math-7.1}
          */
-        DCM()
-            : Matrix3()
+        DCM() : Matrix3()
         {
         }
 
@@ -45,8 +42,7 @@ namespace math
          * @param m initial matrix
          * @satisfies{math-7.4}
          */
-        explicit DCM(const Matrix3 &m)
-            : Matrix3(m)
+        explicit DCM(const Matrix3 &m) : Matrix3(m)
         {
         }
 

@@ -5,16 +5,13 @@
 
 #include "base/XPRINTF.h"
 
-namespace util
-{
+namespace util {
 
     /* File scope data.
      */
-    namespace
-    {
+    namespace {
         const unsigned int NELEMS = 11;
-        struct test_vector_t
-        {
+        struct test_vector_t {
             double x;
             double y[NELEMS];
             double dy[NELEMS];
@@ -33,8 +30,7 @@ namespace util
         const char *fname = "savgoltest.csv";
         FILE *fp = fopen(fname, "r");
 
-        if(NULL == fp)
-        {
+        if(NULL == fp) {
             PERROR("fopen");
             exit(1);
         }
@@ -48,17 +44,14 @@ namespace util
 
         /* Read in the test vectors.
          */
-        for(unsigned int i = 0; i < NTVECS; ++i)
-        {
+        for(unsigned int i = 0; i < NTVECS; ++i) {
             fscanf(fp, "%lf", &(test_vec[i].x));
 
-            for(unsigned int j = 0; j < NELEMS; ++j)
-            {
+            for(unsigned int j = 0; j < NELEMS; ++j) {
                 fscanf(fp, ",%lf", &(test_vec[i].y[j]));
             }
 
-            for(unsigned int j = 0; j < NELEMS; ++j)
-            {
+            for(unsigned int j = 0; j < NELEMS; ++j) {
                 fscanf(fp, ",%lf", &(test_vec[i].dy[j]));
             }
             fscanf(fp, "\n");
@@ -99,8 +92,7 @@ namespace util
         double y;
         unsigned int np;
         unsigned int idx;
-        for(unsigned int i = 4; i < NTVECS; ++i)
-        {
+        for(unsigned int i = 4; i < NTVECS; ++i) {
             ss.push(test_vec[i].x);
             np = ss.npopulated();
             if(np > 23)
@@ -144,8 +136,7 @@ namespace util
         double dy;
         unsigned int np;
         unsigned int idx;
-        for(unsigned int i = 4; i < NTVECS; ++i)
-        {
+        for(unsigned int i = 4; i < NTVECS; ++i) {
             ss.push(test_vec[i].x);
             np = ss.npopulated();
             idx = (np - 1) / 2;
@@ -157,16 +148,14 @@ namespace util
 
     void Smooth_ut::test_savgol_cubic()
     {
-        for(unsigned int i = 5; i <= 25; i += 2)
-        {
+        for(unsigned int i = 5; i <= 25; i += 2) {
             _test_savgol_cubic(i);
         }
     }
 
     void Smooth_ut::test_savgol_cubic_dx()
     {
-        for(unsigned int i = 5; i <= 25; i += 2)
-        {
+        for(unsigned int i = 5; i <= 25; i += 2) {
             _test_savgol_cubic_dx(i);
         }
     }

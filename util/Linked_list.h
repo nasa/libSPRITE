@@ -4,21 +4,18 @@
 #include "base/types.h"
 #include <stddef.h>
 
-namespace util
-{
+namespace util {
     /**
      * The linked list class is a simple template for creating a doubly linked
      * list data structure.
      * @param T The type of data in the linked list.
      */
-    template <typename T> class Linked_list
-    {
+    template <typename T> class Linked_list {
       public:
         /**
          * The structure of each node in the linked list.
          */
-        class Node
-        {
+        class Node {
             /**
              * The owning class must be a friend in order to manipulate
              * the list.
@@ -124,13 +121,11 @@ namespace util
         {
             m_head = new Node(t, NULL, m_head);
 
-            if(m_head->m_next)
-            {
+            if(m_head->m_next) {
                 m_head->m_next->m_prev = m_head;
             }
 
-            if(!m_tail)
-            {
+            if(!m_tail) {
                 m_tail = m_head;
             }
         }
@@ -144,13 +139,11 @@ namespace util
         {
             m_tail = new Node(t, m_tail, NULL);
 
-            if(m_tail->m_prev)
-            {
+            if(m_tail->m_prev) {
                 m_tail->m_prev->m_next = m_tail;
             }
 
-            if(!m_head)
-            {
+            if(!m_head) {
                 m_head = m_tail;
             }
         }
@@ -161,20 +154,16 @@ namespace util
          */
         void delete_front()
         {
-            if(!m_head)
-            {
+            if(!m_head) {
                 return;
             }
 
             Node *temp(m_head);
             m_head = m_head->m_next;
 
-            if(m_head)
-            {
+            if(m_head) {
                 m_head->m_prev = NULL;
-            }
-            else
-            {
+            } else {
                 m_tail = NULL;
             }
 
@@ -189,8 +178,7 @@ namespace util
          */
         bool pop_front(T &t)
         {
-            if(NULL == m_head)
-            {
+            if(NULL == m_head) {
                 return false;
             }
 
@@ -208,20 +196,16 @@ namespace util
          */
         void delete_back()
         {
-            if(!m_tail)
-            {
+            if(!m_tail) {
                 return;
             }
 
             Node *temp(m_tail);
             m_tail = m_tail->m_prev;
 
-            if(m_tail)
-            {
+            if(m_tail) {
                 m_tail->m_next = NULL;
-            }
-            else
-            {
+            } else {
                 m_head = NULL;
             }
 
@@ -236,8 +220,7 @@ namespace util
          */
         bool pop_back(T &t)
         {
-            if(NULL == m_tail)
-            {
+            if(NULL == m_tail) {
                 return false;
             }
 
@@ -257,8 +240,7 @@ namespace util
             /* Handle the case where the node is the first element in
              * the list.
              */
-            if(node == m_head)
-            {
+            if(node == m_head) {
                 delete_front();
                 node = NULL;
                 return;
@@ -267,8 +249,7 @@ namespace util
             /* Handle the case where the node is the last element in
              * the list.
              */
-            if(node == m_tail)
-            {
+            if(node == m_tail) {
                 delete_back();
                 node = NULL;
                 return;

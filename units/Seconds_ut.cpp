@@ -2,8 +2,7 @@
 #include "units/Seconds.h"
 #include "units/Seconds_ut.h"
 
-namespace units
-{
+namespace units {
 
     void Seconds_ut::setUp()
     {

@@ -1,8 +1,7 @@
 #include "SRTX/Reference_time_ut.h"
 #include "SRTX/Reference_time.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     void Reference_time_ut::setUp()
     {

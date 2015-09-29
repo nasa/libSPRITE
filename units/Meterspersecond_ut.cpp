@@ -2,8 +2,7 @@
 #include "Meterspersecond_ut.h"
 #include "base/XPRINTF.h"
 
-namespace units
-{
+namespace units {
 
     void Meterspersecond_ut::setUp()
     {

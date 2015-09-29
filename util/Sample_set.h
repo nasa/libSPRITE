@@ -4,14 +4,12 @@
 #include <stdlib.h>
 #include "base/assertion.h"
 
-namespace util
-{
+namespace util {
 
     /**
      * This class keeps track of the last 'n' samples of data.
      */
-    template <typename T> class Sample_set
-    {
+    template <typename T> class Sample_set {
 
       public:
         /**
@@ -21,11 +19,11 @@ namespace util
          * @satisfies{util-2.1}
          */
         Sample_set(unsigned int nelem)
-            : m_head(nelem - 1)
+            : m_elem(static_cast<T *>(malloc(sizeof(T) * nelem)))
+            , m_nelem((NULL == m_elem) ? 0 : nelem)
+            , m_head(nelem - 1)
             , m_npop(0)
         {
-            m_elem = static_cast<T *>(malloc(sizeof(T) * nelem));
-            m_nelem = (NULL == m_elem) ? 0 : nelem;
         }
 
         /**
@@ -90,8 +88,7 @@ namespace util
             assert((i >= 1) && (i <= m_nelem));
 
             int elem = (m_head - i + 1);
-            if(elem < 0)
-            {
+            if(elem < 0) {
                 elem += m_nelem;
             }
             return m_elem[elem];
@@ -116,13 +113,26 @@ namespace util
 
             /* Increment the number of samples populated if necessary.
              */
-            if(m_npop < m_nelem)
-            {
+            if(m_npop < m_nelem) {
                 ++m_npop;
             }
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Sample_set(const Sample_set &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Sample_set &operator=(const Sample_set &);
+
         /**
          * Buffer elements.
          */

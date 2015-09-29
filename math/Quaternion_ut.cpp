@@ -4,8 +4,7 @@
 #include "math/Quaternion_ut.h"
 #include "math/Euler.h"
 
-namespace math
-{
+namespace math {
 
     void Quaternion_ut::setUp()
     {
@@ -164,14 +163,11 @@ namespace math
          * orientation. Test for either.
          */
         double d = e.get_pitch();
-        if((d < (pitch + epsilon)) && (d > (pitch - epsilon)))
-        {
+        if((d < (pitch + epsilon)) && (d > (pitch - epsilon))) {
             CPPUNIT_ASSERT_DOUBLES_EQUAL(roll, e.get_roll(), epsilon);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(pitch, e.get_pitch(), epsilon);
             CPPUNIT_ASSERT_DOUBLES_EQUAL(yaw, e.get_yaw(), epsilon);
-        }
-        else
-        {
+        } else {
             /* The angles get translated from 180 degrees pitch to 0 pitch and
              * 180 degrees roll and yaw which is equivalent.
              */

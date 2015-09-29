@@ -3,8 +3,7 @@
 #include "units/Millimeters_ut.h"
 #include "base/XPRINTF.h"
 
-namespace units
-{
+namespace units {
 
     void Millimeters_ut::setUp()
     {

@@ -3,8 +3,7 @@
 
 #include "math/Vec3.h"
 
-namespace math
-{
+namespace math {
 
     /**
      * Forward declartion of classes.
@@ -12,8 +11,7 @@ namespace math
     class Euler;
     class DCM;
 
-    class Quaternion
-    {
+    class Quaternion {
       public:
         /**
          * Default contructor.

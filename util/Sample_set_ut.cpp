@@ -1,8 +1,7 @@
 #include "util/Sample_set.h"
 #include "util/Sample_set_ut.h"
 
-namespace util
-{
+namespace util {
 
     void Sample_set_ut::setUp()
     {

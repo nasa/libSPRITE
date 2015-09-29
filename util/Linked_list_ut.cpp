@@ -1,7 +1,12 @@
 #include "util/Linked_list_ut.h"
 
-namespace util
-{
+namespace util {
+    Linked_list_ut::Linked_list_ut()
+        : ll()
+        , ll_node(NULL)
+    {
+    }
+
     void Linked_list_ut::setUp()
     {
     }
@@ -54,8 +59,7 @@ namespace util
 
         int i = 1;
         ll_node = ll.head();
-        while(ll_node)
-        {
+        while(ll_node) {
             CPPUNIT_ASSERT_EQUAL(ll_node->data, i);
             ll_node = ll_node->next();
             ++i;
@@ -72,8 +76,7 @@ namespace util
 
         int i = 4;
         ll_node = ll.tail();
-        while(ll_node)
-        {
+        while(ll_node) {
             CPPUNIT_ASSERT_EQUAL(ll_node->data, i);
             ll_node = ll_node->prev();
             --i;

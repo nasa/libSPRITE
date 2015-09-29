@@ -5,10 +5,8 @@
 #include "SRTX/Task_properties.h"
 #include "units/Seconds.h"
 
-namespace SCALE
-{
-    class Task_properties
-    {
+namespace SCALE {
+    class Task_properties {
       public:
         /**
          * The name regsitered with Lua to describe the class.
@@ -42,8 +40,7 @@ namespace SCALE
         static int init(lua_State *L)
         {
             SRTX::Task_properties *p = luaW_check<SRTX::Task_properties>(L, 1);
-            switch(lua_gettop(L) - 1)
-            {
+            switch(lua_gettop(L) - 1) {
             case 4:
                 p->stack_size =
                     static_cast<unsigned int>(luaL_checknumber(L, 5));

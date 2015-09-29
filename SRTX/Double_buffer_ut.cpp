@@ -2,8 +2,7 @@
 #include "SRTX/Double_buffer_ut.h"
 #include "SRTX/Double_buffer.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     void Double_buffer_ut::setUp()
     {
@@ -41,14 +40,16 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(false, bdb->read(&wval, sizeof(int) + 1));
         CPPUNIT_ASSERT_EQUAL(false, bdb->write(&wval, sizeof(int) + 1));
 
+#if 0 // Not repeatable with some machines.
         /* Assume that we cannot allocate a double buffer of type array of the
          * maximum number of ints. (Exhaust memory).
          */
-        Base_double_buffer db_big(INT_MAX - 1);
+        Base_double_buffer db_big(UINT_MAX);
 
         CPPUNIT_ASSERT_EQUAL(false, db_big.is_valid());
         CPPUNIT_ASSERT_EQUAL(false, db_big.write(&wval, sizeof(int)));
         CPPUNIT_ASSERT_EQUAL(false, db_big.read(&rval, sizeof(int)));
+#endif
 
         /* Test the double buffer copy operation.
          */
@@ -67,8 +68,10 @@ namespace SRTX
         /* Now let's try some copy operations that should fail.
          */
         CPPUNIT_ASSERT_EQUAL(false, copy_entry(db2, db, sizeof(int) + 1));
+#if 0
         CPPUNIT_ASSERT_EQUAL(false, copy_entry(db_big, db, sizeof(int)));
         CPPUNIT_ASSERT_EQUAL(false, copy_entry(db2, db_big, sizeof(int)));
+#endif
     }
 
 } // namespace

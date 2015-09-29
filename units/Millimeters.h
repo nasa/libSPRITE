@@ -4,16 +4,14 @@
 #include <math.h>
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declaration of class.
      */
     class Meters;
 
-    class Millimeters
-    {
+    class Millimeters {
       public:
         /**
          * Constructor.
@@ -22,8 +20,7 @@ namespace units
          * @satisfies{units-17.2}
          * @satisfies{units-17.4}
          */
-        explicit Millimeters(int64_t v = 0)
-            : m_value(v)
+        explicit Millimeters(int64_t v = 0) : m_value(v)
         {
         }
 

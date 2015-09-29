@@ -3,15 +3,13 @@
 
 #include "SRTX/Task.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * This class acts as a container for shared object libraries that
      * implement the heart of the tasks functionality.
      */
-    class Container : public SRTX::Task
-    {
+    class Container : public SRTX::Task {
 
       public:
         /**
@@ -42,6 +40,20 @@ namespace SRTX
         void terminate();
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Container(const Container &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Container &operator=(const Container &);
+
         /**
          * Shared object library pathname.
          */

@@ -6,16 +6,19 @@
 #include "net/Socket.h"
 #include "units/Nanoseconds.h"
 
-namespace net
-{
-    class UDP_connection : public Socket
-    {
+namespace net {
+    class UDP_connection : public Socket {
       public:
         /**
          * Create a UDP connection class.
          * @param port UDP port.
          */
         UDP_connection(int port);
+
+        /**
+         * Destructor.
+         */
+        virtual ~UDP_connection();
 
         /**
          * Create a UDP connection class.

@@ -3,8 +3,7 @@
 
 #include "units/Seconds.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declaration of class.
@@ -14,8 +13,7 @@ namespace units
     /**
      * This class embodies the concept of GPS time as a unit of measure.
      */
-    class GPS_time
-    {
+    class GPS_time {
       public:
         /**
          * Default constructor.
@@ -71,8 +69,7 @@ namespace units
         {
             m_seconds += rhs;
 
-            while(m_seconds > SECONDS_PER_WEEK)
-            {
+            while(m_seconds > SECONDS_PER_WEEK) {
                 ++m_week;
                 m_seconds -= SECONDS_PER_WEEK;
             }
@@ -89,8 +86,7 @@ namespace units
         GPS_time operator-(const GPS_time &rhs) const
         {
             GPS_time t(m_week - rhs.m_week, m_seconds - rhs.m_seconds);
-            if(t.m_seconds < 0)
-            {
+            if(t.m_seconds < 0) {
                 --t.m_week;
                 t.m_seconds += SECONDS_PER_WEEK;
             }

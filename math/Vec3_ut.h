@@ -3,14 +3,12 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace math
-{
+namespace math {
 
     /**
      * Test three element vectors.
      */
-    class Vec3_ut : public CppUnit::TestFixture
-    {
+    class Vec3_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Vec3_ut);
 

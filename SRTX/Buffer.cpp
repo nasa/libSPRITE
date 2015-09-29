@@ -2,27 +2,26 @@
 #include "SRTX/Buffer.h"
 #include "base/XPRINTF.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     Buffer::Buffer(unsigned int nbytes)
         : m_nbytes(nbytes)
+        , m_valid(false)
+        , m_sync()
         , m_update_count(0)
     {
     }
 
     void Buffer::abort_read()
     {
-        if(false == m_sync.lock())
-        {
+        if(false == m_sync.lock()) {
             EPRINTF("Error obtaining lock\n");
             return;
         }
 
         m_sync.abort_wait();
 
-        if(false == m_sync.unlock())
-        {
+        if(false == m_sync.unlock()) {
             EPRINTF("Error releasing lock\n");
             return;
         }

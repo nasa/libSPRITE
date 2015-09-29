@@ -3,8 +3,7 @@
 #include "math/DCM_ut.h"
 #include "math/Euler.h"
 
-namespace math
-{
+namespace math {
 
     void DCM_ut::setUp()
     {

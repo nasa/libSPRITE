@@ -1,8 +1,7 @@
 #include "units/Liters.h"
 #include "units/Liters_ut.h"
 
-namespace units
-{
+namespace units {
 
     void Liters_ut::setUp()
     {

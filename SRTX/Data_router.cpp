@@ -1,16 +1,14 @@
 #include <string.h>
 #include "base/XPRINTF.h"
 #include "SRTX/Data_router.h"
-#include "SRTX/Linked_list.h"
+#include "util/Linked_list.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /* These are data elements that we will transfer from source to destination
      * on a periodic basis.
      */
-    struct Transfer_item
-    {
+    struct Transfer_item {
         Transfer_item(Base_double_buffer &s, Base_double_buffer &d,
                       unsigned int n, units::Nanoseconds p)
             : source(s)
@@ -27,13 +25,12 @@ namespace SRTX
         const units::Nanoseconds period;
         unsigned int last_update_count;
     };
-    typedef Linked_list<Transfer_item *> Transfer_list;
+    typedef util::Linked_list<Transfer_item *> Transfer_list;
 
     /* These are subscription request that are waiting to be matched up with a
      * publication.
      */
-    struct Orphan_item
-    {
+    struct Orphan_item {
         Orphan_item(const char *n, units::Nanoseconds p, Base_double_buffer &b)
             : name(n)
             , period(p)
@@ -45,12 +42,20 @@ namespace SRTX
         units::Nanoseconds period;
         Base_double_buffer &buffer;
     };
-    typedef Linked_list<Orphan_item *> Orphan_list;
+    typedef util::Linked_list<Orphan_item *> Orphan_list;
 
     /* Internal implementation dependent stuff. See PIMPL pattern.
      */
-    struct Data_router_impl
-    {
+    struct Data_router_impl {
+        /**
+         * Constructor.
+         */
+        Data_router_impl()
+            : transfer()
+            , orphan()
+        {
+        }
+
         /* A linked list of data items that need to be moved at a specific
          * period.
          */
@@ -61,8 +66,7 @@ namespace SRTX
         Orphan_list orphan;
     };
 
-    Data_router::Data_router()
-        : m_impl(new Data_router_impl)
+    Data_router::Data_router() : m_impl(new Data_router_impl)
     {
     }
 
@@ -98,13 +102,11 @@ namespace SRTX
         Orphan_list::Node *n = list.head();
 
         DPRINTF("%s: Looking for orphans\n", name);
-        while(n)
-        {
+        while(n) {
             /* If name matches the orphan, tie this publisher to the orphaned
              * subscribers buffer.
              */
-            if(0 == strcmp(name, n->data->name))
-            {
+            if(0 == strcmp(name, n->data->name)) {
                 DPRINTF("Adopting %s%lld\n", n->data->name,
                         int64_t(n->data->period));
 
@@ -113,8 +115,7 @@ namespace SRTX
                  * otherwise, we have to schedule data to be transfered from
                  * one rategoup to the other.
                  */
-                if(period != n->data->period)
-                {
+                if(period != n->data->period) {
                     DPRINTF("Registering transfer for for topic %s from %lld "
                             "nanosecond process to %lld nanoseconds\n",
                             name, int64_t(period), int64_t(n->data->period));
@@ -130,9 +131,7 @@ namespace SRTX
                 Orphan_list::Node *tmp = n;
                 n = n->next();
                 list.delete_node(tmp);
-            }
-            else
-            {
+            } else {
                 n = n->next();
             }
         }
@@ -143,27 +142,23 @@ namespace SRTX
         Transfer_list &list = m_impl->transfer;
         Transfer_list::Node *n = list.head();
 
-        while(n)
-        {
+        while(n) {
             /* If the transfer was registered to take place with a period that
              * begins on this frame boundary, then do the transfer.
              */
-            if(0 == (ref_time % n->data->period))
-            {
+            if(0 == (ref_time % n->data->period)) {
                 /* We only do the transfer if the publication time has changed.
                  * Otherwise, were wasting our time and we could trigger a
                  * blocking_get() call when there really is no new data.
                  */
                 const unsigned int current_update_count =
                     n->data->source.get_update_count();
-                if(n->data->last_update_count != current_update_count)
-                {
+                if(n->data->last_update_count != current_update_count) {
                     DPRINTF("Transferring %lld period data\n",
                             int64_t(n->data->period));
                     n->data->last_update_count = current_update_count;
                     if(false ==
-                       copy(n->data->dest, n->data->source, n->data->nbytes))
-                    {
+                       copy(n->data->dest, n->data->source, n->data->nbytes)) {
                         EPRINTF("Error performing data copy\n");
                     }
                 }

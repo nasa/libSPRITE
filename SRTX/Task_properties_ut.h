@@ -3,13 +3,11 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
+namespace SRTX {
     /**
      * Provide tests for the configurable properties of a task.
      */
-    class Task_properties_ut : public CppUnit::TestFixture
-    {
+    class Task_properties_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Task_properties_ut);
 

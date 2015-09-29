@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace net
-{
-    class UDP_server_ut : public CppUnit::TestFixture
-    {
+namespace net {
+    class UDP_server_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(UDP_server_ut);
 

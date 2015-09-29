@@ -6,11 +6,9 @@
 #include "Reference_time.h"
 #include "RTC.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
-    namespace
-    {
+    namespace {
         units::Nanoseconds sched_period(10 * units::MSEC);
     }
 
@@ -20,8 +18,7 @@ namespace SRTX
         Task_db::value_t task_props;
 
         task_props.period = sched_period;
-        if(false == sched.set_properties(task_props))
-        {
+        if(false == sched.set_properties(task_props)) {
             EPRINTF("Error setting scheduler properties\n");
             return;
         }
@@ -29,8 +26,7 @@ namespace SRTX
         /* Set the scheduler to use an external trigger.
          */
         sched.use_external_trigger(true);
-        if(false == sched.start())
-        {
+        if(false == sched.start()) {
             EPRINTF("Error starting the scheduler\n");
             return;
         }

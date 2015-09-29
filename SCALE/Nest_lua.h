@@ -5,11 +5,9 @@
 #include "SCALE/LuaWrapper.h"
 #include "SCALE/Nest.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
-    class Nest_lua
-    {
+    class Nest_lua {
       public:
         /**
          * The name regsitered with Lua to describe the class.

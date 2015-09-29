@@ -3,10 +3,8 @@
 
 #include "net/UDP_connection.h"
 
-namespace net
-{
-    class UDP_server : public UDP_connection
-    {
+namespace net {
+    class UDP_server : public UDP_connection {
       public:
         /**
          * Create a UDP server.

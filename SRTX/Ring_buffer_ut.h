@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SRTX
-{
-    class Ring_buffer_ut : public CppUnit::TestFixture
-    {
+namespace SRTX {
+    class Ring_buffer_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Ring_buffer_ut);
 

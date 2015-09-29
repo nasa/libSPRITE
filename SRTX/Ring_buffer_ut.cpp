@@ -3,8 +3,7 @@
 #include "SRTX/Ring_buffer_ut.h"
 #include "SRTX/Ring_buffer.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     void Ring_buffer_ut::setUp()
     {
@@ -54,6 +53,7 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(true, rb.read(rval));
         CPPUNIT_ASSERT_EQUAL(wval + 3, rval);
 
+#if 0 // Not repeatable. Some machines can allocate that much RAM.
         /* Assume that we cannot allocate a ring buffer of type array of the
          * maximum number of ints. (Exhaust memory).
          */
@@ -62,6 +62,7 @@ namespace SRTX
         CPPUNIT_ASSERT_EQUAL(false, db_big.is_valid());
         CPPUNIT_ASSERT_EQUAL(false, db_big.write(&wval, sizeof(int)));
         CPPUNIT_ASSERT_EQUAL(false, db_big.read(&rval, sizeof(int)));
+#endif
 
         /* Test blocking timeout.
          */

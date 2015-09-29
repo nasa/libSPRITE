@@ -3,8 +3,7 @@
 #include "units/Kilometers_ut.h"
 #include "base/XPRINTF.h"
 
-namespace units
-{
+namespace units {
 
     void Kilometers_ut::setUp()
     {

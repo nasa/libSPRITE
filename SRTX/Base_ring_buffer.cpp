@@ -3,16 +3,17 @@
 #include "SRTX/Base_ring_buffer.h"
 #include "base/XPRINTF.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     Base_ring_buffer::Base_ring_buffer(unsigned int nbytes, unsigned int nelem)
         : Buffer(nbytes)
         , m_nelems(nelem)
         , m_free(nelem)
+        , m_buffer(static_cast<char *>(malloc(m_size)))
+        , m_head(m_buffer)
+        , m_tail(m_buffer)
         , m_size(nbytes * nelem)
     {
-        m_head = m_tail = m_buffer = static_cast<char *>(malloc(m_size));
         m_valid = m_sync.is_valid() && (m_buffer != NULL);
     }
 
@@ -24,8 +25,7 @@ namespace SRTX
         /* Move the tail pointer
         */
         m_tail += m_nbytes;
-        if(m_tail >= (m_buffer + m_size))
-        {
+        if(m_tail >= (m_buffer + m_size)) {
             m_tail -= m_size;
         }
 
@@ -38,8 +38,7 @@ namespace SRTX
     {
         /* If the object is valid then we kwow the buffer is not NULL.
          */
-        if((false == m_valid) || (nbytes > m_nbytes))
-        {
+        if((false == m_valid) || (nbytes > m_nbytes)) {
             return false;
         }
 
@@ -47,8 +46,7 @@ namespace SRTX
 
         /* Is there anything to be read?
          */
-        if(m_free == m_nelems)
-        {
+        if(m_free == m_nelems) {
             m_sync.unlock();
             return false;
         }
@@ -61,8 +59,7 @@ namespace SRTX
     {
         /* If the object is valid then we kwow the buffer is not NULL.
          */
-        if((false == m_valid) || (nbytes > m_nbytes))
-        {
+        if((false == m_valid) || (nbytes > m_nbytes)) {
             return false;
         }
 
@@ -70,10 +67,8 @@ namespace SRTX
 
         /* If the buffer is empty, wait for data or timeout.
          */
-        if(m_free == m_nelems)
-        {
-            if((false == m_sync.wait(timeout)) || (m_free == m_nelems))
-            {
+        if(m_free == m_nelems) {
+            if((false == m_sync.wait(timeout)) || (m_free == m_nelems)) {
                 m_sync.unlock();
                 return false;
             }
@@ -88,8 +83,7 @@ namespace SRTX
     {
         /* If the object is valid then we kwow the buffer is not NULL.
         */
-        if((false == m_valid) || (nbytes > m_nbytes))
-        {
+        if((false == m_valid) || (nbytes > m_nbytes)) {
             return false;
         }
 
@@ -97,8 +91,7 @@ namespace SRTX
 
         /* Is there room to add an item to the queue?
         */
-        if(m_free <= 0)
-        {
+        if(m_free <= 0) {
             m_sync.unlock();
             return false;
         }
@@ -111,16 +104,17 @@ namespace SRTX
         /* Move the head pointer.
         */
         m_head += m_nbytes;
-        if(m_head >= (m_buffer + m_size))
-        {
+        if(m_head >= (m_buffer + m_size)) {
             m_head -= m_size;
         }
 
         /* Signal blocked processes that an update to the buffer has
          * occured and unlock the syncpoint so they can proceed.
          */
-        m_sync.condition_satisfied();
-        m_sync.release();
+        if(true == signal) {
+            m_sync.condition_satisfied();
+            m_sync.release();
+        }
 
         m_sync.unlock();
 

@@ -4,8 +4,7 @@
 #include "SRTX/Symbol_db.h"
 #include "SRTX/Task_properties.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * Define a task database type that contains the task properties.
@@ -20,8 +19,7 @@ namespace SRTX
     /**
      * A task is the basic unit that gets scheduled in the systems.
      */
-    class Task
-    {
+    class Task {
       public:
         /**
          * Constructor.
@@ -184,13 +182,26 @@ namespace SRTX
          */
         const char *m_name;
 
-      protected:
         /**
          * Flag to indicate that this is the end-of-frame task.
          */
         bool m_is_eof_task;
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Task(const Task &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Task &operator=(const Task &);
+
         /**
          * This is the task entry point.
          */

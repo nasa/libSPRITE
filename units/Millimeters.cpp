@@ -1,12 +1,11 @@
 #include "units/Millimeters.h"
 #include "units/Meters.h"
 
-namespace units
-{
+namespace units {
 
     Millimeters::Millimeters(const Meters &m)
+        : m_value(int64_t(m.toMillimeters()))
     {
-        *this = m.toMillimeters();
     }
 
     units::Meters Millimeters::toMeters() const

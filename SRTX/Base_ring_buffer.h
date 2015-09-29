@@ -3,14 +3,12 @@
 
 #include "SRTX/Buffer.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /**
      * An untyped ring buffer.
      */
-    class Base_ring_buffer : public Buffer
-    {
+    class Base_ring_buffer : public Buffer {
       public:
         /**
          * Constructor.
@@ -36,9 +34,9 @@ namespace SRTX
          * Default behavior (timeout=0) is to wait forever.
          * @return True on success or false on failure.
          */
-        bool read_blocking(
-            void *data, unsigned int nbytes,
-            const units::Nanoseconds &timeout = units::Nanoseconds(0));
+        bool read_blocking(void *data, unsigned int nbytes,
+                           const units::Nanoseconds &timeout =
+                               units::Nanoseconds(0));
 
         /**
          * Write to the buffer.
@@ -92,6 +90,20 @@ namespace SRTX
         virtual ~Base_ring_buffer();
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Base_ring_buffer(const Base_ring_buffer &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Base_ring_buffer &operator=(const Base_ring_buffer &);
+
         /**
          * Number of buffer elements that can be stored.
          */

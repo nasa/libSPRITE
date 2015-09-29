@@ -1,14 +1,12 @@
-#ifndef __util_LINKED_LIST_UT_H__
-#define __util_LINKED_LIST_UT_H__
+#ifndef __UTIL_LINKED_LIST_UT_H__
+#define __UTIL_LINKED_LIST_UT_H__
 
 #include <cppunit/extensions/HelperMacros.h>
 #include "util/Linked_list.h"
 
-namespace util
-{
+namespace util {
 
-    class Linked_list_ut : public CppUnit::TestFixture
-    {
+    class Linked_list_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Linked_list_ut);
 
@@ -100,6 +98,7 @@ namespace util
         CPPUNIT_TEST_SUITE_END();
 
       public:
+        Linked_list_ut();
         void setUp();
         void tearDown();
 
@@ -118,6 +117,20 @@ namespace util
         void test_delete_middle_node();
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Linked_list_ut(const Linked_list_ut &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Linked_list_ut &operator=(const Linked_list_ut &);
+
         Linked_list<int> ll;
         Linked_list<int>::Node *ll_node;
     };
@@ -126,4 +139,4 @@ namespace util
 
 } // namespace
 
-#endif // __util_LINKED_LIST_UT_H__
+#endif // __UTIL_LINKED_LIST_UT_H__

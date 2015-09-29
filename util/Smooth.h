@@ -3,8 +3,7 @@
 
 #include "util/Sample_set.h"
 
-namespace util
-{
+namespace util {
 
     /**
      * Compute a Savitzky-Golay smoothed value of the set of data points

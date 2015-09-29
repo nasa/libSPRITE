@@ -3,15 +3,13 @@
 
 #include "SRTX/Task.h"
 
-namespace SRTX
-{
+namespace SRTX {
 
     /* This task gets scheduled as the lowest priority task in the rategroup.
      * When it executes to signals the scheduler that the rategroup completed
      * execution and stores the time at which it completed.
      */
-    class End_of_frame : public Task
-    {
+    class End_of_frame : public Task {
       public:
         /**
          * Constructor.

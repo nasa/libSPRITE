@@ -5,8 +5,7 @@
 #include "units/Degrees.h"
 #include "units/Radians.h"
 
-namespace math
-{
+namespace math {
 
     /**
      * @satisfies{math-1.1}

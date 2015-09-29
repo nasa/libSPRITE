@@ -4,10 +4,8 @@
 #include <sys/socket.h>
 #include "net/Socket.h"
 
-namespace net
-{
-    class Socket
-    {
+namespace net {
+    class Socket {
       public:
         /**
          * Is the socket valid?
@@ -28,7 +26,7 @@ namespace net
         /**
          * Destructor.
          */
-        ~Socket();
+        virtual ~Socket();
 
         /**
          * Class valid?

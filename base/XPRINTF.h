@@ -6,8 +6,7 @@
 
 #ifdef XPRINT_LOCATION
 #define LPRINTF(type)                                                          \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         fprintf(stderr, "%s:%s:%d:", (type), __FILE__, __LINE__);              \
     } while(0)
 #else
@@ -22,20 +21,17 @@
 #define PERRORNO(x...)
 #else
 #define EPRINTF(x...)                                                          \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         LPRINTF("ERROR");                                                      \
         fprintf(stderr, x);                                                    \
     } while(0)
 #define PERROR(x...)                                                           \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         LPRINTF("ERROR");                                                      \
         perror(x);                                                             \
     } while(0)
 #define PERRORNO(err, x...)                                                    \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         EPRINTF(x);                                                            \
         fprintf(stderr, ": %s\n", strerror(err));                              \
     } while(0)
@@ -49,8 +45,7 @@
 #define WPRINTF(x...)
 #else
 #define WPRINTF(x...)                                                          \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         LPRINTF("WARNING");                                                    \
         fprintf(stderr, x);                                                    \
     } while(0)
@@ -64,8 +59,7 @@
 #define IPRINTF(x...)
 #else
 #define IPRINTF(x...)                                                          \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         printf(x);                                                             \
     } while(0)
 #endif
@@ -76,8 +70,7 @@
 #undef DPRINTF
 #ifdef PRINT_DEBUG
 #define DPRINTF(x...)                                                          \
-    do                                                                         \
-    {                                                                          \
+    do {                                                                       \
         LPRINTF("DEBUG");                                                      \
         fprintf(stderr, x);                                                    \
     } while(0)

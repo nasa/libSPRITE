@@ -3,13 +3,11 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace sys
-{
+namespace sys {
     /**
      * Test the reference time class.
      */
-    class Reference_time_ut : public CppUnit::TestFixture
-    {
+    class Reference_time_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Reference_time_ut);
 

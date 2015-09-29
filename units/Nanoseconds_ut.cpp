@@ -2,8 +2,7 @@
 #include "units/Seconds.h"
 #include "units/Nanoseconds_ut.h"
 
-namespace units
-{
+namespace units {
 
     void Nanoseconds_ut::setUp()
     {

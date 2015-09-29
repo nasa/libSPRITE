@@ -4,10 +4,8 @@
 #include "SCALE/LuaWrapper.h"
 #include "SCALE/Test_task.h"
 
-namespace SCALE
-{
-    class Test_task_ext
-    {
+namespace SCALE {
+    class Test_task_ext {
       public:
         /**
          * The name regsitered with Lua to describe the class.

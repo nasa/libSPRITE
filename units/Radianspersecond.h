@@ -3,14 +3,12 @@
 
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Define Radians/second as a unit of angular velocity.
      */
-    class Radianspersecond
-    {
+    class Radianspersecond {
       public:
         /**
          * Constructor.
@@ -19,8 +17,7 @@ namespace units
          * @satisfies{units-14.2}
          * @satisfies{units-14.4}
          */
-        explicit Radianspersecond(double v = 0.0)
-            : m_value(v)
+        explicit Radianspersecond(double v = 0.0) : m_value(v)
         {
         }
 

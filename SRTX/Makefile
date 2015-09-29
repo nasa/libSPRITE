@@ -17,7 +17,6 @@ SRC:=Base_double_buffer.cpp \
 
 TEST_SRC:=Double_buffer_ut.cpp \
           Ring_buffer_ut.cpp \
-          Linked_list_ut.cpp \
           Mutex_ut.cpp \
           Symbol_table_ut.cpp \
           Task_properties_ut.cpp \

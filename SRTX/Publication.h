@@ -8,15 +8,13 @@
 #include "SRTX/Symbol_db.h"
 #include "SRTX/RTC.h"
 
-namespace SRTX
-{
+namespace SRTX {
     /**
      * This class represents the publication of some type of data in the
      * pub/sub system.
      * @param T The type of data carried by the message.
      */
-    template <typename T> class Publication : public Message<T>
-    {
+    template <typename T> class Publication : public Message<T> {
 
         /* Alias the typename for the symbol table for messages.
          */
@@ -44,24 +42,20 @@ namespace SRTX
              */
             m_symbol = msg_db.lookup_symbol(sym_name);
             Symbol<Message<T> > *alias = msg_db.lookup_symbol(name);
-            if(NULL == m_symbol)
-            {
+            if(NULL == m_symbol) {
                 DPRINTF("Creating symbol for message %s\n", sym_name);
                 m_symbol = msg_db.add_symbol(sym_name);
-                if((NULL == m_symbol) || (false == m_symbol->is_valid()))
-                {
+                if((NULL == m_symbol) || (false == m_symbol->is_valid())) {
                     EPRINTF("Symbol creation failed\n");
                     delete m_symbol;
                     m_symbol = NULL;
                     return;
                 }
             }
-            if(NULL == alias)
-            {
+            if(NULL == alias) {
                 DPRINTF("Creating alias %s\n", name);
                 alias = msg_db.alias_symbol(name, m_symbol);
-                if((NULL == alias) || (false == alias->is_valid()))
-                {
+                if((NULL == alias) || (false == alias->is_valid())) {
                     EPRINTF("Alias creation failed\n");
                     delete m_symbol;
                     m_symbol = NULL;
@@ -98,8 +92,7 @@ namespace SRTX
          */
         bool put()
         {
-            if(false == m_valid)
-            {
+            if(false == m_valid) {
                 EPRINTF(
                     "Attempting to put data to an invalid publication: %s\n",
                     m_symbol->get_name());
@@ -117,6 +110,20 @@ namespace SRTX
         }
 
       private:
+        /**
+         * Copy constructor.
+         * The copy constructor is made private to prevent copy because the
+         * class has a pointer member variable.
+         */
+        Publication(const Publication &);
+
+        /**
+         * Assignment operator.
+         * The assignment operator is made private to because the class has a
+         * pointer member variable.
+         */
+        Publication &operator=(const Publication &);
+
         /**
          * Flag indicating if the publication was validly constructed.
          */
