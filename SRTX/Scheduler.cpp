@@ -1,11 +1,11 @@
 #include <unistd.h>
 #include "SRTX/Data_router.h"
 #include "SRTX/End_of_frame.h"
-#include "SRTX/Linked_list.h"
 #include "SRTX/Reference_time.h"
 #include "SRTX/RTC.h"
 #include "SRTX/Runtime_attributes.h"
 #include "SRTX/Scheduler.h"
+#include "util/Linked_list.h"
 #include "base/types.h"
 #include "base/XPRINTF.h"
 
@@ -55,7 +55,7 @@ namespace SRTX {
          */
         Sched_item &operator=(const Sched_item &);
     };
-    typedef Linked_list<Sched_item *> Sched_list;
+    typedef util::Linked_list<Sched_item *> Sched_list;
 
     struct Scheduler_impl {
         Scheduler_impl()

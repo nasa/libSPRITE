@@ -1,7 +1,7 @@
 #include <string.h>
 #include "base/XPRINTF.h"
 #include "SRTX/Data_router.h"
-#include "SRTX/Linked_list.h"
+#include "util/Linked_list.h"
 
 namespace SRTX {
 
@@ -25,7 +25,7 @@ namespace SRTX {
         const units::Nanoseconds period;
         unsigned int last_update_count;
     };
-    typedef Linked_list<Transfer_item *> Transfer_list;
+    typedef util::Linked_list<Transfer_item *> Transfer_list;
 
     /* These are subscription request that are waiting to be matched up with a
      * publication.
@@ -42,7 +42,7 @@ namespace SRTX {
         units::Nanoseconds period;
         Base_double_buffer &buffer;
     };
-    typedef Linked_list<Orphan_item *> Orphan_list;
+    typedef util::Linked_list<Orphan_item *> Orphan_list;
 
     /* Internal implementation dependent stuff. See PIMPL pattern.
      */

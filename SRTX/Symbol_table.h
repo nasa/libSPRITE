@@ -2,7 +2,7 @@
 #define __SRTX_SYMBOL_TABLE_H__
 
 #include "SRTX/Symbol.h"
-#include "SRTX/Linked_list.h"
+#include "util/Linked_list.h"
 
 namespace SRTX {
     template <typename T> class Symbol_table {
@@ -13,7 +13,7 @@ namespace SRTX {
          */
         typedef Symbol<T> symbol_t;
 
-        typedef Linked_list<symbol_t *> list_t;
+        typedef util::Linked_list<symbol_t *> list_t;
 
         /**
          * Constructor.
