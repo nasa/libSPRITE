@@ -30,6 +30,7 @@ add_subdirectory(units)
 add_subdirectory(net)
 add_subdirectory(math)
 add_subdirectory(util)
+add_subdirectory(SRTX)
 
 # Build a CPack driven installer package.
 include (InstallRequiredSystemLibraries)
