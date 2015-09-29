@@ -3,14 +3,12 @@
 
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Define Tesla as a unit of magnetic flux.
      */
-    class Tesla
-    {
+    class Tesla {
       public:
         /**
          * Constructor.
@@ -19,8 +17,7 @@ namespace units
          * @satisfies{units-16.2}
          * @satisfies{units-16.4}
          */
-        explicit Tesla(double v = 0.0)
-            : m_value(v)
+        explicit Tesla(double v = 0.0) : m_value(v)
         {
         }
 

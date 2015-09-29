@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace units
-{
-    class Radians_ut : public CppUnit::TestFixture
-    {
+namespace units {
+    class Radians_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Radians_ut);
 

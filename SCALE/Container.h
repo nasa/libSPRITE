@@ -4,11 +4,9 @@
 #include "SCALE/LuaWrapper.h"
 #include "SRTX/Container.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
-    class Container
-    {
+    class Container {
       public:
         /**
          * The name regsitered with Lua to describe the class.

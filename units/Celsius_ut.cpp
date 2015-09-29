@@ -1,8 +1,7 @@
 #include "units/Celsius.h"
 #include "units/Celsius_ut.h"
 
-namespace units
-{
+namespace units {
 
     void Celsius_ut::setUp()
     {

@@ -1,11 +1,9 @@
 #ifndef __UNITS_CELSIUS_H__
 #define __UNITS_CELSIUS_H__
 
-namespace units
-{
+namespace units {
 
-    class Celsius
-    {
+    class Celsius {
       public:
         /**
          * Constructor.
@@ -14,8 +12,7 @@ namespace units
          * @satisfies{units-1.2}
          * @satisfies{units-1.4}
          */
-        explicit Celsius(double v = 0.0)
-            : m_value(v)
+        explicit Celsius(double v = 0.0) : m_value(v)
         {
         }
 

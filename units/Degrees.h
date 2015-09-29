@@ -1,16 +1,14 @@
 #ifndef __UNITS_DEGREES_H__
 #define __UNITS_DEGREES_H__
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declaration of class.
      */
     class Radians;
 
-    class Degrees
-    {
+    class Degrees {
       public:
         /**
          * Constructor.
@@ -19,8 +17,7 @@ namespace units
          * @satisfies{units-3.2}
          * @satisfies{units-3.4}
          */
-        explicit Degrees(double v = 0)
-            : m_value(v)
+        explicit Degrees(double v = 0) : m_value(v)
         {
         }
 

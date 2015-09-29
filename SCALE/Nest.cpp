@@ -2,8 +2,7 @@
 #include "SCALE/Nest.h"
 #include "base/XPRINTF.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
     Nest::Nest(const char *const name)
         : SRTX::Task(name)
@@ -21,15 +20,13 @@ namespace SCALE
     {
         fprintf(stderr, "Running the nest\n");
 
-        if(NULL == m_scriptname)
-        {
+        if(NULL == m_scriptname) {
             return false;
         }
 
         /* Execute the main script that drives the simulation.
          */
-        if(false == m_scale.run_script(m_scriptname))
-        {
+        if(false == m_scale.run_script(m_scriptname)) {
             EPRINTF("Failed executing script: %s\n", m_scriptname);
             return false;
         }

@@ -4,10 +4,8 @@
 #include "SCALE/LuaWrapper.h"
 #include "SRTX/Task.h"
 
-namespace SCALE
-{
-    class Task
-    {
+namespace SCALE {
+    class Task {
       public:
         /**
          * The name regsitered with Lua to describe the class.

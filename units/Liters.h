@@ -3,10 +3,8 @@
 
 #include "base/types.h"
 
-namespace units
-{
-    class Liters
-    {
+namespace units {
+    class Liters {
       public:
         /**
          * Constructor.
@@ -15,8 +13,7 @@ namespace units
          * @satisfies{units-7.2}
          * @satisfies{units-7.4}
          */
-        explicit Liters(double v = 0.0)
-            : m_value(v)
+        explicit Liters(double v = 0.0) : m_value(v)
         {
         }
 

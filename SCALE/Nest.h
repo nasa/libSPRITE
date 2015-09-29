@@ -4,14 +4,12 @@
 #include "SRTX/Task.h"
 #include "SCALE/Scale_if.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
     /**
      * This class is a SRTX task that loads and runs a Lua script.
      */
-    class Nest : public SRTX::Task
-    {
+    class Nest : public SRTX::Task {
 
       public:
         /**

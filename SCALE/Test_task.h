@@ -3,10 +3,8 @@
 
 #include "SRTX/Task.h"
 
-namespace SCALE
-{
-    class Test_task : public SRTX::Task
-    {
+namespace SCALE {
+    class Test_task : public SRTX::Task {
       public:
         /**
          * Constructor.

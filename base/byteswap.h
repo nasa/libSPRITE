@@ -4,8 +4,7 @@
 #include "base/types.h"
 #include <string.h>
 
-enum ByteOrder
-{
+enum ByteOrder {
     LittleEndian,
     BigEndian
 };
@@ -29,8 +28,7 @@ static __inline__ uint64_t byteswap64(uint64_t x)
 
 static __inline__ int isbigendian()
 {
-    union endian_test_u
-    {
+    union endian_test_u {
         unsigned char bytes[2];
         uint16_t value;
     };

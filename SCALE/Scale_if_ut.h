@@ -3,13 +3,11 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace SCALE
-{
+namespace SCALE {
     /**
      * Provide tests for SCALE.
      */
-    class Scale_if_ut : public CppUnit::TestFixture
-    {
+    class Scale_if_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Scale_if_ut);
 

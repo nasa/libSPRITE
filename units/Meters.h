@@ -4,8 +4,7 @@
 #include <math.h>
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declataration of class.
@@ -13,8 +12,7 @@ namespace units
     class Kilometers;
     class Millimeters;
 
-    class Meters
-    {
+    class Meters {
       public:
         /**
          * Constructor.
@@ -23,8 +21,7 @@ namespace units
          * @satisfies{units-8.2}
          * @satisfies{units-8.4}
          */
-        explicit Meters(double v = 0.0)
-            : m_value(v)
+        explicit Meters(double v = 0.0) : m_value(v)
         {
         }
 

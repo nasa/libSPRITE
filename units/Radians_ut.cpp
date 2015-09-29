@@ -3,8 +3,7 @@
 #include "units/Radians.h"
 #include "units/Radians_ut.h"
 
-namespace units
-{
+namespace units {
     void Radians_ut::setUp()
     {
     }

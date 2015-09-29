@@ -4,11 +4,9 @@
 #include <math.h>
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
-    class Meterspersecond
-    {
+    class Meterspersecond {
       public:
         /**
          * Constructor.
@@ -17,8 +15,7 @@ namespace units
          * @satisfies{units-9.2}
          * @satisfies{units-9.4}
          */
-        explicit Meterspersecond(double v = 0.0)
-            : m_value(v)
+        explicit Meterspersecond(double v = 0.0) : m_value(v)
         {
         }
 

@@ -4,13 +4,11 @@
 #include "SCALE/Task_properties.h"
 #include "SCALE/Task.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
     static bool dofile(lua_State *L, const char *name)
     {
-        if(luaL_loadfile(L, name) || lua_pcall(L, 0, LUA_MULTRET, 0))
-        {
+        if(luaL_loadfile(L, name) || lua_pcall(L, 0, LUA_MULTRET, 0)) {
             luaL_error(L, "Cannot run Lua file: %s", lua_tostring(L, -1));
             return false;
         }
@@ -32,11 +30,9 @@ namespace SCALE
     }
 #endif
 
-    Scale_if::Scale_if()
-        : m_L(luaL_newstate())
+    Scale_if::Scale_if() : m_L(luaL_newstate())
     {
-        if(NULL == m_L)
-        {
+        if(NULL == m_L) {
             return;
         }
 

@@ -4,8 +4,7 @@
 #include "Meters_ut.h"
 #include "base/XPRINTF.h"
 
-namespace units
-{
+namespace units {
 
     void Meters_ut::setUp()
     {

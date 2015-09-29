@@ -4,10 +4,8 @@
 #include "SCALE/LuaWrapper.h"
 #include "SRTX/Scheduler.h"
 
-namespace SCALE
-{
-    class Scheduler
-    {
+namespace SCALE {
+    class Scheduler {
       public:
         /**
          * The name regsitered with Lua to describe the class.
@@ -44,7 +42,7 @@ namespace SCALE
         {
             (void)L; // Supress compiler warning for unused parameter.
             (void)s; // Supress compiler warning for unused parameter.
-            // do nothing.
+                     // do nothing.
         }
 
         /**

@@ -3,16 +3,14 @@
 
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declaration of class.
      */
     class Meters;
 
-    class Kilometers
-    {
+    class Kilometers {
       public:
         /**
          * Constructor.
@@ -21,8 +19,7 @@ namespace units
          * @satisfies{units-6.2}
          * @satisfies{units-6.4}
          */
-        explicit Kilometers(double v = 0.0)
-            : m_value(v)
+        explicit Kilometers(double v = 0.0) : m_value(v)
         {
         }
 

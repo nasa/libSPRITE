@@ -3,16 +3,14 @@
 
 #include "base/types.h"
 
-namespace units
-{
+namespace units {
 
     /**
      * Forward declaration of class.
      */
     class Seconds;
 
-    class Nanoseconds
-    {
+    class Nanoseconds {
       public:
         /**
          * Constructor.
@@ -21,8 +19,7 @@ namespace units
          * @satisfies{units-11.2}
          * @satisfies{units-11.4}
          */
-        explicit Nanoseconds(int64_t v = 0)
-            : m_value(v)
+        explicit Nanoseconds(int64_t v = 0) : m_value(v)
         {
         }
 

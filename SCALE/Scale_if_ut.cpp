@@ -4,8 +4,7 @@
 #include "SCALE/Test_task_ext.h"
 #include "SCALE/Nest_lua.h"
 
-namespace SCALE
-{
+namespace SCALE {
 
     void Scale_if_ut::setUp()
     {

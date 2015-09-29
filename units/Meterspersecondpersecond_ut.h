@@ -3,10 +3,8 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace units
-{
-    class Meterspersecondpersecond_ut : public CppUnit::TestFixture
-    {
+namespace units {
+    class Meterspersecondpersecond_ut : public CppUnit::TestFixture {
 
         CPPUNIT_TEST_SUITE(Meterspersecondpersecond_ut);
 
