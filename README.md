@@ -49,4 +49,5 @@ By default, the build type is Release. To build unit tests us the `CMAKE_BUILD_T
     cmake -DCMAKE_BUILD_TYPE=Test
 
 After specifying `cmake` with this macro, `make` will create a `run_test` executable in each folder. Execute the `run_test` executable for the folder you wish to test.
-    -DCMAKE_BUILD_TYPE=
+
+Run `cmake` with the `-DCMAKE_BUILD_TYPE=Release` option to switch back to the normal build.
