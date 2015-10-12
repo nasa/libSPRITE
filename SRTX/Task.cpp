@@ -229,6 +229,7 @@ namespace SRTX {
                 DPRINTF("Executing task %s\n", p->m_name);
                 if(false == p->execute()) {
                     DPRINTF("Task %s exiting\n", p->m_name);
+                    p->terminate();
                     if(p->m_impl->rategroup_sync) {
                         p->m_impl->rategroup_sync->unlock();
                     }
