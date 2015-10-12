@@ -224,7 +224,8 @@ namespace SRTX {
                 return NULL;
             }
 
-            if(p->m_props.is_present_in_schedule(sched.get_schedule())) {
+            if(p->m_props.is_present_in_schedule(sched.get_schedule()) ||
+               (0 == p->m_props.period)) {
                 DPRINTF("Executing task %s\n", p->m_name);
                 if(false == p->execute()) {
                     DPRINTF("Task %s exiting\n", p->m_name);
