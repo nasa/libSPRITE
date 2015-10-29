@@ -1,3 +1,9 @@
+# Find Lua and set paths to Lua
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+find_package(Lua REQUIRED)
+include_directories(${LUA_INCLUDE_DIR})
+set(LIBS ${LIBS} ${LUA_LIBRARIES})
+
 # Build the library.
 add_library(SPRITE_SCALE
     Nest.cpp
