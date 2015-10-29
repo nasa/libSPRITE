@@ -18,8 +18,7 @@ to `make`.
 
 ex.: `make LUA_INCLUDE=/usr/include/lua5.2`
 
-You can also change the number of Lua library to link to by setting the
-`LUA_LIB` variable.
+You can also change the Lua library path by setting the `LUA_LIB` variable.
 
 # Testing
 'make test' will build the unit tests for this package. You must have *cppunit*
@@ -36,8 +35,6 @@ By default, libSPRITE sends output to stdout and stderr for info, warnings, and 
 There are also overides for CPPFLAGS (USER_CPPFLAGS) and LDFLAGS (USER_LDFLAGS).
 
 # Using CMake
-Use of `cmake` is currently in beta.
-
 To build with `cmake`, create a directory called `build`, `cd` to the `build` directory and type `cmake ../`.
 
 To specify the build prefix, using the `CMAKE_INSTALL_PREFIX` macro. Example
