@@ -16,6 +16,8 @@ install(TARGETS SPRITE_SCALE DESTINATION lib/SPRITE)
 install(FILES
     Container.h
     LuaWrapper.h
+    luawrapper.hpp
+    luawrapperutil.hpp
     Nest.h
     Nest_lua.h
     Scale_if.h
