@@ -24,7 +24,7 @@ namespace SRTX {
         void test_mutex_second_to_lock();
         void test_mutex_first_to_lock();
 
-		static void *lock_mutex_sleep_1_sec(void *mutex_ptr);
+        static void *lock_mutex_sleep_1_sec(void *mutex_ptr);
 
     };
 
