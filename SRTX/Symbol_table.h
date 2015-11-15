@@ -83,7 +83,7 @@ namespace SRTX {
         symbol_t *alias_symbol(const char *name, symbol_t *symbol)
         {
             if(NULL == symbol) {
-                EPRINTF("Attemping to alias a NULL symbol\n");
+                EPRINTF("Attempting to alias a NULL symbol\n");
                 return NULL;
             }
 

@@ -108,7 +108,7 @@ namespace SRTX {
             m_thread_syncpoint.release();
             m_thread_syncpoint.unlock();
             EPRINTF("Failed setting task schedule parameters\n");
-            EPRINTF("Did you remeber sudo?\n");
+            EPRINTF("Did you remember sudo?\n");
             return NULL;
         }
 
