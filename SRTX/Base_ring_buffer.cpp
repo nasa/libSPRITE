@@ -9,10 +9,15 @@ namespace SRTX {
         : Buffer(nbytes)
         , m_nelems(nelem)
         , m_free(nelem)
+        , m_size(nbytes * nelem)
+		/* be careful here - initialization order is important!
+		 * SPEC: nonstatic data members shall be initialized in the order they were
+		 * declared in the class definition (again regardless of the order of the
+		 * mem-initializers)
+		 */
         , m_buffer(static_cast<char *>(malloc(m_size)))
         , m_head(m_buffer)
         , m_tail(m_buffer)
-        , m_size(nbytes * nelem)
     {
         m_valid = m_sync.is_valid() && (m_buffer != NULL);
     }
