@@ -115,7 +115,14 @@ namespace SRTX {
         unsigned int m_free;
 
         /**
-         * Pointer to the buffer.
+         * Buffer size. This must be declared before m_buffer for proper
+         * initialization order!
+         */
+        const unsigned int m_size;
+
+        /**
+         * Pointer to the buffer. This must be declared after m_size for
+         * proper initialization order!
          */
         char *m_buffer;
 
@@ -128,11 +135,6 @@ namespace SRTX {
          * Buffer tail.
          */
         char *m_tail;
-
-        /**
-         * Buffer size.
-         */
-        const unsigned int m_size;
 
         /**
          * Internal function to read from the buffer.

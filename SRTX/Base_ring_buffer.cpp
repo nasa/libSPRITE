@@ -9,10 +9,10 @@ namespace SRTX {
         : Buffer(nbytes)
         , m_nelems(nelem)
         , m_free(nelem)
+        , m_size(nbytes * nelem)
         , m_buffer(static_cast<char *>(malloc(m_size)))
         , m_head(m_buffer)
         , m_tail(m_buffer)
-        , m_size(nbytes * nelem)
     {
         m_valid = m_sync.is_valid() && (m_buffer != NULL);
     }
