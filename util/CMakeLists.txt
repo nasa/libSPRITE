@@ -5,7 +5,9 @@ add_library(SPRITE_util
     )
 
 # Installation rules.
-install(TARGETS SPRITE_util DESTINATION lib/SPRITE)
+install(TARGETS SPRITE_util
+    EXPORT libSPRITE-targets
+    ARCHIVE DESTINATION lib/SPRITE)
 install(FILES
     Linked_list.h
     Sample_set.h

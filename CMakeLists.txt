@@ -2,8 +2,10 @@ cmake_minimum_required(VERSION 2.6)
 project(libSPRITE)
 
 # Version Number.
-set(libSPRITE_VERSION_MAJOR 1)
-set(libSPRITE_VERSION_MINOR 1)
+set(libSPRITE_MAJOR_VERSION 1)
+set(libSPRITE_MINOR_VERSION 1)
+set(libSPRITE_PATCH_VERSION 1)
+set(libSPRITE_VERSION ${libSPRITE_MAJOR_VERSION}.${libSPRITE_MINOR_VERSION}.${libSPRITE_PATCH_VERSION})
 
 # Set compilation options.
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wparentheses -Wuninitialized -Wcomment -Wformat")
@@ -32,6 +34,24 @@ add_subdirectory(math)
 add_subdirectory(util)
 add_subdirectory(SRTX)
 add_subdirectory(SCALE)
+
+# Install support for find_package(libSPRITE)
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+    "${CMAKE_CURRENT_BINARY_DIR}/libSPRITE/libsprite-config-version.cmake"
+    VERSION ${libSPRITE_VERSION}
+    COMPATIBILITY SameMajorVersion)
+
+configure_file(cmake/libsprite-config.cmake
+    "${CMAKE_CURRENT_BINARY_DIR}/libSPRITE/libsprite-config.cmake"
+    @ONLY)
+
+set(ConfigPackageLocation lib/cmake/libSPRITE)
+install(FILES
+    cmake/libsprite-config.cmake
+    "${CMAKE_CURRENT_BINARY_DIR}/libSPRITE/libsprite-config-version.cmake"
+    DESTINATION ${ConfigPackageLocation}
+    COMPONENT Devel)
 
 # Build a CPack driven installer package.
 include (InstallRequiredSystemLibraries)

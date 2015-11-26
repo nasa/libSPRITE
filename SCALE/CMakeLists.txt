@@ -12,7 +12,9 @@ add_library(SPRITE_SCALE
     )
 
 # Installation rules.
-install(TARGETS SPRITE_SCALE DESTINATION lib/SPRITE)
+install(TARGETS SPRITE_SCALE
+    EXPORT libSPRITE-targets
+    ARCHIVE DESTINATION lib/SPRITE)
 install(FILES
     Container.h
     LuaWrapper.h

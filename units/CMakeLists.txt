@@ -1,5 +1,5 @@
-# Build the library.
-add_library(SPRITE_units
+# Build the library
+add_library(SPRITE_units STATIC
     Days.cpp
     Degrees.cpp
     Kilometers.cpp
@@ -11,7 +11,9 @@ add_library(SPRITE_units
     )
 
 # Installation rules.
-install(TARGETS SPRITE_units DESTINATION lib/SPRITE)
+install(TARGETS SPRITE_units
+    EXPORT libsprite-targets
+    ARCHIVE DESTINATION lib/SPRITE)
 install(FILES
     Celsius.h
     Days.h

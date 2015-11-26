@@ -15,7 +15,9 @@ add_library(SPRITE_SRTX
     )
 
 # Installation rules.
-install(TARGETS SPRITE_SRTX DESTINATION lib/SPRITE)
+install(TARGETS SPRITE_SRTX
+    EXPORT libSPRITE-targets
+    ARCHIVE DESTINATION lib/SPRITE)
 install(FILES
     Base_double_buffer.h
     Base_ring_buffer.h

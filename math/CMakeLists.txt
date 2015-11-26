@@ -9,7 +9,9 @@ add_library(SPRITE_math
     )
 
 # Installation rules.
-install(TARGETS SPRITE_math DESTINATION lib/SPRITE)
+install(TARGETS SPRITE_math
+    EXPORT libSPRITE-targets
+    ARCHIVE DESTINATION lib/SPRITE)
 install(FILES
     DCM.h
     Euler.h

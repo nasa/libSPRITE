@@ -7,7 +7,9 @@ add_library(SPRITE_net
     )
 
 # Installation rules.
-install(TARGETS SPRITE_net DESTINATION lib/SPRITE)
+install(TARGETS SPRITE_net
+    EXPORT libSPRITE-targets
+    ARCHIVE DESTINATION lib/SPRITE)
 install(FILES
     Socket.h
     UDP_client.h
