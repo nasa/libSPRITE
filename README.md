@@ -49,9 +49,9 @@ After specifying `cmake` with this macro, `make` will create a `run_test` execut
 
 Run `cmake` with the `-DCMAKE_BUILD_TYPE=Release` option to switch back to the normal build.
 
-## Documentation(https://github.com/nasa/libSPRITE/wiki)
+# [Documentation](https://github.com/nasa/libSPRITE/wiki)
 Documentation can be found on the [Wiki](https://github.com/nasa/libSPRITE/wiki)
 
-## [Tutorial](https://github.com/dheater/libSPRITE-tutorial/wiki/Tutorial)
+# [Tutorial](https://github.com/dheater/libSPRITE-tutorial/wiki/Tutorial)
 A growing Tutorial for developing applications using libSPRITE can be found [here](https://github.com/dheater/libSPRITE-tutorial/wiki/Tutorial)
 
