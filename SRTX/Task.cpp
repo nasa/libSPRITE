@@ -271,7 +271,9 @@ namespace SRTX {
         /* Call the task's initialization routine.
         */
         if(false == init()) {
-            EPRINTF("%s:Failed initialization\n", m_name);
+            WPRINTF("%s task returned false at initialization and will not be "
+                    "scheduled.\n",
+                    m_name);
             return false;
         }
 
@@ -287,7 +289,8 @@ namespace SRTX {
          */
         if(NULL != m_impl->rategroup_sync) {
             m_impl->first_pass = true;
-        } else if(m_props.period && (this != &sched)) {
+        }
+        else if(m_props.period && (this != &sched)) {
             m_impl->rategroup_sync = sched.add_task(*this);
             if(NULL == m_impl->rategroup_sync) {
                 return false;
@@ -400,7 +403,7 @@ namespace SRTX {
                 pthread_attr_destroy(&(m_impl->attr));
             }
 
-            delete (m_impl);
+            delete(m_impl);
             m_impl = NULL;
         }
 
