@@ -12,6 +12,12 @@ namespace SRTX {
     {
     }
 
+    Buffer::~Buffer()
+    {
+        m_valid = false;
+        abort_read();
+    }
+
     void Buffer::abort_read()
     {
         if(false == m_sync.lock()) {

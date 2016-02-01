@@ -77,6 +77,11 @@ namespace SRTX {
             return m_update_count;
         }
 
+        /**
+         * Destructor.
+         */
+        virtual ~Buffer();
+
       protected:
         /**
          * Number of bytes of data stored in a buffer.
