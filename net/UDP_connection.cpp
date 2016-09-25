@@ -4,6 +4,10 @@
 
 #include "net/UDP_connection.h"
 
+#if !defined(_WIN32) && !defined(WIN32)
+#include <sys/time.h>
+#endif
+
 namespace net {
 
     static bool set_reuse(int fd)
